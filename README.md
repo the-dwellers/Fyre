@@ -12,6 +12,6 @@ While also implementing mechanics, such as trading with vendors for items and ot
 
 ## More information
 
-- [Progression & Mechanics](./docs/progression)
-- [Datapack implementation information](./docs/datapack)
-- [Spigot Plugin information](./docs/plugin)
+- [Progression & Mechanics](./docs/progression.md)
+- [Datapack implementation information](./docs/datapack.md)
+- [Spigot Plugin information](./docs/plugin.md)
