@@ -1,0 +1,27 @@
+{
+	"parent": "fyre:welcome/root",
+	"display": {
+		"icon": {
+			"item": "minecraft:iron_nugget"
+		},
+		"title": "Cold Hard Cash",
+		"description": "§rTrade at a vendor for some currency.",
+		"frame": "task",
+		"show_toast": true,
+		"announce_to_chat": false,
+		"hidden": false
+	},
+	"criteria": {
+		"coin": {
+			"trigger": "minecraft:inventory_changed",
+			"conditions": {
+				"items": [
+					{
+						"item": "minecraft:iron_nugget",
+						"nbt": "{display:{Name:\"\\\"§6Silver Coin\\\"\", Lore:[\"\\\"§rSimple Currency\\\"\"]}}"
+					}
+				]
+			}
+		}
+	}
+}

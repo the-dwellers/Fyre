@@ -1,0 +1,26 @@
+{
+	"parent": "fyre:welcome/coin",
+	"display": {
+		"icon": {
+			"item": "minecraft:oak_log"
+		},
+		"title": "Back to Basics",
+		"description": "§rGet an axe from a lumberjack, and chop down a tree!",
+		"frame": "task",
+		"show_toast": true,
+		"announce_to_chat": false,
+		"hidden": false
+	},
+	"criteria": {
+		"logs": {
+			"trigger": "minecraft:inventory_changed",
+			"conditions": {
+				"items": [
+					{
+						"tag": "minecraft:logs"
+					}
+				]
+			}
+		}
+	}
+}

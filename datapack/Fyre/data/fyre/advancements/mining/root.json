@@ -1,0 +1,19 @@
+{
+	"display": {
+		"icon": {
+			"item": "minecraft:diamond_pickaxe"
+		},
+		"title": "§bMining",
+		"description": "§rExploiting the world for all its worth.",
+		"frame": "goal",
+		"show_toast": false,
+		"announce_to_chat": true,
+		"hidden": false,
+		"background": "minecraft:textures/gui/advancements/backgrounds/stone.png"
+	},
+	"criteria": {
+		"location": {
+			"trigger": "minecraft:location"
+		}
+	}
+}

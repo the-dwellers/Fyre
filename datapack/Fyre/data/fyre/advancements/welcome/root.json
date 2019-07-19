@@ -1,0 +1,19 @@
+{
+	"display": {
+		"icon": {
+			"item": "minecraft:grass_block"
+		},
+		"title": "Welcome to Fyre",
+		"description": "§rIf you think this is vanilla, you're quite wrong.",
+		"frame": "goal",
+		"show_toast": false,
+		"announce_to_chat": true,
+		"hidden": false,
+		"background": "minecraft:textures/gui/advancements/backgrounds/adventure.png"
+	},
+	"criteria": {
+		"location": {
+			"trigger": "minecraft:location"
+		}
+	}
+}

@@ -1,0 +1,26 @@
+{
+	"parent": "fyre:welcome/buycraft",
+	"display": {
+		"icon": {
+			"item": "minecraft:crafting_table"
+		},
+		"title": "Guess who's back",
+		"description": "§rCraft a crafting table",
+		"frame": "goal",
+		"show_toast": true,
+		"announce_to_chat": false,
+		"hidden": false
+	},
+	"criteria": {
+		"craft": {
+			"trigger": "minecraft:inventory_changed",
+			"conditions": {
+				"items": [
+					{
+						"item": "minecraft:crafting_table"
+					}
+				]
+			}
+		}
+	}
+}
