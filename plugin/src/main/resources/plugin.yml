@@ -1,5 +1,5 @@
 name: FyrePlugin
 version: @version@
-main: com.github.thedwellers.fyreplugin.FyrePlugin
+main: io.github.thedwellers.fyreplugin.FyrePlugin
 api-version: 1.13
 load: STARTUP
