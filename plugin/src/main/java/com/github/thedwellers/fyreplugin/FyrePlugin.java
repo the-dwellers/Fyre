@@ -5,12 +5,13 @@ import com.github.thedwellers.fyreplugin.commands.MerchantCommand;
 
 public final class FyrePlugin extends JavaPlugin {
 
-    @Override
-    public void onEnable() {
-    }
+	@Override
+	public void onEnable() {
+		this.getCommand("merchant").setExecutor(new MerchantCommand());
+	}
 
-    @Override
-    public void onDisable() {
-    }
+	@Override
+	public void onDisable() {
+	}
 
 }
