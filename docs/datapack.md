@@ -84,6 +84,24 @@ advancements:
 With the original advancements stopped, we then [create custom advancements](https://github.com/the-dwellers/Fyre/tree/master/datapack/Fyre/data/fyre/advancements).
 They follow the [advancement json format](https://minecraft.gamepedia.com/Advancements#JSON_Format)
 
+### Advancement Trees
+
+![Flowchart of Welcome Advancements](img/Advancements-welcome.png)
+
+| Name                      | Alt-text                                            | Requirements                                |
+| ------------------------- | --------------------------------------------------- | ------------------------------------------- |
+| Welcome to Fyre           | If you think this is vanilla, you're quite wrong    | Join the Server                             |
+| Cold Hard Cash            | Trade at a Vendor for some currency                 | Obtain Currency                             |
+| Handful of Splinters      | Using an axe is recommended                         | Obtain Splinters                            |
+| Back to Basics            | Get an axe from a lumberjack, and chop down a tree! | Obtain Logs                                 |
+| Stripping                 | Cut down a stripped log to get planks               | Obtain Planks                               |
+| Make Campfire             | Create a campfire to cook some food                 | Obtain Campfire                             |
+| Learning from the Masters | Buy a crafting recipe                               | Obtain a Knowledge Book                     |
+| Guess Who's Back          | Craft a crafting table                              | Obtain Crafting Table                       |
+| Mining                    | Obtain a pickaxe. Good for digging                  | Obtain any Pickaxe                          |
+| Farming                   | Obtain a hoe.                                       | Obtain any Hoe                              |
+| Hunting                   | Obtain a weapon. Stabby-stabby!                     | Obtain any Sword, Bow, Crossbow, or Trident |
+
 ## Recipes
 
 Due to the nature of Fyre's progression system, by default players cannot craft all items, unlike in the original minecraft game.
