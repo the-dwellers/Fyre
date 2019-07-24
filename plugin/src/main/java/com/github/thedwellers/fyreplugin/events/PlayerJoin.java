@@ -10,8 +10,6 @@ public class PlayerJoin implements Listener{
 	@EventHandler()
 	public void onPlayerJoin(PlayerJoinEvent event){
 		Player player = event.getPlayer();
-		
+
 	}
 }
-
-
