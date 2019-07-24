@@ -27,6 +27,9 @@ rm -rf server/
 mkdir server
 mv server.jar server/server.jar
 
+# Copy datapack
+./copydatapack.sh
+
 # Execute server
 cd server/
 java -jar server.jar
