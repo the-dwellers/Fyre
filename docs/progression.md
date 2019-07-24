@@ -8,7 +8,7 @@ is needed. This is done by datapacks and server plugins.
 - [Progression & Mechanics](#progression--mechanics)
 	- [Advancements](#advancements)
 		- [Welcome to Fyre](#welcome-to-fyre)
-		- [ðŸš§ Mining](#ðŸš-mining)
+		- [🚧 Mining](#-mining)
 
 ---
 
@@ -55,9 +55,9 @@ This currently includes working with traders, buying recipes, and crafting.
 | Farming                   | Obtain a hoe.                                       | Obtain any Hoe                              | Challenge |
 | Hunting                   | Obtain a weapon. Stabby-stabby!                     | Obtain any Sword, Bow, Crossbow, or Trident | Challenge |
 
-### ðŸš§ Mining
+### 🚧 Mining
 
-> ðŸš§ This section is under construction
+> 🚧 This section is under construction
 
 Mining is the tree all about mining, and includes advancements related to mining ores and upgrading the player's pickaxe.
 Note that this tree does not include adventuring in mines at the moment, but this may change
