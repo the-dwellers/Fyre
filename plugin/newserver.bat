@@ -23,7 +23,7 @@ MOVE spigot-1.14.4.jar ../server.jar
 cd ..
 
 REM Delete everything within the server directory
-REM RD /S /Q server
+RD /S /Q server
 MKDIR server
 MOVE server.jar server/server.jar
 
