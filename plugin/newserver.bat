@@ -23,9 +23,12 @@ MOVE spigot-1.14.4.jar ../server.jar
 cd ..
 
 REM Delete everything within the server directory
-RD /S /Q server
+REM RD /S /Q server
 MKDIR server
 MOVE server.jar server/server.jar
+
+REM Copy Datapack
+CALL copydatapack.bat
 
 REM Execute server
 cd server/
