@@ -3,3 +3,8 @@ version: @version@
 main: com.github.thedwellers.fyreplugin.FyrePlugin
 api-version: 1.13
 load: STARTUP
+
+commands:
+  merchant:
+    description: Command for managing merchants 
+    usage: /merchant
