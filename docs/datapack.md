@@ -2,6 +2,14 @@
 
 Minecraft's Datapacks use a json format to designate and define data objects. Fyre uses these to define advancements and custom recipes.
 
+---
+
+- [Datapack](#datapack)
+	- [Advancements](#advancements)
+	- [Recipes](#recipes)
+
+---
+
 ## Advancements
 
 Advancements act like achievements to guide the player through the new progression system, in order to do this the original minecraft advancements are
@@ -83,24 +91,6 @@ advancements:
 
 With the original advancements stopped, we then [create custom advancements](https://github.com/the-dwellers/Fyre/tree/master/datapack/Fyre/data/fyre/advancements).
 They follow the [advancement json format](https://minecraft.gamepedia.com/Advancements#JSON_Format)
-
-### Advancement Trees
-
-![Flowchart of Welcome Advancements](img/Advancements-Welcome.png)
-
-| Name                      | Alt-text                                            | Requirements                                |
-| ------------------------- | --------------------------------------------------- | ------------------------------------------- |
-| Welcome to Fyre           | If you think this is vanilla, you're quite wrong    | Join the Server                             |
-| Cold Hard Cash            | Trade at a Vendor for some currency                 | Obtain Currency                             |
-| Handful of Splinters      | Using an axe is recommended                         | Obtain Splinters                            |
-| Back to Basics            | Get an axe from a lumberjack, and chop down a tree! | Obtain Logs                                 |
-| Stripping                 | Cut down a stripped log to get planks               | Obtain Planks                               |
-| Make Campfire             | Create a campfire to cook some food                 | Obtain Campfire                             |
-| Learning from the Masters | Buy a crafting recipe                               | Obtain a Knowledge Book                     |
-| Guess Who's Back          | Craft a crafting table                              | Obtain Crafting Table                       |
-| Mining                    | Obtain a pickaxe. Good for digging                  | Obtain any Pickaxe                          |
-| Farming                   | Obtain a hoe.                                       | Obtain any Hoe                              |
-| Hunting                   | Obtain a weapon. Stabby-stabby!                     | Obtain any Sword, Bow, Crossbow, or Trident |
 
 ## Recipes
 
