@@ -86,7 +86,7 @@ They follow the [advancement json format](https://minecraft.gamepedia.com/Advanc
 
 ### Advancement Trees
 
-![Flowchart of Welcome Advancements](img/Advancements-welcome.png)
+![Flowchart of Welcome Advancements](img/Advancements-Welcome.png)
 
 | Name                      | Alt-text                                            | Requirements                                |
 | ------------------------- | --------------------------------------------------- | ------------------------------------------- |
