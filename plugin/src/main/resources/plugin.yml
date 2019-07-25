@@ -6,5 +6,11 @@ load: STARTUP
 
 commands:
   merchant:
-    description: Command for managing merchants 
+    description: Command for managing merchants
     usage: /merchant
+  status:
+    description: Show server's technical status
+    usage: /status
+  list:
+    description: See all players on the server
+    usage: /list

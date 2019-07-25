@@ -1,6 +1,8 @@
 package com.github.thedwellers.fyreplugin;
 
 import org.bukkit.plugin.java.JavaPlugin;
+
+import com.github.thedwellers.fyreplugin.commands.ListCommand;
 import com.github.thedwellers.fyreplugin.commands.MerchantCommand;
 import com.github.thedwellers.fyreplugin.events.PlayerJoin;
 import com.github.thedwellers.fyreplugin.commands.StatusCommand;
@@ -20,6 +22,7 @@ public final class FyrePlugin extends JavaPlugin {
 	private void registerCommands() {
 		this.getCommand("merchant").setExecutor(new MerchantCommand(this));
 		this.getCommand("status").setExecutor(new StatusCommand(this));
+		this.getCommand("list").setExecutor(new ListCommand(this));
 	}
 
 	private void registerListeners() {
