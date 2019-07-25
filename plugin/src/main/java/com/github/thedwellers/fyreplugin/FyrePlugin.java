@@ -29,7 +29,7 @@ public final class FyrePlugin extends JavaPlugin {
 	}
 
 	private void registerListeners() {
-		getServer().getPluginManager().registerEvents(new PlayerJoin(), this);
+		getServer().getPluginManager().registerEvents(new PlayerJoin(this), this);
 	}
 
 	private void serverSetUp(){
