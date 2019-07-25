@@ -11,8 +11,6 @@ import com.github.thedwellers.fyreplugin.commands.StatusCommand;
 
 public final class FyrePlugin extends JavaPlugin {
 
-	protected JavaPlugin plugin;
-
 	@Override
 	public void onEnable() {
 		serverSetUp();
@@ -35,7 +33,7 @@ public final class FyrePlugin extends JavaPlugin {
 	}
 
 	private void serverSetUp(){
-		File folder = new File(plugin.getDataFolder()+File.separator+"player_data");
+		File folder = new File(this.getDataFolder()+File.separator+"player_data");
 		if(!folder.exists()){
 			folder.mkdirs();
 		}
