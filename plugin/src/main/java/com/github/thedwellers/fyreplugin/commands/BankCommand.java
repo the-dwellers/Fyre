@@ -14,7 +14,7 @@ public class BankCommand extends AbstractCommand {
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		if (sender instanceof Player) {
-			sender.sendMessage("Hello there!");
+			sender.sendMessage("Hello there");
 			return true;
 		}
 		return false;
