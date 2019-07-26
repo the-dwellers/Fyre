@@ -102,9 +102,8 @@ public class StatusCommand extends AbstractCommand {
 		responseText.addExtra(chunkText);
 
 		// Plugins
-		// plugin.getServer().getPluginManager().getPlugins();
-
-		// TODO: Show Enabled and Disabled Plugins
+		responseText.addExtra("\n");
+		responseText.addExtra(PluginCommand.getPlugins(sender));
 
 		// TPS
 		// TODO: Show Server Ticks Per Second
