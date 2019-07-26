@@ -10,6 +10,8 @@ public abstract class Strings {
 
 	/** Default Chat Color */
 	public static final String C_DEFAULT = ChatColor.GRAY + "";
+	/** Chat Muted Color */
+	public static final String C_MUTED = ChatColor.DARK_GRAY + "";
 	/** Chat Accept Color */
 	public static final String C_ACCENT = ChatColor.GOLD + "";
 	/** Prefix for all command output */
