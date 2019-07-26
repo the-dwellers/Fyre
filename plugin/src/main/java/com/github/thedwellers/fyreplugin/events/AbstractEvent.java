@@ -1,6 +1,5 @@
-package com.github.thedwellers.fyreplugin.commands;
+package com.github.thedwellers.fyreplugin.events;
 
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
