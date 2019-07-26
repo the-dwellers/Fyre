@@ -59,7 +59,7 @@ public class PluginCommand extends AbstractCommand {
 		TextComponent text = new TextComponent();
 		for (int i = 0; i < plugins.length; i++) {
 			Plugin plugin = plugins[i];
-			ChatColor color = plugin.isEnabled() ? ChatColor.GREEN : ChatColor.RED;
+			ChatColor color = plugin.isEnabled() ? ChatColor.DARK_GREEN : ChatColor.RED;
 			text.addExtra("" + color + plugin.getDescription().getName() + Strings.C_DEFAULT + " v" + Strings.C_ACCENT
 					+ plugin.getDescription().getVersion());
 			if (i < plugins.length - 1) {
