@@ -107,7 +107,7 @@ public class StatusCommand extends AbstractCommand {
 
 		// Plugins
 		responseText.addExtra("\n");
-		responseText.addExtra(PluginCommand.getPlugins(sender));
+		responseText.addExtra(PluginsCommand.getPlugins(sender));
 
 		// TPS
 		ChatColor[] tpsColors = new ChatColor[4];

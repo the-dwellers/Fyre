@@ -1,20 +1,33 @@
 name: Fyre
 version: @version@
 main: com.github.thedwellers.fyreplugin.FyrePlugin
-api-version: 1.13
+api-version: 1.14.4
 load: STARTUP
 
 commands:
-  merchant:
-    description: Command for managing merchants
-    usage: /merchant
-  status:
-    description: Show server's technical status
-    usage: /status
-  list:
-    description: See all players on the server
-    usage: /list
-  plugins:
-    description: List Enabled and Disabled server plugijns
-    usage: /plugins
-    aliases: [pl, plu]
+    bank:
+      description: Command for managing bankers
+      usage: /bank
+      permission: fyre.bank
+      permission-message: You don't have 'fyre.bank'
+    list:
+      description: See all players on the server
+      usage: /list
+      permission: fyre.list
+      permission-message: You don't have 'fyre.list'
+    merchant:
+      description: Command for managing merchants
+      usage: /merchant
+      permission: fyre.merchant
+      permission-message: You don't have 'fyre.merchant'
+    status:
+      description: Show server's technical status
+      usage: /status
+      permission: fyre.status
+      permission-message: You don't have 'fyre.status'
+    plugins:
+      description: List Enabled and Disabled server plugins
+      usage: /plugins
+      aliases: [pl, plu]
+      permission: fyre.plugins
+      permission-message: You don't have 'fyre.plugins'
