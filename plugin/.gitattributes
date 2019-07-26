@@ -1,0 +1,6 @@
+copydatapack.bat binary
+copydatapack.sh binary
+newserver.bat binary
+newserver.sh binary
+startserver.bat binary
+startserver.sh binary
