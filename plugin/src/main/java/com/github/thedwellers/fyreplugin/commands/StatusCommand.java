@@ -2,6 +2,7 @@ package com.github.thedwellers.fyreplugin.commands;
 
 import com.github.thedwellers.fyreplugin.configuration.Strings;
 
+import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -78,9 +79,31 @@ public class StatusCommand extends AbstractCommand {
 		}
 
 		// Loaded Chunks
-		// TODO: Show Number of Loaded Chunks
+		int loadedChunks = 0;
+		for (World world : plugin.getServer().getWorlds()) {
+			loadedChunks += world.getLoadedChunks().length;
+		}
+
+		TextComponent chunkText = new TextComponent("\n"+
+				Strings.OUT_PREFIX + "Loaded Chunks: " + Strings.C_ACCENT + loadedChunks);
+
+		if (isPlayer) {
+			// Add hover for player
+			TextComponent chunkHoverText = new TextComponent(
+					Strings.C_DEFAULT + "Chunks per player: " + Strings.C_ACCENT + loadedChunks / players.length);
+			chunkText
+					.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TextComponent[] { chunkHoverText }));
+		} else {
+			// Caller is console
+			if (players.length != 0) {
+				chunkText.addExtra("\n"+Strings.OUT_PREFIX + "Chunks per player: " + Strings.C_ACCENT + loadedChunks / players.length);
+			}
+		}
+		responseText.addExtra(chunkText);
 
 		// Plugins
+		// plugin.getServer().getPluginManager().getPlugins();
+
 		// TODO: Show Enabled and Disabled Plugins
 
 		// TPS
