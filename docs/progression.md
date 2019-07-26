@@ -8,7 +8,7 @@ is needed. This is done by datapacks and server plugins.
 - [Progression & Mechanics](#progression--mechanics)
 	- [Advancements](#advancements)
 		- [Welcome to Fyre](#welcome-to-fyre)
-		- [🚧 Mining](#�-mining)
+		- [🚧 Mining](#-mining)
 
 ---
 

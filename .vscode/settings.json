@@ -3,6 +3,5 @@
 	"editor.detectIndentation": false,
 	"files.insertFinalNewline": true,
 	"files.eol": "\n",
-	"files.autoGuessEncoding": true,
 	"files.encoding": "utf8"
 }
