@@ -17,7 +17,9 @@ public class PlayerJoin extends AbstractEvent {
 	public void onPlayerJoin(PlayerJoinEvent event){
 		Player player = event.getPlayer();
 		String uuid = player.getUniqueId().toString();
-		
-		PlayerOperations.configureDataFile(uuid);
+
+		if(!PlayerOperations.playerFileExists(uuid, plugin.getDataFolder())){
+			PlayerOperations.configurePlayerData(uuid, plugin.getDataFolder());
+		}
 	}
 }

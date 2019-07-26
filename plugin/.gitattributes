@@ -1,0 +1,4 @@
+copydatapack.sh binary
+newserver.sh binary
+startserver.sh binary
+gradlew binary
