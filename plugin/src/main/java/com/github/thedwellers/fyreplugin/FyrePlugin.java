@@ -2,13 +2,12 @@ package com.github.thedwellers.fyreplugin;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.io.File;
-
 import com.github.thedwellers.fyreplugin.configuration.ServerOperations;
 import com.github.thedwellers.fyreplugin.commands.ListCommand;
 import com.github.thedwellers.fyreplugin.commands.MerchantCommand;
 import com.github.thedwellers.fyreplugin.commands.PluginCommand;
 import com.github.thedwellers.fyreplugin.events.PlayerJoin;
+import com.github.thedwellers.fyreplugin.events.PlayerPreProcessorCommand;
 import com.github.thedwellers.fyreplugin.commands.StatusCommand;
 
 public final class FyrePlugin extends JavaPlugin {
@@ -36,6 +35,8 @@ public final class FyrePlugin extends JavaPlugin {
 
 	private void registerListeners() {
 		getServer().getPluginManager().registerEvents(new PlayerJoin(this), this);
+		getServer().getPluginManager().registerEvents(new PlayerPreProcessorCommand(this), this);
+
 	}
 
 	private void serverSetUp(){
