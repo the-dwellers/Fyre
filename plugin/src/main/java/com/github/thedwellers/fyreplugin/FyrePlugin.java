@@ -4,6 +4,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 
+import com.github.thedwellers.fyreplugin.configuration.ServerOperations;
 import com.github.thedwellers.fyreplugin.commands.ListCommand;
 import com.github.thedwellers.fyreplugin.commands.MerchantCommand;
 import com.github.thedwellers.fyreplugin.commands.PluginCommand;
@@ -38,9 +39,6 @@ public final class FyrePlugin extends JavaPlugin {
 	}
 
 	private void serverSetUp(){
-		File folder = new File(this.getDataFolder()+File.separator+"player_data");
-		if(!folder.exists()){
-			folder.mkdirs();
-		}
+		ServerOperations.createPlayerFolder(this.getDataFolder());
 	}
 }

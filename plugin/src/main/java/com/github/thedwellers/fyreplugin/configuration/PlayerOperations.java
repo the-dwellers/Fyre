@@ -11,6 +11,6 @@ public class PlayerOperations extends AbstractEvent {
 	}
 
 	public static void configureDataFile(String uuid){
-
+		//String test = plugin.getDataFolder();
 	}
 }
