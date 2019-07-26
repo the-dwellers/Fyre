@@ -1,8 +1,6 @@
 package com.github.thedwellers.fyreplugin.configuration;
 
-import java.io.File;
-
-import com.github.thedwellers.fyreplugin.commands.AbstractEvent;
+import com.github.thedwellers.fyreplugin.events.AbstractEvent;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
