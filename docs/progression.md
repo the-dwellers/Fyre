@@ -8,7 +8,7 @@ is needed. This is done by datapacks and server plugins.
 - [Progression & Mechanics](#progression--mechanics)
 	- [Advancements](#advancements)
 		- [Welcome to Fyre](#welcome-to-fyre)
-		- [🚧 Mining](#-mining)
+		- [🚧 Mining](#�-mining)
 
 ---
 
@@ -46,10 +46,10 @@ This currently includes working with traders, buying recipes, and crafting.
 | Welcome to Fyre           | If you think this is vanilla, you're quite wrong    | Join the Server                             | Task      |
 | Cold Hard Cash            | Trade at a Vendor for some currency                 | Obtain Currency                             | Task      |
 | Handful of Splinters      | Using an axe is recommended                         | Obtain Splinters                            | Task      |
-| Back to Basics            | Get an axe from a lumberjack, and chop down a tree! | Obtain Logs                                 | Foal      |
+| Back to Basics            | Get an axe from a lumberjack, and chop down a tree! | Obtain Logs                                 | Goal      |
 | Stripping                 | Cut down a stripped log to get planks               | Obtain Planks                               | Task      |
 | Make Campfire             | Create a campfire to cook some food                 | Obtain Campfire                             | Task      |
-| Learning from the Masters | Buy a crafting recipe                               | Obtain a Knowledge Book                     | Foal      |
+| Learning from the Masters | Buy a crafting recipe                               | Obtain a Knowledge Book                     | Goal      |
 | Guess Who's Back          | Craft a crafting table                              | Obtain Crafting Table                       | Task      |
 | Mining                    | Obtain a pickaxe. Good for digging                  | Obtain any Pickaxe                          | Challenge |
 | Farming                   | Obtain a hoe.                                       | Obtain any Hoe                              | Challenge |
