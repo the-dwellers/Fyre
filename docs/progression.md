@@ -52,7 +52,7 @@ This currently includes working with traders, buying recipes, and crafting.
 | Learning from the Masters | Buy a crafting recipe                               | Obtain a Knowledge Book                     | Goal      |
 | Guess Who's Back          | Craft a crafting table                              | Obtain Crafting Table                       | Task      |
 | Mining                    | Obtain a pickaxe. Good for digging                  | Obtain any Pickaxe                          | Challenge |
-| Farming                   | Obtain a hoe.                                       | Obtain any Hoe                              | Challenge |
+| Farming                   | Obtain a hoe. Loyal till the end                    | Obtain any Hoe                              | Challenge |
 | Hunting                   | Obtain a weapon. Stabby-stabby!                     | Obtain any Sword, Bow, Crossbow, or Trident | Challenge |
 
 ### 🚧 Mining
