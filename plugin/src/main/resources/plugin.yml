@@ -1,4 +1,4 @@
-name: FyrePlugin
+name: Fyre
 version: @version@
 main: com.github.thedwellers.fyreplugin.FyrePlugin
 api-version: 1.13
@@ -14,3 +14,7 @@ commands:
   list:
     description: See all players on the server
     usage: /list
+  plugins:
+    description: List Enabled and Disabled server plugijns
+    usage: /plugins
+    aliases: [pl, plu]
