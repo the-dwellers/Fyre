@@ -15,4 +15,5 @@ public abstract class Strings {
 	/** Prefix for all command output */
 	public static final String OUT_PREFIX = ChatColor.GOLD + "> " + C_DEFAULT;
 
+	public static final String PERMISSION_DENIED_MSG = OUT_PREFIX + ChatColor.RED + "You don't have access to that command.";
 }
