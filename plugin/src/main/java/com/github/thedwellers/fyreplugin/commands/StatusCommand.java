@@ -29,6 +29,7 @@ public class StatusCommand extends AbstractCommand {
 				.toArray(new Player[plugin.getServer().getOnlinePlayers().size()]);
 		boolean isPlayer = sender instanceof Player;
 		TextComponent responseText = new TextComponent();
+		DecimalFormat decimalFormat = new DecimalFormat("0.00");
 
 		// Players
 		responseText.addExtra(ListCommand.getPlayers(sender));
@@ -132,14 +133,13 @@ public class StatusCommand extends AbstractCommand {
 			}
 		}
 
-		DecimalFormat decimalFormat = new DecimalFormat("0.00");
-		TextComponent tpsText = new TextComponent(Strings.OUT_PREFIX + "Ticks Per Second: " + tpsColors[0] + decimalFormat.format(tps[0]));
+		TextComponent tpsText = new TextComponent(
+				Strings.OUT_PREFIX + "Ticks Per Second: " + tpsColors[0] + decimalFormat.format(tps[0]));
 
 		if (isPlayer) {
 			TextComponent hoverText = new TextComponent(
-					"" + tpsColors[0] + decimalFormat.format(tps[0]) +
-					" " + tpsColors[1] + decimalFormat.format(tps[1]) +
-					" " + tpsColors[2] + decimalFormat.format(tps[2]) + "\n");
+					"" + tpsColors[0] + decimalFormat.format(tps[0]) + " " + tpsColors[1] + decimalFormat.format(tps[1])
+							+ " " + tpsColors[2] + decimalFormat.format(tps[2]) + "\n");
 			switch (tpsColors[3]) {
 			case DARK_GREEN:
 				hoverText.addExtra(tpsColors[3] + "TPS is perfect");
@@ -159,18 +159,72 @@ public class StatusCommand extends AbstractCommand {
 			}
 			tpsText.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TextComponent[] { hoverText }));
 		} else {
-			tpsText.addExtra(" " + tpsColors[1] + decimalFormat.format(tps[1])
-			+ " " + tpsColors[2] + decimalFormat.format(tps[2]));
+			tpsText.addExtra(" " + tpsColors[1] + decimalFormat.format(tps[1]) + " " + tpsColors[2]
+					+ decimalFormat.format(tps[2]));
 		}
 		responseText.addExtra("\n");
 		responseText.addExtra(tpsText);
 
-		// TODO: Show Server Ticks Per Second
-
 		// RAM
-		// TODO: Show used Memory
+		TextComponent memoryText = new TextComponent(Strings.OUT_PREFIX);
 
-		sender.spigot().sendMessage(responseText);
+		// Note that freeMemory() is the memory inside the JVM that is ready for new
+		// objects In the case of the server, we are only concerned with the amount of
+		// memory the process has reserved, and the maximum amount we can reserve.
+		// We divide the values by 0x100000 to return the amount of memory used in MB
+
+		// Maximum amount of memory the server process can use (-Xmx)
+		long maxMemory = Runtime.getRuntime().maxMemory() / (int) 0x100000;
+
+		// Memory already allocated to the JVM, excluding empty memory
+		long usedMemory = (Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / (int) 0x100000;
+
+		if (maxMemory == Integer.MAX_VALUE) {
+			// No max memory limit
+			memoryText.addExtra("Using " + Strings.C_ACCENT + usedMemory + "MB " + Strings.C_DEFAULT + "of RAM");
+		} else {
+			ChatColor memoryColor;
+			if (usedMemory > maxMemory * 0.9) {
+				memoryColor = ChatColor.DARK_RED;
+			} else if (usedMemory > maxMemory * 0.8) {
+				memoryColor = ChatColor.RED;
+			} else if (usedMemory > maxMemory * 0.7) {
+				memoryColor = ChatColor.GOLD;
+			} else if (usedMemory > maxMemory * 0.6) {
+				memoryColor = ChatColor.YELLOW;
+			} else if (usedMemory > maxMemory * 0.5) {
+				memoryColor = ChatColor.GREEN;
+			} else {
+				memoryColor = ChatColor.DARK_GREEN;
+			}
+			memoryText.addExtra("Using " + memoryColor + usedMemory + "MB / " +
+					maxMemory + "MB (" + decimalFormat.format((((double) usedMemory / (double) maxMemory) * 100)) + "%)" +
+					Strings.C_DEFAULT + " of memory");
+		}
+
+		if (isPlayer) {
+			TextComponent memoryHover = new TextComponent(Strings.C_DEFAULT + "Max Memory: " + Strings.C_ACCENT + maxMemory +
+				Strings.C_DEFAULT + "\nAllocated Memory: " + Strings.C_ACCENT + (Runtime.getRuntime().totalMemory() / (int) 0x100000) +
+				Strings.C_DEFAULT + "\nUsed Memory: " + Strings.C_ACCENT + usedMemory +
+				Strings.C_DEFAULT + "\nUnused Memory: " + Strings.C_ACCENT + (Runtime.getRuntime().freeMemory() / (int) 0x100000) +
+				Strings.C_DEFAULT + "\nFree Memory: " + Strings.C_ACCENT + (maxMemory - usedMemory) +
+				Strings.C_MUTED + "\nAll values in Megabytes (MB)");
+
+			memoryText.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TextComponent[] { memoryHover }));
+		}
+
+		responseText.addExtra("\n");
+		responseText.addExtra(memoryText);
+
+		if (sender instanceof Player) {
+			sender.spigot().sendMessage(responseText);
+
+		} else {
+			// Prepend a newline for console formatting
+			TextComponent out = new TextComponent("\n");
+			out.addExtra(responseText);
+			sender.spigot().sendMessage(out);
+		}
 		return true;
 	}
 
