@@ -7,6 +7,7 @@ import java.io.File;
 import com.github.thedwellers.fyreplugin.configuration.ServerOperations;
 import com.github.thedwellers.fyreplugin.commands.ListCommand;
 import com.github.thedwellers.fyreplugin.commands.MerchantCommand;
+import com.github.thedwellers.fyreplugin.commands.PluginCommand;
 import com.github.thedwellers.fyreplugin.events.PlayerJoin;
 import com.github.thedwellers.fyreplugin.commands.StatusCommand;
 
@@ -27,6 +28,10 @@ public final class FyrePlugin extends JavaPlugin {
 		this.getCommand("merchant").setExecutor(new MerchantCommand(this));
 		this.getCommand("status").setExecutor(new StatusCommand(this));
 		this.getCommand("list").setExecutor(new ListCommand(this));
+
+		// Remove Bukkit plugin command
+		getServer().getCommandMap().getCommand("plugins");
+		this.getCommand("plugins").setExecutor(new PluginCommand(this));
 	}
 
 	private void registerListeners() {
