@@ -15,9 +15,9 @@ import net.md_5.bungee.api.chat.TextComponent;
 /**
  * PluginCommand
  */
-public class PluginCommand extends AbstractCommand {
+public class PluginsCommand extends AbstractCommand {
 
-	public PluginCommand(JavaPlugin plugin) {
+	public PluginsCommand(JavaPlugin plugin) {
 		super(plugin);
 	}
 

@@ -28,7 +28,7 @@ public final class FyrePlugin extends JavaPlugin {
 
 		// Remove Bukkit plugin command
 		getServer().getCommandMap().getCommand("plugins");
-		this.getCommand("plugins").setExecutor(new PluginCommand(this));
+		this.getCommand("plugins").setExecutor(new PluginsCommand(this));
 	}
 
 	private void registerListeners() {

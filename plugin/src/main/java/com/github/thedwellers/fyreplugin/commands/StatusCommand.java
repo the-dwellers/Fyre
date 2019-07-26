@@ -8,7 +8,6 @@ import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.permissions.Permission;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import net.md_5.bungee.api.ChatColor;
@@ -107,7 +106,7 @@ public class StatusCommand extends AbstractCommand {
 
 		// Plugins
 		responseText.addExtra("\n");
-		responseText.addExtra(PluginCommand.getPlugins(sender));
+		responseText.addExtra(PluginsCommand.getPlugins(sender));
 
 		// TPS
 		ChatColor[] tpsColors = new ChatColor[4];
