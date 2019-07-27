@@ -4,6 +4,7 @@ import com.github.thedwellers.fyreplugin.commands.*;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.github.thedwellers.fyreplugin.configuration.ServerOperations;
+import com.github.thedwellers.fyreplugin.events.BlockBreak;
 import com.github.thedwellers.fyreplugin.events.PlayerJoin;
 import com.github.thedwellers.fyreplugin.events.PlayerPreProcessorCommand;
 
@@ -34,6 +35,7 @@ public final class FyrePlugin extends JavaPlugin {
 	private void registerListeners() {
 		getServer().getPluginManager().registerEvents(new PlayerJoin(this), this);
 		getServer().getPluginManager().registerEvents(new PlayerPreProcessorCommand(this), this);
+		getServer().getPluginManager().registerEvents(new BlockBreak(this), this);
 
 	}
 
