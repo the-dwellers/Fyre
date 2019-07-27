@@ -3,7 +3,7 @@
 		"icon": {
 			"item": "minecraft:diamond_pickaxe"
 		},
-		"title": "§bMining",
+		"title": "Mining",
 		"description": "§rExploiting the world for all its worth.",
 		"frame": "goal",
 		"show_toast": false,
@@ -12,8 +12,15 @@
 		"background": "minecraft:textures/gui/advancements/backgrounds/stone.png"
 	},
 	"criteria": {
-		"location": {
-			"trigger": "minecraft:location"
+		"pickaxe": {
+			"trigger": "minecraft:inventory_changed",
+			"conditions": {
+				"items": [
+					{
+						"tag": "fyre:pickaxes"
+					}
+				]
+			}
 		}
 	}
 }

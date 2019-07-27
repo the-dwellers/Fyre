@@ -1,5 +1,5 @@
 {
-	"parent": "fyre:welcome/strip",
+	"parent": "fyre:welcome/stripping",
 	"display": {
 		"icon": {
 			"item": "minecraft:campfire"
@@ -12,7 +12,7 @@
 		"hidden": false
 	},
 	"criteria": {
-		"logs": {
+		"campfire": {
 			"trigger": "minecraft:inventory_changed",
 			"conditions": {
 				"items": [

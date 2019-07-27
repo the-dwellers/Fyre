@@ -5,7 +5,7 @@
 		},
 		"title": "Welcome to Fyre",
 		"description": "§rIf you think this is vanilla, you're quite wrong.",
-		"frame": "goal",
+		"frame": "task",
 		"show_toast": false,
 		"announce_to_chat": true,
 		"hidden": false,

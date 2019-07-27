@@ -1,5 +1,5 @@
 {
-	"parent": "fyre:welcome/wood",
+	"parent": "fyre:welcome/back-to-basics",
 	"display": {
 		"icon": {
 			"item": "minecraft:oak_planks"

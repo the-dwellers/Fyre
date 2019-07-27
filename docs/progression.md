@@ -48,7 +48,7 @@ This currently includes working with traders, buying recipes, and crafting.
 | Handful of Splinters      | Using an axe is recommended                         | Obtain Splinters                            | Task      |
 | Back to Basics            | Get an axe from a lumberjack, and chop down a tree! | Obtain Logs                                 | Goal      |
 | Stripping                 | Cut down a stripped log to get planks               | Obtain Planks                               | Task      |
-| Make Campfire             | Create a campfire to cook some food                 | Obtain Campfire                             | Task      |
+| Warm and Fed              | Create a campfire to cook some food                 | Obtain Campfire                             | Task      |
 | Learning from the Masters | Buy a crafting recipe                               | Obtain a Knowledge Book                     | Goal      |
 | Guess Who's Back          | Craft a crafting table                              | Obtain Crafting Table                       | Task      |
 | Mining                    | Obtain a pickaxe. Good for digging                  | Obtain any Pickaxe                          | Challenge |

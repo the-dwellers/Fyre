@@ -1,23 +1,23 @@
 {
-	"parent": "fyre:welcome/coin",
+	"parent": "fyre:welcome/learning-from-the-masters",
 	"display": {
 		"icon": {
-			"item": "minecraft:oak_log"
+			"item": "minecraft:crafting_table"
 		},
-		"title": "Back to Basics",
-		"description": "§rGet an axe from a lumberjack, and chop down a tree!",
+		"title": "Guess who's back",
+		"description": "§rCraft a crafting table",
 		"frame": "task",
 		"show_toast": true,
 		"announce_to_chat": false,
 		"hidden": false
 	},
 	"criteria": {
-		"logs": {
+		"craft": {
 			"trigger": "minecraft:inventory_changed",
 			"conditions": {
 				"items": [
 					{
-						"tag": "minecraft:logs"
+						"item": "minecraft:crafting_table"
 					}
 				]
 			}

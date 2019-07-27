@@ -1,5 +1,5 @@
 {
-	"parent": "fyre:welcome/craft",
+	"parent": "fyre:welcome/guess-whos-back",
 	"display": {
 		"icon": {
 			"item": "minecraft:wooden_sword"
@@ -17,7 +17,7 @@
 			"conditions": {
 				"items": [
 					{
-						"item": "minecraft:diamond_sword"
+						"tag": "fyre:weapons"
 					}
 				]
 			}

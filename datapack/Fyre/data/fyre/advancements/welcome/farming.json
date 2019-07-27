@@ -1,11 +1,11 @@
 {
-	"parent": "fyre:welcome/craft",
+	"parent": "fyre:welcome/guess-whos-back",
 	"display": {
 		"icon": {
 			"item": "minecraft:wooden_hoe"
 		},
-		"title": "Hunting",
-		"description": "§rObtain a hoe.",
+		"title": "Farming",
+		"description": "§rObtain a hoe. Local till the end",
 		"frame": "challenge",
 		"show_toast": true,
 		"announce_to_chat": false,
@@ -17,7 +17,7 @@
 			"conditions": {
 				"items": [
 					{
-						"item": "minecraft:diamond_hoe"
+						"tag": "fyre:hoes"
 					}
 				]
 			}

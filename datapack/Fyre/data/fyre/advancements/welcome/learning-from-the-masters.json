@@ -1,18 +1,18 @@
 {
-	"parent": "fyre:welcome/coin",
+	"parent": "fyre:welcome/cold-hard-cash",
 	"display": {
 		"icon": {
 			"item": "minecraft:knowledge_book"
 		},
-		"title": "Learning from the masters",
-		"description": "§rBuy a crafting recipe.",
+		"title": "Learning from the Masters",
+		"description": "§rBuy a crafting recipe",
 		"frame": "goal",
 		"show_toast": true,
 		"announce_to_chat": false,
 		"hidden": false
 	},
 	"criteria": {
-		"buycraft": {
+		"knowledge": {
 			"trigger": "minecraft:inventory_changed",
 			"conditions": {
 				"items": [
