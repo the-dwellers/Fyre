@@ -1,0 +1,19 @@
+{
+	"parent": "fyre:mining/kingmaker",
+	"display": {
+		"icon": {
+			"item":"minecraft:gold_block"
+		},
+		"title": "A Small Loan",
+		"description": "§rMine a full inventory of Gold Ore. Enough gold to rule the world!",
+		"frame": "goal",
+		"show_toast": true,
+		"announce_to_chat": true,
+		"hidden": false
+	},
+	"criteria": {
+		"andesite": {
+			"trigger": "minecraft:impossible"
+		}
+	}
+}

@@ -64,26 +64,27 @@ Note that this tree does not include adventuring in mines at the moment, but thi
 
 ![Flowchart of Mining Advancements](img/Advancements-Mining.png)
 
-| Name                   | Alt-text                                                    | Requirements                   | Frame |
-| ---------------------- | ----------------------------------------------------------- | ------------------------------ | ----- |
-| Mining                 | Obtain a pickaxe. Good for digging                          | Obtain any Pickaxe             | Task  |
-| Stone Age              | Obtain a stone pickaxe. Actually useful                     | Obtain a Stone Pickaxe         | Task  |
-| Iron Age               | Obtain an iron pickaxe. One of the best                     | Obtain an Iron or Gold Pickaxe | Goal  |
-| Age of Gemstones       | Obtain an Diamond Pickaxe. Can't get better                 | Obtain a Diamond Pickaxe       | Goal  |
-| Volcano Stack          | Mine a stack of Andesite. Quite Igneous                     | Mine 64 Andesite               | Task  |
-| Andesine Container     | Mine a stack of Diorite. Speckled Rock                      | Mine 64 Diorite                | Task  |
-| Intrusive Rock         | Mine a stack of Granite. Pretty in Pink?                    | Mine 64 Granite                | Task  |
-| Fossil Fuels           | Mine some Coal! Caution: Stains Hands                       | Mine Coal Ore                  | Task  |
-| Dead Plant Collector   | Mine a stack of Coal. Charcoal is greener!                  | Mine 64 Coal Ore               | Task  |
-| Climate Changer        | Mine a full inventory of Coal. Do you hate the environment? | Mine 1728 Coal Ore             | Goal  |
-| Took you long enough   | Mine some stone. Finally, we can start the game             | Mine Stone                     | Task  |
-| Stack'o Cobble         | Mine a stack of stone. Good for bridges                     | Mine 64 Stone                  | Task  |
-| Red-Bearded Dwarf      | Mine a full inventory of coal.                              | Mine 1728 Stone                | Goal  |
-| No longer in the woods | Mine Lapis Lazuli. A Blue Magical Rock                      | Mine Lapis                     | Task  |
-| Rusty Stone            | Mine some Iron Ore.                                         | Mine Iron Ore                  | Task  |
-| Magnetite and Hematite | Mine a stack of Iron Ore. It means no worries               | Mine 64 Iron Ore               | Task  |
-| Cold Heavy Bars        | Obtain an Iron Ingot. The One True Metal                    | Obtain Iron Ingot              | Task  |
-| Kingmaker              | Mine some gold! You've struck riches!                       | Mine Gold                      | Task  |
-| Useless Material       | Obtain Diamonds! They're Kinda useless...                   | Mine Diamond                   | Goal  |
-| Useful Gemstone        | Sell a diamond to a merchant                                | Sell Diamond                   | Task  |
-| A Small Loan           | Enough gold to make a king. Enough gold to rule the world!  | Mine 64 Gold                   | Task  |
+| Name                   | Alt-text                                                          | Requirements                   | Frame |
+| ---------------------- | ----------------------------------------------------------------- | ------------------------------ | ----- |
+| Mining                 | Exploiting the world for all it's worth                                | Obtain any Pickaxe             | Task  |
+| Stone Age              | Obtain a stone pickaxe. Actually useful                           | Obtain a Stone Pickaxe         | Task  |
+| Iron Age               | Obtain an iron pickaxe. One of the best                           | Obtain an Iron or Gold Pickaxe | Goal  |
+| Age of Gemstones       | Obtain an Diamond Pickaxe. Can't get better                       | Obtain a Diamond Pickaxe       | Goal  |
+| Volcano Stack          | Mine a stack of Andesite. Quite Igneous                           | Plugin:Mine 64 Andesite        | Task  |
+| Andesine Container     | Mine a stack of Diorite. Speckled Rock                            | Plugin:Mine 64 Diorite         | Task  |
+| Intrusive Rock         | Mine a stack of Granite. Pretty in Pink?                          | Plugin:Mine 64 Granite         | Task  |
+| Fossil Fuels           | Mine some Coal! Caution: Stains Hands                             | Plugin:Mine Coal Ore           | Task  |
+| Dead Plant Collector   | Mine a stack of Coal. Charcoal is greener!                        | Plugin:Mine 64 Coal Ore        | Task  |
+| Climate Changer        | Mine a full inventory of Coal. Do you hate the environment?       | Plugin:Mine 1728 Coal Ore      | Goal  |
+| Took you long enough   | Mine some stone. Finally, we can start the game                   | Plugin:Mine Stone              | Task  |
+| Stack'o Cobble         | Mine a stack of stone. Good for bridges                           | Plugin:Mine 64 Stone           | Task  |
+| Red-Bearded Dwarf      | Mine a full inventory of Stone. Where's the hole?                 | Plugin:Mine 1728 Stone         | Goal  |
+| No Longer in the Woods | Mine Lapis Lazuli. A Blue Magical Rock                            | Plugin:Mine Lapis              | Task  |
+| Rusty Stone            | Mine some Iron Ore.                                               | Plugin:Mine Iron Ore           | Task  |
+| Magnetite and Hematite | Mine a full inventory of Iron Ore. Metal of the ages, for ages!    | Plugin:Mine 1728 Iron Ore      | Task  |
+| Kingmaker              | Mine some gold! You've struck riches!                             | Plugin:Mine Gold Ore           | Task  |
+| Useless Material       | Mine some Diamonds! They're Kinda useless...                      | Plugin:Mine Diamond Ore        | Goal  |
+| Useful Gemstone        | Sell a diamond to a merchant, They're worth it                    | Sell Diamond Ore               | Task  |
+| A Small Loan           | Mine a full inventory of Gold Ore. Enough gold to rule the world! | Plugin:Mine 1728 Gold          | Task  |
+
+*Requirements prefixed by Plugin: are triggered by [the server-side plugin](../plugin/README.md)*

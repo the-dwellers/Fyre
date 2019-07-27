@@ -1,0 +1,19 @@
+{
+	"parent": "fyre:mining/rusty-stone",
+	"display": {
+		"icon": {
+			"item": "minecraft:iron_block"
+		},
+		"title": "Magnetite and Hematite",
+		"description": "§rMine a full inventory of Iron Ore. Metal of the ages, for ages!",
+		"frame": "goal",
+		"show_toast": true,
+		"announce_to_chat": true,
+		"hidden": false
+	},
+	"criteria": {
+		"andesite": {
+			"trigger": "minecraft:impossible"
+		}
+	}
+}

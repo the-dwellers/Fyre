@@ -1,0 +1,19 @@
+{
+	"parent": "fyre:mining/root",
+	"display": {
+		"icon": {
+			"item": "minecraft:coal"
+		},
+		"title": "Fossil Fuels",
+		"description": "§rMine some Coal! Caution: Stains Hands",
+		"frame": "task",
+		"show_toast": true,
+		"announce_to_chat": false,
+		"hidden": false
+	},
+	"criteria": {
+		"andesite": {
+			"trigger": "minecraft:impossible"
+		}
+	}
+}

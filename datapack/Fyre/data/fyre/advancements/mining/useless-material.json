@@ -1,0 +1,19 @@
+{
+	"parent": "fyre:mining/iron-age",
+	"display": {
+		"icon": {
+			"item":"minecraft:diamond_ore"
+		},
+		"title": "Useless Material",
+		"description": "§rMine some Diamonds! They're kinda useless..",
+		"frame": "goal",
+		"show_toast": true,
+		"announce_to_chat": true,
+		"hidden": false
+	},
+	"criteria": {
+		"andesite": {
+			"trigger": "minecraft:impossible"
+		}
+	}
+}

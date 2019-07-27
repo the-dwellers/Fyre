@@ -1,0 +1,19 @@
+{
+	"parent": "fyre:mining/useless-material",
+	"display": {
+		"icon": {
+			"item":"minecraft:diamond"
+		},
+		"title": "Useful Gemstone",
+		"description": "§rSell a diamond to a merchant. They're worth it",
+		"frame": "task",
+		"show_toast": true,
+		"announce_to_chat": false,
+		"hidden": false
+	},
+	"criteria": {
+		"andesite": {
+			"trigger": "minecraft:impossible"
+		}
+	}
+}
