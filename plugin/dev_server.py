@@ -76,4 +76,4 @@ if platform.system().lower() == "windows":
 else:
 	subprocess.call("clear")
 
-subprocess.call(["java", "-Xms128", "-Xmx1024", "-jar", "server.jar", "nogui", "-h", "127.0.0.1"])
+subprocess.call(["java", "-Xms512", "-Xmx1024", "-jar", "server.jar", "nogui", "-h", "127.0.0.1"])
