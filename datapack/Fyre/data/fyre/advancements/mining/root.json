@@ -1,11 +1,11 @@
 {
 	"display": {
 		"icon": {
-			"item": "minecraft:diamond_pickaxe"
+			"item": "minecraft:wooden_pickaxe"
 		},
 		"title": "Mining",
 		"description": "§rExploiting the world for all its worth.",
-		"frame": "goal",
+		"frame": "task",
 		"show_toast": false,
 		"announce_to_chat": true,
 		"hidden": false,

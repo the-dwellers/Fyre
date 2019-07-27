@@ -1,0 +1,26 @@
+{
+	"parent": "fyre:mining/stone-age",
+	"display": {
+		"icon": {
+			"item": "minecraft:iron_pickaxe"
+		},
+		"title": "Iron Age",
+		"description": "§rObtain an iron pickaxe. One of the best",
+		"frame": "task",
+		"show_toast": true,
+		"announce_to_chat": false,
+		"hidden": false
+	},
+	"criteria": {
+		"pickaxe": {
+			"trigger": "minecraft:inventory_changed",
+			"conditions": {
+				"items": [
+					{
+						"item": "minecraft:iron_pickaxe"
+					}
+				]
+			}
+		}
+	}
+}

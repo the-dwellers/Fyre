@@ -1,0 +1,26 @@
+{
+	"parent": "fyre:mining/iron-age",
+	"display": {
+		"icon": {
+			"item": "minecraft:diamond_pickaxe"
+		},
+		"title": "Age of Gemstones",
+		"description": "§rObtain a Diamond pickaxe. Can't get better",
+		"frame": "goal",
+		"show_toast": true,
+		"announce_to_chat": false,
+		"hidden": false
+	},
+	"criteria": {
+		"pickaxe": {
+			"trigger": "minecraft:inventory_changed",
+			"conditions": {
+				"items": [
+					{
+						"item": "minecraft:diamond_pickaxe"
+					}
+				]
+			}
+		}
+	}
+}
