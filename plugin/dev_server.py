@@ -1,4 +1,5 @@
 import os
+import sys
 import subprocess
 import platform
 import requests
@@ -13,6 +14,25 @@ def clear_console():
 		subprocess.call("cls")
 	else:
 		subprocess.call("clear")
+
+
+def download(url, filename):
+	with open(filename, 'wb') as f:
+		response = requests.get(url, stream=True)
+		total = response.headers.get('content-length')
+
+		if total is None:
+			f.write(response.content)
+		else:
+			downloaded = 0
+			total = int(total)
+			for data in response.iter_content(chunk_size=max(int(total/1000), 1024*1024)):
+				downloaded += len(data)
+				f.write(data)
+				done = int(50*downloaded/total)
+				sys.stdout.write('\r[{}{}]'.format('█' * done, '.' * (50-done)))
+				sys.stdout.flush()
+	sys.stdout.write('\n')
 
 
 ### Main Script ###
@@ -60,20 +80,18 @@ if os.path.exists("world/datapacks"):
 shutil.copytree("../../datapack/", "world/datapacks")
 
 headers = {"user-agent": "fyre-devserver-script/1.0.0"}
+api_url = "https://papermc.io/api/v1/paper/1.14.4/latest/download"
 
 if not os.path.exists("server.jar"):
 	print("Downloading PaperMC...")
 
-	r = requests.get("https://papermc.io/api/v1/paper/1.14.4/latest/download", headers=headers)
-	f = open("server.jar", "wb")
-	f.write(r.content)
-	f.close()
+	download(api_url, "server.jar")
 
 	print("PaperMC downloaded")
 else:
 	print("Checking for PaperMC updates...")
 
-	r = requests.get("https://papermc.io/api/v1/paper/1.14.4/latest/download", headers=headers)
+	r = requests.get(url=api_url, headers=headers)
 
 	h1 = hashlib.md5()
 	h2 = hashlib.md5()
@@ -91,9 +109,7 @@ else:
 
 		os.rename("server.jar", "server.jar.old")
 
-		f = open("server.jar", "wb")
-		f.write(r.content)
-		f.close()
+		download(api_url, "server.jar")
 
 	else:
 		print("No updates found, continuing...")
