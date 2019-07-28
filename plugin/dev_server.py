@@ -16,6 +16,19 @@ if not os.path.exists("server"):
 	print("Creating server directory")
 	os.mkdir("server")
 
+if not os.path.exists("server/plugins"):
+	os.mkdir("server/plugins")
+
+if platform.system().lower() == "windows":
+	subprocess.call(['gradlew.bat', 'clean', 'build'])
+else:
+	subprocess.call(['./gradlew', 'clean', 'build'])
+
+if not os.path.exists("server/plugins/FyrePlugin.jar"):
+	os.remove("server/plugins/FyrePlugin.jar")
+
+shutil.copy("build/libs/FyrePlugin-1.0-SNAPSHOT.jar", "server/plugins/FyrePlugin.jar")
+
 os.chdir("server")
 
 if not os.path.exists("eula.txt"):
@@ -68,6 +81,8 @@ else:
 		f.close()
 	else:
 		print("No updates found, continuing...")
+
+# TODO: Download other plugins
 
 print("Starting the server now")
 
