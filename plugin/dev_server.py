@@ -24,7 +24,7 @@ if platform.system().lower() == "windows":
 else:
 	subprocess.call(['./gradlew', 'clean', 'build'])
 
-if not os.path.exists("server/plugins/FyrePlugin.jar"):
+if os.path.exists("server/plugins/FyrePlugin.jar"):
 	os.remove("server/plugins/FyrePlugin.jar")
 
 shutil.copy("build/libs/FyrePlugin-1.0-SNAPSHOT.jar", "server/plugins/FyrePlugin.jar")
