@@ -20,7 +20,6 @@ clear_console()
 os.chdir(os.path.dirname(os.path.realpath(__file__)))
 
 if not os.path.exists("server"):
-	print("Creating server directory")
 	os.mkdir("server")
 
 if not os.path.exists("server/plugins"):
@@ -51,12 +50,12 @@ if not os.path.exists("eula.txt"):
 	print("Minecraft EULA accepted")
 
 if not os.path.exists("world"):
-	os.makedirs("world")
+	os.mkdir("world")
 
-if os.path.exists("world/datapack"):
-	shutil.rmtree("world/datapack")
+if os.path.exists("world/datapacks"):
+	shutil.rmtree("world/datapacks")
 
-shutil.copytree("../../datapack/", "world/datapack")
+shutil.copytree("../../datapack/", "world/datapacks")
 
 headers = {"user-agent": "fyre-devserver-script/1.0.0"}
 
@@ -74,8 +73,8 @@ else:
 
 	r = requests.get("https://papermc.io/api/v1/paper/1.14.4/latest/download", headers=headers)
 
-	h1 = hashlib.sha256()
-	h2 = hashlib.sha256()
+	h1 = hashlib.md5()
+	h2 = hashlib.md5()
 
 	f = open("server.jar", "rb")
 	h1.update(f.read())
