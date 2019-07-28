@@ -74,7 +74,7 @@ or
 
 #### Setup with Batch Script
 
-> Script: `dev_server.bat`
+> Script: `dev_server.bat`  
 > Requirements: `curl`
 
 Simply run the script:  
