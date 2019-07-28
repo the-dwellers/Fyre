@@ -45,7 +45,7 @@ fi
 mkdir "world/datapacks"
 cp -r "../../datapack/." "world/datapacks"
 
-if [! -e "server.jar" ]; then
+if [ ! -e "server.jar" ]; then
 	echo "Downloading PaperMC..."
 
 	curl -o "server.jar" "https://papermc.io/api/v1/paper/1.14.4/latest/download"
@@ -55,7 +55,7 @@ else
 	echo "Checking for PaperMC updates..."
 
 	remote="$(curl -s "https://papermc.io/api/v1/paper/1.14.4/latest/download" | md5sum)"
-	loc="$(md5sum "server.jar")"
+	loc="$(cat server.jar | md5sum)"
 
 	if [ loc != remote ]; then
 		echo "Update found, installing the latest version now"
@@ -64,15 +64,15 @@ else
 			rm -f "server.jar.old"
 		fi
 
-		mv "sever.jar" "server.jar.old"
+		mv "server.jar" "server.jar.old"
 
-		curl -o "sever.jar" "https://papermc.io/api/v1/paper/1.14.4/latest/download"
+		curl -o "server.jar" "https://papermc.io/api/v1/paper/1.14.4/latest/download"
 	else
 		echo "No updates found, continuing..."
 	fi
 fi
 
-# TODO: Downoad other plugins
+# TODO: Download other plugins
 
 echo "Starting the server now"
 

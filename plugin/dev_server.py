@@ -5,6 +5,7 @@ import requests
 import hashlib
 import shutil
 
+
 ### Functions ###
 
 def clear_console():
@@ -12,6 +13,7 @@ def clear_console():
 		subprocess.call("cls")
 	else:
 		subprocess.call("clear")
+
 
 ### Main Script ###
 
