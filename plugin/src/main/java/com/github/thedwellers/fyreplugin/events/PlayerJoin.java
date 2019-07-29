@@ -2,13 +2,13 @@ package com.github.thedwellers.fyreplugin.events;
 
 import com.github.thedwellers.fyreplugin.FyrePlugin;
 import com.github.thedwellers.fyreplugin.configuration.PlayerOperations;
-import org.bukkit.event.player.PlayerJoinEvent;
+
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.plugin.java.JavaPlugin;
-import com.github.thedwellers.fyreplugin.events.AbstractEvent;
+import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerJoinEvent;
 
-public class PlayerJoin extends AbstractEvent {
+public class PlayerJoin implements Listener {
 
 	private FyrePlugin plugin = FyrePlugin.getInstance();
 

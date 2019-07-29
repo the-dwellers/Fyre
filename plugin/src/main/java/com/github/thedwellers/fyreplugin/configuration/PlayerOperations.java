@@ -1,7 +1,6 @@
 package com.github.thedwellers.fyreplugin.configuration;
 
 import java.io.File;
-import com.github.thedwellers.fyreplugin.configuration.PlayerConfiguration;
 
 public class PlayerOperations {
 

@@ -7,9 +7,9 @@ import com.github.thedwellers.fyreplugin.configuration.Strings;
 
 import org.bukkit.World;
 import org.bukkit.command.Command;
+import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.java.JavaPlugin;
 
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.HoverEvent;
@@ -18,7 +18,7 @@ import net.md_5.bungee.api.chat.TextComponent;
 /**
  * StatusCommand
  */
-public class StatusCommand extends AbstractCommand {
+public class StatusCommand implements CommandExecutor {
 
 	private FyrePlugin plugin = FyrePlugin.getInstance();
 

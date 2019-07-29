@@ -1,15 +1,16 @@
 package com.github.thedwellers.fyreplugin.events;
 
 import com.github.thedwellers.fyreplugin.FyrePlugin;
+
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
+import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
-import org.bukkit.plugin.java.JavaPlugin;
 
 /**
  * PlayerPreProcessorCommand
  */
-public class PlayerPreProcessorCommand extends AbstractEvent {
+public class PlayerPreProcessorCommand implements Listener {
 
 	private FyrePlugin plugin = FyrePlugin.getInstance();
 

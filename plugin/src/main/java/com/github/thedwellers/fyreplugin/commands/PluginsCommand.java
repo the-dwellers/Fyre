@@ -3,10 +3,10 @@ package com.github.thedwellers.fyreplugin.commands;
 import com.github.thedwellers.fyreplugin.configuration.Strings;
 
 import org.bukkit.command.Command;
+import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
-import org.bukkit.plugin.java.JavaPlugin;
 
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.HoverEvent;
@@ -15,7 +15,7 @@ import net.md_5.bungee.api.chat.TextComponent;
 /**
  * PluginCommand
  */
-public class PluginsCommand extends AbstractCommand {
+public class PluginsCommand implements CommandExecutor {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
