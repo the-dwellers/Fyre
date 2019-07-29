@@ -57,7 +57,7 @@ else
 	remote="$(curl -s "https://papermc.io/api/v1/paper/1.14.4/latest/download" | md5sum)"
 	loc="$(cat server.jar | md5sum)"
 
-	if [ loc != remote ]; then
+	if [ $loc != $remote ]; then
 		echo "Update found, installing the latest version now"
 
 		if [ -e "server.jar.old" ]; then
