@@ -1,13 +1,10 @@
 package com.github.thedwellers.fyreplugin;
 
 import com.github.thedwellers.fyreplugin.commands.*;
+import com.github.thedwellers.fyreplugin.events.*;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.github.thedwellers.fyreplugin.configuration.ServerOperations;
-import com.github.thedwellers.fyreplugin.events.BlockBreak;
-import com.github.thedwellers.fyreplugin.events.MerchantClick;
-import com.github.thedwellers.fyreplugin.events.PlayerJoin;
-import com.github.thedwellers.fyreplugin.events.PlayerPreProcessorCommand;
 
 public final class FyrePlugin extends JavaPlugin {
 
@@ -44,6 +41,7 @@ public final class FyrePlugin extends JavaPlugin {
 		getServer().getPluginManager().registerEvents(new PlayerPreProcessorCommand(), this);
 		getServer().getPluginManager().registerEvents(new BlockBreak(), this);
 		getServer().getPluginManager().registerEvents(new MerchantClick(), this);
+		getServer().getPluginManager().registerEvents(new BankerClick(), this);
 
 	}
 
