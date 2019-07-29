@@ -20,19 +20,19 @@ public class PlayerConfiguration {
 
 	private static void defaultTiers(File playerFile) {
 		FileConfiguration playerConfig = YamlConfiguration.loadConfiguration(playerFile);
-		playerConfig.set("Armorer", 0);
-		playerConfig.set("Butcher", 0);
-		playerConfig.set("Cartographer", 0);
-		playerConfig.set("Cleric", 0);
-		playerConfig.set("Farmer", 0);
-		playerConfig.set("Fisherman", 0);
-		playerConfig.set("Fletcher", 0);
-		playerConfig.set("Leatherworker", 0);
-		playerConfig.set("Librarian", 0);
-		playerConfig.set("Mason", 0);
-		playerConfig.set("Sheperd", 0);
-		playerConfig.set("Toolsmith", 0);
-		playerConfig.set("Weaponsmith", 0);
+		playerConfig.set("ARMORER", 0);
+		playerConfig.set("BUTCHER", 0);
+		playerConfig.set("CARTOGRAPHER", 0);
+		playerConfig.set("CLERIC", 0);
+		playerConfig.set("FARMER", 0);
+		playerConfig.set("FISHERMAN", 0);
+		playerConfig.set("FLETCHER", 0);
+		playerConfig.set("LEATHERWORKER", 0);
+		playerConfig.set("LIBRARIAN", 0);
+		playerConfig.set("MASON", 0);
+		playerConfig.set("SHEPERD", 0);
+		playerConfig.set("TOOLSMITH", 0);
+		playerConfig.set("WEAPONSMITH", 0);
 		try {
 			playerConfig.save(playerFile);
 		} catch (IOException e) {
