@@ -11,10 +11,6 @@ import org.bukkit.plugin.java.JavaPlugin;
  */
 public class BlockBreak extends AbstractEvent {
 
-	public BlockBreak(JavaPlugin plugin) {
-		super(plugin);
-	}
-
 	@EventHandler()
 	public void onBlockBreak(BlockBreakEvent event) {
 		Advancements.updateAdvancements(event.getPlayer());

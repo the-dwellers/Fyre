@@ -2,6 +2,7 @@ package com.github.thedwellers.fyreplugin.commands;
 
 import java.text.DecimalFormat;
 
+import com.github.thedwellers.fyreplugin.FyrePlugin;
 import com.github.thedwellers.fyreplugin.configuration.Strings;
 
 import org.bukkit.World;
@@ -19,9 +20,7 @@ import net.md_5.bungee.api.chat.TextComponent;
  */
 public class StatusCommand extends AbstractCommand {
 
-	public StatusCommand(JavaPlugin plugin) {
-		super(plugin);
-	}
+	private FyrePlugin plugin = FyrePlugin.getInstance();
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {

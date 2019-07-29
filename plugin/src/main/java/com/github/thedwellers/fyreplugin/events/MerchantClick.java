@@ -10,19 +10,16 @@ import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class MerchantClick extends AbstractEvent {
-	public MerchantClick(JavaPlugin plugin) {
-		super(plugin);
-	}
 
 	@EventHandler()
 	public void onPlayerInteractEntityEvent(PlayerInteractEntityEvent event) {
 		Entity entity = event.getRightClicked();
-			
+
 		//sets trade options depending on villager profession and use tier
 		//TODO: get player tier for profession and set recipies.
 		if(entity.getType().equals(EntityType.VILLAGER)) {
 			Villager villager = (Villager) entity;
-			
+
 			switch(villager.getProfession()) {
 				case ARMORER:
 

@@ -15,10 +15,6 @@ import net.md_5.bungee.api.chat.TextComponent;
  */
 public class ListCommand extends AbstractCommand {
 
-	public ListCommand(JavaPlugin plugin) {
-		super(plugin);
-	}
-
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		sender.spigot().sendMessage(getPlayers(sender, !(sender instanceof Player)));

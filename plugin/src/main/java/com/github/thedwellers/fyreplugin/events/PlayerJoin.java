@@ -1,5 +1,6 @@
 package com.github.thedwellers.fyreplugin.events;
 
+import com.github.thedwellers.fyreplugin.FyrePlugin;
 import com.github.thedwellers.fyreplugin.configuration.PlayerOperations;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.entity.Player;
@@ -9,9 +10,7 @@ import com.github.thedwellers.fyreplugin.events.AbstractEvent;
 
 public class PlayerJoin extends AbstractEvent {
 
-	public PlayerJoin(JavaPlugin plugin){
-		super(plugin);
-	}
+	private FyrePlugin plugin = FyrePlugin.getInstance();
 
 	@EventHandler()
 	public void onPlayerJoin(PlayerJoinEvent event){

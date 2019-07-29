@@ -17,10 +17,6 @@ import net.md_5.bungee.api.chat.TextComponent;
  */
 public class PluginsCommand extends AbstractCommand {
 
-	public PluginsCommand(JavaPlugin plugin) {
-		super(plugin);
-	}
-
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		sender.sendMessage(getPlugins(sender, !(sender instanceof Player)));

@@ -7,10 +7,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class BankCommand extends AbstractCommand {
 
-	public BankCommand(JavaPlugin plugin) {
-		super(plugin);
-	}
-
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		if (sender instanceof Player) {

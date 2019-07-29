@@ -7,10 +7,4 @@ import org.bukkit.plugin.java.JavaPlugin;
  * AbstractCommand
  */
 public abstract class AbstractCommand implements CommandExecutor {
-
-	protected JavaPlugin plugin;
-
-	public AbstractCommand(JavaPlugin plugin){
-		this.plugin = plugin;
-	}
 }

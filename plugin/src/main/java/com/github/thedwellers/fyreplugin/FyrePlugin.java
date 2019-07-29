@@ -11,6 +11,12 @@ import com.github.thedwellers.fyreplugin.events.PlayerPreProcessorCommand;
 
 public final class FyrePlugin extends JavaPlugin {
 
+	private static FyrePlugin instance;
+
+	public FyrePlugin() {
+		instance = this;
+	}
+
 	@Override
 	public void onEnable() {
 		serverSetUp();
@@ -23,25 +29,29 @@ public final class FyrePlugin extends JavaPlugin {
 	}
 
 	private void registerCommands() {
-		this.getCommand("merchant").setExecutor(new MerchantCommand(this));
-		this.getCommand("status").setExecutor(new StatusCommand(this));
-		this.getCommand("list").setExecutor(new ListCommand(this));
-		this.getCommand("bank").setExecutor(new BankCommand(this));
+		this.getCommand("merchant").setExecutor(new MerchantCommand());
+		this.getCommand("status").setExecutor(new StatusCommand());
+		this.getCommand("list").setExecutor(new ListCommand());
+		this.getCommand("bank").setExecutor(new BankCommand());
 
 		// Remove Bukkit plugin command
 		getServer().getCommandMap().getCommand("plugins");
-		this.getCommand("plugins").setExecutor(new PluginsCommand(this));
+		this.getCommand("plugins").setExecutor(new PluginsCommand());
 	}
 
 	private void registerListeners() {
-		getServer().getPluginManager().registerEvents(new PlayerJoin(this), this);
-		getServer().getPluginManager().registerEvents(new PlayerPreProcessorCommand(this), this);
-		getServer().getPluginManager().registerEvents(new BlockBreak(this), this);
-		getServer().getPluginManager().registerEvents(new MerchantClick(this), this);
+		getServer().getPluginManager().registerEvents(new PlayerJoin(), this);
+		getServer().getPluginManager().registerEvents(new PlayerPreProcessorCommand(), this);
+		getServer().getPluginManager().registerEvents(new BlockBreak(), this);
+		getServer().getPluginManager().registerEvents(new MerchantClick(), this);
 
 	}
 
 	private void serverSetUp(){
 		ServerOperations.createPlayerFolder(this.getDataFolder());
+	}
+
+	public static FyrePlugin getInstance() {
+		return instance;
 	}
 }
