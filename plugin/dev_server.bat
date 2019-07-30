@@ -43,11 +43,13 @@ IF EXIST "world\datapacks" (
 mkdir "world\datapacks"
 xcopy """..\..\datapack" "world\datapacks" /S /E /D /Q
 
-echo Downloading PaperMC...
+IF NOT EXIST "server.jar" (
+	echo Downloading PaperMC...
 
-curl -o "server.jar" "https://papermc.io/api/v1/paper/1.14.4/latest/download"
+	curl -o "server.jar" "https://papermc.io/api/v1/paper/1.14.4/latest/download"
 
-echo PaperMC downloaded
+	echo PaperMC downloaded
+)
 
 REM TODO: Download other plugins
 
