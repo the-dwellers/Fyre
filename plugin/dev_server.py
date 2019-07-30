@@ -12,9 +12,9 @@ import requests
 
 def clear_console():
 	if platform.system().lower() == "windows":
-		subprocess.call("cls")
+		subprocess.call("cls", shell=True)
 	else:
-		subprocess.call("clear")
+		subprocess.call("clear", shell=True)
 
 
 def download(url, filename):
