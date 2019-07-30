@@ -11,7 +11,7 @@ import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 
 /**
- * ListCommand
+ * List the players currently online on the server.
  */
 public class ListCommand implements CommandExecutor {
 

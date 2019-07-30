@@ -1,5 +1,10 @@
 package com.github.thedwellers.fyreplugin.configuration;
 
+/**
+ * Class to hold all permissions related to this plugin.
+ * Permissions control what players can and can't do.
+ * @see Strings
+ */
 public abstract class Permissions {
 	private static final String BASE = "fyre.";
 

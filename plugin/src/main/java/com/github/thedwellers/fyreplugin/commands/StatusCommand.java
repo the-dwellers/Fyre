@@ -16,7 +16,7 @@ import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 
 /**
- * StatusCommand
+ * View server status information, such as ram usage, plugins, players, tps, etc
  */
 public class StatusCommand implements CommandExecutor {
 

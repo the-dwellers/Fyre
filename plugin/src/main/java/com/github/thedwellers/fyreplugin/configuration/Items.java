@@ -9,7 +9,9 @@ import org.bukkit.inventory.meta.ItemMeta;
 import net.md_5.bungee.api.ChatColor;
 
 /**
- * Items
+ * Static class of specific items that may may be referenced from other places
+ * inside the application. This includes items such as Currency or other unique
+ * materials. This class uses lazy instantiation.
  */
 public abstract class Items {
 

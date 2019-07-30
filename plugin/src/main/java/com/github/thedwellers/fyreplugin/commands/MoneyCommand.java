@@ -8,7 +8,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 /**
- * MoneyCommand
+ * Gives the player 1 Silver Coin
  */
 public class MoneyCommand implements CommandExecutor {
 

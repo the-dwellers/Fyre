@@ -5,6 +5,11 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+/**
+ * Summons an npc that acts as a bank to any interacting
+ * player. Banks are shared inventory's specific to each player that is opened
+ * from interacting with any bank trader created with this command.
+ */
 public class BankCommand implements CommandExecutor {
 
 	@Override

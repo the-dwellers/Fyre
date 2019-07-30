@@ -13,7 +13,7 @@ import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 
 /**
- * PluginCommand
+ * Show which plugins are loaded by the server
  */
 public class PluginsCommand implements CommandExecutor {
 
