@@ -1,13 +1,14 @@
-import os
-import sys
-import subprocess
-import platform
-import requests
 import hashlib
+import os
+import platform
 import shutil
+import subprocess
+import sys
+
+import requests
 
 
-### Functions ###
+# Functions #
 
 def clear_console():
 	if platform.system().lower() == "windows":
@@ -26,16 +27,16 @@ def download(url, filename):
 		else:
 			downloaded = 0
 			total = int(total)
-			for data in response.iter_content(chunk_size=max(int(total/1000), 1024*1024)):
+			for data in response.iter_content(chunk_size=max(int(total / 1000), 1024 * 1024)):
 				downloaded += len(data)
 				f.write(data)
-				done = int(50*downloaded/total)
-				sys.stdout.write('\r[{}{}]'.format('█' * done, '.' * (50-done)))
+				done = int(50 * downloaded / total)
+				sys.stdout.write('\r[{}{}]'.format('█' * done, '.' * (50 - done)))
 				sys.stdout.flush()
 	sys.stdout.write('\n')
 
 
-### Main Script ###
+# Main Script #
 
 clear_console()
 
