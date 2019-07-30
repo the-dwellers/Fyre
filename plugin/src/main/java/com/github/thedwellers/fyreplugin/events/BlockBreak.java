@@ -13,6 +13,6 @@ public class BlockBreak implements Listener {
 
 	@EventHandler()
 	public void onBlockBreak(BlockBreakEvent event) {
-		Advancements.updateAdvancements(event.getPlayer());
+		Advancements.updateBlockBreakAdvancement(event.getPlayer(),event.getBlock().getType());
 	}
 }
