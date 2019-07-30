@@ -87,7 +87,9 @@ public class Advancements {
 		}
 
 		if (player.getStatistic(Statistic.MINE_BLOCK, block) >= amount-1) {
-			progress.awardCriteria("plugin");
+			// ? If anyone knows a shorter way to convert to an array while
+			// ? conserving type, please message me - WYVERN
+			progress.awardCriteria(progress.getRemainingCriteria().toArray(new String[progress.getRemainingCriteria().size()])[0]);
 		}
 	}
 }
