@@ -25,6 +25,9 @@ commands:
     usage: /status
     permission: fyre.status
     permission-message: You don't have 'fyre.status'
+  money:
+    description: Give player money
+    usage: /money
   plugins:
     description: List Enabled and Disabled server plugins
     usage: /plugins
