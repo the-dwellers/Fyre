@@ -5,6 +5,9 @@ api-version: 1.14
 load: STARTUP
 
 commands:
+  item:
+    description: Broadcast your current item to chat
+    usage: /item
   bank:
     description: Command for managing bankers
     usage: /bank
