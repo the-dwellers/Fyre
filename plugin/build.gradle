@@ -21,11 +21,12 @@ repositories {
 		name = 'sonatype'
 		url = 'https://oss.sonatype.org/content/groups/public/'
 	}
+	maven { url 'https://jitpack.io' }
 }
 
 dependencies {
 	compile group: 'com.destroystokyo.paper', name: 'paper-api', version: '1.14.4-R0.1-SNAPSHOT'
-
+	compileOnly "com.github.MilkBowl:VaultAPI:1.7"
 	testCompile group: 'junit', name: 'junit', version: '4.12'
 }
 

@@ -1,8 +1,14 @@
 package com.github.thedwellers.fyreplugin;
 
+import java.util.logging.Logger;
+
 import com.github.thedwellers.fyreplugin.commands.*;
 import com.github.thedwellers.fyreplugin.events.*;
+
+import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import net.milkbowl.vault.chat.Chat;
 
 import com.github.thedwellers.fyreplugin.configuration.ServerOperations;
 
@@ -18,13 +24,20 @@ import com.github.thedwellers.fyreplugin.configuration.ServerOperations;
 public final class FyrePlugin extends JavaPlugin {
 
 	private static FyrePlugin instance;
+	private static final Logger log = Logger.getLogger("Minecraft");
+	private Chat vaultChat;
 
 	public FyrePlugin() {
 		instance = this;
 	}
 
+	public Chat getVaultChat() {
+		return vaultChat;
+	}
+
 	@Override
 	public void onEnable() {
+		setupDependencies();
 		serverSetUp();
 		registerCommands();
 		registerListeners();
@@ -61,14 +74,28 @@ public final class FyrePlugin extends JavaPlugin {
 		getServer().getPluginManager().registerEvents(new BlockBreak(), this);
 		getServer().getPluginManager().registerEvents(new MerchantClick(), this);
 		getServer().getPluginManager().registerEvents(new BankerClick(), this);
-
+		getServer().getPluginManager().registerEvents(new PlayerChat(), this);
 	}
 
-	private void serverSetUp(){
+	private void serverSetUp() {
 		ServerOperations.createPlayerFolder(this.getDataFolder());
 	}
 
 	public static FyrePlugin getInstance() {
 		return instance;
+	}
+
+	private void setupDependencies() {
+		if (getServer().getPluginManager().getPlugin("Vault") == null) {
+			log.warning("[Fyre] Vault is not installed, some features may be unavailable");
+		} else {
+			RegisteredServiceProvider<Chat> chatService = getServer().getServicesManager().getRegistration(Chat.class);
+
+			if (chatService == null) {
+				log.info("[Fyre] No Chat Services registered. Will use default Fyre values");
+			} else {
+				this.vaultChat = chatService.getProvider();
+			}
+		}
 	}
 }

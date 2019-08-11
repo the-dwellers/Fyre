@@ -26,8 +26,9 @@ public abstract class Reflected {
 	 * <p>
 	 * Due to the dependence on reflection, this method may fail entirely depending
 	 * on the minecraft version.
-	 *
+	 * <p>
 	 * <pre>
+	 * // functionally equal to:
 	 * net.minecraft.server.ItemStack nmsItemStack = CraftItemStack.asNMSCopy(itemStack);
 	 * net.minecraft.server.NBTTagCompound compound = new NBTTagCompound();
 	 * compound = nmsItemStack.save(compound);

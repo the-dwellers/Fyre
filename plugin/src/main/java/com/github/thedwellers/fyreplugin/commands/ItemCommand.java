@@ -3,10 +3,6 @@ package com.github.thedwellers.fyreplugin.commands;
 import com.github.thedwellers.fyreplugin.ChatManager;
 import com.github.thedwellers.fyreplugin.Reflected;
 import com.github.thedwellers.fyreplugin.exceptions.ReflectionFailedException;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
-import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -34,9 +30,11 @@ public class ItemCommand implements CommandExecutor {
 				TextComponent text;
 
 				if (item.getAmount() == 1) {
-					text = new TextComponent(ChatColor.GREEN+""+ChatColor.BOLD+"["+item.getI18NDisplayName()+"]");
+					text = new TextComponent(
+							ChatColor.GREEN + "" + ChatColor.BOLD + "[" + item.getI18NDisplayName() + "]");
 				} else {
-					text = new TextComponent(ChatColor.GREEN+""+ChatColor.BOLD+"["+item.getAmount()+"x "+item.getI18NDisplayName()+"]");
+					text = new TextComponent(ChatColor.GREEN + "" + ChatColor.BOLD + "[" + item.getAmount() + "x "
+							+ item.getI18NDisplayName() + "]");
 				}
 
 				text.setHoverEvent(new HoverEvent(Action.SHOW_ITEM, new TextComponent[] { new TextComponent(nbt) }));
