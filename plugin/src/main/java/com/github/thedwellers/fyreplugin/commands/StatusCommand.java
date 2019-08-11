@@ -1,5 +1,6 @@
 package com.github.thedwellers.fyreplugin.commands;
 
+import java.math.RoundingMode;
 import java.text.DecimalFormat;
 
 import com.github.thedwellers.fyreplugin.FyrePlugin;
@@ -29,6 +30,7 @@ public class StatusCommand implements CommandExecutor {
 		boolean isPlayer = sender instanceof Player;
 		TextComponent responseText = new TextComponent();
 		DecimalFormat decimalFormat = new DecimalFormat("0.00");
+		decimalFormat.setRoundingMode(RoundingMode.DOWN);
 
 		// Players
 		responseText.addExtra(ListCommand.getPlayers(sender));
