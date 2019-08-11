@@ -11,19 +11,19 @@ import org.bukkit.entity.Player;
 import net.md_5.bungee.api.chat.TextComponent;
 
 /**
- * Displays the currently held item to main chat
+ * Displays the currently worm armor set to chat
  */
-public class ItemCommand implements CommandExecutor {
+public class ArmorCommand implements CommandExecutor {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		if (sender instanceof Player) {
 			Player player = (Player) sender;
-			TextComponent itemText = ChatManager.getItemText(ChatManager.getDisplayStackMainHand(player));
-			if (itemText == null) {
-				player.sendMessage(Strings.NO_ITEM_HELD);
+			TextComponent armorText = ChatManager.getArmourText(player);
+			if (armorText == null) {
+				player.sendMessage(Strings.NO_ITEM_WORN);
 			} else {
-				ChatManager.sendPlayerMessage(player, itemText);
+				ChatManager.sendPlayerMessage(player, armorText);
 			}
 		}
 		return true;

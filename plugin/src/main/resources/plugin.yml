@@ -6,8 +6,11 @@ load: STARTUP
 
 commands:
   item:
-    description: Broadcast your current item to chat
+    description: Broadcast your currently held item to chat
     usage: /item
+  armor:
+    description: Broadcast your currently equipped armor to chat
+    usage: /armor
   bank:
     description: Command for managing bankers
     usage: /bank

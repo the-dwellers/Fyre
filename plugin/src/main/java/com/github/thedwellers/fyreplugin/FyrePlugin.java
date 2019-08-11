@@ -59,6 +59,7 @@ public final class FyrePlugin extends JavaPlugin {
 		this.getCommand("bank").setExecutor(new BankCommand());
 		this.getCommand("money").setExecutor(new MoneyCommand());
 		this.getCommand("item").setExecutor(new ItemCommand());
+		this.getCommand("armor").setExecutor(new ArmorCommand());
 
 		// Remove Bukkit plugin command
 		getServer().getCommandMap().getCommand("plugins");
