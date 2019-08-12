@@ -76,6 +76,7 @@ public final class FyrePlugin extends JavaPlugin {
 		getServer().getPluginManager().registerEvents(new MerchantClick(), this);
 		getServer().getPluginManager().registerEvents(new BankerClick(), this);
 		getServer().getPluginManager().registerEvents(new PlayerChat(), this);
+		getServer().getPluginManager().registerEvents(new Dismount(), this);
 	}
 
 	private void serverSetUp() {
