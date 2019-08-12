@@ -117,6 +117,13 @@ else:
 
 # TODO: Download other plugins
 
+if not os.path.exists("plugins/Vault.jar"):
+	print("Downloading Vault...")
+	
+	download("https://dev.bukkit.org/projects/vault/files/2704903/download", "plugins/Vault.jar")
+	
+	print("Vault downloaded")
+
 print("Starting the server now")
 
 clear_console()

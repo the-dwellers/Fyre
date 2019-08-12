@@ -53,6 +53,14 @@ IF NOT EXIST "server.jar" (
 
 REM TODO: Download other plugins
 
+IF NOT EXIST "plugins\Vault.jar" (
+	echo Downloading Vault...
+
+	curl -o "plugins\Vault.jar" "https://dev.bukkit.org/projects/vault/files/2704903/download"
+
+	echo Vault downloaded
+)
+
 echo Starting the server now
 
 cls

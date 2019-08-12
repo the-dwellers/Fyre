@@ -74,6 +74,14 @@ fi
 
 # TODO: Download other plugins
 
+if [ ! -e "plugins/Vault.jar" ]; then
+	echo "Downloading Vault..."
+
+	curl -o "plugins/Vault.jar" "https://dev.bukkit.org/projects/vault/files/2704903/download"
+
+	echo "Vault downloaded"
+fi
+
 echo "Starting the server now"
 
 clear
