@@ -1,13 +1,18 @@
 package com.github.thedwellers.fyreplugin.configuration;
 
+import com.github.thedwellers.fyreplugin.FyrePlugin;
+
 import java.io.File;
 
 public class ServerOperations {
-
-	public static void createPlayerFolder(File dataFolder){
-		File folder = new File(dataFolder+File.separator+"player_data");
-		if(!folder.exists()){
-			folder.mkdirs();
+	private static FyrePlugin plugin = FyrePlugin.getInstance();
+	
+	public static void createPlayerDataDirectory(){
+		File base = plugin.getDataFolder();
+		File playerData = new File(base, "player_data");
+		
+		if (!playerData.exists()) { 
+			playerData.mkdirs();
 		}
 	}
 }

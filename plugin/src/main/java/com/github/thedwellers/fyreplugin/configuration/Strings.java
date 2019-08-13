@@ -19,9 +19,6 @@ public abstract class Strings {
 	/** Prefix for all command output */
 	public static final String OUT_PREFIX = ChatColor.GOLD + "> " + C_DEFAULT;
 
-	/** Player has no permission to use a command */
-	public static final String PERMISSION_DENIED_MSG = OUT_PREFIX + ChatColor.RED + "You don't have access to that command.";
-
 	/** Player has no item in their hands */
 	public static final String NO_ITEM_HELD = OUT_PREFIX + C_ERROR + "There is no item in your hands";
 	/** Player is not wearing any armor */
