@@ -60,6 +60,7 @@ public final class FyrePlugin extends JavaPlugin {
 		this.getCommand("money").setExecutor(new MoneyCommand());
 		this.getCommand("item").setExecutor(new ItemCommand());
 		this.getCommand("armor").setExecutor(new ArmorCommand());
+		this.getCommand("debug").setExecutor(new DebugCommand());
 
 		// Remove Bukkit plugin command
 		getServer().getCommandMap().getCommand("plugins");
@@ -77,6 +78,7 @@ public final class FyrePlugin extends JavaPlugin {
 		getServer().getPluginManager().registerEvents(new BankerClick(), this);
 		getServer().getPluginManager().registerEvents(new PlayerChat(), this);
 		getServer().getPluginManager().registerEvents(new Dismount(), this);
+		getServer().getPluginManager().registerEvents(new BoatClick(), this);
 	}
 
 	private void serverSetUp() {

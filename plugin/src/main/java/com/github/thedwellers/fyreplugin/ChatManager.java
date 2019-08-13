@@ -231,7 +231,7 @@ public abstract class ChatManager {
 		}
 
 		try {
-			String nbt = Reflected.stackToJson(item);
+			String nbt = Reflected.itemStackToNBT(item);
 			TextComponent text;
 
 			String itemName = item.getItemMeta().hasDisplayName() ? item.getItemMeta().getDisplayName()

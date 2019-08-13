@@ -16,4 +16,4 @@ Please keep in mind that this is mostly a note document rather than proper docum
 - [ ] Walking on grass has a chance to make paths
 - [ ] Longer Days
 - [ ] Silk Touch spawners
-- [ ] Saddled horses have AI disabled
+- [x] Saddled horses have AI disabled

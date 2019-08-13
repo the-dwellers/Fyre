@@ -8,6 +8,9 @@ commands:
   item:
     description: Broadcast your currently held item to chat
     usage: /item
+  debug:
+    description: Debug command
+    usage: /debug
   armor:
     description: Broadcast your currently equipped armor to chat
     usage: /armor
