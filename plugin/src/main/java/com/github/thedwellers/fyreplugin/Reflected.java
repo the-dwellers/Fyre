@@ -2,7 +2,10 @@ package com.github.thedwellers.fyreplugin;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Base64;
 import java.util.UUID;
 
 import com.github.thedwellers.fyreplugin.exceptions.ReflectionFailedException;
@@ -198,6 +201,7 @@ public abstract class Reflected {
 		}
 
 		String nbtStack = nbt.substring(2, nbt.length() - 2);
+
 		String[] nbtItems = nbtStack.split(", ");
 		ArrayList<ItemStack> items = new ArrayList<ItemStack>();
 
@@ -207,13 +211,42 @@ public abstract class Reflected {
 			} catch (ReflectionFailedException e) {
 				// something failed, might be broken data
 				// Use a glass block as debug for now
-				System.out.println(e.getMessage());
+				e.printStackTrace();
 				items.add(new ItemStack(Material.GLASS));
 			}
 		}
 
 		return items.toArray(new ItemStack[items.size()]);
 	}
+
+	public static String itemStackTo64(ItemStack item) throws ReflectionFailedException {
+		return Arrays.toString(Base64.getEncoder().encode(itemStackToNBT(item).getBytes(StandardCharsets.UTF_16)));
+	}
+
+	public static ItemStack itemStackFrom64(String base64) throws ReflectionFailedException {
+		return nbtToItem(Arrays.toString(Base64.getDecoder().decode(base64)));
+	}
+
+	public static String InventoryTo64(ItemStack[] items) throws ReflectionFailedException {
+		String invString = "";
+		for (ItemStack item : items) {
+			invString += itemStackTo64(item) + "|";
+		}
+		return invString;
+	}
+
+	// TODO: Convert inventory storage into base64 for serial
+	// public static ItemStack[] 64toInventory(String base64) throws ReflectionFailedException {
+	//  String[] item64s = base64.split("|");
+	//  ArrayList<ItemStack> items = new ArrayList<ItemStack>();
+	//  for (String item64 : item64s) {
+	//      ItemStack item = nbtToItem(item64);
+	//      if (item != null) {
+	//          items.add(item);
+	//      }
+	//  }
+	//  return new ItemStack[] {items.toArray(new ItemStack[items.size()])};
+	// }
 
 	/**
 	 * Writes the provided nbt under the given tag of the entity. Overwrites
@@ -228,8 +261,153 @@ public abstract class Reflected {
 	 * @throws ReflectionFailedException thrown when any exception is encountered
 	 *                                   during reflection
 	 */
-	public static void writeNBT(String nbt, String tag, Entity entity) throws ReflectionFailedException {
+	public static void writeNBT(String nbt, String tagString, Entity entity) throws ReflectionFailedException {
+		if (tagString.equalsIgnoreCase("tags")) {
+			// For tag saving, nbt is stored as a string
+			nbt = "[" + stringifyNBT(nbt) + "]";
+		}
+		String nnbt = insertTag(nbt, tagString, getNBTOfEntity(entity));
+		saveNBTToEntity(nnbt, entity);
+	}
 
+	public static String stringifyNBT(String nbt) {
+		// nbt = nbt.replace("\"", "\\\"");
+		nbt = nbt.replace("'", "\\'");
+		return "'" + nbt + "'";
+	}
+
+	public static String destringifyNBT(String nbt) {
+		nbt = nbt.replace("\\'", "'");
+		return nbt.substring(1, nbt.length() - 1);
+	}
+
+	public static String getTag(String nbt, String tag) {
+		int loc = nbt.indexOf(tag);
+		int offset = loc + tag.length() + 1;
+		if (loc == -1) {
+			return "";
+		}
+
+		char[] nbtArray = nbt.toCharArray();
+		char bType = nbtArray[offset];
+		char pair = bType;
+		int end = offset;
+		switch (bType) {
+		case '[':
+			pair = ']';
+			break;
+		case '(':
+			pair = ')';
+			break;
+		case '{':
+			pair = '}';
+			break;
+		}
+
+		int depth = 1;
+		for (int i = offset + 1; i < nbt.length(); i++) {
+			if (nbtArray[i] == bType) {
+				depth++;
+				continue;
+			} else if (nbtArray[i] == pair) {
+				depth--;
+			}
+			if (depth == 0) {
+				// Found end of current tag range
+				end = i + 1;
+				break;
+			}
+		}
+
+		nbt = nbt.substring(offset, end);
+
+		if (tag.equalsIgnoreCase("tags")) {
+			// For obtaining nbt serialized in the Tags tag
+			nbt = destringifyNBT(nbt);
+			System.out.println(nbt);
+			return "{" + nbt.substring(2, nbt.length() - 2) + "}";
+		}
+		return nbt;
+
+	}
+
+	public static String insertTag(String insertedNBT, String tagString, String baseNBT) {
+		String currentString = baseNBT;
+		String[] tags = tagString.split("\\.");
+		int offset = 1;
+		int notfound = -1;
+
+		for (int i = 0; i < tags.length; i++) {
+			String tag = tags[i];
+			int loc = currentString.indexOf(tag);
+			if (loc == -1) {
+				// Tag not found
+				notfound = i;
+				break;
+			} else {
+				offset += loc += tag.length();
+				currentString = currentString.substring(loc);
+			}
+			// Items:{}
+		}
+		String newNBT;
+
+		if (notfound == tags.length - 1) {
+			// No tags were found at all, append all to nbt
+			// This part would be much easier with string multiplication
+			String tagNBT = "";
+			String endTags = "";
+			for (String tag : tags) {
+				tagNBT += tag + ":{";
+				endTags += "}";
+			}
+			tagNBT = tagNBT.substring(0, tagNBT.length() - 1);
+			endTags = endTags.substring(0, endTags.length() - 1);
+
+			// Append new tags and nbt
+			newNBT = baseNBT.substring(0, baseNBT.length() - 1) + ", " + tagNBT + insertedNBT + endTags + "}";
+
+		} else if (notfound != -1) {
+			// TODO: Finish code for partially-completed tags
+			// Some tags were not found, insert at current offset
+			System.out.println("sometags not implemented");
+			insertedNBT = tags[notfound] + ":" + insertedNBT;
+			newNBT = baseNBT.substring(0, offset + 2) + insertedNBT + baseNBT.substring(offset + 3, baseNBT.length());
+		} else {
+			// All tags found, may be data within the tag so walk to end of current bracket
+			char[] nbtArray = baseNBT.toCharArray();
+			char bType = nbtArray[offset];
+			char pair = bType;
+			int end = offset;
+			switch (bType) {
+			case '[':
+				pair = ']';
+				break;
+			case '(':
+				pair = ')';
+				break;
+			case '{':
+				pair = '}';
+				break;
+			}
+
+			int depth = 1;
+			for (int i = offset + 1; i < baseNBT.length(); i++) {
+				if (nbtArray[i] == bType) {
+					depth++;
+					continue;
+				} else if (nbtArray[i] == pair) {
+					depth--;
+				}
+				if (depth == 0) {
+					// Found end of current tag range
+					end = i + 1;
+					break;
+				}
+			}
+			newNBT = baseNBT.substring(0, offset) + insertedNBT + baseNBT.substring(end, baseNBT.length());
+		}
+		return newNBT;
 	}
 
 	public static String getNBTOfEntity(Entity entity) throws ReflectionFailedException {
