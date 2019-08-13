@@ -18,7 +18,7 @@ import com.github.thedwellers.fyreplugin.configuration.ServerOperations;
  *
  * For more information about the Fyre project please view the documentation
  * @see https://github.com/the-dwellers/Fyre
- * @author WYVERN, Brandagot, Charged Byte
+ * @author WYVERN, Brandagot, ChargedByte
  * @version 0.1
  */
 public final class FyrePlugin extends JavaPlugin {
@@ -82,7 +82,7 @@ public final class FyrePlugin extends JavaPlugin {
 	}
 
 	private void serverSetUp() {
-		ServerOperations.createPlayerFolder(this.getDataFolder());
+		ServerOperations.createPlayerDataDirectory();
 	}
 
 	public static FyrePlugin getInstance() {
