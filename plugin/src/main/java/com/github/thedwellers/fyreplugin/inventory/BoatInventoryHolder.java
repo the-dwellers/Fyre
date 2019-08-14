@@ -24,11 +24,12 @@ public class BoatInventoryHolder implements InventoryHolder {
 	}
 
 	public void saveInventory() throws ReflectionFailedException {
-		Reflected.writeNBT(Reflected.inventoryToNBT(inventory), "Tags", boat);
+		Reflected.writeNBT(Reflected.inventoryTo64(inventory.getContents()), "Tags", boat);
 	}
 
 	public void readInventory() throws ReflectionFailedException {
-		ItemStack[] items = Reflected.nbtToInventory(Reflected.getTag(Reflected.getNBTOfEntity(boat), "Tags"));
+		System.out.println("read");
+		ItemStack[] items = Reflected.inventoryFrom64(Reflected.getTag(Reflected.getNBTOfEntity(boat), "Tags"));
 		if (items == null) {
 			// No items in boat
 			inventory.clear();

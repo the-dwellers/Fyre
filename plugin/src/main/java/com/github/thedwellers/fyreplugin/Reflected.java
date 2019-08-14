@@ -19,6 +19,8 @@ import org.bukkit.inventory.ItemStack;
 /**
  * Provides functions integrated into Net.Minecraft.Server via reflection Note:
  * due to the nature of reflection, this class is minecraft version-dependent!
+ * <p>
+ * * This file is a mess, i'll get around to cleaning up later - WYVERN
  *
  * @version Minecraft 1.14.4
  */
@@ -220,33 +222,47 @@ public abstract class Reflected {
 	}
 
 	public static String itemStackTo64(ItemStack item) throws ReflectionFailedException {
-		return Arrays.toString(Base64.getEncoder().encode(itemStackToNBT(item).getBytes(StandardCharsets.UTF_16)));
+		return Base64.getEncoder().withoutPadding().encodeToString(itemStackToNBT(item).getBytes(StandardCharsets.UTF_16));
 	}
 
 	public static ItemStack itemStackFrom64(String base64) throws ReflectionFailedException {
-		return nbtToItem(Arrays.toString(Base64.getDecoder().decode(base64)));
+		return nbtToItem(new String(Base64.getDecoder().decode(base64)));
 	}
 
-	public static String InventoryTo64(ItemStack[] items) throws ReflectionFailedException {
+	public static String inventoryTo64(ItemStack[] items) throws ReflectionFailedException {
 		String invString = "";
 		for (ItemStack item : items) {
-			invString += itemStackTo64(item) + "|";
+			if (item == null || item.getType() == Material.AIR) {
+				// Skip item if air
+				continue;
+			}
+			invString += "|" + itemStackTo64(item);
 		}
-		return invString;
+		return "I" + invString.substring(1);
 	}
 
-	// TODO: Convert inventory storage into base64 for serial
-	// public static ItemStack[] 64toInventory(String base64) throws ReflectionFailedException {
-	//  String[] item64s = base64.split("|");
-	//  ArrayList<ItemStack> items = new ArrayList<ItemStack>();
-	//  for (String item64 : item64s) {
-	//      ItemStack item = nbtToItem(item64);
-	//      if (item != null) {
-	//          items.add(item);
-	//      }
-	//  }
-	//  return new ItemStack[] {items.toArray(new ItemStack[items.size()])};
-	// }
+	public static ItemStack[] inventoryFrom64(String base64) throws ReflectionFailedException {
+		System.out.println(base64);
+		if (base64.length() < 3) {
+			return null;
+		}
+		base64 = base64.substring(1, base64.length()-1);
+		System.out.println(base64);
+		if (!base64.startsWith("I")) {
+			return null;
+		}
+		String[] item64s = base64.substring(1).split("|");
+		System.out.println(item64s.length);
+		ArrayList<ItemStack> items = new ArrayList<ItemStack>();
+		for (String item64 : item64s) {
+			ItemStack item = nbtToItem(item64);
+			if (item != null) {
+				items.add(item);
+			}
+		}
+
+		return items.toArray(new ItemStack[items.size()]);
+	}
 
 	/**
 	 * Writes the provided nbt under the given tag of the entity. Overwrites
@@ -282,6 +298,7 @@ public abstract class Reflected {
 	}
 
 	public static String getTag(String nbt, String tag) {
+		System.out.println("Get tag");
 		int loc = nbt.indexOf(tag);
 		int offset = loc + tag.length() + 1;
 		if (loc == -1) {
@@ -325,10 +342,9 @@ public abstract class Reflected {
 			// For obtaining nbt serialized in the Tags tag
 			nbt = destringifyNBT(nbt);
 			System.out.println(nbt);
-			return "{" + nbt.substring(2, nbt.length() - 2) + "}";
+			return "{" + nbt.substring(1, nbt.length() - 1) + "}";
 		}
 		return nbt;
-
 	}
 
 	public static String insertTag(String insertedNBT, String tagString, String baseNBT) {
