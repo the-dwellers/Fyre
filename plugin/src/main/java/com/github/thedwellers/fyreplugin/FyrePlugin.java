@@ -30,7 +30,7 @@ public final class FyrePlugin extends JavaPlugin {
 	private Permission vaultPerms;
 
 	// FIXME: 14.8.2019 Permission message doesn't get overwritten. Seems like Paper(Bukkit) is doing the permission handling instead of Vault (Maybe fixed with adding LuckPerms or something similar)
-	
+
 	public FyrePlugin() {
 		instance = this;
 	}
@@ -40,7 +40,7 @@ public final class FyrePlugin extends JavaPlugin {
 	}
 
 	public Permission getVaultPerms() { return vaultPerms; }
-	
+
 	@Override
 	public void onEnable() {
 		setupDependencies();
@@ -78,9 +78,7 @@ public final class FyrePlugin extends JavaPlugin {
 	private void registerListeners() {
 		getServer().getPluginManager().registerEvents(new BankerClick(), this);
 		getServer().getPluginManager().registerEvents(new BlockBreak(), this);
-		getServer().getPluginManager().registerEvents(new BoatClick(), this);
 		getServer().getPluginManager().registerEvents(new Dismount(), this);
-		getServer().getPluginManager().registerEvents(new InventoryClose(), this);
 		getServer().getPluginManager().registerEvents(new MerchantClick(), this);
 		getServer().getPluginManager().registerEvents(new PlayerChat(), this);
 		getServer().getPluginManager().registerEvents(new PlayerJoin(), this);
@@ -101,13 +99,13 @@ public final class FyrePlugin extends JavaPlugin {
 		} else {
 			RegisteredServiceProvider<Chat> chatService = getServer().getServicesManager().getRegistration(Chat.class);
 			RegisteredServiceProvider<Permission> permissionService = getServer().getServicesManager().getRegistration(Permission.class);
-			
+
 			if (permissionService == null) {
 				log.info("[Fyre] No Permission Services registered. Default permissions will be used");
 			} else {
 				this.vaultPerms = permissionService.getProvider();
 			}
-			
+
 			if (chatService == null) {
 				log.info("[Fyre] No Chat Services registered. Will use default Fyre values");
 			} else {
