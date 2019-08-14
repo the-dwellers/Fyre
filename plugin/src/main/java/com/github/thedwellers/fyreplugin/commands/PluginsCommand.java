@@ -1,24 +1,26 @@
 package com.github.thedwellers.fyreplugin.commands;
 
 import com.github.thedwellers.fyreplugin.configuration.Strings;
-
+import net.md_5.bungee.api.ChatColor;
+import net.md_5.bungee.api.chat.HoverEvent;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
-import net.md_5.bungee.api.ChatColor;
-import net.md_5.bungee.api.chat.HoverEvent;
-import net.md_5.bungee.api.chat.TextComponent;
-
 /**
  * Show which plugins are loaded by the server
  */
-public class PluginsCommand implements CommandExecutor {
+public class PluginsCommand extends AbstractCommand {
 
 	@Override
-	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+	public String getPermission() {
+		return "fyre.plugins.use";
+	}
+
+	@Override
+	public boolean execute(CommandSender sender, Command command, String label, String[] args) {
 		sender.sendMessage(getPlugins(sender, !(sender instanceof Player)));
 		return true;
 	}
