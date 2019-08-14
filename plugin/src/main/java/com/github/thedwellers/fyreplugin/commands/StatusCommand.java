@@ -1,30 +1,32 @@
 package com.github.thedwellers.fyreplugin.commands;
 
-import java.math.RoundingMode;
-import java.text.DecimalFormat;
-
 import com.github.thedwellers.fyreplugin.FyrePlugin;
 import com.github.thedwellers.fyreplugin.configuration.Strings;
-
-import org.bukkit.World;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
-import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
-
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
+import org.bukkit.World;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 
 /**
  * View server status information, such as ram usage, plugins, players, tps, etc
  */
-public class StatusCommand implements CommandExecutor {
-
+public class StatusCommand extends AbstractCommand {
+	
 	private FyrePlugin plugin = FyrePlugin.getInstance();
 
 	@Override
-	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+	public String getPermission() {
+		return "fyre.status.use";
+	}
+
+	@Override
+	public boolean execute(CommandSender sender, Command command, String label, String[] args) {
 		Player[] players = plugin.getServer().getOnlinePlayers()
 				.toArray(new Player[plugin.getServer().getOnlinePlayers().size()]);
 		boolean isPlayer = sender instanceof Player;

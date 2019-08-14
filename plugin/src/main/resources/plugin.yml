@@ -1,70 +1,104 @@
 name: Fyre
+description: The Fyre Plugin is a helper plugin to implement features such as server administration tools, merchant functionality, and a few other features.
 version: @version@
 main: com.github.thedwellers.fyreplugin.FyrePlugin
 api-version: 1.14
 load: STARTUP
+authors:
+  - WYVERN
+  - Brandagot
+  - ChargedByte
+website: https://github.com/the-dwellers/Fyre
+depend:
+  - Vault
 
 commands:
-  item:
-    description: Broadcast your currently held item to chat
-    usage: /item
-  debug:
-    description: Debug command
-    usage: /debug
   armor:
     description: Broadcast your currently equipped armor to chat
     usage: /armor
+    permission: fyre.armor.use
   bank:
-    description: Command for managing bankers
+    description: Manage banks, vaults and bankers
     usage: /bank
-    permission: fyre.bank
-    permission-message: You don't have 'fyre.bank'
+    permission: fyre.bank.use
+  debug:
+    description: Debug command
+    usage: /debug
+    permission: fyre.debug.use
+  item:
+    description: Broadcast your currently held item to chat
+    usage: /item
+    permission: fyre.item.use
   list:
-    description: See all players on the server
+    description: List all players on the server
     usage: /list
-    permission: fyre.list
-    permission-message: You don't have 'fyre.list'
+    permission: fyre.list.use
   merchant:
-    description: Command for managing merchants
+    description: Manager merchant and player tiers
     usage: /merchant
-    permission: fyre.merchant
-    permission-message: You don't have 'fyre.merchant'
-  status:
-    description: Show server's technical status
-    usage: /status
-    permission: fyre.status
-    permission-message: You don't have 'fyre.status'
+    permission: fyre.merchant.use
   money:
     description: Give player money
     usage: /money
+    permission: fyre.money.use
   plugins:
     description: List Enabled and Disabled server plugins
     usage: /plugins
     aliases: [pl, plu]
-    permission: fyre.plugins
-    permission-message: You don't have 'fyre.plugins'
+    permission: fyre.plugins.use
+  status:
+    description: Show server's technical status
+    usage: /status
+    permission: fyre.status.use
 
 permissions:
+  fyre.armor.use:
+    description: Allows the use of the armor command
+    default: true
+  fyre.bank.use:
+    description: Allows the basic usage of the bank command (Not administrative)
+    default: op
+  fyre.debug.use:
+    description: Allows the use of the debug command
+    default: op
+  fyre.item.use:
+    description: Allows the user of the item command
+    default: true
+  fyre.list.use:
+    description: Allows the use of the list command
+    default: true
+  fyre.merchant.use:
+    description: Allows the basic usage of the merchant command (Not administrative)
+    default: op
+  fyre.money.use:
+    description: Allows the use of the money command
+    default: op
+  fyre.plugins.use:
+    description: Allows the use of the plugins command
+    default: true
+  fyre.status.use:
+    description: Allows the use of the status command
+    default: true
+  fyre.user:
+    description: Default permission set for normal players
+    default: true
+    children: 
+      fyre.armor.use: true
+      fyre.item.use: true
+      fyre.list.use: true
+      fyre.plugins.use: true
+      fyre.status.use: true
+  fyre.admin:
+    description: Default set of admin permission
+    default: op
+    children: 
+      fyre.bank.use: true
+      fyre.debug.use: true
+      fyre.merchant.use: true
+      fyre.money.use: true
   fyre.*:
-    description: Gives access to all Fyre commands
+    description: Allows access to everything in Fyre
+    default: op
     children:
-      fyre.bank: true
-      fyre.list: true
-      fyre.merchant: true
-      fyre.status: true
-      fyre.plugins: true
-  fyre.bank:
-    description: Allows the user to manage the bankers
-    default: op
-  fyre.list:
-    description: Allows user to list all online players
-    default: true
-  fyre.merchant:
-    description: Allows the user to manage the merchants
-    default: op
-  fyre.status:
-    description: Allows the user to view information about the server
-    default: true
-  fyre.plugins:
-    description: Shows the user information about the server's plugins
-    default: true
+      fyre.user: true
+      fyre.admin: true
