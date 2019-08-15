@@ -28,7 +28,7 @@ public class MerchantClick implements Listener {
 
 					break;
 				case BUTCHER:
-					Bukkit.broadcastMessage(PlayerOperations.getMerchantTier("BUTHC", event.getPlayer().getUniqueId().toString()));
+					//Bukkit.broadcastMessage(PlayerOperations.getMerchantTier("BUTHC", event.getPlayer().getUniqueId().toString()));
 					break;
 				case CARTOGRAPHER:
 					break;
@@ -36,7 +36,7 @@ public class MerchantClick implements Listener {
 					break;
 				case FARMER:
 				//TODO: Define a list of recipes for each trader and the player tier
-					MerchantOperations.setFarmerRecipies(villager, PlayerOperations.getMerchantTier("FARMER", event.getPlayer().getUniqueId().toString()));
+					//MerchantOperations.setFarmerRecipies(villager, PlayerOperations.getMerchantTier("FARMER", event.getPlayer().getUniqueId().toString()));
 					break;
 				case FISHERMAN:
 					break;

@@ -2,9 +2,6 @@ package com.github.thedwellers.fyreplugin.configuration;
 
 import com.github.thedwellers.fyreplugin.FyrePlugin;
 
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
-
 import java.io.File;
 
 public class PlayerOperations {
@@ -26,12 +23,5 @@ public class PlayerOperations {
 		if (!merchant.exists()) {
 			PlayerConfiguration.createPlayerMerchantConfiguration(uuid);
 		}
-	}
-
-	public static String getMerchantTier(String merchantType, String uuid){
-		File playerFile = new File(plugin.getDataFolder() + File.separator + "player_data" + File.separator + uuid + ".yml");
-		FileConfiguration playerTiers = YamlConfiguration.loadConfiguration(playerFile);
-
-		return playerTiers.get(merchantType).toString();
 	}
 }
