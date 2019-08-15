@@ -11,14 +11,7 @@ public class PlayerJoin implements Listener {
 	public void onPlayerJoin(PlayerJoinEvent event){
 		Player player = event.getPlayer();
 		String uuid = player.getUniqueId().toString();
-<<<<<<< HEAD
-
-		if(!PlayerOperations.playerFileExists(uuid)){
-			PlayerOperations.configurePlayerData(uuid);
-		}
-=======
 		
 		PlayerOperations.initializePlayerConfiguration(uuid);
->>>>>>> 4a0c3a57af020de911603851cab42fab7d2c2cf1
 	}
 }
