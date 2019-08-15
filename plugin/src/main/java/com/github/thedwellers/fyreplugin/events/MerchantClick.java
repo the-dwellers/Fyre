@@ -1,7 +1,10 @@
 package com.github.thedwellers.fyreplugin.events;
 
+import com.github.thedwellers.fyreplugin.configuration.MerchantOperations;
 import com.github.thedwellers.fyreplugin.configuration.MerchantRecipeList;
+import com.github.thedwellers.fyreplugin.configuration.PlayerOperations;
 
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Villager;
@@ -25,6 +28,7 @@ public class MerchantClick implements Listener {
 
 					break;
 				case BUTCHER:
+					Bukkit.broadcastMessage(PlayerOperations.getMerchantTier("BUTHC", event.getPlayer().getUniqueId().toString()));
 					break;
 				case CARTOGRAPHER:
 					break;
@@ -32,7 +36,7 @@ public class MerchantClick implements Listener {
 					break;
 				case FARMER:
 				//TODO: Define a list of recipes for each trader and the player tier
-					villager.setRecipes(MerchantRecipeList.farmerTier1());
+					MerchantOperations.setFarmerRecipies(villager, PlayerOperations.getMerchantTier("FARMER", event.getPlayer().getUniqueId().toString()));
 					break;
 				case FISHERMAN:
 					break;

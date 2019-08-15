@@ -17,8 +17,8 @@ public class PlayerJoin implements Listener {
 		Player player = event.getPlayer();
 		String uuid = player.getUniqueId().toString();
 
-		if(!PlayerOperations.playerFileExists(uuid, plugin.getDataFolder())){
-			PlayerOperations.configurePlayerData(uuid, plugin.getDataFolder());
+		if(!PlayerOperations.playerFileExists(uuid)){
+			PlayerOperations.configurePlayerData(uuid);
 		}
 	}
 }

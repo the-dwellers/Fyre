@@ -11,7 +11,7 @@ public class MerchantRecipeList {
 	private static ItemStack item;
 	private static MerchantRecipe recipe;
 
-	public static List<MerchantRecipe> farmerTier1() {
+	public static List<MerchantRecipe> farmerTier0() {
 		List<MerchantRecipe> recipes = new ArrayList<MerchantRecipe>();
 
 		recipe = new MerchantRecipe((item = new ItemStack(Material.ACACIA_DOOR, 1)), 100);
