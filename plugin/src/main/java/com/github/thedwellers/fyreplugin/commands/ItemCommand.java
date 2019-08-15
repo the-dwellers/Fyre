@@ -11,12 +11,6 @@ import org.bukkit.entity.Player;
  * Displays the currently held item to main chat
  */
 public class ItemCommand extends AbstractCommand {
-
-	@Override
-	public String getPermission() {
-		return "fyre.item.use";
-	}
-
 	@Override
 	public boolean execute(CommandSender sender, Command command, String label, String[] args) {
 		if (sender instanceof Player) {

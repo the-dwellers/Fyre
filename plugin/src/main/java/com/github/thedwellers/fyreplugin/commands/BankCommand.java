@@ -5,18 +5,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 public class BankCommand extends AbstractCommand {
-
-	@Override
-	public String getPermission() {
-		return "fyre.bank.use";
-	}
-
 	@Override
 	public boolean execute(CommandSender sender, Command command, String label, String[] args) {
-		if (sender instanceof Player) {
-			sender.sendMessage("Hello there");
-			return true;
-		}
 		return false;
 	}
 }

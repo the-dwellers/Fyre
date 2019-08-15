@@ -11,12 +11,6 @@ import org.bukkit.entity.Player;
  * List the players currently online on the server.
  */
 public class ListCommand extends AbstractCommand {
-
-	@Override
-	public String getPermission() {
-		return "fyre.list.use";
-	}
-
 	@Override
 	public boolean execute(CommandSender sender, Command command, String label, String[] args) {
 		sender.spigot().sendMessage(getPlayers(sender, !(sender instanceof Player)));

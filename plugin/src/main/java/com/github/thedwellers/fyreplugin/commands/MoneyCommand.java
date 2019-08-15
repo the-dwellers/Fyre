@@ -9,12 +9,6 @@ import org.bukkit.entity.Player;
  * Gives the player 1 Silver Coin
  */
 public class MoneyCommand extends AbstractCommand {
-
-	@Override
-	public String getPermission() {
-		return "fyre.money.use";
-	}
-
 	@Override
 	public boolean execute(CommandSender sender, Command command, String label, String[] args) {
 		if (sender instanceof Player) {

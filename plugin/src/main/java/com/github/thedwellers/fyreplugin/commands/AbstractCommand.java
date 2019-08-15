@@ -17,15 +17,13 @@ public abstract class AbstractCommand implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		Permission perms = plugin.getVaultPerms();
 		
-		if (!perms.has(sender, getPermission())) {
+		if (!perms.has(sender, command.getPermission())) {
 			sender.sendMessage(Strings.NO_PERMISSION_COMMAND);
 			return true;
 		}
 		
 		return execute(sender, command, label, args);
 	}
-
-	public abstract String getPermission();
 	
 	public abstract boolean execute(CommandSender sender, Command command, String label, String[] args);
 }

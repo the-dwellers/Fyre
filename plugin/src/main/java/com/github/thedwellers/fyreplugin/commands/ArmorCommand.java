@@ -11,12 +11,6 @@ import org.bukkit.entity.Player;
  * Displays the currently worm armor set to chat
  */
 public class ArmorCommand extends AbstractCommand {
-	
-	@Override
-	public String getPermission() {
-		return "fyre.armor.use";
-	}
-
 	@Override
 	public boolean execute(CommandSender sender, Command command, String label, String[] args) {
 		if (sender instanceof Player) {

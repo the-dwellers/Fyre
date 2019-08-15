@@ -13,12 +13,6 @@ import org.bukkit.plugin.Plugin;
  * Show which plugins are loaded by the server
  */
 public class PluginsCommand extends AbstractCommand {
-
-	@Override
-	public String getPermission() {
-		return "fyre.plugins.use";
-	}
-
 	@Override
 	public boolean execute(CommandSender sender, Command command, String label, String[] args) {
 		sender.sendMessage(getPlugins(sender, !(sender instanceof Player)));

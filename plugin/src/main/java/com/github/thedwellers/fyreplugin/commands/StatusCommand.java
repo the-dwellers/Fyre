@@ -17,14 +17,8 @@ import java.text.DecimalFormat;
  * View server status information, such as ram usage, plugins, players, tps, etc
  */
 public class StatusCommand extends AbstractCommand {
-	
 	private FyrePlugin plugin = FyrePlugin.getInstance();
-
-	@Override
-	public String getPermission() {
-		return "fyre.status.use";
-	}
-
+	
 	@Override
 	public boolean execute(CommandSender sender, Command command, String label, String[] args) {
 		Player[] players = plugin.getServer().getOnlinePlayers()

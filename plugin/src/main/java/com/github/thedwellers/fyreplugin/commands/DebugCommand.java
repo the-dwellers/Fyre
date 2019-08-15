@@ -14,12 +14,6 @@ import org.bukkit.inventory.ItemStack;
  * Simple command for testing
  */
 public class DebugCommand extends AbstractCommand {
-
-	@Override
-	public String getPermission() {
-		return "fyre.debug.use";
-	}
-
 	@Override
 	public boolean execute(CommandSender sender, Command command, String label, String[] args) {
 		if (sender instanceof Player) {
