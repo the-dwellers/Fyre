@@ -14,26 +14,21 @@ import org.bukkit.inventory.ItemStack;
  * Provides functions integrated into Net.Minecraft.Server via reflection Note:
  * due to the nature of reflection, this class is minecraft version-dependent!
  * <p>
- * * This file is a mess, i'll get around to cleaning up later - WYVERN
- *
+ * ! Unoptimized. Should cache obtain classes for future reflection
  * @version Minecraft 1.14.4
  */
 public abstract class Reflected {
-
 	private static String version = Bukkit.getServer().getClass().getPackage().getName().replace(".", ",").split(",")[3]
 			+ ".";
 	private static String nmsClass = "net.minecraft.server." + version;
 	private static String obcClass = "org.bukkit.craftbukkit." + version;
 
 	/**
-	 * Serialize the provided ItemStack into its nbt string.
+	 * Serialize the provided {@link ItemStack} into an nbt string.
 	 * <p>
 	 * Due to the dependence on reflection, this method may fail entirely depending
-	 * on the minecraft version.
-	 * <p>
-	 *
+	 * on the minecraft version. Please check {@link Reflected} for supported versions.
 	 * <pre>
-	 * // functionally equal to:
 	 * net.minecraft.server.ItemStack nmsItemStack = CraftItemStack.asNMSCopy(itemStack);
 	 * net.minecraft.server.NBTTagCompound compound = new NBTTagCompound();
 	 * compound = nmsItemStack.save(compound);
@@ -46,7 +41,6 @@ public abstract class Reflected {
 	 *                                   during reflection
 	 */
 	public static String itemStackToNBT(ItemStack item) throws ReflectionFailedException {
-		// TODO: Add class and method caching for performance improvements
 		try {
 			// Get org.bukkit.inventory.CraftItemStack
 			Class<?> craftItemStackClass = Class.forName(obcClass + "inventory.CraftItemStack");
@@ -84,11 +78,10 @@ public abstract class Reflected {
 	/**
 	 * Converts the provided nbt string into an {@link ItemStack}
 	 * <p>
-	 * Due to the dependence on reflection, this method may fail entirely depending
-	 * on the minecraft version.
-	 * <p>
 	 * Returns {@code null} on an invalid nbt tag
-	 *
+	 * <p>
+	 * Due to the dependence on reflection, this method may fail entirely depending
+	 * on the minecraft version. Please check {@link Reflected} for supported versions.
 	 * <pre>
 	 * return (ItemStack) org.bukkit.craftbukkit.inventory.CraftItemStack
 	 *      .asBukkitCopy(net.minecraft.item.ItemStack(net.minecraft.mojangsonParser.parse((nbt)));
@@ -144,6 +137,22 @@ public abstract class Reflected {
 		}
 	}
 
+	/**
+	 * Returns the full nbt in a textual format of the provided entity.
+	 * <p>
+	 * Due to the dependence on reflection, this method may fail entirely depending
+	 * on the minecraft version. Please check {@link Reflected} for supported versions.
+	 * <pre>
+	 * net.minecraft.NBTTagCompound nbtData = new NBTTagCompound();
+	 * net.minecraft.Entity nmsEntity = ((org.bukkit.craftbukkit.CraftEntity) entity).getHandle();
+	 * nmsEntity.save(nbtData);
+	 * return nbtData.toString();
+	 * </pre>
+	 *
+	 * @param entity
+	 * @return
+	 * @throws ReflectionFailedException
+	 */
 	public static String getNBTOfEntity(Entity entity) throws ReflectionFailedException {
 		try {
 			// Get net.minecraft.Entity
@@ -156,7 +165,7 @@ public abstract class Reflected {
 			Method entitySave = nmsEntityClass.getMethod("save", NBTTagCompoundClass);
 
 			// net.minecraft.NBTTagCompound()
-			Object newTag = NBTTagCompoundClass.newInstance();
+			Object nbtData = NBTTagCompoundClass.newInstance();
 
 			// Get org.bukkit.craftbukkit.CraftEntity
 			Class<?> bukkitEntity = Class.forName(obcClass + "entity.CraftEntity");
@@ -171,12 +180,12 @@ public abstract class Reflected {
 			Object nmsEntity = getHandle.invoke(craftBukkitEntity);
 
 			// Save entity nbt to tag
-			entitySave.invoke(nmsEntity, newTag);
+			entitySave.invoke(nmsEntity, nbtData);
 
 			// Get net.minecraft.NBTTagCompoundClass#toString()
 			Method toString = NBTTagCompoundClass.getMethod("toString");
 
-			return (String) toString.invoke(newTag);
+			return (String) toString.invoke(nbtData);
 
 		} catch (LinkageError | ClassNotFoundException | NoSuchMethodException | IllegalAccessException
 				| InstantiationException | InvocationTargetException e) {
@@ -189,8 +198,7 @@ public abstract class Reflected {
 	 * nbt, otherwise errors may occur during gameplay.
 	 * <p>
 	 * Due to the dependence on reflection, this method may fail entirely depending
-	 * on the minecraft version.
-	 *
+	 * on the minecraft version. Please check {@link Reflected} for supported versions.
 	 * <pre>
 	 * net.minecraft.NBTTagCompound nbtTag = net.minecraft.mojangsonParser.parse((nbt))
 	 * net.minecraft.Entity ent = org.bukkit.craftbukkit.entity.CraftEntity.getHandle()
@@ -206,7 +214,6 @@ public abstract class Reflected {
 	 */
 	public static void saveNBTToEntity(String nbt, Entity entity) throws ReflectionFailedException {
 		try {
-
 			// Get net.minecraft.mojangsonParser
 			Class<?> mojangsonParserClass = Class.forName(nmsClass + "MojangsonParser");
 
