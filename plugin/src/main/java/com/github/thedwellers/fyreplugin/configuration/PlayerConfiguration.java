@@ -1,42 +1,45 @@
 package com.github.thedwellers.fyreplugin.configuration;
 
+import com.github.thedwellers.fyreplugin.FyrePlugin;
+import com.github.thedwellers.fyreplugin.model.BankModel;
+import com.github.thedwellers.fyreplugin.model.MerchantModel;
+import com.github.thedwellers.fyreplugin.util.FileUtil;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import java.io.File;
 import java.io.IOException;
 
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
-
 public class PlayerConfiguration {
-	public static void createPlayerFile(File playerFile) {
+	private static FyrePlugin plugin = FyrePlugin.getInstance();
+	private static Gson gson = new GsonBuilder().setPrettyPrinting().create();
+	private static File base = new File(plugin.getDataFolder(), "player_data");
+	
+	public static void createPlayerBankConfiguration(String uuid) {
+		File folder = new File(base, uuid);
+		File bank = new File(folder, "bank.json");
+		
+		BankModel bankConfig = new BankModel();
+		String json = gson.toJson(bankConfig);
+		
 		try {
-			if(!playerFile.exists()) {
-				playerFile.createNewFile();
-				defaultTiers(playerFile);
-			}
-		}catch(IOException e) {
-			e.printStackTrace();
+			FileUtil.writeAllText(bank, json);
+		} catch (IOException ex) {
+			ex.printStackTrace();
 		}
 	}
-
-	private static void defaultTiers(File playerFile) {
-		FileConfiguration playerConfig = YamlConfiguration.loadConfiguration(playerFile);
-		playerConfig.set("ARMORER", 0);
-		playerConfig.set("BUTCHER", 0);
-		playerConfig.set("CARTOGRAPHER", 0);
-		playerConfig.set("CLERIC", 0);
-		playerConfig.set("FARMER", 0);
-		playerConfig.set("FISHERMAN", 0);
-		playerConfig.set("FLETCHER", 0);
-		playerConfig.set("LEATHERWORKER", 0);
-		playerConfig.set("LIBRARIAN", 0);
-		playerConfig.set("MASON", 0);
-		playerConfig.set("SHEPERD", 0);
-		playerConfig.set("TOOLSMITH", 0);
-		playerConfig.set("WEAPONSMITH", 0);
+	
+	public static void createPlayerMerchantConfiguration(String uuid) {
+		File folder = new File(base, uuid);
+		File merchant = new File(folder, "merchant.json");
+		
+		MerchantModel merchantConfig = new MerchantModel();
+		String json = gson.toJson(merchantConfig);
+		
 		try {
-			playerConfig.save(playerFile);
-		} catch (IOException e) {
-			e.printStackTrace();
+			FileUtil.writeAllText(merchant, json);
+		} catch (IOException ex) {
+			ex.printStackTrace();
 		}
 	}
 }

@@ -1,19 +1,16 @@
 package com.github.thedwellers.fyreplugin.commands;
 
 import com.github.thedwellers.fyreplugin.configuration.Items;
-
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 /**
  * Gives the player 1 Silver Coin
  */
-public class MoneyCommand implements CommandExecutor {
-
+public class MoneyCommand extends AbstractCommand {
 	@Override
-	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+	public boolean execute(CommandSender sender, Command command, String label, String[] args) {
 		if (sender instanceof Player) {
 			Player player = (Player) sender;
 			player.getInventory().addItem(Items.getSilverCoin());

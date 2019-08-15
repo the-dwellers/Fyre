@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 import com.github.thedwellers.fyreplugin.commands.*;
 import com.github.thedwellers.fyreplugin.events.*;
 
+import net.milkbowl.vault.permission.Permission;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -18,7 +19,7 @@ import com.github.thedwellers.fyreplugin.configuration.ServerOperations;
  *
  * For more information about the Fyre project please view the documentation
  * @see https://github.com/the-dwellers/Fyre
- * @author WYVERN, Brandagot, Charged Byte
+ * @author WYVERN, Brandagot, ChargedByte
  * @version 0.1
  */
 public final class FyrePlugin extends JavaPlugin {
@@ -26,7 +27,10 @@ public final class FyrePlugin extends JavaPlugin {
 	private static FyrePlugin instance;
 	private static final Logger log = Logger.getLogger("Minecraft");
 	private Chat vaultChat;
+	private Permission vaultPerms;
 
+	// FIXME: 14.8.2019 Permission message doesn't get overwritten. Seems like Paper(Bukkit) is doing the permission handling instead of Vault (Maybe fixed with adding LuckPerms or something similar)
+	
 	public FyrePlugin() {
 		instance = this;
 	}
@@ -35,6 +39,8 @@ public final class FyrePlugin extends JavaPlugin {
 		return vaultChat;
 	}
 
+	public Permission getVaultPerms() { return vaultPerms; }
+	
 	@Override
 	public void onEnable() {
 		setupDependencies();
@@ -53,36 +59,36 @@ public final class FyrePlugin extends JavaPlugin {
 	 * Also attempts to replace {@code bukkit:plugins} with {@code fyre:plugins}
 	 */
 	private void registerCommands() {
-		this.getCommand("merchant").setExecutor(new MerchantCommand());
-		this.getCommand("status").setExecutor(new StatusCommand());
-		this.getCommand("list").setExecutor(new ListCommand());
-		this.getCommand("bank").setExecutor(new BankCommand());
-		this.getCommand("money").setExecutor(new MoneyCommand());
-		this.getCommand("item").setExecutor(new ItemCommand());
 		this.getCommand("armor").setExecutor(new ArmorCommand());
+		this.getCommand("bank").setExecutor(new BankCommand());
 		this.getCommand("debug").setExecutor(new DebugCommand());
-
+		this.getCommand("item").setExecutor(new ItemCommand());
+		this.getCommand("list").setExecutor(new ListCommand());
+		this.getCommand("merchant").setExecutor(new MerchantCommand());
+		this.getCommand("money").setExecutor(new MoneyCommand());
 		// Remove Bukkit plugin command
 		getServer().getCommandMap().getCommand("plugins");
 		this.getCommand("plugins").setExecutor(new PluginsCommand());
+		this.getCommand("status").setExecutor(new StatusCommand());
 	}
 
 	/**
 	 * Register all event listeners provided by the Fyre plugin.
 	 */
 	private void registerListeners() {
+		getServer().getPluginManager().registerEvents(new BankerClick(), this);
+		getServer().getPluginManager().registerEvents(new BlockBreak(), this);
+		getServer().getPluginManager().registerEvents(new BoatClick(), this);
+		getServer().getPluginManager().registerEvents(new Dismount(), this);
+		getServer().getPluginManager().registerEvents(new InventoryClose(), this);
+		getServer().getPluginManager().registerEvents(new MerchantClick(), this);
+		getServer().getPluginManager().registerEvents(new PlayerChat(), this);
 		getServer().getPluginManager().registerEvents(new PlayerJoin(), this);
 		getServer().getPluginManager().registerEvents(new PlayerPreProcessorCommand(), this);
-		getServer().getPluginManager().registerEvents(new BlockBreak(), this);
-		getServer().getPluginManager().registerEvents(new MerchantClick(), this);
-		getServer().getPluginManager().registerEvents(new BankerClick(), this);
-		getServer().getPluginManager().registerEvents(new PlayerChat(), this);
-		getServer().getPluginManager().registerEvents(new Dismount(), this);
-		getServer().getPluginManager().registerEvents(new BoatClick(), this);
 	}
 
 	private void serverSetUp() {
-		ServerOperations.createPlayerFolder(this.getDataFolder());
+		ServerOperations.createPlayerDataDirectory();
 	}
 
 	public static FyrePlugin getInstance() {
@@ -94,7 +100,14 @@ public final class FyrePlugin extends JavaPlugin {
 			log.warning("[Fyre] Vault is not installed, some features may be unavailable");
 		} else {
 			RegisteredServiceProvider<Chat> chatService = getServer().getServicesManager().getRegistration(Chat.class);
-
+			RegisteredServiceProvider<Permission> permissionService = getServer().getServicesManager().getRegistration(Permission.class);
+			
+			if (permissionService == null) {
+				log.info("[Fyre] No Permission Services registered. Default permissions will be used");
+			} else {
+				this.vaultPerms = permissionService.getProvider();
+			}
+			
 			if (chatService == null) {
 				log.info("[Fyre] No Chat Services registered. Will use default Fyre values");
 			} else {
