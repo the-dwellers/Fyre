@@ -62,7 +62,6 @@ public abstract class NBT {
 	private static int getOtherBracket(String text, int offset) {
 		char[] textArray = text.toCharArray();
 		char bracket = textArray[offset];
-		System.out.println(bracket);
 		char pair = getMatchingBracket(bracket);
 
 		if (pair == ' ') {

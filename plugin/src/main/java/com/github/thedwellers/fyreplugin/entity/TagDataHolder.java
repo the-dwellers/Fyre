@@ -2,6 +2,7 @@ package com.github.thedwellers.fyreplugin.entity;
 
 import java.util.Base64;
 
+import com.github.thedwellers.fyreplugin.NBT;
 import com.github.thedwellers.fyreplugin.Reflected;
 import com.github.thedwellers.fyreplugin.exceptions.ReflectionFailedException;
 
@@ -29,15 +30,20 @@ public abstract class TagDataHolder {
 	 */
 	protected abstract void deserialize();
 
-	protected static String toBase64(String string) {
+	protected static String encodeString(String string) {
 		return Base64.getEncoder().withoutPadding().encodeToString(string.getBytes());
 	}
 
-	protected static String fromBase64(String string) {
+	protected static String decodeString(String string) throws IllegalArgumentException {
 		return new String(Base64.getDecoder().decode(string.getBytes()));
 	}
 
 	protected void writeToEntity(String data) throws ReflectionFailedException {
-		String entityNBT = Reflected.getNBTOfEntity(entity);
+		Reflected.saveNBTToEntity(NBT.setTag(Reflected.getNBTOfEntity(entity), "Tags", data), entity);
 	}
+
+	protected String readFromEntity() throws ReflectionFailedException {
+		return NBT.getTag(Reflected.getNBTOfEntity(entity), "Tags", true);
+	}
+
 }
