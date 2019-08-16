@@ -40,10 +40,29 @@ public abstract class NBT {
 		return withBrackets ? nbt.substring(loc, end+1) : nbt.substring(loc+1, end);
 	}
 
+	public static String setTag(String nbt, String tag, String value){
+		// "{Motion:[0.0d, 8.054345348849565E-5d, 0.0d], UUIDLeast:-6817029289107105191L, Bukkit.updateLevel:2, Invulnerable:0b, Paper.SpawnReason:\"DEFAULT\", Air:300s, OnGround:0b, Dimension:0, PortalCooldown:0, Rotation:[211.95738f, 0.0f], FallDistance:0.0f, Type:\"oak\", UUIDMost:8470046131573966430L, Pos:[-537.2473562038786d, 62.52301890690381d, -66.44020438695996d], WorldUUIDMost:5463138192493594717L, Fire:-1s, Spigot.ticksLived:1207, WorldUUIDLeast:-8027480841958582722L, Tags:[\"I/v8AewBpAGQAOgAiAG0AaQBuAGUAYwByAGEAZgB0ADoAYQBjAGEAYwBpAGEAXwBsAG8AZwAiACwAQwBvAHUAbgB0ADoANgA0AGIAfQ\"], Paper.Origin:[-537.2473562038786d, 62.88888889551163d, -66.44020438695996d],}";
+		if (!value.startsWith("[") && !value.startsWith("{")) {
+			// Nbt not start with a bracket, wrap in {}
+			value = "{" + value + "}";
+		}
+
+		int loc = nbt.indexOf(tag);
+		if (loc == -1) {
+			loc = nbt.length()-1;
+			nbt = nbt.substring(0, loc) + ", " + tag+ ":";
+			return nbt + value + "}";
+		} else {
+			loc = loc + tag.length() + 1;
+			int end = getOtherBracket(nbt, loc) + 1;
+			return nbt.substring(0, loc) + value + nbt.substring(end, nbt.length());
+		}
+	}
 
 	private static int getOtherBracket(String text, int offset) {
 		char[] textArray = text.toCharArray();
 		char bracket = textArray[offset];
+		System.out.println(bracket);
 		char pair = getMatchingBracket(bracket);
 
 		if (pair == ' ') {
