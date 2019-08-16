@@ -15,13 +15,12 @@ import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 
 /**
- * TagInventory
+ * Represents an entity that contains an inventory defined within their 'Tags' nbt Tag.
  */
 public class TagInventory extends TagDataHolder implements InventoryHolder {
 
 	private Inventory inventory;
 	private boolean invRead;
-
 
 	public TagInventory(Entity entity) {
 		super(entity);
@@ -104,10 +103,16 @@ public class TagInventory extends TagDataHolder implements InventoryHolder {
 		return inventory;
 	}
 
+	/**
+	 * Update inventory stored from the entity.
+	 */
 	public void readInventory() {
 		deserialize();
 	}
 
+	/**
+	 * Save the current inventory to the entity.
+	 */
 	public void writeInventory() {
 		serialize();
 	}
