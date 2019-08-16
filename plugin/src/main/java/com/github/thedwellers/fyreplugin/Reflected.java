@@ -2,44 +2,33 @@ package com.github.thedwellers.fyreplugin;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Base64;
 import java.util.UUID;
 
 import com.github.thedwellers.fyreplugin.exceptions.ReflectionFailedException;
 
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
 import org.bukkit.entity.Entity;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 /**
  * Provides functions integrated into Net.Minecraft.Server via reflection Note:
  * due to the nature of reflection, this class is minecraft version-dependent!
  * <p>
- * * This file is a mess, i'll get around to cleaning up later - WYVERN
- *
+ * ! Unoptimized. Should cache obtain classes for future reflection
  * @version Minecraft 1.14.4
  */
 public abstract class Reflected {
-
 	private static String version = Bukkit.getServer().getClass().getPackage().getName().replace(".", ",").split(",")[3]
 			+ ".";
 	private static String nmsClass = "net.minecraft.server." + version;
 	private static String obcClass = "org.bukkit.craftbukkit." + version;
 
 	/**
-	 * Serialize the provided ItemStack into its nbt string.
+	 * Serialize the provided {@link ItemStack} into an nbt string.
 	 * <p>
 	 * Due to the dependence on reflection, this method may fail entirely depending
-	 * on the minecraft version.
-	 * <p>
-	 *
+	 * on the minecraft version. Please check {@link Reflected} for supported versions.
 	 * <pre>
-	 * // functionally equal to:
 	 * net.minecraft.server.ItemStack nmsItemStack = CraftItemStack.asNMSCopy(itemStack);
 	 * net.minecraft.server.NBTTagCompound compound = new NBTTagCompound();
 	 * compound = nmsItemStack.save(compound);
@@ -52,7 +41,6 @@ public abstract class Reflected {
 	 *                                   during reflection
 	 */
 	public static String itemStackToNBT(ItemStack item) throws ReflectionFailedException {
-		// TODO: Add class and method caching for performance improvements
 		try {
 			// Get org.bukkit.inventory.CraftItemStack
 			Class<?> craftItemStackClass = Class.forName(obcClass + "inventory.CraftItemStack");
@@ -88,40 +76,12 @@ public abstract class Reflected {
 	}
 
 	/**
-	 * Converts the provided inventory into NBT. Note that the nbt only consists of
-	 * the items stored within the inventory's {@code getContents()},
-	 * <p>
-	 * Due to the dependence on reflection, this method may fail entirely depending
-	 * on the minecraft version.
-	 *
-	 * @param inventory Inventory to be converted
-	 * @return Returns a NBT representation of the inventory in String format
-	 * @throws ReflectionFailedException thrown when any exception is encountered
-	 *                                   during reflection
-	 */
-	public static String inventoryToNBT(Inventory inventory) throws ReflectionFailedException {
-		ItemStack[] items = inventory.getContents();
-		String nbt = "[";
-		boolean first = true;
-		for (ItemStack item : items) {
-			if (!first) {
-				nbt += ", ";
-			}
-			nbt += itemStackToNBT(item);
-			first = false;
-		}
-		nbt += "]";
-		return nbt;
-	}
-
-	/**
 	 * Converts the provided nbt string into an {@link ItemStack}
 	 * <p>
-	 * Due to the dependence on reflection, this method may fail entirely depending
-	 * on the minecraft version.
-	 * <p>
 	 * Returns {@code null} on an invalid nbt tag
-	 *
+	 * <p>
+	 * Due to the dependence on reflection, this method may fail entirely depending
+	 * on the minecraft version. Please check {@link Reflected} for supported versions.
 	 * <pre>
 	 * return (ItemStack) org.bukkit.craftbukkit.inventory.CraftItemStack
 	 *      .asBukkitCopy(net.minecraft.item.ItemStack(net.minecraft.mojangsonParser.parse((nbt)));
@@ -178,254 +138,21 @@ public abstract class Reflected {
 	}
 
 	/**
-	 * Converts the provided NBT data into an array of itemstacks for construction
-	 * with a created inventory.
-	 * <p>
-	 * This assumes the provided nbt data does not include the {@code Items:} prefix
-	 * (and must start with <code>{</code>).
-	 * <p>
-	 * Returns {@code null} if the provided nbt is invalid, returns an empty
-	 * ItemStack[] if the nbt is valid but contains no items.
+	 * Returns the full nbt in a textual format of the provided entity.
 	 * <p>
 	 * Due to the dependence on reflection, this method may fail entirely depending
-	 * on the minecraft version.
+	 * on the minecraft version. Please check {@link Reflected} for supported versions.
+	 * <pre>
+	 * net.minecraft.NBTTagCompound nbtData = new NBTTagCompound();
+	 * net.minecraft.Entity nmsEntity = ((org.bukkit.craftbukkit.CraftEntity) entity).getHandle();
+	 * nmsEntity.save(nbtData);
+	 * return nbtData.toString();
+	 * </pre>
 	 *
-	 * @param nbt
-	 * @return Array of ItemStacks constructed from the provided NBT data.
-	 *         {@code null} if the provided nbt is invalid.
-	 * @throws ReflectionFailedException thrown when any exception is encountered
-	 *                                   during reflection
+	 * @param entity
+	 * @return
+	 * @throws ReflectionFailedException
 	 */
-	public static ItemStack[] nbtToInventory(String nbt) throws ReflectionFailedException {
-		if (!nbt.startsWith("{[") || !nbt.endsWith("]}")) {
-			// Mangled nbt
-			return null;
-		}
-
-		String nbtStack = nbt.substring(2, nbt.length() - 2);
-
-		String[] nbtItems = nbtStack.split(", ");
-		ArrayList<ItemStack> items = new ArrayList<ItemStack>();
-
-		for (String nbtItem : nbtItems) {
-			try {
-				items.add(nbtToItem(nbtItem));
-			} catch (ReflectionFailedException e) {
-				// something failed, might be broken data
-				// Use a glass block as debug for now
-				e.printStackTrace();
-				items.add(new ItemStack(Material.GLASS));
-			}
-		}
-
-		return items.toArray(new ItemStack[items.size()]);
-	}
-
-	public static String itemStackTo64(ItemStack item) throws ReflectionFailedException {
-		return Base64.getEncoder().withoutPadding().encodeToString(itemStackToNBT(item).getBytes(StandardCharsets.UTF_16));
-	}
-
-	public static ItemStack itemStackFrom64(String base64) throws ReflectionFailedException {
-		return nbtToItem(new String(Base64.getDecoder().decode(base64)));
-	}
-
-	public static String inventoryTo64(ItemStack[] items) throws ReflectionFailedException {
-		String invString = "";
-		for (ItemStack item : items) {
-			if (item == null || item.getType() == Material.AIR) {
-				// Skip item if air
-				continue;
-			}
-			invString += "|" + itemStackTo64(item);
-		}
-		return "I" + invString.substring(1);
-	}
-
-	public static ItemStack[] inventoryFrom64(String base64) throws ReflectionFailedException {
-		System.out.println(base64);
-		if (base64.length() < 3) {
-			return null;
-		}
-		base64 = base64.substring(1, base64.length()-1);
-		System.out.println(base64);
-		if (!base64.startsWith("I")) {
-			return null;
-		}
-		String[] item64s = base64.substring(1).split("|");
-		System.out.println(item64s.length);
-		ArrayList<ItemStack> items = new ArrayList<ItemStack>();
-		for (String item64 : item64s) {
-			ItemStack item = nbtToItem(item64);
-			if (item != null) {
-				items.add(item);
-			}
-		}
-
-		return items.toArray(new ItemStack[items.size()]);
-	}
-
-	/**
-	 * Writes the provided nbt under the given tag of the entity. Overwrites
-	 * anything under the tag.
-	 * <p>
-	 * Due to the dependence on reflection, this method may fail entirely depending
-	 * on the minecraft version.
-	 *
-	 * @param nbt    Nbt to write
-	 * @param tag    Tag to write nbt under
-	 * @param entity Entity to save nbt to
-	 * @throws ReflectionFailedException thrown when any exception is encountered
-	 *                                   during reflection
-	 */
-	public static void writeNBT(String nbt, String tagString, Entity entity) throws ReflectionFailedException {
-		if (tagString.equalsIgnoreCase("tags")) {
-			// For tag saving, nbt is stored as a string
-			nbt = "[" + stringifyNBT(nbt) + "]";
-		}
-		String nnbt = insertTag(nbt, tagString, getNBTOfEntity(entity));
-		saveNBTToEntity(nnbt, entity);
-	}
-
-	public static String stringifyNBT(String nbt) {
-		// nbt = nbt.replace("\"", "\\\"");
-		nbt = nbt.replace("'", "\\'");
-		return "'" + nbt + "'";
-	}
-
-	public static String destringifyNBT(String nbt) {
-		nbt = nbt.replace("\\'", "'");
-		return nbt.substring(1, nbt.length() - 1);
-	}
-
-	public static String getTag(String nbt, String tag) {
-		System.out.println("Get tag");
-		int loc = nbt.indexOf(tag);
-		int offset = loc + tag.length() + 1;
-		if (loc == -1) {
-			return "";
-		}
-
-		char[] nbtArray = nbt.toCharArray();
-		char bType = nbtArray[offset];
-		char pair = bType;
-		int end = offset;
-		switch (bType) {
-		case '[':
-			pair = ']';
-			break;
-		case '(':
-			pair = ')';
-			break;
-		case '{':
-			pair = '}';
-			break;
-		}
-
-		int depth = 1;
-		for (int i = offset + 1; i < nbt.length(); i++) {
-			if (nbtArray[i] == bType) {
-				depth++;
-				continue;
-			} else if (nbtArray[i] == pair) {
-				depth--;
-			}
-			if (depth == 0) {
-				// Found end of current tag range
-				end = i + 1;
-				break;
-			}
-		}
-
-		nbt = nbt.substring(offset, end);
-
-		if (tag.equalsIgnoreCase("tags")) {
-			// For obtaining nbt serialized in the Tags tag
-			nbt = destringifyNBT(nbt);
-			System.out.println(nbt);
-			return "{" + nbt.substring(1, nbt.length() - 1) + "}";
-		}
-		return nbt;
-	}
-
-	public static String insertTag(String insertedNBT, String tagString, String baseNBT) {
-		String currentString = baseNBT;
-		String[] tags = tagString.split("\\.");
-		int offset = 1;
-		int notfound = -1;
-
-		for (int i = 0; i < tags.length; i++) {
-			String tag = tags[i];
-			int loc = currentString.indexOf(tag);
-			if (loc == -1) {
-				// Tag not found
-				notfound = i;
-				break;
-			} else {
-				offset += loc += tag.length();
-				currentString = currentString.substring(loc);
-			}
-			// Items:{}
-		}
-		String newNBT;
-
-		if (notfound == tags.length - 1) {
-			// No tags were found at all, append all to nbt
-			// This part would be much easier with string multiplication
-			String tagNBT = "";
-			String endTags = "";
-			for (String tag : tags) {
-				tagNBT += tag + ":{";
-				endTags += "}";
-			}
-			tagNBT = tagNBT.substring(0, tagNBT.length() - 1);
-			endTags = endTags.substring(0, endTags.length() - 1);
-
-			// Append new tags and nbt
-			newNBT = baseNBT.substring(0, baseNBT.length() - 1) + ", " + tagNBT + insertedNBT + endTags + "}";
-
-		} else if (notfound != -1) {
-			// TODO: Finish code for partially-completed tags
-			// Some tags were not found, insert at current offset
-			System.out.println("sometags not implemented");
-			insertedNBT = tags[notfound] + ":" + insertedNBT;
-			newNBT = baseNBT.substring(0, offset + 2) + insertedNBT + baseNBT.substring(offset + 3, baseNBT.length());
-		} else {
-			// All tags found, may be data within the tag so walk to end of current bracket
-			char[] nbtArray = baseNBT.toCharArray();
-			char bType = nbtArray[offset];
-			char pair = bType;
-			int end = offset;
-			switch (bType) {
-			case '[':
-				pair = ']';
-				break;
-			case '(':
-				pair = ')';
-				break;
-			case '{':
-				pair = '}';
-				break;
-			}
-
-			int depth = 1;
-			for (int i = offset + 1; i < baseNBT.length(); i++) {
-				if (nbtArray[i] == bType) {
-					depth++;
-					continue;
-				} else if (nbtArray[i] == pair) {
-					depth--;
-				}
-				if (depth == 0) {
-					// Found end of current tag range
-					end = i + 1;
-					break;
-				}
-			}
-			newNBT = baseNBT.substring(0, offset) + insertedNBT + baseNBT.substring(end, baseNBT.length());
-		}
-		return newNBT;
-	}
-
 	public static String getNBTOfEntity(Entity entity) throws ReflectionFailedException {
 		try {
 			// Get net.minecraft.Entity
@@ -438,7 +165,7 @@ public abstract class Reflected {
 			Method entitySave = nmsEntityClass.getMethod("save", NBTTagCompoundClass);
 
 			// net.minecraft.NBTTagCompound()
-			Object newTag = NBTTagCompoundClass.newInstance();
+			Object nbtData = NBTTagCompoundClass.newInstance();
 
 			// Get org.bukkit.craftbukkit.CraftEntity
 			Class<?> bukkitEntity = Class.forName(obcClass + "entity.CraftEntity");
@@ -453,12 +180,12 @@ public abstract class Reflected {
 			Object nmsEntity = getHandle.invoke(craftBukkitEntity);
 
 			// Save entity nbt to tag
-			entitySave.invoke(nmsEntity, newTag);
+			entitySave.invoke(nmsEntity, nbtData);
 
 			// Get net.minecraft.NBTTagCompoundClass#toString()
 			Method toString = NBTTagCompoundClass.getMethod("toString");
 
-			return (String) toString.invoke(newTag);
+			return (String) toString.invoke(nbtData);
 
 		} catch (LinkageError | ClassNotFoundException | NoSuchMethodException | IllegalAccessException
 				| InstantiationException | InvocationTargetException e) {
@@ -471,8 +198,7 @@ public abstract class Reflected {
 	 * nbt, otherwise errors may occur during gameplay.
 	 * <p>
 	 * Due to the dependence on reflection, this method may fail entirely depending
-	 * on the minecraft version.
-	 *
+	 * on the minecraft version. Please check {@link Reflected} for supported versions.
 	 * <pre>
 	 * net.minecraft.NBTTagCompound nbtTag = net.minecraft.mojangsonParser.parse((nbt))
 	 * net.minecraft.Entity ent = org.bukkit.craftbukkit.entity.CraftEntity.getHandle()
@@ -488,7 +214,6 @@ public abstract class Reflected {
 	 */
 	public static void saveNBTToEntity(String nbt, Entity entity) throws ReflectionFailedException {
 		try {
-
 			// Get net.minecraft.mojangsonParser
 			Class<?> mojangsonParserClass = Class.forName(nmsClass + "MojangsonParser");
 

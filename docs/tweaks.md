@@ -17,3 +17,4 @@ Please keep in mind that this is mostly a note document rather than proper docum
 - [ ] Longer Days
 - [ ] Silk Touch spawners
 - [x] Saddled horses have AI disabled
+- [ ] Extended potion crafting

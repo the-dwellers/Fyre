@@ -1,41 +1,33 @@
 package com.github.thedwellers.fyreplugin.events;
 
-import com.github.thedwellers.fyreplugin.configuration.Strings;
-import com.github.thedwellers.fyreplugin.inventory.BoatInventoryHolder;
+import com.github.thedwellers.fyreplugin.entity.TagInventory;
 
-import org.bukkit.entity.Boat;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.inventory.EquipmentSlot;
 
-/**
- * BoatClick
- */
 public class BoatClick implements Listener {
-	@EventHandler()
+
+	@EventHandler
 	public void onPlayerInteractEntityEvent(PlayerInteractEntityEvent event) {
-		if (event.getHand() != EquipmentSlot.HAND) {
-			// Only process for main hand (run once)
-			return;
-		}
-		if (event.getRightClicked().getType() != EntityType.BOAT || !event.getPlayer().isSneaking()) {
+		if (!(event.getPlayer().isSneaking() && event.getHand() == EquipmentSlot.HAND)) {
 			return;
 		}
 
-		Player player = event.getPlayer();
-		Boat boat = (Boat) event.getRightClicked();
+		Entity entity = event.getRightClicked();
 
-		try {
-			BoatInventoryHolder boatHolder = new BoatInventoryHolder(boat);
-			boatHolder.readInventory();
-			player.openInventory(boatHolder.getInventory());
-
-		} catch (Exception e) {
-			player.sendMessage(Strings.OUT_PREFIX + Strings.C_ERROR + "Reflection failed: " + e.getMessage());
-			e.printStackTrace();
+		if (entity.getType() != EntityType.BOAT) {
+			return;
 		}
+
+		// TODO: Find a solution that fixes multiple players using the same inventory
+		// ! Currently the last closed inventory will overwrite any changes made by other players
+		// ? Perhaps look into preventing players opening the inventory while it's already open
+
+		TagInventory bInventory = new TagInventory(entity);
+		event.getPlayer().openInventory(bInventory.getInventory());
 	}
 }
