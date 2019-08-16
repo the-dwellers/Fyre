@@ -32,12 +32,12 @@ public class TagInventory extends TagDataHolder implements InventoryHolder {
 	@Override
 	protected void serialize() {
 		ItemStack[] items = inventory.getContents();
-		String invStr = "['I";
+		String invStr = "I";
 		for (ItemStack item : items) {
 			String itemStr = "";
 			try {
 				if (item != null && item.getType() != Material.AIR) {
-					itemStr = encodeString(Reflected.itemStackToNBT(item));
+					itemStr = Reflected.itemStackToNBT(item);
 				}
 			} catch (ReflectionFailedException e) {
 				e.printStackTrace();
@@ -46,7 +46,7 @@ public class TagInventory extends TagDataHolder implements InventoryHolder {
 			invStr += "|" + itemStr;
 		}
 		try {
-			writeToEntity(invStr + "']");
+			writeToEntity(invStr);
 		} catch (ReflectionFailedException e){
 			e.printStackTrace();
 		}
@@ -57,13 +57,11 @@ public class TagInventory extends TagDataHolder implements InventoryHolder {
 		inventory.clear();
 		try {
 			String nbt = readFromEntity();
-			if (nbt == null || nbt.length() < 6) {
+			if (nbt == null) {
 				// No inventory on entity
 				return;
 			}
 
-			// Strip brackets
-			nbt = nbt.substring(2,nbt.length()-2);
 			String[] sections = nbt.split("\\|");
 			if (sections.length < 2) {
 				// Invalid inventory, nothing to deserialize
@@ -82,7 +80,7 @@ public class TagInventory extends TagDataHolder implements InventoryHolder {
 					if (sections[i].length()< 2) {
 						itemList.add(new ItemStack(Material.AIR));
 					} else {
-						itemList.add(Reflected.nbtToItem(decodeString(sections[i])));
+						itemList.add(Reflected.nbtToItem(sections[i]));
 					}
 				} catch (ReflectionFailedException | IllegalArgumentException e) {
 					itemList.add(Items.getErrorItem());

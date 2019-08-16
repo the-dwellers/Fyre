@@ -39,11 +39,18 @@ public abstract class TagDataHolder {
 	}
 
 	protected void writeToEntity(String data) throws ReflectionFailedException {
+		data = encodeString(data);
+		data = "['" + data + "']";
 		Reflected.saveNBTToEntity(NBT.setTag(Reflected.getNBTOfEntity(entity), "Tags", data), entity);
 	}
 
 	protected String readFromEntity() throws ReflectionFailedException {
-		return NBT.getTag(Reflected.getNBTOfEntity(entity), "Tags", true);
+		String data = NBT.getTag(Reflected.getNBTOfEntity(entity), "Tags", true);
+		if (data != null) {
+			data = data.substring(2,data.length()-2);
+			data = decodeString(data);
+		}
+		return data;
 	}
 
 }
