@@ -8,7 +8,7 @@ Please keep in mind that this is mostly a note document rather than proper docum
 
 ## New Mechanics
 
-- [ ] Chests on boats
+- [x] Chests on boats
 - [ ] Mob on-hit events
 	- Phantoms Blind
 	- Zombies Slow
