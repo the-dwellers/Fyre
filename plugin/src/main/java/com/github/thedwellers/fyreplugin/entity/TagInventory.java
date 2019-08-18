@@ -2,7 +2,8 @@ package com.github.thedwellers.fyreplugin.entity;
 
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.UUID;
+import java.util.Iterator;
+import java.util.List;
 
 import com.github.thedwellers.fyreplugin.Reflected;
 import com.github.thedwellers.fyreplugin.configuration.Items;
@@ -11,6 +12,7 @@ import com.github.thedwellers.fyreplugin.exceptions.ReflectionFailedException;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.HumanEntity;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
@@ -126,5 +128,14 @@ public class TagInventory extends TagDataHolder implements InventoryHolder {
 	public void closeInventory() {
 		instances.remove(entity.getUniqueId().toString());
 		serialize();
+	}
+
+	public void forceCloseInventory(){
+		List<HumanEntity> viewers = inventory.getViewers();
+
+		Iterator<HumanEntity> it = viewers.iterator();
+		while (it.hasNext()) {
+			it.next().closeInventory();
+		}
 	}
 }

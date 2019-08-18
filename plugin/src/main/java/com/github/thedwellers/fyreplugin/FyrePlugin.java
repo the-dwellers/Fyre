@@ -93,6 +93,7 @@ public final class FyrePlugin extends JavaPlugin {
 		getServer().getPluginManager().registerEvents(new PlayerPreProcessorCommand(), this);
 		getServer().getPluginManager().registerEvents(new BoatClick(), this);
 		getServer().getPluginManager().registerEvents(new InventoryClosed(), this);
+		getServer().getPluginManager().registerEvents(new VehicleDestroy(), this);
 	}
 
 	private void serverSetUp() {
