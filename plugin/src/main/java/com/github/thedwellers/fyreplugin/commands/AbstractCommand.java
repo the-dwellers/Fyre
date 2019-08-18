@@ -12,12 +12,12 @@ import org.bukkit.command.CommandSender;
  */
 public abstract class AbstractCommand implements CommandExecutor {
 	private FyrePlugin plugin = FyrePlugin.getInstance();
-
+	
+	public abstract String getPermission();
+	
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-		Permission perms = plugin.getVaultPerms();
-		
-		if (!perms.has(sender, command.getPermission())) {
+		if (!sender.hasPermission(getPermission())) {
 			sender.sendMessage(Strings.NO_PERMISSION_COMMAND);
 			return true;
 		}

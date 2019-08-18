@@ -18,7 +18,12 @@ import java.text.DecimalFormat;
  */
 public class StatusCommand extends AbstractCommand {
 	private FyrePlugin plugin = FyrePlugin.getInstance();
-	
+
+	@Override
+	public String getPermission() {
+		return "fyre.status.use";
+	}
+
 	@Override
 	public boolean execute(CommandSender sender, Command command, String label, String[] args) {
 		Player[] players = plugin.getServer().getOnlinePlayers()

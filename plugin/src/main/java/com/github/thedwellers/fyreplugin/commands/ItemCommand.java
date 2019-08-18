@@ -12,6 +12,11 @@ import org.bukkit.entity.Player;
  */
 public class ItemCommand extends AbstractCommand {
 	@Override
+	public String getPermission() {
+		return "fyre.item.use";
+	}
+
+	@Override
 	public boolean execute(CommandSender sender, Command command, String label, String[] args) {
 		if (sender instanceof Player) {
 			Player player = (Player) sender;

@@ -33,8 +33,6 @@ public final class FyrePlugin extends JavaPlugin {
 	private Chat vaultChat;
 	private Permission vaultPerms;
 
-	// FIXME: 14.8.2019 Permission message doesn't get overwritten. Seems like Paper(Bukkit) is doing the permission handling instead of Vault (Maybe fixed with adding LuckPerms or something similar)
-
 	public FyrePlugin() {
 		instance = this;
 	}
