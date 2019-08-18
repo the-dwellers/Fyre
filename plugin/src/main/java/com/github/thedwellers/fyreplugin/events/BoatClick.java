@@ -8,6 +8,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.inventory.EquipmentSlot;
+import org.bukkit.inventory.Inventory;
 
 public class BoatClick implements Listener {
 
@@ -23,11 +24,14 @@ public class BoatClick implements Listener {
 			return;
 		}
 
-		// TODO: Find a solution that fixes multiple players using the same inventory
-		// ! Currently the last closed inventory will overwrite any changes made by other players
-		// ? Perhaps look into preventing players opening the inventory while it's already open
-
 		TagInventory bInventory = new TagInventory(entity);
-		event.getPlayer().openInventory(bInventory.getInventory());
+		Inventory inventory = bInventory.getInventory();
+		if (inventory == null) {
+			// * Remember: Open TagInventorys need to be closed with TagInventory#closeInventory()
+			// * before they can be opened again.
+			return;
+		} else {
+			event.getPlayer().openInventory(inventory);
+		}
 	}
 }
