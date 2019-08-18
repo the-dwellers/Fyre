@@ -1,7 +1,6 @@
 package com.github.thedwellers.fyreplugin.events;
 
 import com.github.thedwellers.fyreplugin.configuration.MerchantOperations;
-import com.github.thedwellers.fyreplugin.configuration.MerchantRecipeList;
 import com.github.thedwellers.fyreplugin.configuration.PlayerOperations;
 
 import org.bukkit.Bukkit;
@@ -17,6 +16,7 @@ public class MerchantClick implements Listener {
 	@EventHandler()
 	public void onPlayerInteractEntityEvent(PlayerInteractEntityEvent event) {
 		Entity entity = event.getRightClicked();
+		String playerUuid = event.getPlayer().getUniqueId().toString();
 
 		//sets trade options depending on villager profession and use tier
 		//TODO: get player tier for profession and set recipies.
@@ -28,15 +28,15 @@ public class MerchantClick implements Listener {
 
 					break;
 				case BUTCHER:
-					//Bukkit.broadcastMessage(PlayerOperations.getMerchantTier("BUTHC", event.getPlayer().getUniqueId().toString()));
+					// Bukkit.broadcastMessage(PlayerOperations.getMerchantTier("BUTHC", event.getPlayer().getUniqueId().toString()));
 					break;
 				case CARTOGRAPHER:
 					break;
 				case CLERIC:
 					break;
 				case FARMER:
-				//TODO: Define a list of recipes for each trader and the player tier
-					//MerchantOperations.setFarmerRecipies(villager, PlayerOperations.getMerchantTier("FARMER", event.getPlayer().getUniqueId().toString()));
+					// Bukkit.broadcastMessage(PlayerOperations.getMerchantTier(Villager.Profession.FARMER, playerUuid) + "");
+					MerchantOperations.setFarmerRecipes(villager, PlayerOperations.getMerchantTier(Villager.Profession.FARMER, playerUuid));
 					break;
 				case FISHERMAN:
 					break;
