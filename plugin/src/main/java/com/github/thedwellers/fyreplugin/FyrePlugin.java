@@ -6,12 +6,16 @@ import com.github.thedwellers.fyreplugin.commands.*;
 import com.github.thedwellers.fyreplugin.events.*;
 
 import net.milkbowl.vault.permission.Permission;
+
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import net.milkbowl.vault.chat.Chat;
 
 import com.github.thedwellers.fyreplugin.configuration.ServerOperations;
+import com.github.thedwellers.fyreplugin.entity.TagInventory;
 
 /**
  * The Fyre Plugin is a helper plugin to implement features such as server
@@ -51,6 +55,11 @@ public final class FyrePlugin extends JavaPlugin {
 
 	@Override
 	public void onDisable() {
+		for (Player player : Bukkit.getOnlinePlayers()) {
+			if (player.getOpenInventory().getTopInventory().getHolder().getClass() == TagInventory.class) {
+				((TagInventory) player.getOpenInventory().getTopInventory().getHolder()).closeInventory();
+			}
+		}
 	}
 
 	/**
@@ -82,6 +91,7 @@ public final class FyrePlugin extends JavaPlugin {
 		getServer().getPluginManager().registerEvents(new MerchantClick(), this);
 		getServer().getPluginManager().registerEvents(new PlayerChat(), this);
 		getServer().getPluginManager().registerEvents(new PlayerJoin(), this);
+		getServer().getPluginManager().registerEvents(new PlayerLeave(), this);
 		getServer().getPluginManager().registerEvents(new PlayerPreProcessorCommand(), this);
 		getServer().getPluginManager().registerEvents(new BoatClick(), this);
 		getServer().getPluginManager().registerEvents(new InventoryClosed(), this);

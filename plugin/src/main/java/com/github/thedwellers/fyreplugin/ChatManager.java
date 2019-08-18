@@ -23,6 +23,12 @@ import net.milkbowl.vault.chat.Chat;
  */
 public abstract class ChatManager {
 
+	private static void sendMessage(TextComponent text){
+		// Send to all players and console
+		Bukkit.broadcast(text);
+		Bukkit.getConsoleSender().sendMessage(text);
+	}
+
 	/**
 	 * Send the provided {@link TextComponent} to all players on the server as the
 	 * provided player. This is the default method for sending all chat messages.
@@ -55,23 +61,15 @@ public abstract class ChatManager {
 			suffix = vaultChat.getPlayerSuffix(player);
 		}
 
-		TextComponent playerName = new TextComponent(player.getDisplayName());
-		TextComponent playerHover = getPlayerHover(player);
-		playerHover.addExtra("\n" + Strings.C_MUTED + "Click to private message");
-		playerName.setHoverEvent(new HoverEvent(Action.SHOW_TEXT, new TextComponent[] { playerHover }));
-		playerName.setClickEvent(new ClickEvent(net.md_5.bungee.api.chat.ClickEvent.Action.SUGGEST_COMMAND, "/msg "+player.getName()+" "));
-
 		// Construct text message
 		// USERNAME: message
 		text.addExtra(prefix);
-		text.addExtra(playerName);
+		text.addExtra(getPlayerName(player));
 		text.addExtra(suffix);
 		text.addExtra(Strings.CHAT_DIVIDER);
 		text.addExtra(message);
 
-		// Send to all players and console
-		Bukkit.broadcast(text);
-		Bukkit.getConsoleSender().sendMessage(text);
+		sendMessage(text);
 	}
 
 	/**
@@ -378,20 +376,18 @@ public abstract class ChatManager {
 	}
 
 	/**
-	 * Returns a {@link TextComponent} that displays extra information about a user,
-	 * for use with {@link TextComponent#setHoverEvent(HoverEvent)}. Returned
-	 * TextComponent contains player statistics, such as playtime, session averages
-	 * and cake slices eaten.
-	 *
-	 * @param player Player to generate hover about.
-	 * @return TextComponent of player statistics for hover actions.
+	 * Returns a {@link TextComponent} that represents the provided player.
+	 * This component will also include hover-over and on-click functionality.
+	 * @param player Player to return TextComponent of
+	 * @return TextComponent of player's name with hover-overs and on-click functions.
 	 */
-	private static TextComponent getPlayerHover(Player player) {
+	private static TextComponent getPlayerName(Player player) {
+		TextComponent name = new TextComponent(player.getDisplayName());
 		TextComponent hover = new TextComponent();
 		hover.addExtra(Strings.C_ACCENT + "Stats for " + player.getName() + "\n");
 
 		// Playtime
-		int secondsPlayed = player.getStatistic(Statistic.PLAY_ONE_MINUTE) / 20 / 60;
+		int secondsPlayed = player.getStatistic(Statistic.PLAY_ONE_MINUTE) / 60;
 		hover.addExtra(Strings.C_DEFAULT + "Playtime: " + Strings.C_ACCENT
 				+ buildTime(Integer.toUnsignedLong(secondsPlayed), false) + "\n");
 
@@ -410,7 +406,10 @@ public abstract class ChatManager {
 		hover.addExtra(Strings.C_DEFAULT + "Cake Slices Eaten: " + Strings.C_ACCENT
 				+ player.getStatistic(Statistic.CAKE_SLICES_EATEN));
 
-		return hover;
+		hover.addExtra("\n" + Strings.C_MUTED + "Click to private message");
+		name.setHoverEvent(new HoverEvent(Action.SHOW_TEXT, new TextComponent[] { hover }));
+		name.setClickEvent(new ClickEvent(net.md_5.bungee.api.chat.ClickEvent.Action.SUGGEST_COMMAND, "/msg "+player.getName()+" "));
+		return name;
 	}
 
 	/**
@@ -446,5 +445,33 @@ public abstract class ChatManager {
 			return hours + " hours";
 		}
 		return hours + " hours and " + displayMinutes + " minutes";
+	}
+
+	/**
+	 * Announce to the server that a player has joined the server
+	 * @param player Player that joined the server
+	 */
+	public static void sendPlayerJoin(Player player) {
+		boolean firstJoin = (player.getStatistic(Statistic.LEAVE_GAME) == 0);
+		String message = firstJoin ? Strings.FIRST_JOIN_MESSAGE : Strings.JOIN_MESSAGE;
+		sendMessage(replaceValue("%1", message, getPlayerName(player)));
+	}
+
+	public static void sendPlayerLeave(Player player) {
+		sendMessage(replaceValue("%1", Strings.LEAVE_MESSAGE, getPlayerName(player)));
+	}
+
+	private static TextComponent replaceValue(String value, String message, TextComponent replacement){
+		String[] sections = message.split(" ");
+		TextComponent newMessage = new TextComponent();
+		for (String section : sections) {
+			if (section.equals(value)) {
+				newMessage.addExtra(replacement);
+				newMessage.addExtra(" ");
+			} else {
+				newMessage.addExtra(section + " ");
+			}
+		}
+		return newMessage;
 	}
 }

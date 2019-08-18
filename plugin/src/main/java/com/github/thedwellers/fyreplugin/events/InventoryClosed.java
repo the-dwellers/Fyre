@@ -19,7 +19,7 @@ public class InventoryClosed implements Listener {
 		}
 		TagInventory inv = (TagInventory) event.getInventory().getHolder();
 		if (inv != null) {
-			inv.writeInventory();
+			inv.closeInventory();
 		}
 	}
 }

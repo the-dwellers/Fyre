@@ -1,6 +1,8 @@
 package com.github.thedwellers.fyreplugin.entity;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.UUID;
 
 import com.github.thedwellers.fyreplugin.Reflected;
 import com.github.thedwellers.fyreplugin.configuration.Items;
@@ -20,10 +22,15 @@ import org.bukkit.inventory.ItemStack;
 public class TagInventory extends TagDataHolder implements InventoryHolder {
 
 	private Inventory inventory;
-	private boolean invRead;
+
+	private static HashSet<String> instances;
 
 	public TagInventory(Entity entity) {
 		super(entity);
+		if (instances == null) {
+			instances = new HashSet<String>();
+		}
+
 		this.inventory = Bukkit.createInventory(this, InventoryType.CHEST);
 		deserialize();
 	}
@@ -96,25 +103,28 @@ public class TagInventory extends TagDataHolder implements InventoryHolder {
 
 	@Override
 	public Inventory getInventory() {
-		if (!invRead) {
-			readInventory();
-			invRead = true;
+		if (instances.contains(entity.getUniqueId().toString())) {
+			return null;
 		}
+
+		instances.add(entity.getUniqueId().toString());
+
+		readInventory();
 		return inventory;
 	}
 
 	/**
 	 * Update inventory stored from the entity.
 	 */
-	public void readInventory() {
+	private void readInventory() {
 		deserialize();
 	}
 
 	/**
-	 * Save the current inventory to the entity.
+	 * Close and save the current inventory to the entity.
 	 */
-	public void writeInventory() {
+	public void closeInventory() {
+		instances.remove(entity.getUniqueId().toString());
 		serialize();
 	}
-
 }
