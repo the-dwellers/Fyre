@@ -14,6 +14,11 @@ import org.bukkit.plugin.Plugin;
  */
 public class PluginsCommand extends AbstractCommand {
 	@Override
+	public String getPermission() {
+		return "fyre.plugins.use";
+	}
+
+	@Override
 	public boolean execute(CommandSender sender, Command command, String label, String[] args) {
 		sender.sendMessage(getPlugins(sender, !(sender instanceof Player)));
 		return true;

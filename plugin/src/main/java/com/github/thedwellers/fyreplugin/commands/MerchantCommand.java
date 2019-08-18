@@ -6,6 +6,11 @@ import org.bukkit.entity.Player;
 
 public class MerchantCommand extends AbstractCommand {
 	@Override
+	public String getPermission() {
+		return "fyre.merchant.use";
+	}
+
+	@Override
 	public boolean execute(CommandSender sender, Command command, String label, String[] args) {
 		return false;
 	}
