@@ -36,4 +36,11 @@ public abstract class Strings {
 
 	/** Player is not allowed to use the command */
 	public static final String NO_PERMISSION_COMMAND = OUT_PREFIX + C_ERROR + "You are not allowed to use that command";
+
+	/** Prefix for server event messages */
+	public static final String SERVER_OUT = ChatColor.GOLD + ">" + ChatColor.YELLOW + " ";
+	/** Join Message. %1 is the player's name */
+	public static final String JOIN_MESSAGE = SERVER_OUT + "%1 has joined the server";
+	/** First Join Message. %1 is the player's name */
+	public static final String FIRST_JOIN_MESSAGE = SERVER_OUT + ChatColor.LIGHT_PURPLE + "Welcome %1 To Fyre for the first time!";
 }
