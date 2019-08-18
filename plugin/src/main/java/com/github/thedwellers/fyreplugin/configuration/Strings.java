@@ -46,4 +46,12 @@ public abstract class Strings {
 	public static final String FIRST_JOIN_MESSAGE = SERVER_OUT + ChatColor.LIGHT_PURPLE + "Welcome %1 To Fyre for the first time!";
 	/** Leave Message. %1 is the player's name */
 	public static final String LEAVE_MESSAGE = SERVER_OUT + "%1 has left the game";
+	
+	/** Default color for usage messages */
+	public static final String USAGE_DEFAULT = C_DEFAULT;
+	/** Color for required usage arguments */
+	public static final String USAGE_REQUIRED = ChatColor.GREEN + "";
+	/** Color for optional usage arguments */
+	public static final String USAGE_OPTIONAL = ChatColor.AQUA + "";
+	
 }

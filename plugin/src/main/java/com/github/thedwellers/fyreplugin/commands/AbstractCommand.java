@@ -2,7 +2,6 @@ package com.github.thedwellers.fyreplugin.commands;
 
 import com.github.thedwellers.fyreplugin.FyrePlugin;
 import com.github.thedwellers.fyreplugin.configuration.Strings;
-import net.milkbowl.vault.permission.Permission;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
