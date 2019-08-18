@@ -12,18 +12,28 @@ public abstract class Strings {
 	public static final String C_DEFAULT = ChatColor.GRAY + "";
 	/** Chat Muted Color */
 	public static final String C_MUTED = ChatColor.DARK_GRAY + "";
-	/** Chat Accept Color */
+	/** Chat Accent Color */
 	public static final String C_ACCENT = ChatColor.GOLD + "";
 	/** Chat Error Color */
 	public static final String C_ERROR = ChatColor.RED + "";
+	/** Chat Positive Color */
+	public static final String C_POSITIVE = ChatColor.GREEN + "";
+
 	/** Prefix for all command output */
 	public static final String OUT_PREFIX = ChatColor.GOLD + "> " + C_DEFAULT;
+
+	/** Default Player Chat Prefix */
+	public static final String CHAT_PREFIX = ChatColor.DARK_GREEN + "";
+	/** Default Player Chat Suffix */
+	public static final String CHAT_SUFFIX = "";
+	/** Chat Player Name and Message Divider */
+	public static final String CHAT_DIVIDER = ChatColor.RESET + ": ";
 
 	/** Player has no item in their hands */
 	public static final String NO_ITEM_HELD = OUT_PREFIX + C_ERROR + "There is no item in your hands";
 	/** Player is not wearing any armor */
 	public static final String NO_ITEM_WORN = OUT_PREFIX + C_ERROR + "You are not wearing any armor";
-	
+
 	/** Player is not allowed to use the command */
 	public static final String NO_PERMISSION_COMMAND = OUT_PREFIX + C_ERROR + "You are not allowed to use that command";
 }

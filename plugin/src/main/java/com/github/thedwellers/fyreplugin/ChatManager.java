@@ -7,10 +7,12 @@ import com.github.thedwellers.fyreplugin.exceptions.ReflectionFailedException;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.Statistic;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import net.md_5.bungee.api.ChatColor;
+import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.chat.HoverEvent.Action;
@@ -25,12 +27,16 @@ public abstract class ChatManager {
 	 * Send the provided {@link TextComponent} to all players on the server as the
 	 * provided player. This is the default method for sending all chat messages.
 	 * <p>
-	 * This function will automatically add the required prefixes and suffixes to the player's name.
-	 * This is done vua Vault, or by using the default in-built configuration.
+	 * This function will automatically add the required prefixes and suffixes to
+	 * the player's name. This is done vua Vault, or by using the default in-built
+	 * configuration.
 	 * <p>
-	 * For parsing of a players message, such as resolving {@code @hand}, use {@link ChatManager#sendPlayerMessage(Player,String)}
-	 * @param player Sender of the message
-	 * @param message TextComponent of the message to send. No Additional parsing will be performed on the message.
+	 * For parsing of a players message, such as resolving {@code @hand}, use
+	 * {@link ChatManager#sendPlayerMessage(Player,String)}
+	 *
+	 * @param player  Sender of the message
+	 * @param message TextComponent of the message to send. No Additional parsing
+	 *                will be performed on the message.
 	 */
 	public static void sendPlayerMessage(Player player, TextComponent message) {
 		// Master text component
@@ -40,8 +46,8 @@ public abstract class ChatManager {
 		Chat vaultChat = FyrePlugin.getInstance().getVaultChat();
 
 		// Setup prefix and suffix defaults
-		String prefix = "" + ChatColor.DARK_GREEN;
-		String suffix = "";
+		String prefix = Strings.CHAT_PREFIX;
+		String suffix = Strings.CHAT_SUFFIX;
 
 		if (vaultChat != null) {
 			// If vault provides a chat manager, then apply the suffix and prefix
@@ -49,12 +55,18 @@ public abstract class ChatManager {
 			suffix = vaultChat.getPlayerSuffix(player);
 		}
 
+		TextComponent playerName = new TextComponent(player.getDisplayName());
+		TextComponent playerHover = getPlayerHover(player);
+		playerHover.addExtra("\n" + Strings.C_MUTED + "Click to private message");
+		playerName.setHoverEvent(new HoverEvent(Action.SHOW_TEXT, new TextComponent[] { playerHover }));
+		playerName.setClickEvent(new ClickEvent(net.md_5.bungee.api.chat.ClickEvent.Action.SUGGEST_COMMAND, "/msg "+player.getName()+" "));
+
 		// Construct text message
 		// USERNAME: message
 		text.addExtra(prefix);
-		text.addExtra(player.getDisplayName());
+		text.addExtra(playerName);
 		text.addExtra(suffix);
-		text.addExtra(ChatColor.RESET + ": ");
+		text.addExtra(Strings.CHAT_DIVIDER);
 		text.addExtra(message);
 
 		// Send to all players and console
@@ -64,15 +76,20 @@ public abstract class ChatManager {
 
 	/**
 	 * Parses the provided string and returns a correctly formatted TextComponent.
-	 * This text component will contain additional information, such as items resolved from {@code @} notation within the message.
+	 * This text component will contain additional information, such as items
+	 * resolved from {@code @} notation within the message.
 	 * <p>
-	 * If any notations fail, a message is sent to the player, and the notation is replaced by a placeholder.
-	 * @param player Sender of the message. Will receive any error messages.
+	 * If any notations fail, a message is sent to the player, and the notation is
+	 * replaced by a placeholder.
+	 *
+	 * @param player  Sender of the message. Will receive any error messages.
 	 * @param message Message sent by the sender. This will be parsed.
-	 * @return Returns a constructed {@link TextComponent} with formatted {@code @} notations and any other parsing results
+	 * @return Returns a constructed {@link TextComponent} with formatted {@code @}
+	 *         notations and any other parsing results
 	 */
 	private static TextComponent parseTextMessage(Player player, String message) {
-		// Text Components keeps a rolling list of constructs to be added together at the end
+		// Text Components keeps a rolling list of constructs to be added together at
+		// the end
 		ArrayList<TextComponent> textComponents = new ArrayList<TextComponent>();
 		// Convert the message to a character array for easier token-checking
 		char[] chars = message.toCharArray();
@@ -81,7 +98,8 @@ public abstract class ChatManager {
 
 		// flag to state if current cursor is within a notated area
 		boolean inAt = false;
-		// @ notations cannot be larger than 10 characters long. Therefore use this size to construct
+		// @ notations cannot be larger than 10 characters long. Therefore use this size
+		// to construct
 		// an array to store the current notation
 		char[] atArray = new char[10];
 		int atArrayCount = 0;
@@ -106,7 +124,7 @@ public abstract class ChatManager {
 				textComponents.add((TextComponent) currentText.duplicate());
 
 				// Reset text component
-				currentText = new TextComponent(ChatColor.RESET+" ");
+				currentText = new TextComponent(ChatColor.RESET + " ");
 
 				// Mark current region
 				inAt = true;
@@ -134,7 +152,7 @@ public abstract class ChatManager {
 						if (offhand == null) {
 							// No item in offhand
 							player.sendMessage(Strings.NO_ITEM_HELD);
-							textComponents.add(new TextComponent(ChatColor.RED + "[Nothing]"));
+							textComponents.add(new TextComponent(Strings.C_ERROR + "[Nothing]"));
 						} else {
 							// Item in offhand
 							textComponents.add((TextComponent) offhand.duplicate());
@@ -150,8 +168,8 @@ public abstract class ChatManager {
 					TextComponent offhand = getItemText(getDisplayStackOffHand(player));
 					if (offhand == null) {
 						// No item in offhand
-							player.sendMessage(Strings.NO_ITEM_HELD);
-							textComponents.add(new TextComponent(ChatColor.RED + "[Nothing]"));
+						player.sendMessage(Strings.NO_ITEM_HELD);
+						textComponents.add(new TextComponent(Strings.C_ERROR + "[Nothing]"));
 					} else {
 						// Item in offhand
 						textComponents.add(offhand);
@@ -164,7 +182,7 @@ public abstract class ChatManager {
 					if (armor == null) {
 						// No armor worn
 						player.sendMessage(Strings.NO_ITEM_WORN);
-						textComponents.add(new TextComponent(ChatColor.RED + "[Nothing]"));
+						textComponents.add(new TextComponent(Strings.C_ERROR + "[Nothing]"));
 					} else {
 						// Armor worn
 						textComponents.add(armor);
@@ -204,10 +222,12 @@ public abstract class ChatManager {
 	}
 
 	/**
-	 * Sends the player's message to all chat after parsing via {@link ChatManager#parseTextMessage(Player, String)}
+	 * Sends the player's message to all chat after parsing via
+	 * {@link ChatManager#parseTextMessage(Player, String)}
+	 *
 	 * @see ChatManager#sendPlayerMessage(Player, TextComponent)
 	 * @see ChatManager#parseTextMessage(Player, String)
-	 * @param player Player to send message as
+	 * @param player  Player to send message as
 	 * @param message Message to send (will be parsed)
 	 */
 	public static void sendPlayerMessage(Player player, String message) {
@@ -215,14 +235,17 @@ public abstract class ChatManager {
 	}
 
 	/**
-	 * Get the {@link TextComponent} representing the provided {@link ItemStack}
-	 * If the provided {@link ItemStack} is Air, or invalid, {@code null} is returned.
+	 * Get the {@link TextComponent} representing the provided {@link ItemStack} If
+	 * the provided {@link ItemStack} is Air, or invalid, {@code null} is returned.
 	 * <p>
 	 * Supports stacks larger than 64
 	 * <p>
-	 * If any reflection issues are encountered, {@code TextComponent(ChatColor.RED + "[Invalid Item!]")} is returned.
+	 * If any reflection issues are encountered,
+	 * {@code TextComponent(Strings.C_ERROR + "[Invalid Item!]")} is returned.
+	 *
 	 * @param item Item to represent as a TextComponent
-	 * @return Returns {@code null} if the item is air or invalid. Otherwise a TextComponent representing the item
+	 * @return Returns {@code null} if the item is air or invalid. Otherwise a
+	 *         TextComponent representing the item
 	 */
 	public static TextComponent getItemText(ItemStack item) {
 		if (item == null || item.getType() == Material.AIR) {
@@ -266,15 +289,17 @@ public abstract class ChatManager {
 
 		} catch (ReflectionFailedException e) {
 			// Encountered an issue during reflection
-			return new TextComponent(ChatColor.RED + "[Invalid Item!]");
+			return new TextComponent(Strings.C_ERROR + "[Invalid Item!]");
 		}
 	}
 
 	/**
-	 * Obtains the ItemStack of the player's Main Hand item. This includes a quantity of all items
-	 * exactly like the held item in the player's inventory.
+	 * Obtains the ItemStack of the player's Main Hand item. This includes a
+	 * quantity of all items exactly like the held item in the player's inventory.
+	 *
 	 * @param player Player to get main hand item of
-	 * @return ItemStack of player's main hand, with a quantity of all items of the same kind in the player's inventory
+	 * @return ItemStack of player's main hand, with a quantity of all items of the
+	 *         same kind in the player's inventory
 	 * @see ChatManager#getDisplayStackOffHand(Player)
 	 * @see ChatManager#getArmourText(Player)
 	 */
@@ -294,11 +319,14 @@ public abstract class ChatManager {
 	}
 
 	/**
-	 * Returns a TextComponent representing all the worn armor of the player. Quite long!
+	 * Returns a TextComponent representing all the worn armor of the player. Quite
+	 * long!
 	 * <p>
 	 * If the player is not wearing any armor, {@code null} is returned
+	 *
 	 * @param player Player to obtain armor from
-	 * @return Returns {@code null} if the player is not wearing armor. Otherwise returns a TextComponent of all worn items
+	 * @return Returns {@code null} if the player is not wearing armor. Otherwise
+	 *         returns a TextComponent of all worn items
 	 * @see ChatManager#getItemText(ItemStack)
 	 * @see ChatManager#getDisplayStackMainHand(Player)
 	 * @see ChatManager#getDisplayStackOffHand(Player)
@@ -312,7 +340,7 @@ public abstract class ChatManager {
 				if (!isFirst) {
 					armorText.addExtra(new TextComponent(" "));
 				}
-				isFirst=false;
+				isFirst = false;
 				armorText.addExtra(getItemText(item));
 			}
 		}
@@ -324,10 +352,12 @@ public abstract class ChatManager {
 	}
 
 	/**
-	 * Obtains the ItemStack of the player's Off-Hand item. This includes a quantity of all items
-	 * exactly like the held item in the player's inventory.
+	 * Obtains the ItemStack of the player's Off-Hand item. This includes a quantity
+	 * of all items exactly like the held item in the player's inventory.
+	 *
 	 * @param player Player to get off-hand item of
-	 * @return ItemStack of player's off-hand, with a quantity of all items of the same kind in the player's inventory
+	 * @return ItemStack of player's off-hand, with a quantity of all items of the
+	 *         same kind in the player's inventory
 	 * @see ChatManager#getDisplayStackMainHand(Player)
 	 * @see ChatManager#getArmourText(Player)
 	 */
@@ -345,5 +375,76 @@ public abstract class ChatManager {
 		ItemStack newItem = item.clone();
 		newItem.setAmount(amount);
 		return newItem;
+	}
+
+	/**
+	 * Returns a {@link TextComponent} that displays extra information about a user,
+	 * for use with {@link TextComponent#setHoverEvent(HoverEvent)}. Returned
+	 * TextComponent contains player statistics, such as playtime, session averages
+	 * and cake slices eaten.
+	 *
+	 * @param player Player to generate hover about.
+	 * @return TextComponent of player statistics for hover actions.
+	 */
+	private static TextComponent getPlayerHover(Player player) {
+		TextComponent hover = new TextComponent();
+		hover.addExtra(Strings.C_ACCENT + "Stats for " + player.getName() + "\n");
+
+		// Playtime
+		int secondsPlayed = player.getStatistic(Statistic.PLAY_ONE_MINUTE) / 20 / 60;
+		hover.addExtra(Strings.C_DEFAULT + "Playtime: " + Strings.C_ACCENT
+				+ buildTime(Integer.toUnsignedLong(secondsPlayed), false) + "\n");
+
+		// Times disconnected, & Average Session Length
+		int timesDisconnected = player.getStatistic(Statistic.LEAVE_GAME);
+		if (timesDisconnected == 0) {
+			// Never disconnected, first session on server
+			hover.addExtra(Strings.C_POSITIVE + "First time on Fyre! Welcome them!" + "\n");
+		} else {
+			hover.addExtra(Strings.C_DEFAULT + "Average Session: " + Strings.C_ACCENT
+					+ buildTime(Integer.toUnsignedLong(secondsPlayed / timesDisconnected), false) + "\n");
+			hover.addExtra(Strings.C_DEFAULT + "Times Disconnected: " + Strings.C_ACCENT + timesDisconnected + "\n");
+		}
+
+		// Cake slices eaten
+		hover.addExtra(Strings.C_DEFAULT + "Cake Slices Eaten: " + Strings.C_ACCENT
+				+ player.getStatistic(Statistic.CAKE_SLICES_EATEN));
+
+		return hover;
+	}
+
+	/**
+	 * Returns a correctly formatted time string from the provided number of
+	 * seconds. Only shows seconds when they are less than a minute.
+	 *
+	 * @param seconds     Time in seconds
+	 * @param showSeconds if true, print seconds when hours are not displayed
+	 * @return Textual representation of time in english (E.g. 2 hours and 35
+	 *         minutes)
+	 */
+	private static String buildTime(long seconds, boolean showSeconds) {
+		long minutes = seconds / 60;
+		long hours = minutes / 60;
+		long displayMinutes = minutes % 60;
+		long displaySeconds = seconds % 60;
+
+		if (hours == 0) {
+			// No hours, so display minutes and seconds
+			if (displayMinutes == 0) {
+				// No minutes, only display seconds
+				return seconds + " seconds";
+			}
+			if (displaySeconds == 0 || !showSeconds) {
+				return displayMinutes + " minutes";
+			} else {
+				return displayMinutes + " minutes and " + displaySeconds + " seconds";
+			}
+		}
+		// Multiple hours, so only show hours and minutes
+		if (displayMinutes == 0) {
+			// No minutes, only display seconds
+			return hours + " hours";
+		}
+		return hours + " hours and " + displayMinutes + " minutes";
 	}
 }
