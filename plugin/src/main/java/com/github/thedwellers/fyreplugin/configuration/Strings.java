@@ -39,8 +39,11 @@ public abstract class Strings {
 
 	/** Prefix for server event messages */
 	public static final String SERVER_OUT = ChatColor.GOLD + ">" + ChatColor.YELLOW + " ";
+
 	/** Join Message. %1 is the player's name */
 	public static final String JOIN_MESSAGE = SERVER_OUT + "%1 has joined the server";
 	/** First Join Message. %1 is the player's name */
 	public static final String FIRST_JOIN_MESSAGE = SERVER_OUT + ChatColor.LIGHT_PURPLE + "Welcome %1 To Fyre for the first time!";
+	/** Leave Message. %1 is the player's name */
+	public static final String LEAVE_MESSAGE = SERVER_OUT + "%1 has left the game";
 }

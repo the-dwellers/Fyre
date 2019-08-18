@@ -453,17 +453,25 @@ public abstract class ChatManager {
 	 */
 	public static void sendPlayerJoin(Player player) {
 		boolean firstJoin = (player.getStatistic(Statistic.LEAVE_GAME) == 0);
-		String[] sections = firstJoin ? Strings.FIRST_JOIN_MESSAGE.split(" ") : Strings.JOIN_MESSAGE.split(" ");
-		TextComponent message = new TextComponent();
+		String message = firstJoin ? Strings.FIRST_JOIN_MESSAGE : Strings.JOIN_MESSAGE;
+		sendMessage(replaceValue("%1", message, getPlayerName(player)));
+	}
+
+	public static void sendPlayerLeave(Player player) {
+		sendMessage(replaceValue("%1", Strings.LEAVE_MESSAGE, getPlayerName(player)));
+	}
+
+	private static TextComponent replaceValue(String value, String message, TextComponent replacement){
+		String[] sections = message.split(" ");
+		TextComponent newMessage = new TextComponent();
 		for (String section : sections) {
-			System.out.println(section);
-			if (section.equals("%1")) {
-				message.addExtra(getPlayerName(player));
-				message.addExtra(" ");
+			if (section.equals(value)) {
+				newMessage.addExtra(replacement);
+				newMessage.addExtra(" ");
 			} else {
-				message.addExtra(section + " ");
+				newMessage.addExtra(section + " ");
 			}
 		}
-		sendMessage(message);
+		return newMessage;
 	}
 }
