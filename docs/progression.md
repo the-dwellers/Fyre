@@ -36,7 +36,7 @@ The `"frame"` option provides the outline shape of the advancement. There are th
 ### Welcome to Fyre
 
 Welcome to Fyre is the introductory tree for new players.
-I should have enough advancements to guide the player into using the core mechanics of Fyre.
+It should have enough advancements to guide the player into using the core mechanics of Fyre.
 This currently includes working with traders, buying recipes, and crafting.
 
 ![Flowchart of Welcome Advancements](img/Advancements-Welcome.png)
@@ -64,7 +64,7 @@ Note that this tree does not include adventuring in mines at the moment, but thi
 
 | Name                   | Alt-text                                                          | Requirements                   | Frame |
 | ---------------------- | ----------------------------------------------------------------- | ------------------------------ | ----- |
-| Mining                 | Exploiting the world for all it's worth                                | Obtain any Pickaxe             | Task  |
+| Mining                 | Exploiting the world for all it's worth                           | Obtain any Pickaxe             | Task  |
 | Stone Age              | Obtain a stone pickaxe. Actually useful                           | Obtain a Stone Pickaxe         | Task  |
 | Iron Age               | Obtain an iron pickaxe. One of the best                           | Obtain an Iron or Gold Pickaxe | Goal  |
 | Age of Gemstones       | Obtain an Diamond Pickaxe. Can't get better                       | Obtain a Diamond Pickaxe       | Goal  |
@@ -79,7 +79,7 @@ Note that this tree does not include adventuring in mines at the moment, but thi
 | Red-Bearded Dwarf      | Mine a full inventory of Stone. Where's the hole?                 | Plugin:Mine 1728 Stone         | Goal  |
 | No Longer in the Woods | Mine Lapis Lazuli. A Blue Magical Rock                            | Plugin:Mine Lapis              | Task  |
 | Rusty Stone            | Mine some Iron Ore.                                               | Plugin:Mine Iron Ore           | Task  |
-| Magnetite and Hematite | Mine a full inventory of Iron Ore. Metal of the ages, for ages!    | Plugin:Mine 1728 Iron Ore      | Task  |
+| Magnetite and Hematite | Mine a full inventory of Iron Ore. Metal of the ages, for ages!   | Plugin:Mine 1728 Iron Ore      | Task  |
 | Kingmaker              | Mine some gold! You've struck riches!                             | Plugin:Mine Gold Ore           | Task  |
 | Useless Material       | Mine some Diamonds! They're Kinda useless...                      | Plugin:Mine Diamond Ore        | Goal  |
 | Useful Gemstone        | Sell a diamond to a merchant, They're worth it                    | Sell Diamond Ore               | Task  |
