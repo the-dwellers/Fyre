@@ -12,7 +12,6 @@ import org.bukkit.entity.Player;
 
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
-import java.util.List;
 
 /**
  * View server status information, such as ram usage, plugins, players, tps, etc

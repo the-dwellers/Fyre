@@ -10,19 +10,19 @@ import org.bukkit.command.CommandSender;
  * Provides common functionality to Fyre's commands
  */
 public abstract class AbstractCommand implements CommandExecutor {
-	private FyrePlugin plugin = FyrePlugin.getInstance();
-	
+	protected FyrePlugin plugin = FyrePlugin.getInstance();
+
 	public abstract String getPermission();
-	
+
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		if (!sender.hasPermission(getPermission())) {
 			sender.sendMessage(Strings.NO_PERMISSION_COMMAND);
 			return true;
 		}
-		
+
 		return execute(sender, command, label, args);
 	}
-	
+
 	public abstract boolean execute(CommandSender sender, Command command, String label, String[] args);
 }

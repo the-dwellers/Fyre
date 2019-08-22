@@ -5,8 +5,6 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import java.util.List;
-
 /**
  * Gives the player 1 Silver Coin
  */

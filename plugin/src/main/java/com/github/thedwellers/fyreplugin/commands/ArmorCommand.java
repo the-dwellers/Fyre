@@ -7,8 +7,6 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import java.util.List;
-
 /**
  * Displays the currently worm armor set to chat
  */
