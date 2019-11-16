@@ -15,3 +15,4 @@ While also implementing mechanics, such as trading with vendors for items and ot
 - [Progression & Mechanics](./docs/progression.md)
 - [Datapack implementation information](./docs/datapack.md)
 - [Spigot Plugin information](./plugin/README.md)
+- [Tweaks and Ideas](./docs/Tweaks%20and%20Ideas.md)

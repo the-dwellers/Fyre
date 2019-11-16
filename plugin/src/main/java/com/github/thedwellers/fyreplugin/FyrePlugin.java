@@ -21,7 +21,8 @@ import com.github.thedwellers.fyreplugin.entity.TagInventory;
  * The Fyre Plugin is a helper plugin to implement features such as server
  * administration tools, merchant functionality, and a few other features.
  *
- * For more information about the Fyre project please view the documentation
+ * For more information about the Fyre project please view the documentation.
+ *
  * @see https://github.com/the-dwellers/Fyre
  * @author WYVERN, Brandagot, ChargedByte
  * @version 0.1
@@ -41,7 +42,9 @@ public final class FyrePlugin extends JavaPlugin {
 		return vaultChat;
 	}
 
-	public Permission getVaultPerms() { return vaultPerms; }
+	public Permission getVaultPerms() {
+		return vaultPerms;
+	}
 
 	@Override
 	public void onEnable() {
@@ -96,6 +99,7 @@ public final class FyrePlugin extends JavaPlugin {
 		getServer().getPluginManager().registerEvents(new InventoryClosed(), this);
 		getServer().getPluginManager().registerEvents(new VehicleDestroy(), this);
 		getServer().getPluginManager().registerEvents(new TickEnd(), this);
+		getServer().getPluginManager().registerEvents(new OnDamage(), this);
 	}
 
 	private void serverSetUp() {
@@ -111,7 +115,8 @@ public final class FyrePlugin extends JavaPlugin {
 			log.warning("[Fyre] Vault is not installed, some features may be unavailable");
 		} else {
 			RegisteredServiceProvider<Chat> chatService = getServer().getServicesManager().getRegistration(Chat.class);
-			RegisteredServiceProvider<Permission> permissionService = getServer().getServicesManager().getRegistration(Permission.class);
+			RegisteredServiceProvider<Permission> permissionService = getServer().getServicesManager()
+					.getRegistration(Permission.class);
 
 			if (permissionService == null) {
 				log.info("[Fyre] No Permission Services registered. Default permissions will be used");
