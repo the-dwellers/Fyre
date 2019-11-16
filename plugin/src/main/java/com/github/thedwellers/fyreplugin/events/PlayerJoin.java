@@ -1,5 +1,6 @@
 package com.github.thedwellers.fyreplugin.events;
 
+import com.github.thedwellers.fyreplugin.Attributes;
 import com.github.thedwellers.fyreplugin.ChatManager;
 import com.github.thedwellers.fyreplugin.configuration.PlayerOperations;
 import org.bukkit.entity.Player;
@@ -14,6 +15,7 @@ public class PlayerJoin implements Listener {
 		String uuid = player.getUniqueId().toString();
 
 		PlayerOperations.initializePlayerConfiguration(uuid);
+		Attributes.applyPlayer(player);
 
 		// Custom join message
 		event.setJoinMessage("");
