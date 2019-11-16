@@ -30,5 +30,11 @@ public class OnDamage implements Listener {
 		default:
 			break;
 		}
+
+		if (player.getHealth() != 1 && event.getFinalDamage() >= player.getHealth()) {
+			// One-shot protection
+			event.setDamage(0);
+			player.setHealth(1);
+		}
 	}
 }
