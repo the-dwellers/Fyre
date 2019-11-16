@@ -168,7 +168,7 @@ public class StatusCommand extends AbstractCommand {
 		responseText.addExtra(tpsText);
 
 		// RAM
-		TextComponent memoryText = new TextComponent(Strings.OUT_PREFIX);
+		TextComponent memoryText = new TextComponent(Strings.OUT_PREFIX + Strings.C_DEFAULT);
 
 		// Note that freeMemory() is the memory inside the JVM that is ready for new
 		// objects In the case of the server, we are only concerned with the amount of
@@ -183,7 +183,7 @@ public class StatusCommand extends AbstractCommand {
 
 		if (maxMemory == Integer.MAX_VALUE) {
 			// No max memory limit
-			memoryText.addExtra("Using " + Strings.C_ACCENT + usedMemory + "MB " + Strings.C_DEFAULT + "of RAM");
+			memoryText.addExtra("Using " + Strings.C_ACCENT + usedMemory + "MB " + Strings.C_DEFAULT + "of memory");
 		} else {
 			ChatColor memoryColor;
 			if (usedMemory > maxMemory * 0.9) {
