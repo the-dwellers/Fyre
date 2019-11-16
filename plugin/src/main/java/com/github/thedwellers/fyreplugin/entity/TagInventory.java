@@ -13,7 +13,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.HumanEntity;
-import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
@@ -33,7 +32,7 @@ public class TagInventory extends TagDataHolder implements InventoryHolder {
 			instances = new HashSet<String>();
 		}
 
-		this.inventory = Bukkit.createInventory(this, InventoryType.CHEST);
+		this.inventory = Bukkit.createInventory(this, 18);
 		deserialize();
 	}
 
