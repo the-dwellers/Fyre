@@ -1,7 +1,9 @@
 package com.github.thedwellers.fyreplugin.exceptions;
 
 /**
- * Exception to represent any issue encountered during reflection.
+ * Exception to represent any issue encountered during reflection. This is used
+ * as a catch all, since common reflection exceptions do not share an inherited
+ * exception.
  */
 public class ReflectionFailedException extends Exception {
 
