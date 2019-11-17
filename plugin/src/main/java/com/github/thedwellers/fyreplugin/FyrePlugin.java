@@ -101,6 +101,7 @@ public final class FyrePlugin extends JavaPlugin {
 		getServer().getPluginManager().registerEvents(new TickEnd(), this);
 		getServer().getPluginManager().registerEvents(new OnDamage(), this);
 		getServer().getPluginManager().registerEvents(new PlayerRespawn(), this);
+		getServer().getPluginManager().registerEvents(new EntitySpawn(), this);
 	}
 
 	private void serverSetUp() {
