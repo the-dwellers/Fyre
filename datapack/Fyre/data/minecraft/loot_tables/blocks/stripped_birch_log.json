@@ -49,7 +49,7 @@
 							"functions": [
 								{
 									"function": "minecraft:set_nbt",
-									"tag": "{display:{Name:\"\\\"§rSplinters\\\"\"}}"
+									"tag": "{AttributeModifiers:[{Slot:\"mainhand\", AttributeName:\"generic.attackDamage\", Name:\"generic.attackDamage\", Amount:2, Operation:0, UUIDLeast:894654, UUIDMost:2872}],display:{Name:\"\\\"§rSharp Splinters\\\"\", Lore:[\"\\\"§r§7A Bundle of rough sharp sticks\\\"\"]}}"
 								},
 								{
 									"function": "minecraft:set_count",
