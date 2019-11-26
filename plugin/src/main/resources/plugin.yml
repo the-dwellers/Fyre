@@ -1,8 +1,8 @@
 name: Fyre
 description: The Fyre Plugin is a helper plugin to implement features such as server administration tools, merchant functionality, and a few other features.
-version: @version@
+version: "@version@"
 main: com.github.thedwellers.fyreplugin.FyrePlugin
-api-version: 1.14
+api-version: "1.14"
 load: STARTUP
 authors:
   - WYVERN
@@ -73,7 +73,7 @@ permissions:
   fyre.user:
     description: Default permission set for normal players
     default: true
-    children: 
+    children:
       fyre.armor.use: true
       fyre.item.use: true
       fyre.list.use: true
@@ -82,7 +82,7 @@ permissions:
   fyre.admin:
     description: Default set of admin permission
     default: op
-    children: 
+    children:
       fyre.bank.use: true
       fyre.debug.use: true
       fyre.merchant.use: true
