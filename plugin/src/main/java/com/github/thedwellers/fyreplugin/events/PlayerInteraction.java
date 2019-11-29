@@ -28,7 +28,6 @@ public class PlayerInteraction implements Listener {
 			Snowball ball = player.launchProjectile(Snowball.class);
 			Item item = ball.getWorld().dropItem(ball.getLocation(), new ItemStack(Material.BRICK, 1));
 			ball.addPassenger(item);
-
 		}
 
 		// https://github.com/libraryaddict/LibsDisguises/blob/master/src/main/java/me/libraryaddict/disguise/disguisetypes/Disguise.java
