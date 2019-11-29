@@ -31,6 +31,7 @@ This document is mostly a note of mechanic ideas an tweak brainstorming, feedbac
 	- [x] Phantoms blind for 3 seconds
 	- [x] Zombies slow for 5 seconds
 	- [x] Enderman apply weakness for 10 seconds
+- [x] Glass breaks when fallen onto
 
 ## Mechanic ideas
 
