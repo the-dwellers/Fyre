@@ -2,6 +2,8 @@ package com.github.thedwellers.fyreplugin;
 
 import java.util.logging.Logger;
 
+import com.comphenix.protocol.ProtocolLibrary;
+import com.comphenix.protocol.ProtocolManager;
 import com.github.thedwellers.fyreplugin.commands.*;
 import com.github.thedwellers.fyreplugin.events.*;
 
@@ -33,6 +35,7 @@ public final class FyrePlugin extends JavaPlugin {
 	private static final Logger log = Logger.getLogger("Minecraft");
 	private Chat vaultChat;
 	private Permission vaultPerms;
+	public ProtocolManager protocolManager;
 
 	public FyrePlugin() {
 		instance = this;
@@ -103,6 +106,7 @@ public final class FyrePlugin extends JavaPlugin {
 		getServer().getPluginManager().registerEvents(new PlayerRespawn(), this);
 		getServer().getPluginManager().registerEvents(new EntitySpawn(), this);
 		getServer().getPluginManager().registerEvents(new FallDamage(), this);
+		getServer().getPluginManager().registerEvents(new PlayerInteraction(), this);
 	}
 
 	private void serverSetUp() {
@@ -132,6 +136,12 @@ public final class FyrePlugin extends JavaPlugin {
 			} else {
 				this.vaultChat = chatService.getProvider();
 			}
+		}
+
+		if (getServer().getPluginManager().getPlugin("Protocol Lib") == null) {
+			log.warning("[Fyre] Protocol Lib not installed, bricks will not be throwable");
+		} else {
+			protocolManager = ProtocolLibrary.getProtocolManager();
 		}
 	}
 }
