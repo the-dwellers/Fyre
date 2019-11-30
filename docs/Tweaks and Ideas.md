@@ -11,7 +11,7 @@ This document is mostly a note of mechanic ideas an tweak brainstorming, feedbac
 - [Tweaks and Ideas](#tweaks-and-ideas)
 	- [Confirmed / Implemented Mechanics](#confirmed--implemented-mechanics)
 	- [Mechanic ideas](#mechanic-ideas)
-	- [🐲 Aims and Thoughts](#-aims-and-thoughts)
+	- [🐲 Aims and Thoughts](#%f0%9f%90%b2-aims-and-thoughts)
 
 ---
 
@@ -32,13 +32,14 @@ This document is mostly a note of mechanic ideas an tweak brainstorming, feedbac
 	- [x] Zombies slow for 5 seconds
 	- [x] Enderman apply weakness for 10 seconds
 - [x] Glass breaks when fallen onto
+- [ ] Throwable bricks
+	- [ ] Hide snowball
+- [x] Rotten flesh in Composters
 
 ## Mechanic ideas
 
-- [ ] Rotten flesh in Composters
 - [ ] Death to invisible players hides their name from chat
 - [ ] Glass instantly broken with a held brick
-- [ ] Throwable bricks
 - [ ] Enchanting water bottles give bottle o' enchanting
 - [ ] Entities hit by enterperls swap places
 - [ ] Feather falling prevents farmland spoilage

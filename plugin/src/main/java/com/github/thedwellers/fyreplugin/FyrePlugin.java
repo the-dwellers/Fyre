@@ -108,6 +108,7 @@ public final class FyrePlugin extends JavaPlugin {
 		getServer().getPluginManager().registerEvents(new FallDamage(), this);
 		getServer().getPluginManager().registerEvents(new PlayerInteraction(protocolManager), this);
 		getServer().getPluginManager().registerEvents(new BrickHit(), this);
+		getServer().getPluginManager().registerEvents(new ComposterClick(), this);
 	}
 
 	private void serverSetUp() {
