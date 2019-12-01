@@ -1,11 +1,10 @@
 import hashlib
 import os
 import platform
+import requests
 import shutil
 import subprocess
 import sys
-
-import requests
 
 
 # Functions #
@@ -119,9 +118,9 @@ else:
 
 if not os.path.exists("plugins/Vault.jar"):
 	print("Downloading Vault...")
-	
+
 	download("https://dev.bukkit.org/projects/vault/files/2704903/download", "plugins/Vault.jar")
-	
+
 	print("Vault downloaded")
 
 print("Starting the server now")

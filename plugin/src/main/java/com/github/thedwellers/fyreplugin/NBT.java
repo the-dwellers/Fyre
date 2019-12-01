@@ -150,17 +150,17 @@ public abstract class NBT {
 	private static char getMatchingBracket(char bracket) {
 		char pair = ' ';
 		switch (bracket) {
-		case '[':
-			pair = ']';
-			break;
-		case '{':
-			pair = '}';
-			break;
-		case '(':
-			pair = ')';
-			break;
-		default:
-			break;
+			case '[':
+				pair = ']';
+				break;
+			case '{':
+				pair = '}';
+				break;
+			case '(':
+				pair = ')';
+				break;
+			default:
+				break;
 		}
 		return pair;
 	}
@@ -169,6 +169,7 @@ public abstract class NBT {
 	 * Returns true if the provided bracket is an opening bracket.
 	 * <p>
 	 * Currently checks for '{', '[', '('
+	 *
 	 * @param bracket Bracket to check
 	 * @return True if bracket is an opening bracket, false otherwise
 	 */
@@ -180,6 +181,7 @@ public abstract class NBT {
 	 * Returns true if the provided bracket is a closing bracket.
 	 * <p>
 	 * Currently checks for '}', ']', ')'
+	 *
 	 * @param bracket Bracket to check
 	 * @return True if bracket is a closing bracket, false otherwise
 	 */

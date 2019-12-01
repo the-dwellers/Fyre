@@ -25,18 +25,18 @@ public abstract class Attributes {
 	public static void applyMob(Entity entity) {
 		if (entity instanceof Attributable) {
 			switch (entity.getType()) {
-			case ZOMBIE:
-			case SKELETON:
-			case SPIDER:
-			case ENDERMAN:
-				applyOverworldHostile((Attributable) entity);
-				break;
-			case BLAZE:
-			case GHAST:
-			case WITHER_SKELETON:
-				applyNetherHostile((Attributable) entity);
-			default:
-				break;
+				case ZOMBIE:
+				case SKELETON:
+				case SPIDER:
+				case ENDERMAN:
+					applyOverworldHostile((Attributable) entity);
+					break;
+				case BLAZE:
+				case GHAST:
+				case WITHER_SKELETON:
+					applyNetherHostile((Attributable) entity);
+				default:
+					break;
 			}
 		}
 	}

@@ -17,18 +17,18 @@ public class OnDamage implements Listener {
 		Player player = (Player) event.getEntity();
 
 		switch (event.getDamager().getType()) {
-		case ZOMBIE:
-			// ? why is duration in ticks??
-			player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 5 * 20, 1));
-			break;
-		case PHANTOM:
-			player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 5 * 20, 0));
-			break;
-		case ENDERMAN:
-			player.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 10 * 20, 0));
-			break;
-		default:
-			break;
+			case ZOMBIE:
+				// ? why is duration in ticks??
+				player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 5 * 20, 1));
+				break;
+			case PHANTOM:
+				player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 5 * 20, 0));
+				break;
+			case ENDERMAN:
+				player.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 10 * 20, 0));
+				break;
+			default:
+				break;
 		}
 
 		if (player.getHealth() != 1 && event.getFinalDamage() >= player.getHealth()) {

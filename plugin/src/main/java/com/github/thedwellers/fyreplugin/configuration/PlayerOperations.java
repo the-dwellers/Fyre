@@ -5,10 +5,7 @@ import com.github.thedwellers.fyreplugin.model.MerchantModel;
 import com.github.thedwellers.fyreplugin.util.FileUtil;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-
 import org.bukkit.entity.Villager;
-
-import lombok.Builder.Default;
 
 import java.io.File;
 import java.io.IOException;
@@ -44,37 +41,37 @@ public class PlayerOperations {
 			merchant = gson.fromJson(json, MerchantModel.class);
 
 			switch (merchantType) {
-			case ARMORER:
-				return merchant.getArmorer(); 
-			case BUTCHER:
-				return merchant.getButcher();
-			case CARTOGRAPHER:
-				return merchant.getCartographer();
-			case CLERIC:
-				return merchant.getCleric();
-			case FARMER:
-				return merchant.getFarmer();
-			case FISHERMAN:
-				return merchant.getFisherman();
-			case FLETCHER:
-				return merchant.getFletcher();
-			case LEATHERWORKER:
-				return merchant.getLeatherworker();
-			case LIBRARIAN:
-				return merchant.getLibrarian();
-			case MASON:
-				return merchant.getMason();
-			case SHEPHERD:
-				return merchant.getShepherd();
-			case TOOLSMITH:
-				return merchant.getToolsmith();
-			case WEAPONSMITH:
-				return merchant.getWeaponsmith();
-			case NONE:
-				return 0;
-			default:
-				return 0;
-			} 
+				case ARMORER:
+					return merchant.getArmorer();
+				case BUTCHER:
+					return merchant.getButcher();
+				case CARTOGRAPHER:
+					return merchant.getCartographer();
+				case CLERIC:
+					return merchant.getCleric();
+				case FARMER:
+					return merchant.getFarmer();
+				case FISHERMAN:
+					return merchant.getFisherman();
+				case FLETCHER:
+					return merchant.getFletcher();
+				case LEATHERWORKER:
+					return merchant.getLeatherworker();
+				case LIBRARIAN:
+					return merchant.getLibrarian();
+				case MASON:
+					return merchant.getMason();
+				case SHEPHERD:
+					return merchant.getShepherd();
+				case TOOLSMITH:
+					return merchant.getToolsmith();
+				case WEAPONSMITH:
+					return merchant.getWeaponsmith();
+				case NONE:
+					return 0;
+				default:
+					return 0;
+			}
 
 		} catch (IOException e) {
 			e.printStackTrace();

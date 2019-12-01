@@ -1,7 +1,6 @@
 package com.github.thedwellers.fyreplugin.events;
 
 import com.github.thedwellers.fyreplugin.FyrePlugin;
-
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -9,7 +8,7 @@ import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 
 /**
  * Event to be executed when a command is attempted to be ran by a player.
- *
+ * <p>
  * This is currently present to catch all calls to {@code bukkit:plugins} and convert
  * them to {@code fyre:plugins}
  */

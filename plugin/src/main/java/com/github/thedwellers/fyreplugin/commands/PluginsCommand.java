@@ -13,17 +13,6 @@ import org.bukkit.plugin.Plugin;
  * Show which plugins are loaded by the server
  */
 public class PluginsCommand extends AbstractCommand {
-	@Override
-	public String getPermission() {
-		return "fyre.plugins.use";
-	}
-
-	@Override
-	public boolean execute(CommandSender sender, Command command, String label, String[] args) {
-		sender.sendMessage(getPlugins(sender, !(sender instanceof Player)));
-		return true;
-	}
-
 	public static TextComponent getPlugins(CommandSender sender) {
 		return getPlugins(sender, false);
 	}
@@ -46,7 +35,7 @@ public class PluginsCommand extends AbstractCommand {
 
 		TextComponent pluginText = new TextComponent(Strings.OUT_PREFIX + "In total, there are " + Strings.C_ACCENT + enabled + Strings.C_DEFAULT + " enabled plugins");
 		if (isPlayer) {
-			pluginText.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TextComponent[] { buildLongForm(plugins) }));
+			pluginText.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TextComponent[]{buildLongForm(plugins)}));
 		}
 		return pluginText;
 
@@ -64,5 +53,16 @@ public class PluginsCommand extends AbstractCommand {
 			}
 		}
 		return text;
+	}
+
+	@Override
+	public String getPermission() {
+		return "fyre.plugins.use";
+	}
+
+	@Override
+	public boolean execute(CommandSender sender, Command command, String label, String[] args) {
+		sender.sendMessage(getPlugins(sender, !(sender instanceof Player)));
+		return true;
 	}
 }

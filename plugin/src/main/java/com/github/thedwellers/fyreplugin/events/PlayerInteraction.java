@@ -1,7 +1,6 @@
 package com.github.thedwellers.fyreplugin.events;
 
 import com.comphenix.protocol.ProtocolManager;
-
 import org.bukkit.Material;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;

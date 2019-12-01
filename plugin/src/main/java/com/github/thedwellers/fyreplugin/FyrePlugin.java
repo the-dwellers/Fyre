@@ -1,44 +1,44 @@
 package com.github.thedwellers.fyreplugin;
 
-import java.util.logging.Logger;
-
 import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.ProtocolManager;
 import com.github.thedwellers.fyreplugin.commands.*;
+import com.github.thedwellers.fyreplugin.configuration.ServerOperations;
+import com.github.thedwellers.fyreplugin.entity.TagInventory;
 import com.github.thedwellers.fyreplugin.events.*;
-
+import net.milkbowl.vault.chat.Chat;
 import net.milkbowl.vault.permission.Permission;
-
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import net.milkbowl.vault.chat.Chat;
-
-import com.github.thedwellers.fyreplugin.configuration.ServerOperations;
-import com.github.thedwellers.fyreplugin.entity.TagInventory;
+import java.util.logging.Logger;
 
 /**
  * The Fyre Plugin is a helper plugin to implement features such as server
  * administration tools, merchant functionality, and a few other features.
- *
+ * <p>
  * For more information about the Fyre project please view the documentation.
  *
- * @see https://github.com/the-dwellers/Fyre
  * @author WYVERN, Brandagot, ChargedByte
  * @version 0.1
+ * @see https://github.com/the-dwellers/Fyre
  */
 public final class FyrePlugin extends JavaPlugin {
 
-	private static FyrePlugin instance;
 	private static final Logger log = Logger.getLogger("Minecraft");
+	private static FyrePlugin instance;
+	public ProtocolManager protocolManager;
 	private Chat vaultChat;
 	private Permission vaultPerms;
-	public ProtocolManager protocolManager;
 
 	public FyrePlugin() {
 		instance = this;
+	}
+
+	public static FyrePlugin getInstance() {
+		return instance;
 	}
 
 	public Chat getVaultChat() {
@@ -113,10 +113,6 @@ public final class FyrePlugin extends JavaPlugin {
 
 	private void serverSetUp() {
 		ServerOperations.createPlayerDataDirectory();
-	}
-
-	public static FyrePlugin getInstance() {
-		return instance;
 	}
 
 	private void setupDependencies() {

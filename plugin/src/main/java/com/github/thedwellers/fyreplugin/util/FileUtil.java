@@ -11,12 +11,14 @@ import java.util.List;
 
 /**
  * An utility class to interact with {@code java.io.File}s
- * @see java.io.File
+ *
  * @author ChargedByte
+ * @see java.io.File
  */
 public final class FileUtil {
 	/**
 	 * Reads the file and returns a String of the contents of the file
+	 *
 	 * @param file Target file
 	 * @return Contents of the file
 	 * @throws IOException If internal method throws
@@ -36,7 +38,8 @@ public final class FileUtil {
 
 	/**
 	 * Writes the provided String to a file overwriting it's contents
-	 * @param file Target file
+	 *
+	 * @param file    Target file
 	 * @param content Content to write
 	 * @throws IOException If internal method throws
 	 * @see com.github.thedwellers.fyreplugin.util.FileUtil#writeAllText(File, String, boolean)
@@ -47,9 +50,10 @@ public final class FileUtil {
 
 	/**
 	 * Writes the provided String to a file overwriting or appending depending on the variable
-	 * @param file Target file
+	 *
+	 * @param file    Target file
 	 * @param content Content to write
-	 * @param append Whether to append the content or not
+	 * @param append  Whether to append the content or not
 	 * @throws IOException If internal method throws
 	 * @see java.nio.file.Files#write(Path, Iterable, OpenOption...)
 	 */

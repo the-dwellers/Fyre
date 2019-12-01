@@ -14,7 +14,7 @@ import org.bukkit.inventory.ItemStack;
 /**
  * FallDamage
  */
-public class FallDamage implements Listener{
+public class FallDamage implements Listener {
 
 	@EventHandler()
 	public void onFallDamage(EntityDamageEvent event) {

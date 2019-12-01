@@ -11,7 +11,7 @@ targetCompatibility = '1.8'
 repositories {
 	mavenCentral()
 	jcenter()
-		maven {
+	maven {
 		name = 'papermc'
 		url = 'https://papermc.io/repo/repository/maven-public/'
 	}

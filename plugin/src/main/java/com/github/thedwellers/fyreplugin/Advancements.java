@@ -21,56 +21,56 @@ public class Advancements {
 	 */
 	public static void updateBlockBreakAdvancement(Player player, Material block) {
 		switch (block) {
-		case ANDESITE:
-			// Volcano Stack
-			awardBlockBreak(player, block, 64, "mining/volcano-stack");
-			break;
-		case DIORITE:
-			// Andesine Container
-			awardBlockBreak(player, block, 64, "mining/andesine-container");
-			break;
-		case GRANITE:
-			// Intrusive Rock
-			awardBlockBreak(player, block, 64, "mining/intrusive-rock");
-		break;
-		case COAL_ORE:
-			// Fossil Fuels
-			awardBlockBreak(player, block, 1, "mining/fossil-fuels");
-			// Dead Plant Collector
-			awardBlockBreak(player, block, 64, "mining/dead-plant-collector");
-			// Climate Changer
-			awardBlockBreak(player, block, 1728, "mining/climate-changer");
-			break;
-		case STONE:
-			// Took you Long Enough
-			awardBlockBreak(player, block, 1, "mining/took-you-long-enough");
-			// Stack'o Cobble
-			awardBlockBreak(player, block, 64, "mining/stacko-cobble");
-			// Red-Bearded Dwarf
-			awardBlockBreak(player, block, 1728, "mining/red-bearded-dwarf");
-			break;
-		case LAPIS_ORE:
-			// No Longer in the Woods
-			awardBlockBreak(player, block, 1, "mining/no-longer-in-the-woods");
-			break;
-		case IRON_ORE:
-			// Rusty Stone
-			awardBlockBreak(player, block, 1, "mining/rusty-stone");
-			// Magnetite and Hematite
-			awardBlockBreak(player, block, 1728, "mining/magnetite-and-hematite");
-			break;
-		case GOLD_ORE:
-			// Kingmaker
-			awardBlockBreak(player, block, 1, "mining/kingmaker");
-			// A Small loan
-			awardBlockBreak(player, block, 1728, "mining/a-small-loan");
-			break;
-		case DIAMOND_ORE:
-			// Useless Material
-			awardBlockBreak(player, block, 1, "mining/useless-material");
-			break;
-		default:
-			break;
+			case ANDESITE:
+				// Volcano Stack
+				awardBlockBreak(player, block, 64, "mining/volcano-stack");
+				break;
+			case DIORITE:
+				// Andesine Container
+				awardBlockBreak(player, block, 64, "mining/andesine-container");
+				break;
+			case GRANITE:
+				// Intrusive Rock
+				awardBlockBreak(player, block, 64, "mining/intrusive-rock");
+				break;
+			case COAL_ORE:
+				// Fossil Fuels
+				awardBlockBreak(player, block, 1, "mining/fossil-fuels");
+				// Dead Plant Collector
+				awardBlockBreak(player, block, 64, "mining/dead-plant-collector");
+				// Climate Changer
+				awardBlockBreak(player, block, 1728, "mining/climate-changer");
+				break;
+			case STONE:
+				// Took you Long Enough
+				awardBlockBreak(player, block, 1, "mining/took-you-long-enough");
+				// Stack'o Cobble
+				awardBlockBreak(player, block, 64, "mining/stacko-cobble");
+				// Red-Bearded Dwarf
+				awardBlockBreak(player, block, 1728, "mining/red-bearded-dwarf");
+				break;
+			case LAPIS_ORE:
+				// No Longer in the Woods
+				awardBlockBreak(player, block, 1, "mining/no-longer-in-the-woods");
+				break;
+			case IRON_ORE:
+				// Rusty Stone
+				awardBlockBreak(player, block, 1, "mining/rusty-stone");
+				// Magnetite and Hematite
+				awardBlockBreak(player, block, 1728, "mining/magnetite-and-hematite");
+				break;
+			case GOLD_ORE:
+				// Kingmaker
+				awardBlockBreak(player, block, 1, "mining/kingmaker");
+				// A Small loan
+				awardBlockBreak(player, block, 1728, "mining/a-small-loan");
+				break;
+			case DIAMOND_ORE:
+				// Useless Material
+				awardBlockBreak(player, block, 1, "mining/useless-material");
+				break;
+			default:
+				break;
 		}
 	}
 

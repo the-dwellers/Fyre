@@ -3,8 +3,8 @@ package com.github.thedwellers.fyreplugin.events;
 import org.bukkit.entity.AbstractHorse;
 import org.bukkit.entity.EntityType;
 import org.bukkit.event.EventHandler;
-import org.spigotmc.event.entity.EntityDismountEvent;
 import org.bukkit.event.Listener;
+import org.spigotmc.event.entity.EntityDismountEvent;
 
 /**
  * Dismount
