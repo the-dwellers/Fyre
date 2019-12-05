@@ -18,6 +18,9 @@ public class BrickHit implements Listener {
 		if (event.getDamager().getType() != EntityType.SNOWBALL) {
 			return;
 		}
+		if (event.getDamager().getPassengers().size() != 1) {
+			return;
+		}
 		if (event.getDamager().getPassengers().get(0).getType() == EntityType.DROPPED_ITEM) {
 			Item item = (Item) event.getDamager().getPassengers().get(0);
 			if (item.getItemStack().getType() == Material.BRICK) {

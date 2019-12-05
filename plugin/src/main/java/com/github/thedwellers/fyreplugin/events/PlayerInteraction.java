@@ -1,6 +1,8 @@
 package com.github.thedwellers.fyreplugin.events;
 
 import com.comphenix.protocol.ProtocolManager;
+import com.github.thedwellers.fyreplugin.util.RandomUtil;
+
 import org.bukkit.Material;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
@@ -26,6 +28,7 @@ public class PlayerInteraction implements Listener {
 			player.getInventory().removeItemAnySlot(new ItemStack(Material.BRICK, 1));
 			Snowball ball = player.launchProjectile(Snowball.class);
 			Item item = ball.getWorld().dropItem(ball.getLocation(), new ItemStack(Material.BRICK, 1));
+
 			ball.addPassenger(item);
 		}
 
