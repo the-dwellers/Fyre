@@ -8,6 +8,7 @@ import com.github.thedwellers.fyreplugin.entity.TagInventory;
 import com.github.thedwellers.fyreplugin.events.*;
 import com.github.thedwellers.fyreplugin.exceptions.ReflectionFailedException;
 
+import net.milkbowl.vault.chat.Chat;
 import net.milkbowl.vault.permission.Permission;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
