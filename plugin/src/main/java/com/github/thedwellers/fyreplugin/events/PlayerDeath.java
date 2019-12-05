@@ -11,7 +11,7 @@ import org.bukkit.potion.PotionEffectType;
  * PlayerDeath
  */
 
-public class PlayerDeath implements Listener{
+public class PlayerDeath implements Listener {
 
 	@EventHandler()
 	public void onPlayerDeath(PlayerDeathEvent event) {
