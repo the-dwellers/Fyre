@@ -6,6 +6,7 @@ import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.ProtocolManager;
 import com.github.thedwellers.fyreplugin.commands.*;
 import com.github.thedwellers.fyreplugin.events.*;
+import com.github.thedwellers.fyreplugin.exceptions.ReflectionFailedException;
 
 import net.milkbowl.vault.permission.Permission;
 
@@ -55,6 +56,7 @@ public final class FyrePlugin extends JavaPlugin {
 		serverSetUp();
 		registerCommands();
 		registerListeners();
+		patchNMS();
 	}
 
 	@Override
@@ -63,6 +65,17 @@ public final class FyrePlugin extends JavaPlugin {
 			if (player.getOpenInventory().getTopInventory().getHolder().getClass() == TagInventory.class) {
 				((TagInventory) player.getOpenInventory().getTopInventory().getHolder()).closeInventory();
 			}
+		}
+	}
+
+	/**
+	 * Executes reflected code to patch vanilla Minecraft
+	 */
+	private void patchNMS() {
+		try {
+			Reflected.patchCompost();
+		} catch (ReflectionFailedException e) {
+			log.severe("[Fyre] Unable to Patch Composter due to reflection errors. /n" + e.getMessage());
 		}
 	}
 
@@ -108,7 +121,6 @@ public final class FyrePlugin extends JavaPlugin {
 		getServer().getPluginManager().registerEvents(new FallDamage(), this);
 		getServer().getPluginManager().registerEvents(new PlayerInteraction(protocolManager), this);
 		getServer().getPluginManager().registerEvents(new BrickHit(), this);
-		getServer().getPluginManager().registerEvents(new ComposterClick(), this);
 	}
 
 	private void serverSetUp() {

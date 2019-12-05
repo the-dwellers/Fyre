@@ -1,5 +1,6 @@
 package com.github.thedwellers.fyreplugin;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.UUID;
@@ -15,6 +16,7 @@ import org.bukkit.inventory.ItemStack;
  * due to the nature of reflection, this class is minecraft version-dependent!
  * <p>
  * ! Unoptimized. Should cache obtain classes for future reflection
+ *
  * @version Minecraft 1.14.4
  */
 public abstract class Reflected {
@@ -27,7 +29,9 @@ public abstract class Reflected {
 	 * Serialize the provided {@link ItemStack} into an nbt string.
 	 * <p>
 	 * Due to the dependence on reflection, this method may fail entirely depending
-	 * on the minecraft version. Please check {@link Reflected} for supported versions.
+	 * on the minecraft version. Please check {@link Reflected} for supported
+	 * versions.
+	 *
 	 * <pre>
 	 * net.minecraft.server.ItemStack nmsItemStack = CraftItemStack.asNMSCopy(itemStack);
 	 * net.minecraft.server.NBTTagCompound compound = new NBTTagCompound();
@@ -81,7 +85,9 @@ public abstract class Reflected {
 	 * Returns {@code null} on an invalid nbt tag
 	 * <p>
 	 * Due to the dependence on reflection, this method may fail entirely depending
-	 * on the minecraft version. Please check {@link Reflected} for supported versions.
+	 * on the minecraft version. Please check {@link Reflected} for supported
+	 * versions.
+	 *
 	 * <pre>
 	 * return (ItemStack) org.bukkit.craftbukkit.inventory.CraftItemStack
 	 *      .asBukkitCopy(net.minecraft.item.ItemStack(net.minecraft.mojangsonParser.parse((nbt)));
@@ -141,7 +147,9 @@ public abstract class Reflected {
 	 * Returns the full nbt in a textual format of the provided entity.
 	 * <p>
 	 * Due to the dependence on reflection, this method may fail entirely depending
-	 * on the minecraft version. Please check {@link Reflected} for supported versions.
+	 * on the minecraft version. Please check {@link Reflected} for supported
+	 * versions.
+	 *
 	 * <pre>
 	 * net.minecraft.NBTTagCompound nbtData = new NBTTagCompound();
 	 * net.minecraft.Entity nmsEntity = ((org.bukkit.craftbukkit.CraftEntity) entity).getHandle();
@@ -198,7 +206,9 @@ public abstract class Reflected {
 	 * nbt, otherwise errors may occur during gameplay.
 	 * <p>
 	 * Due to the dependence on reflection, this method may fail entirely depending
-	 * on the minecraft version. Please check {@link Reflected} for supported versions.
+	 * on the minecraft version. Please check {@link Reflected} for supported
+	 * versions.
+	 *
 	 * <pre>
 	 * net.minecraft.NBTTagCompound nbtTag = net.minecraft.mojangsonParser.parse((nbt))
 	 * net.minecraft.Entity ent = org.bukkit.craftbukkit.entity.CraftEntity.getHandle()
@@ -262,6 +272,49 @@ public abstract class Reflected {
 
 		} catch (LinkageError | ClassNotFoundException | NoSuchMethodException | IllegalAccessException
 				| InvocationTargetException e) {
+			throw new ReflectionFailedException(e);
+		}
+	}
+
+	/**
+	 * Add Rotten Flesh to the compost's list of allowed resources.
+	 * <p>
+	 * Due to the dependence on reflection, this method may fail entirely depending
+	 * on the minecraft version. Please check {@link Reflected} for supported
+	 * versions.
+	 *
+	 * <pre>
+	 * net.minecraft.server.BlockComposter.a(0.5F, Items.ROTTEN_FLESH)
+	 * </pre>
+	 *
+	 * @param item ItemStack to convert to nbt
+	 * @return nbt of item
+	 * @throws ReflectionFailedException thrown when any exception is encountered
+	 *                                   during reflection
+	 */
+	public static void patchCompost() throws ReflectionFailedException {
+		try {
+			// Get BlockComposter class
+			Class<?> nmsBlockComposterClass = Class.forName(nmsClass + "BlockComposter");
+
+			// Get IMaterial Class
+			Class<?> nmsMaterialClass = Class.forName(nmsClass + "IMaterial");
+
+			// Get Items Class
+			Class<?> nmsItemsClass = Class.forName(nmsClass + "Items");
+
+			// Get the ROTTEN_FLESH Item from the Items class
+			Field itemsRottenFleshField = nmsItemsClass.getField("ROTTEN_FLESH");
+
+			// Get the add method from the BlockComposter class
+			Method a = nmsBlockComposterClass.getDeclaredMethod("a", float.class, nmsMaterialClass);
+			a.setAccessible(true);
+
+			// Execute the add method using the ROTTEN_FLESH item
+			a.invoke(nmsBlockComposterClass, 0.5F, itemsRottenFleshField.get(nmsItemsClass));
+
+		} catch (LinkageError | ClassNotFoundException | NoSuchMethodException | IllegalAccessException
+				| NoSuchFieldException | InvocationTargetException e) {
 			throw new ReflectionFailedException(e);
 		}
 	}
