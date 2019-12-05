@@ -103,10 +103,8 @@ public final class FyrePlugin extends JavaPlugin {
 	 * Register all event listeners provided by the Fyre plugin.
 	 */
 	private void registerListeners() {
-		getServer().getPluginManager().registerEvents(new BankerClick(), this);
 		getServer().getPluginManager().registerEvents(new BlockBreak(), this);
 		getServer().getPluginManager().registerEvents(new Dismount(), this);
-		getServer().getPluginManager().registerEvents(new MerchantClick(), this);
 		getServer().getPluginManager().registerEvents(new PlayerChat(), this);
 		getServer().getPluginManager().registerEvents(new PlayerJoin(), this);
 		getServer().getPluginManager().registerEvents(new PlayerLeave(), this);
