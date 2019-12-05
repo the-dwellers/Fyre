@@ -11,17 +11,6 @@ import org.bukkit.entity.Player;
  * List the players currently online on the server.
  */
 public class ListCommand extends AbstractCommand {
-	@Override
-	public String getPermission() {
-		return "fyre.list.use";
-	}
-
-	@Override
-	public boolean execute(CommandSender sender, Command command, String label, String[] args) {
-		sender.spigot().sendMessage(getPlayers(sender, !(sender instanceof Player)));
-		return true;
-	}
-
 	public static TextComponent getPlayers(CommandSender src) {
 		return getPlayers(src, false);
 	}
@@ -45,10 +34,10 @@ public class ListCommand extends AbstractCommand {
 		if (players.length == 1) {
 			// English single
 			text.addExtra(Strings.OUT_PREFIX + "There is " + Strings.C_ACCENT +
-				players.length + Strings.C_DEFAULT + " player online");
+					players.length + Strings.C_DEFAULT + " player online");
 		} else {
 			text.addExtra(Strings.OUT_PREFIX + "There is " + Strings.C_ACCENT +
-				players.length + Strings.C_DEFAULT + " players online");
+					players.length + Strings.C_DEFAULT + " players online");
 
 		}
 
@@ -57,7 +46,7 @@ public class ListCommand extends AbstractCommand {
 		}
 
 		text.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
-			new TextComponent[] { buildLongForm(players) }));
+				new TextComponent[]{buildLongForm(players)}));
 		return text;
 	}
 
@@ -79,5 +68,16 @@ public class ListCommand extends AbstractCommand {
 			}
 		}
 		return longFormText;
+	}
+
+	@Override
+	public String getPermission() {
+		return "fyre.list.use";
+	}
+
+	@Override
+	public boolean execute(CommandSender sender, Command command, String label, String[] args) {
+		sender.spigot().sendMessage(getPlayers(sender, !(sender instanceof Player)));
+		return true;
 	}
 }

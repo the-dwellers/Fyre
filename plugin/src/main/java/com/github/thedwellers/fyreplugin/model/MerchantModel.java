@@ -21,19 +21,19 @@ public class MerchantModel {
 	@Override
 	public String toString() {
 		return "MerchantModel{" +
-			"armorer=" + armorer +
-			", butcher=" + butcher +
-			", cartographer=" + cartographer +
-			", cleric=" + cleric +
-			", farmer=" + farmer +
-			", fisherman=" + fisherman +
-			", fletcher=" + fletcher +
-			", leatherworker=" + leatherworker +
-			", librarian=" + librarian +
-			", mason=" + mason +
-			", shepherd=" + shepherd +
-			", toolsmith=" + toolsmith +
-			", weaponsmith=" + weaponsmith +
-			'}';
+				"armorer=" + armorer +
+				", butcher=" + butcher +
+				", cartographer=" + cartographer +
+				", cleric=" + cleric +
+				", farmer=" + farmer +
+				", fisherman=" + fisherman +
+				", fletcher=" + fletcher +
+				", leatherworker=" + leatherworker +
+				", librarian=" + librarian +
+				", mason=" + mason +
+				", shepherd=" + shepherd +
+				", toolsmith=" + toolsmith +
+				", weaponsmith=" + weaponsmith +
+				'}';
 	}
 }

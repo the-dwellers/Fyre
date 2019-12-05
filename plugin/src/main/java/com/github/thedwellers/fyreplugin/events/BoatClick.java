@@ -1,7 +1,6 @@
 package com.github.thedwellers.fyreplugin.events;
 
 import com.github.thedwellers.fyreplugin.entity.TagInventory;
-
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.event.EventHandler;

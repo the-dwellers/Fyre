@@ -2,8 +2,6 @@ package com.github.thedwellers.fyreplugin.events;
 
 import com.github.thedwellers.fyreplugin.configuration.MerchantOperations;
 import com.github.thedwellers.fyreplugin.configuration.PlayerOperations;
-
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Villager;
@@ -20,10 +18,10 @@ public class MerchantClick implements Listener {
 
 		//sets trade options depending on villager profession and use tier
 		//TODO: get player tier for profession and set recipies.
-		if(entity.getType().equals(EntityType.VILLAGER)) {
+		if (entity.getType().equals(EntityType.VILLAGER)) {
 			Villager villager = (Villager) entity;
 
-			switch(villager.getProfession()) {
+			switch (villager.getProfession()) {
 				case ARMORER:
 
 					break;

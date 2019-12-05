@@ -1,18 +1,17 @@
 package com.github.thedwellers.fyreplugin.configuration;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import com.github.thedwellers.fyreplugin.configuration.Items;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.MerchantRecipe;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MerchantRecipeList {
 	private static MerchantRecipe recipe;
 	public static List<List<MerchantRecipe>> farmerRecipes = generateFarmerRecipes();
 
-	private static List<List<MerchantRecipe>> generateFarmerRecipes(){
+	private static List<List<MerchantRecipe>> generateFarmerRecipes() {
 		List<List<MerchantRecipe>> allRecipes = new ArrayList<List<MerchantRecipe>>();
 		List<MerchantRecipe> tierRecipes = new ArrayList<MerchantRecipe>();
 
@@ -37,5 +36,5 @@ public class MerchantRecipeList {
 		return allRecipes;
 	}
 
-	
+
 }

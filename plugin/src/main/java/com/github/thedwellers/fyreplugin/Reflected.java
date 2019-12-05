@@ -6,10 +6,13 @@ import java.lang.reflect.Method;
 import java.util.UUID;
 
 import com.github.thedwellers.fyreplugin.exceptions.ReflectionFailedException;
-
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
 import org.bukkit.inventory.ItemStack;
+
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.UUID;
 
 /**
  * Provides functions integrated into Net.Minecraft.Server via reflection Note:
@@ -95,7 +98,7 @@ public abstract class Reflected {
 	 *
 	 * @param nbt NBT tag to convert to an ItemStack
 	 * @return Returns ItemStack of the provided NBT. {@code null} if decoding
-	 *         errors occur;
+	 * errors occur;
 	 * @throws ReflectionFailedException thrown when any exception is encountered
 	 *                                   during reflection
 	 */

@@ -1,29 +1,27 @@
 package com.github.thedwellers.fyreplugin;
 
-import java.util.ArrayList;
-
 import com.github.thedwellers.fyreplugin.configuration.Strings;
 import com.github.thedwellers.fyreplugin.exceptions.ReflectionFailedException;
-
+import net.md_5.bungee.api.ChatColor;
+import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.chat.HoverEvent;
+import net.md_5.bungee.api.chat.HoverEvent.Action;
+import net.md_5.bungee.api.chat.TextComponent;
+import net.milkbowl.vault.chat.Chat;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Statistic;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-import net.md_5.bungee.api.ChatColor;
-import net.md_5.bungee.api.chat.ClickEvent;
-import net.md_5.bungee.api.chat.HoverEvent;
-import net.md_5.bungee.api.chat.TextComponent;
-import net.md_5.bungee.api.chat.HoverEvent.Action;
-import net.milkbowl.vault.chat.Chat;
+import java.util.ArrayList;
 
 /**
  * Functions dedicated to chat manipulation and formatting.
  */
 public abstract class ChatManager {
 
-	private static void sendMessage(TextComponent text){
+	private static void sendMessage(TextComponent text) {
 		// Send to all players and console
 		Bukkit.broadcast(text);
 		Bukkit.getConsoleSender().sendMessage(text);
@@ -38,7 +36,7 @@ public abstract class ChatManager {
 	 * configuration.
 	 * <p>
 	 * For parsing of a players message, such as resolving {@code @hand}, use
-	 * {@link ChatManager#sendPlayerMessage(Player,String)}
+	 * {@link ChatManager#sendPlayerMessage(Player, String)}
 	 *
 	 * @param player  Sender of the message
 	 * @param message TextComponent of the message to send. No Additional parsing
@@ -83,7 +81,7 @@ public abstract class ChatManager {
 	 * @param player  Sender of the message. Will receive any error messages.
 	 * @param message Message sent by the sender. This will be parsed.
 	 * @return Returns a constructed {@link TextComponent} with formatted {@code @}
-	 *         notations and any other parsing results
+	 * notations and any other parsing results
 	 */
 	private static TextComponent parseTextMessage(Player player, String message) {
 		// Text Components keeps a rolling list of constructs to be added together at
@@ -223,10 +221,10 @@ public abstract class ChatManager {
 	 * Sends the player's message to all chat after parsing via
 	 * {@link ChatManager#parseTextMessage(Player, String)}
 	 *
-	 * @see ChatManager#sendPlayerMessage(Player, TextComponent)
-	 * @see ChatManager#parseTextMessage(Player, String)
 	 * @param player  Player to send message as
 	 * @param message Message to send (will be parsed)
+	 * @see ChatManager#sendPlayerMessage(Player, TextComponent)
+	 * @see ChatManager#parseTextMessage(Player, String)
 	 */
 	public static void sendPlayerMessage(Player player, String message) {
 		sendPlayerMessage(player, parseTextMessage(player, message));
@@ -243,7 +241,7 @@ public abstract class ChatManager {
 	 *
 	 * @param item Item to represent as a TextComponent
 	 * @return Returns {@code null} if the item is air or invalid. Otherwise a
-	 *         TextComponent representing the item
+	 * TextComponent representing the item
 	 */
 	public static TextComponent getItemText(ItemStack item) {
 		if (item == null || item.getType() == Material.AIR) {
@@ -267,7 +265,7 @@ public abstract class ChatManager {
 
 			if (customItem) {
 				// Item has a custom name / color
-				color = String.valueOf(new char[] { '\u00a7', itemName.toCharArray()[1] });
+				color = String.valueOf(new char[]{'\u00a7', itemName.toCharArray()[1]});
 			} else {
 				// If the item is not a custom item, then display the default name to chat,
 				// rather than the rename
@@ -282,7 +280,7 @@ public abstract class ChatManager {
 				text = new TextComponent(color + "[" + item.getAmount() + "x " + itemName + color + "]");
 			}
 
-			text.setHoverEvent(new HoverEvent(Action.SHOW_ITEM, new TextComponent[] { new TextComponent(nbt) }));
+			text.setHoverEvent(new HoverEvent(Action.SHOW_ITEM, new TextComponent[]{new TextComponent(nbt)}));
 			return text;
 
 		} catch (ReflectionFailedException e) {
@@ -297,7 +295,7 @@ public abstract class ChatManager {
 	 *
 	 * @param player Player to get main hand item of
 	 * @return ItemStack of player's main hand, with a quantity of all items of the
-	 *         same kind in the player's inventory
+	 * same kind in the player's inventory
 	 * @see ChatManager#getDisplayStackOffHand(Player)
 	 * @see ChatManager#getArmourText(Player)
 	 */
@@ -324,7 +322,7 @@ public abstract class ChatManager {
 	 *
 	 * @param player Player to obtain armor from
 	 * @return Returns {@code null} if the player is not wearing armor. Otherwise
-	 *         returns a TextComponent of all worn items
+	 * returns a TextComponent of all worn items
 	 * @see ChatManager#getItemText(ItemStack)
 	 * @see ChatManager#getDisplayStackMainHand(Player)
 	 * @see ChatManager#getDisplayStackOffHand(Player)
@@ -355,7 +353,7 @@ public abstract class ChatManager {
 	 *
 	 * @param player Player to get off-hand item of
 	 * @return ItemStack of player's off-hand, with a quantity of all items of the
-	 *         same kind in the player's inventory
+	 * same kind in the player's inventory
 	 * @see ChatManager#getDisplayStackMainHand(Player)
 	 * @see ChatManager#getArmourText(Player)
 	 */
@@ -378,6 +376,7 @@ public abstract class ChatManager {
 	/**
 	 * Returns a {@link TextComponent} that represents the provided player.
 	 * This component will also include hover-over and on-click functionality.
+	 *
 	 * @param player Player to return TextComponent of
 	 * @return TextComponent of player's name with hover-overs and on-click functions.
 	 */
@@ -407,8 +406,8 @@ public abstract class ChatManager {
 				+ player.getStatistic(Statistic.CAKE_SLICES_EATEN));
 
 		hover.addExtra("\n" + Strings.C_MUTED + "Click to private message");
-		name.setHoverEvent(new HoverEvent(Action.SHOW_TEXT, new TextComponent[] { hover }));
-		name.setClickEvent(new ClickEvent(net.md_5.bungee.api.chat.ClickEvent.Action.SUGGEST_COMMAND, "/msg "+player.getName()+" "));
+		name.setHoverEvent(new HoverEvent(Action.SHOW_TEXT, new TextComponent[]{hover}));
+		name.setClickEvent(new ClickEvent(net.md_5.bungee.api.chat.ClickEvent.Action.SUGGEST_COMMAND, "/msg " + player.getName() + " "));
 		return name;
 	}
 
@@ -419,7 +418,7 @@ public abstract class ChatManager {
 	 * @param seconds     Time in seconds
 	 * @param showSeconds if true, print seconds when hours are not displayed
 	 * @return Textual representation of time in english (E.g. 2 hours and 35
-	 *         minutes)
+	 * minutes)
 	 */
 	private static String buildTime(long seconds, boolean showSeconds) {
 		long minutes = seconds / 60;
@@ -449,6 +448,7 @@ public abstract class ChatManager {
 
 	/**
 	 * Announce to the server that a player has joined the server
+	 *
 	 * @param player Player that joined the server
 	 */
 	public static void sendPlayerJoin(Player player) {
@@ -461,7 +461,7 @@ public abstract class ChatManager {
 		sendMessage(replaceValue("%1", Strings.LEAVE_MESSAGE, getPlayerName(player)));
 	}
 
-	private static TextComponent replaceValue(String value, String message, TextComponent replacement){
+	private static TextComponent replaceValue(String value, String message, TextComponent replacement) {
 		String[] sections = message.split(" ");
 		TextComponent newMessage = new TextComponent();
 		for (String section : sections) {

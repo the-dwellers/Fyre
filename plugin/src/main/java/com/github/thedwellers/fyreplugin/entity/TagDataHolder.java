@@ -1,12 +1,11 @@
 package com.github.thedwellers.fyreplugin.entity;
 
-import java.util.Base64;
-
 import com.github.thedwellers.fyreplugin.NBT;
 import com.github.thedwellers.fyreplugin.Reflected;
 import com.github.thedwellers.fyreplugin.exceptions.ReflectionFailedException;
-
 import org.bukkit.entity.Entity;
+
+import java.util.Base64;
 
 /**
  * Represents any {@link Entity} that may have external data serialized to their
@@ -19,16 +18,6 @@ public abstract class TagDataHolder {
 	public TagDataHolder(Entity entity) {
 		this.entity = entity;
 	}
-
-	/**
-	 * Serialize any stored data into the nbt tag.
-	 */
-	protected abstract void serialize();
-
-	/**
-	 * Deserialize any stored data from the nbt tag.
-	 */
-	protected abstract void deserialize();
 
 	/**
 	 * Encode the string for safe storage inside a nbt text tag
@@ -54,6 +43,16 @@ public abstract class TagDataHolder {
 	protected static String decodeString(String string) throws IllegalArgumentException {
 		return new String(Base64.getDecoder().decode(string.getBytes()));
 	}
+
+	/**
+	 * Serialize any stored data into the nbt tag.
+	 */
+	protected abstract void serialize();
+
+	/**
+	 * Deserialize any stored data from the nbt tag.
+	 */
+	protected abstract void deserialize();
 
 	/**
 	 * Write data to entity's 'Tags' tag. Ensures data is stored in a safe format.

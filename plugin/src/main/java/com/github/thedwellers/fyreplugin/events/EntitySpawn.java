@@ -1,7 +1,6 @@
 package com.github.thedwellers.fyreplugin.events;
 
 import com.github.thedwellers.fyreplugin.Attributes;
-
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

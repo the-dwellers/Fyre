@@ -1,14 +1,8 @@
 package com.github.thedwellers.fyreplugin.entity;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-
 import com.github.thedwellers.fyreplugin.Reflected;
 import com.github.thedwellers.fyreplugin.configuration.Items;
 import com.github.thedwellers.fyreplugin.exceptions.ReflectionFailedException;
-
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
@@ -17,14 +11,18 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+
 /**
  * Represents an entity that contains an inventory defined within their 'Tags' nbt Tag.
  */
 public class TagInventory extends TagDataHolder implements InventoryHolder {
 
-	private Inventory inventory;
-
 	private static HashSet<String> instances;
+	private Inventory inventory;
 
 	public TagInventory(Entity entity) {
 		super(entity);
@@ -54,7 +52,7 @@ public class TagInventory extends TagDataHolder implements InventoryHolder {
 		}
 		try {
 			writeToEntity(invStr);
-		} catch (ReflectionFailedException e){
+		} catch (ReflectionFailedException e) {
 			e.printStackTrace();
 		}
 	}
@@ -84,7 +82,7 @@ public class TagInventory extends TagDataHolder implements InventoryHolder {
 
 			for (int i = 1; i < sections.length; i++) {
 				try {
-					if (sections[i].length()< 2) {
+					if (sections[i].length() < 2) {
 						itemList.add(new ItemStack(Material.AIR));
 					} else {
 						itemList.add(Reflected.nbtToItem(sections[i]));
@@ -129,7 +127,7 @@ public class TagInventory extends TagDataHolder implements InventoryHolder {
 		serialize();
 	}
 
-	public void forceCloseInventory(){
+	public void forceCloseInventory() {
 		List<HumanEntity> viewers = inventory.getViewers();
 
 		Iterator<HumanEntity> it = viewers.iterator();

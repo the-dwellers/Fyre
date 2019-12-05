@@ -11,7 +11,7 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 /**
  * BrickHit
  */
-public class BrickHit implements Listener{
+public class BrickHit implements Listener {
 
 	@EventHandler(priority = EventPriority.HIGH)
 	public void onBrickHit(EntityDamageByEntityEvent event) {

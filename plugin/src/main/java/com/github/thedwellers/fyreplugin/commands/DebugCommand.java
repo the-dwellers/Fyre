@@ -25,7 +25,7 @@ public class DebugCommand extends AbstractCommand {
 				System.out.println(NBT.getTag(boatnbt, "Tags", true));
 				System.out.println(NBT.setTag(boatnbt, "Tags", "['Test string']"));
 			} catch (Exception e) {
-				player.sendMessage(Strings.OUT_PREFIX+Strings.C_ERROR+"Reflection failed:"+e.getMessage());
+				player.sendMessage(Strings.OUT_PREFIX + Strings.C_ERROR + "Reflection failed:" + e.getMessage());
 				e.printStackTrace();
 			}
 		}
