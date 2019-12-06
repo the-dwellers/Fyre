@@ -62,8 +62,10 @@ public final class FyrePlugin extends JavaPlugin {
 	@Override
 	public void onDisable() {
 		for (Player player : Bukkit.getOnlinePlayers()) {
-			if (player.getOpenInventory().getTopInventory().getHolder().getClass() == TagInventory.class) {
-				((TagInventory) player.getOpenInventory().getTopInventory().getHolder()).closeInventory();
+			if (player.getOpenInventory().getTopInventory().getHolder() != null) {
+				if (player.getOpenInventory().getTopInventory().getHolder().getClass() == TagInventory.class) {
+					((TagInventory) player.getOpenInventory().getTopInventory().getHolder()).closeInventory();
+				}
 			}
 		}
 	}
@@ -120,6 +122,7 @@ public final class FyrePlugin extends JavaPlugin {
 		// getServer().getPluginManager().registerEvents(new PlayerInteraction(protocolManager), this);
 		// getServer().getPluginManager().registerEvents(new BrickHit(), this);
 		getServer().getPluginManager().registerEvents(new PlayerDeath(), this);
+		getServer().getPluginManager().registerEvents(new TraderClick(), this);
 	}
 
 	private void serverSetUp() {
