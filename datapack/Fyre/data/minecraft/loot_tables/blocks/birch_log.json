@@ -43,7 +43,7 @@
 							"functions": [
 								{
 									"function": "minecraft:set_nbt",
-									"tag": "{AttributeModifiers:[{Slot:\"mainhand\", AttributeName:\"generic.attackDamage\", Name:\"generic.attackDamage\", Amount:2, Operation:0, UUIDLeast:894654, UUIDMost:2872}],display:{Name:\"\\\"§rSharp Splinters\\\"\", Lore:[\"\\\"§r§7A Bundle of rough sharp sticks\\\"\"]}}"
+									"tag": "{AttributeModifiers:[{Slot:\"mainhand\", AttributeName:\"generic.attackDamage\", Name:\"generic.attackDamage\", Amount:2.0d, Operation:0, UUIDLeast:894654L, UUIDMost:2872L}],display:{Lore:[\"{\\\"text\\\":\\\"§r§7A Bundle of rough sharp sticks\\\"}\"],Name:\"{\\\"text\\\":\\\"§rSharp Splinters\\\"}\"}}"
 								},
 								{
 									"function": "minecraft:set_count",
