@@ -35,17 +35,13 @@ This document is mostly a note of mechanic ideas an tweak brainstorming, feedbac
 - [ ] Throwable bricks
 	- [ ] Hide snowball
 - [x] Rotten flesh in Composters
+- [x] Death to invisible players hides their name from chat
 
 ## Mechanic ideas
 
-- [ ] Death to invisible players hides their name from chat
-- [ ] Glass instantly broken with a held brick
 - [ ] Enchanting water bottles give bottle o' enchanting
-- [ ] Entities hit by enterperls swap places
-- [ ] Feather falling prevents farmland spoilage
 - [ ] Stacking snow
 - [ ] Tie leads to fenceposts
-- [ ] Fall damage depends on block landed on
 - [ ] Some way to move spawners?
 	- May be changed if underground is overhauled
 	- Mob grinding is risk-free to get xp, not good.

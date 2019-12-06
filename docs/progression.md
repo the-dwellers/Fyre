@@ -1,7 +1,8 @@
 # Progression & Mechanics
 
-Fyre is a total overhaul of the vanilla game. Because of this a rebalance of Minecraft's progression system
-is needed. This is done by datapacks and server plugins.
+Fyre is a total overhaul of the vanilla game. Because of this a rebalance of
+Minecraft's progression system is needed. This is done by datapacks and server
+plugins.
 
 ---
 
@@ -19,7 +20,8 @@ They look similar to the example below:
 
 ![Advancement](img/Advancement-Example.png)
 
-The `"frame"` option provides the outline shape of the advancement. There are three options.
+The `"frame"` option provides the outline shape of the advancement. There are
+three options.
 
 | Type      | Preview                                         |
 | --------- | ----------------------------------------------- |
@@ -27,17 +29,18 @@ The `"frame"` option provides the outline shape of the advancement. There are th
 | Goal      | ![Rounded Advancement](img/Frame-Goal.png)      |
 | Challenge | ![Starred Advancement](img/Frame-Challenge.png) |
 
-> The current Fyre guideline is to only use Challenge achievements for branches that unlock
-> other advancement trees. In addition, tasks should not normally be announced to the server
-> chat, while Goal advancements should be harder to obtain but announced.
+> The current Fyre guideline is to only use Challenge achievements for branches
+> that unlock other advancement trees. In addition, tasks should not normally be
+> announced to the server chat, while Goal advancements should be harder to
+> obtain but announced.
 
 ---
 
 ### Welcome to Fyre
 
-Welcome to Fyre is the introductory tree for new players.
-It should have enough advancements to guide the player into using the core mechanics of Fyre.
-This currently includes working with traders, buying recipes, and crafting.
+Welcome to Fyre is the introductory tree for new players. It should have enough
+advancements to guide the player into using the core mechanics of Fyre. This
+currently includes working with traders, buying recipes, and crafting.
 
 ![Flowchart of Welcome Advancements](img/Advancements-Welcome.png)
 
@@ -57,8 +60,9 @@ This currently includes working with traders, buying recipes, and crafting.
 
 ### Mining
 
-Mining is the tree all about mining, and includes advancements related to mining ores and upgrading the player's pickaxe.
-Note that this tree does not include adventuring in mines at the moment, but this may change
+Mining is the tree all about mining, and includes advancements related to mining
+ores and upgrading the player's pickaxe. Note that this tree does not include
+adventuring in mines at the moment, but this may change
 
 ![Flowchart of Mining Advancements](img/Advancements-Mining.png)
 

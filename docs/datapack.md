@@ -1,6 +1,7 @@
 # Datapack
 
-Minecraft's Datapacks use a json format to designate and define data objects. Fyre uses these to define advancements and custom recipes.
+Minecraft's Datapacks use a json format to designate and define data objects.
+Fyre uses these to define advancements and custom recipes.
 
 ---
 
@@ -12,8 +13,10 @@ Minecraft's Datapacks use a json format to designate and define data objects. Fy
 
 ## Advancements
 
-Advancements act like achievements to guide the player through the new progression system, in order to do this the original minecraft advancements are
-disabled inside the server configuration to ensure only custom advancements are loaded
+Advancements act like achievements to guide the player through the new
+progression system, in order to do this the original minecraft advancements are
+disabled inside the server configuration to ensure only custom advancements are
+loaded
 
 `/spigot.yml`
 
@@ -89,16 +92,27 @@ advancements:
   - minecraft:story/upgrade_tools
 ```
 
-With the original advancements stopped, we then [create custom advancements](https://github.com/the-dwellers/Fyre/tree/master/datapack/Fyre/data/fyre/advancements).
-They follow the [advancement json format](https://minecraft.gamepedia.com/Advancements#JSON_Format)
+With the original advancements stopped, we then [create custom
+advancements](https://github.com/the-dwellers/Fyre/tree/master/datapack/Fyre/data/fyre/advancements).
+They follow the [advancement json
+format](https://minecraft.gamepedia.com/Advancements#JSON_Format)
 
 ## Recipes
 
-Due to the nature of Fyre's progression system, by default players cannot craft all items, unlike in the original minecraft game.
-This is enforced by using [the gamerule to disable crafting of unknown recipes](https://minecraft.gamepedia.com/Commands/gamerule) *(doLimitedCrafting)*
+Due to the nature of Fyre's progression system, by default players cannot craft
+all items, unlike in the original minecraft game. This is enforced by using [the
+gamerule to disable crafting of unknown
+recipes](https://minecraft.gamepedia.com/Commands/gamerule)
+*(doLimitedCrafting)*
 
-Even though this gamerule is set, players normally unlock recipes as they perform actions throughout minecraft, such as entering water causing them to learn the boat recipe.
+Even though this gamerule is set, players normally unlock recipes as they
+perform actions throughout minecraft, such as entering water causing them to
+learn the boat recipe.
 
-To disable this functionality, we use [dummy files to overwrite the vanilla datapack](https://github.com/the-dwellers/Fyre/tree/master/datapack/Fyre/data/minecraft/advancements/recipes) and disable these *hidden* advancements that causes the player to be rewarded with the recipes.
+To disable this functionality, we use [dummy files to overwrite the vanilla
+datapack](https://github.com/the-dwellers/Fyre/tree/master/datapack/Fyre/data/minecraft/advancements/recipes)
+and disable these *hidden* advancements that causes the player to be rewarded
+with the recipes.
 
-In the end, the result is that the player cannot craft recipes they've not unlocked, and they can only be unlocked by progressing through Fyre.
+In the end, the result is that the player cannot craft recipes they've not
+unlocked, and they can only be unlocked by progressing through Fyre.
