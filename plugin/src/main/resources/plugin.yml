@@ -67,29 +67,9 @@ permissions:
   fyre.plugins.use:
     description: Allows the use of the plugins command
     default: true
+  fyre.rebuild.use:
+    description: Allows the use of the rebuild command
+    default: op
   fyre.status.use:
     description: Allows the use of the status command
     default: true
-  fyre.user:
-    description: Default permission set for normal players
-    default: true
-    children:
-      fyre.armor.use: true
-      fyre.item.use: true
-      fyre.list.use: true
-      fyre.plugins.use: true
-      fyre.status.use: true
-  fyre.admin:
-    description: Default set of admin permission
-    default: op
-    children:
-      fyre.bank.use: true
-      fyre.debug.use: true
-      fyre.merchant.use: true
-      fyre.money.use: true
-  fyre.*:
-    description: Allows access to everything in Fyre
-    default: op
-    children:
-      fyre.user: true
-      fyre.admin: true

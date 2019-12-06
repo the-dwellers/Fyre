@@ -47,29 +47,3 @@ processResources {
 wrapper {
 	gradleVersion = '6.0.1'
 }
-
-/**
- * Task for development server management
- */
-class DevServer extends DefaultTask {
-
-	/**
-	 * Clear the current console
-	 */
-	private void clearConsole() {
-		println "\033[H\033[2J"
-		System.out.flush()
-	}
-
-	/**
-	 * Main function for the task
-	 */
-	@TaskAction
-	void startCli() {
-		Scanner scanner = new Scanner(System.in)
-	}
-}
-
-tasks.register('devserver', DevServer) {
-	description = 'Start and manage the local development server'
-}
