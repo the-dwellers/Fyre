@@ -2,7 +2,7 @@
 	"parent": "fyre:mining/root",
 	"display": {
 		"icon": {
-			"item":"minecraft:stone"
+			"item": "minecraft:stone"
 		},
 		"title": "Took you Long Enough",
 		"description": "§rMine some stone. Finally, we can start the game",

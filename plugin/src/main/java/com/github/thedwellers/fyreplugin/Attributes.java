@@ -43,12 +43,12 @@ public abstract class Attributes {
 
 	public static void applyOverworldHostile(Attributable entity) {
 		entity.getAttribute(Attribute.GENERIC_MAX_HEALTH)
-				.addModifier(new AttributeModifier("Fyre Spawn Health 1.5", 0.5, Operation.MULTIPLY_SCALAR_1));
+			.addModifier(new AttributeModifier("Fyre Spawn Health 1.5", 0.5, Operation.MULTIPLY_SCALAR_1));
 	}
 
 	public static void applyNetherHostile(Attributable entity) {
 		entity.getAttribute(Attribute.GENERIC_MAX_HEALTH)
-				.addModifier(new AttributeModifier("Fyre Spawn Health 2", 1, Operation.MULTIPLY_SCALAR_1));
+			.addModifier(new AttributeModifier("Fyre Spawn Health 2", 1, Operation.MULTIPLY_SCALAR_1));
 
 	}
 

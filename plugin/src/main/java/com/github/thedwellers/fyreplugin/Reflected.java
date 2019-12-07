@@ -20,7 +20,7 @@ import java.util.UUID;
  */
 public abstract class Reflected {
 	private static String version = Bukkit.getServer().getClass().getPackage().getName().replace(".", ",").split(",")[3]
-			+ ".";
+		+ ".";
 	private static String nmsClass = "net.minecraft.server." + version;
 	private static String obcClass = "org.bukkit.craftbukkit." + version;
 
@@ -73,7 +73,7 @@ public abstract class Reflected {
 
 			return nbtObject.toString();
 		} catch (LinkageError | ClassNotFoundException | NoSuchMethodException | IllegalAccessException
-				| InvocationTargetException | InstantiationException e) {
+			| InvocationTargetException | InstantiationException e) {
 			throw new ReflectionFailedException(e);
 		}
 	}
@@ -137,7 +137,7 @@ public abstract class Reflected {
 			return (ItemStack) bukkitItemStack;
 
 		} catch (LinkageError | ClassNotFoundException | NoSuchMethodException | IllegalAccessException
-				| InvocationTargetException e) {
+			| InvocationTargetException e) {
 			throw new ReflectionFailedException(e);
 		}
 	}
@@ -195,7 +195,7 @@ public abstract class Reflected {
 			return (String) toString.invoke(nbtData);
 
 		} catch (LinkageError | ClassNotFoundException | NoSuchMethodException | IllegalAccessException
-				| InstantiationException | InvocationTargetException e) {
+			| InstantiationException | InvocationTargetException e) {
 			throw new ReflectionFailedException(e);
 		}
 	}
@@ -270,7 +270,7 @@ public abstract class Reflected {
 			entityA.invoke(nmsEntity, uuid);
 
 		} catch (LinkageError | ClassNotFoundException | NoSuchMethodException | IllegalAccessException
-				| InvocationTargetException e) {
+			| InvocationTargetException e) {
 			throw new ReflectionFailedException(e);
 		}
 	}
@@ -313,7 +313,7 @@ public abstract class Reflected {
 			a.invoke(nmsBlockComposterClass, 0.5F, itemsRottenFleshField.get(nmsItemsClass));
 
 		} catch (LinkageError | ClassNotFoundException | NoSuchMethodException | IllegalAccessException
-				| NoSuchFieldException | InvocationTargetException e) {
+			| NoSuchFieldException | InvocationTargetException e) {
 			throw new ReflectionFailedException(e);
 		}
 	}

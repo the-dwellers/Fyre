@@ -2,7 +2,7 @@
 	"parent": "fyre:mining/took-you-long-enough",
 	"display": {
 		"icon": {
-			"item":"minecraft:cobblestone"
+			"item": "minecraft:cobblestone"
 		},
 		"title": "Stack'o Cobble",
 		"description": "§rMine a stack of stone. Good for bridges",

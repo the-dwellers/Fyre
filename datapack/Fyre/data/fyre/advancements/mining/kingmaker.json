@@ -2,7 +2,7 @@
 	"parent": "fyre:mining/iron-age",
 	"display": {
 		"icon": {
-			"item":"minecraft:gold_ore"
+			"item": "minecraft:gold_ore"
 		},
 		"title": "Kingmaker",
 		"description": "§rMine some gold! You've struck riches!",

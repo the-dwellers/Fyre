@@ -19,7 +19,7 @@ public class ListCommand extends AbstractCommand {
 		boolean isPlayer = src instanceof Player;
 
 		Player[] players = src.getServer().getOnlinePlayers()
-				.toArray(new Player[src.getServer().getOnlinePlayers().size()]);
+			.toArray(new Player[src.getServer().getOnlinePlayers().size()]);
 		if (players.length == 0) {
 			// No players online
 			return new TextComponent(Strings.OUT_PREFIX + "There are no players online");
@@ -34,10 +34,10 @@ public class ListCommand extends AbstractCommand {
 		if (players.length == 1) {
 			// English single
 			text.addExtra(Strings.OUT_PREFIX + "There is " + Strings.C_ACCENT +
-					players.length + Strings.C_DEFAULT + " player online");
+				players.length + Strings.C_DEFAULT + " player online");
 		} else {
 			text.addExtra(Strings.OUT_PREFIX + "There is " + Strings.C_ACCENT +
-					players.length + Strings.C_DEFAULT + " players online");
+				players.length + Strings.C_DEFAULT + " players online");
 
 		}
 
@@ -46,7 +46,7 @@ public class ListCommand extends AbstractCommand {
 		}
 
 		text.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
-				new TextComponent[]{buildLongForm(players)}));
+			new TextComponent[]{buildLongForm(players)}));
 		return text;
 	}
 

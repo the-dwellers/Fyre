@@ -2,7 +2,7 @@
 	"parent": "fyre:mining/dead-plant-collector",
 	"display": {
 		"icon": {
-			"item":"minecraft:coal_block"
+			"item": "minecraft:coal_block"
 		},
 		"title": "Climate changer",
 		"description": "§rMine a full inventory of Coal. Do you hate the environment?",

@@ -2,7 +2,7 @@
 	"parent": "fyre:mining/stacko-cobble",
 	"display": {
 		"icon": {
-			"item":"minecraft:stone_bricks"
+			"item": "minecraft:stone_bricks"
 		},
 		"title": "Red-Bearded Dwarf",
 		"description": "§rMine a full inventory of Stone. Where's the hole?",

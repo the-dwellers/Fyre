@@ -26,7 +26,6 @@
 	"rewards": {
 		"recipes": [
 			"minecraft:campfire",
-
 			"minecraft:acacia_button",
 			"minecraft:acacia_door",
 			"minecraft:acacia_fence_gate",
@@ -36,7 +35,6 @@
 			"minecraft:acacia_slab",
 			"minecraft:acacia_stairs",
 			"minecraft:acacia_trapdoor",
-
 			"minecraft:birch_button",
 			"minecraft:birch_door",
 			"minecraft:birch_fence_gate",
@@ -46,7 +44,6 @@
 			"minecraft:birch_slab",
 			"minecraft:birch_stairs",
 			"minecraft:birch_trapdoor",
-
 			"minecraft:jungle_button",
 			"minecraft:jungle_door",
 			"minecraft:jungle_fence_gate",

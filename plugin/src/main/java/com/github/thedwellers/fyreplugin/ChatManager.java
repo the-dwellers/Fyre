@@ -254,7 +254,7 @@ public abstract class ChatManager {
 			TextComponent text;
 
 			String itemName = item.getItemMeta().hasDisplayName() ? item.getItemMeta().getDisplayName()
-					: item.getI18NDisplayName();
+				: item.getI18NDisplayName();
 
 			// Check to see if the item has a custom colored name. This includes enchanted
 			// and renamed items
@@ -388,7 +388,7 @@ public abstract class ChatManager {
 		// Playtime
 		int secondsPlayed = player.getStatistic(Statistic.PLAY_ONE_MINUTE) / 60;
 		hover.addExtra(Strings.C_DEFAULT + "Playtime: " + Strings.C_ACCENT
-				+ buildTime(Integer.toUnsignedLong(secondsPlayed), false) + "\n");
+			+ buildTime(Integer.toUnsignedLong(secondsPlayed), false) + "\n");
 
 		// Times disconnected, & Average Session Length
 		int timesDisconnected = player.getStatistic(Statistic.LEAVE_GAME);
@@ -397,13 +397,13 @@ public abstract class ChatManager {
 			hover.addExtra(Strings.C_POSITIVE + "First time on Fyre! Welcome them!" + "\n");
 		} else {
 			hover.addExtra(Strings.C_DEFAULT + "Average Session: " + Strings.C_ACCENT
-					+ buildTime(Integer.toUnsignedLong(secondsPlayed / timesDisconnected), false) + "\n");
+				+ buildTime(Integer.toUnsignedLong(secondsPlayed / timesDisconnected), false) + "\n");
 			hover.addExtra(Strings.C_DEFAULT + "Times Disconnected: " + Strings.C_ACCENT + timesDisconnected + "\n");
 		}
 
 		// Cake slices eaten
 		hover.addExtra(Strings.C_DEFAULT + "Cake Slices Eaten: " + Strings.C_ACCENT
-				+ player.getStatistic(Statistic.CAKE_SLICES_EATEN));
+			+ player.getStatistic(Statistic.CAKE_SLICES_EATEN));
 
 		hover.addExtra("\n" + Strings.C_MUTED + "Click to private message");
 		name.setHoverEvent(new HoverEvent(Action.SHOW_TEXT, new TextComponent[]{hover}));

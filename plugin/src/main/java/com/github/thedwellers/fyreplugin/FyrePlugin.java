@@ -136,7 +136,7 @@ public final class FyrePlugin extends JavaPlugin {
 		} else {
 			RegisteredServiceProvider<Chat> chatService = getServer().getServicesManager().getRegistration(Chat.class);
 			RegisteredServiceProvider<Permission> permissionService = getServer().getServicesManager()
-					.getRegistration(Permission.class);
+				.getRegistration(Permission.class);
 
 			if (permissionService == null) {
 				log.info("[Fyre] No Permission Services registered. Default permissions will be used");

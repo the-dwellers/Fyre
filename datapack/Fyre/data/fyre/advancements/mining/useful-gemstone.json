@@ -2,7 +2,7 @@
 	"parent": "fyre:mining/useless-material",
 	"display": {
 		"icon": {
-			"item":"minecraft:diamond"
+			"item": "minecraft:diamond"
 		},
 		"title": "Useful Gemstone",
 		"description": "§rSell a diamond to a merchant. They're worth it",

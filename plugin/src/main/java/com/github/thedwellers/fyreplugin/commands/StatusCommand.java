@@ -27,7 +27,7 @@ public class StatusCommand extends AbstractCommand {
 	@Override
 	public boolean execute(CommandSender sender, Command command, String label, String[] args) {
 		Player[] players = plugin.getServer().getOnlinePlayers()
-				.toArray(new Player[plugin.getServer().getOnlinePlayers().size()]);
+			.toArray(new Player[plugin.getServer().getOnlinePlayers().size()]);
 		boolean isPlayer = sender instanceof Player;
 		TextComponent responseText = new TextComponent();
 		DecimalFormat decimalFormat = new DecimalFormat("0.00");
@@ -63,7 +63,7 @@ public class StatusCommand extends AbstractCommand {
 					latencyText.addExtra("" + ChatColor.YELLOW + playerLatency + "ms");
 				}
 				latencyText
-						.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TextComponent[]{hoverText}));
+					.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TextComponent[]{hoverText}));
 
 			} else {
 				latencyText.addExtra("Average Ping: ");
@@ -90,19 +90,19 @@ public class StatusCommand extends AbstractCommand {
 		}
 
 		TextComponent chunkText = new TextComponent(
-				"\n" + Strings.OUT_PREFIX + "Loaded Chunks: " + Strings.C_ACCENT + loadedChunks);
+			"\n" + Strings.OUT_PREFIX + "Loaded Chunks: " + Strings.C_ACCENT + loadedChunks);
 
 		if (isPlayer) {
 			// Add hover for player
 			TextComponent chunkHoverText = new TextComponent(
-					Strings.C_DEFAULT + "Chunks per player: " + Strings.C_ACCENT + loadedChunks / players.length);
+				Strings.C_DEFAULT + "Chunks per player: " + Strings.C_ACCENT + loadedChunks / players.length);
 			chunkText
-					.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TextComponent[]{chunkHoverText}));
+				.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TextComponent[]{chunkHoverText}));
 		} else {
 			// Caller is console
 			if (players.length != 0) {
 				chunkText.addExtra("\n" + Strings.OUT_PREFIX + "Chunks per player: " + Strings.C_ACCENT
-						+ loadedChunks / players.length);
+					+ loadedChunks / players.length);
 			}
 		}
 		responseText.addExtra(chunkText);
@@ -136,12 +136,12 @@ public class StatusCommand extends AbstractCommand {
 		}
 
 		TextComponent tpsText = new TextComponent(
-				Strings.OUT_PREFIX + "Ticks Per Second: " + tpsColors[0] + decimalFormat.format(tps[0]));
+			Strings.OUT_PREFIX + "Ticks Per Second: " + tpsColors[0] + decimalFormat.format(tps[0]));
 
 		if (isPlayer) {
 			TextComponent hoverText = new TextComponent(
-					"" + tpsColors[0] + decimalFormat.format(tps[0]) + " " + tpsColors[1] + decimalFormat.format(tps[1])
-							+ " " + tpsColors[2] + decimalFormat.format(tps[2]) + "\n");
+				"" + tpsColors[0] + decimalFormat.format(tps[0]) + " " + tpsColors[1] + decimalFormat.format(tps[1])
+					+ " " + tpsColors[2] + decimalFormat.format(tps[2]) + "\n");
 			switch (tpsColors[3]) {
 				case DARK_GREEN:
 					hoverText.addExtra(tpsColors[3] + "TPS is perfect");
@@ -162,7 +162,7 @@ public class StatusCommand extends AbstractCommand {
 			tpsText.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TextComponent[]{hoverText}));
 		} else {
 			tpsText.addExtra(" " + tpsColors[1] + decimalFormat.format(tps[1]) + " " + tpsColors[2]
-					+ decimalFormat.format(tps[2]));
+				+ decimalFormat.format(tps[2]));
 		}
 		responseText.addExtra("\n");
 		responseText.addExtra(tpsText);
@@ -200,17 +200,17 @@ public class StatusCommand extends AbstractCommand {
 				memoryColor = ChatColor.DARK_GREEN;
 			}
 			memoryText.addExtra("Using " + memoryColor + usedMemory + "MB / " +
-					maxMemory + "MB (" + decimalFormat.format((((double) usedMemory / (double) maxMemory) * 100)) + "%)" +
-					Strings.C_DEFAULT + " of memory");
+				maxMemory + "MB (" + decimalFormat.format((((double) usedMemory / (double) maxMemory) * 100)) + "%)" +
+				Strings.C_DEFAULT + " of memory");
 		}
 
 		if (isPlayer) {
 			TextComponent memoryHover = new TextComponent(Strings.C_DEFAULT + "Max Memory: " + Strings.C_ACCENT + maxMemory +
-					Strings.C_DEFAULT + "\nAllocated Memory: " + Strings.C_ACCENT + (Runtime.getRuntime().totalMemory() / (int) 0x100000) +
-					Strings.C_DEFAULT + "\nUsed Memory: " + Strings.C_ACCENT + usedMemory +
-					Strings.C_DEFAULT + "\nUnused Memory: " + Strings.C_ACCENT + (Runtime.getRuntime().freeMemory() / (int) 0x100000) +
-					Strings.C_DEFAULT + "\nFree Memory: " + Strings.C_ACCENT + (maxMemory - usedMemory) +
-					Strings.C_MUTED + "\nAll values in Megabytes (MB)");
+				Strings.C_DEFAULT + "\nAllocated Memory: " + Strings.C_ACCENT + (Runtime.getRuntime().totalMemory() / (int) 0x100000) +
+				Strings.C_DEFAULT + "\nUsed Memory: " + Strings.C_ACCENT + usedMemory +
+				Strings.C_DEFAULT + "\nUnused Memory: " + Strings.C_ACCENT + (Runtime.getRuntime().freeMemory() / (int) 0x100000) +
+				Strings.C_DEFAULT + "\nFree Memory: " + Strings.C_ACCENT + (maxMemory - usedMemory) +
+				Strings.C_MUTED + "\nAll values in Megabytes (MB)");
 
 			memoryText.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TextComponent[]{memoryHover}));
 		}

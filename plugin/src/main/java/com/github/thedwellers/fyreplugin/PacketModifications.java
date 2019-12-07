@@ -14,14 +14,14 @@ public abstract class PacketModifications {
 
 	public static void startFilters(FyrePlugin plugin, ProtocolManager protocolManager) {
 		protocolManager.addPacketListener(
-				new PacketAdapter(plugin, ListenerPriority.NORMAL, PacketType.Play.Server.SPAWN_ENTITY) {
-					@Override
-					public void onPacketSending(PacketEvent event) {
-						if (event.getPacketType() == PacketType.Play.Server.SPAWN_ENTITY) {
-							PacketContainer packet = event.getPacket();
-						}
+			new PacketAdapter(plugin, ListenerPriority.NORMAL, PacketType.Play.Server.SPAWN_ENTITY) {
+				@Override
+				public void onPacketSending(PacketEvent event) {
+					if (event.getPacketType() == PacketType.Play.Server.SPAWN_ENTITY) {
+						PacketContainer packet = event.getPacket();
 					}
 				}
+			}
 		);
 	}
 }

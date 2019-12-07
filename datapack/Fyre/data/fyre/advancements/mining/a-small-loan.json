@@ -2,7 +2,7 @@
 	"parent": "fyre:mining/kingmaker",
 	"display": {
 		"icon": {
-			"item":"minecraft:gold_block"
+			"item": "minecraft:gold_block"
 		},
 		"title": "A Small Loan",
 		"description": "§rMine a full inventory of Gold Ore. Enough gold to rule the world!",

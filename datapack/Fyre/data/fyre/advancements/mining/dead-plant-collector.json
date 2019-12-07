@@ -2,7 +2,7 @@
 	"parent": "fyre:mining/fossil-fuels",
 	"display": {
 		"icon": {
-			"item":"minecraft:coal_ore"
+			"item": "minecraft:coal_ore"
 		},
 		"title": "Dead Plant Collector",
 		"description": "§rMine a stack of Coal! Charcoal is greener!",
