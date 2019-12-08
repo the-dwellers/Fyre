@@ -1,7 +1,7 @@
 name: Fyre
-description: The Fyre Plugin is a helper plugin to implement features such as server administration tools, merchant functionality, and a few other features.
+description: Fyre is a helper plugin that allows the implementation of server administration features, merchant and bank functionality and so on.
 version: "@version@"
-main: com.github.thedwellers.fyreplugin.FyrePlugin
+main: io.github.the_dwellers.fyreplugin.FyrePlugin
 api-version: "1.14"
 load: STARTUP
 authors:
@@ -11,14 +11,12 @@ authors:
 website: https://github.com/the-dwellers/Fyre
 softdepend:
   - Vault
+  - ProtocolLib
 
 commands:
   armor:
     description: Broadcast your currently equipped armor to chat
     usage: /armor
-  bank:
-    description: Manage banks, vaults and bankers
-    usage: /bank [options]
   debug:
     description: Debug command
     usage: /debug
@@ -28,9 +26,6 @@ commands:
   list:
     description: List all players on the server
     usage: /list
-  merchant:
-    description: Manager merchant and player tiers
-    usage: /merchant [options]
   money:
     description: Give player money
     usage: /money
@@ -46,30 +41,21 @@ permissions:
   fyre.armor.use:
     description: Allows the use of the armor command
     default: true
-  fyre.bank.use:
-    description: Allows the basic usage of the bank command (Not administrative)
-    default: op
   fyre.debug.use:
     description: Allows the use of the debug command
     default: op
   fyre.item.use:
-    description: Allows the user of the item command
+    description: Allows the use of the item command
     default: true
   fyre.list.use:
     description: Allows the use of the list command
     default: true
-  fyre.merchant.use:
-    description: Allows the basic usage of the merchant command (Not administrative)
-    default: op
   fyre.money.use:
     description: Allows the use of the money command
     default: op
   fyre.plugins.use:
     description: Allows the use of the plugins command
     default: true
-  fyre.rebuild.use:
-    description: Allows the use of the rebuild command
-    default: op
   fyre.status.use:
     description: Allows the use of the status command
     default: true

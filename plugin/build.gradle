@@ -2,25 +2,31 @@ plugins {
 	id 'java'
 }
 
-group = pluginGroup
-version = pluginVersion
+group 'io.github.the-dwellers'
+version '1.0-SNAPSHOT'
 
-sourceCompatibility = '1.8'
-targetCompatibility = '1.8'
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
 
 repositories {
 	mavenCentral()
 	jcenter()
 	maven {
-		name = 'papermc'
-		url = 'https://papermc.io/repo/repository/maven-public/'
+		name 'papermc'
+		url 'https://papermc.io/repo/repository/maven-public/'
 	}
 	maven {
-		name = 'sonatype'
-		url = 'https://oss.sonatype.org/content/groups/public/'
+		name 'sonatype'
+		url 'https://oss.sonatype.org/content/groups/public/'
 	}
-	maven { url 'https://jitpack.io' }
-	maven { url "http://repo.dmulloy2.net/nexus/repository/public/" }
+	maven {
+		name 'jitpack.io'
+		url 'https://jitpack.io'
+	}
+	maven {
+		name 'dmulloy2'
+		url 'http://repo.dmulloy2.net/nexus/repository/public/'
+	}
 }
 
 dependencies {
@@ -29,7 +35,7 @@ dependencies {
 	compileOnly group: 'com.google.code.gson', name: 'gson', version: '2.8.6'
 	compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.10'
 	compileOnly group: 'com.github.MilkBowl', name: 'VaultAPI', version: '1.7'
-	compileOnly group: "com.comphenix.protocol", name: "ProtocolLib", version: "4.4.0";
+	compileOnly group: 'com.comphenix.protocol', name: 'ProtocolLib', version: '4.4.0'
 
 	annotationProcessor group: 'org.projectlombok', name: 'lombok', version: '1.18.10'
 
@@ -45,6 +51,5 @@ processResources {
 }
 
 wrapper {
-	gradleVersion = '6.0.1'
-	distributionType = Wrapper.DistributionType.ALL
+	gradleVersion '6.0.1'
 }
