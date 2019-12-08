@@ -1,3 +1,8 @@
+## Fyre specific ignores
+
+# Local Server
+plugin/server/
+
 # Created by .ignore support plugin (hsz.mobi)
 ### macOS template
 # General
@@ -377,4 +382,3 @@ local.properties
 .cache-main
 .scala_dependencies
 .worksheet
-
