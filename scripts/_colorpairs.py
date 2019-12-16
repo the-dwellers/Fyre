@@ -1,8 +1,0 @@
-BLACK = 1
-BLUE = 2
-CYAN = 3
-GREEN = 4
-MAGENTA = 5
-RED = 6
-WHITE = 7
-YELLOW = 8
