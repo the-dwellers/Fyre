@@ -1,42 +1,18 @@
 import curses
+import os
 
 import _curses
 
-
-# region Colors
-class Colors:
-	Black = None,
-	Blue = None,
-	Cyan = None,
-	Green = None,
-	Magenta = None,
-	Red = None,
-	White = None,
-	Yellow = None,
-
-
-def setup_colors():
-	curses.init_pair(1, curses.COLOR_BLACK, curses.COLOR_BLACK)
-	curses.init_pair(2, curses.COLOR_BLUE, curses.COLOR_BLACK)
-	curses.init_pair(3, curses.COLOR_CYAN, curses.COLOR_BLACK)
-	curses.init_pair(4, curses.COLOR_GREEN, curses.COLOR_BLACK)
-	curses.init_pair(5, curses.COLOR_MAGENTA, curses.COLOR_BLACK)
-	curses.init_pair(6, curses.COLOR_RED, curses.COLOR_BLACK)
-	curses.init_pair(7, curses.COLOR_WHITE, curses.COLOR_BLACK)
-	curses.init_pair(8, curses.COLOR_YELLOW, curses.COLOR_BLACK)
-
-	Colors.Black = curses.color_pair(1)
-	Colors.Blue = curses.color_pair(2)
-	Colors.Cyan = curses.color_pair(3)
-	Colors.Green = curses.color_pair(4)
-	Colors.Magenta = curses.color_pair(5)
-	Colors.Red = curses.color_pair(6)
-	Colors.White = curses.color_pair(7)
-	Colors.Yellow = curses.color_pair(8)
-# endregion
-
+from _colors import Colors, setup_colors
+from _server import ServerThread
 
 options = []
+
+root_dir = os.path.dirname(os.path.realpath(__file__))
+server_dir = os.path.join(root_dir, "server")
+plugins_dir = os.path.join(server_dir, "plugins")
+world_dir = os.path.join(server_dir, "world")
+data_pack_dir = os.path.join(world_dir, "datapacks")
 
 
 def setup_options():
@@ -63,7 +39,9 @@ def setup_options():
 		pass
 
 	def action_quit():
-		pass
+		# TODO: CLean exit
+		exit(0)
+
 	# endregion
 	options.append({
 		"key": "1",
@@ -105,6 +83,20 @@ def setup_options():
 		"name": "Quit",
 		"func": action_quit
 	})
+
+
+def setup_dirs():
+	if not os.path.exists(server_dir):
+		os.mkdir(server_dir)
+
+	if not os.path.exists(plugins_dir):
+		os.mkdir(plugins_dir)
+
+	if not os.path.exists(world_dir):
+		os.mkdir(world_dir)
+
+	if not os.path.exists(data_pack_dir):
+		os.mkdir(data_pack_dir)
 
 
 def print_status(screen: curses.window):
@@ -167,6 +159,45 @@ def main(screen: curses.window):
 
 	setup_colors()
 	setup_options()
+	setup_dirs()
+	# endregion
+	# region EULA
+	eula_file = os.path.join(server_dir, "eula.txt")
+	eula = False
+
+	while not eula:
+		screen.clear()
+		if not os.path.exists(eula_file):
+			eula = False
+		else:
+			f = open(eula_file, "r")
+			for line in f.readlines():
+				if "eula=" in line:
+					if line[5:].lower() == 'true':
+						eula = True
+			f.close()
+
+		if eula:
+			break
+
+		screen.addstr(1, 0, "By continuing you accept the Minecraft EULA (https://account.mojang.com/documents/minecraft_eula)")
+		screen.addstr(2, 0, "Press 'y' to Accept, 'n' to decline")
+
+		try:
+			key = screen.getkey()
+			if key == 'n':
+				exit(0)
+			elif key == 'y':
+				if os.path.exists(eula_file):
+					os.remove(eula_file)
+
+				f = open(eula_file, "w+")
+				f.write("eula=true")
+				f.close()
+
+				eula = True
+		except _curses.error:
+			pass
 	# endregion
 	while True:
 		screen.clear()
