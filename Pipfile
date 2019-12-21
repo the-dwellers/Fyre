@@ -6,8 +6,9 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
-windows-curses = {version = "*", sys_platform = "== 'win32'"}
+windows-curses = {version = "*",sys_platform = "== 'win32'"}
 psutil = "*"
+requests = "*"
 
 [requires]
 python_version = "3.8"

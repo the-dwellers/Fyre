@@ -4,25 +4,14 @@ import os
 import _curses
 
 from _colors import Colors, setup_colors
+from _global import *
 from _server import ServerThread
 
 options = []
 
-root_dir = os.path.dirname(os.path.realpath(__file__))
-server_dir = os.path.join(root_dir, "server")
-plugins_dir = os.path.join(server_dir, "plugins")
-world_dir = os.path.join(server_dir, "world")
-data_pack_dir = os.path.join(world_dir, "datapacks")
-
 
 def setup_options():
 	# region Actions
-	def action_start():
-		pass
-
-	def action_stop():
-		pass
-
 	def action_restart():
 		pass
 
@@ -45,36 +34,26 @@ def setup_options():
 	# endregion
 	options.append({
 		"key": "1",
-		"name": "Start",
-		"func": action_start
-	})
-	options.append({
-		"key": "2",
-		"name": "Stop",
-		"func": action_stop
-	})
-	options.append({
-		"key": "3",
 		"name": "Restart",
 		"func": action_restart
 	})
 	options.append({
-		"key": "4",
+		"key": "2",
 		"name": "Rebuild all",
 		"func": action_rebuild_all
 	})
 	options.append({
-		"key": "5",
+		"key": "3",
 		"name": "Rebuild data pack",
 		"func": action_rebuild_data_pack
 	})
 	options.append({
-		"key": "6",
+		"key": "4",
 		"name": "Rebuild plugin",
 		"func": action_rebuild_plugin
 	})
 	options.append({
-		"key": "9",
+		"key": "5",
 		"name": "Attach",
 		"func": action_attach
 	})
@@ -170,17 +149,17 @@ def main(screen: curses.window):
 		if not os.path.exists(eula_file):
 			eula = False
 		else:
-			f = open(eula_file, "r")
-			for line in f.readlines():
-				if "eula=" in line:
-					if line[5:].lower() == 'true':
-						eula = True
-			f.close()
+			with open(eula_file) as f:
+				for line in f.readlines():
+					if "eula=" in line:
+						if line[5:].lower() == 'true':
+							eula = True
 
 		if eula:
 			break
 
-		screen.addstr(1, 0, "By continuing you accept the Minecraft EULA (https://account.mojang.com/documents/minecraft_eula)")
+		screen.addstr(1, 0,
+									"By continuing you accept the Minecraft EULA (https://account.mojang.com/documents/minecraft_eula)")
 		screen.addstr(2, 0, "Press 'y' to Accept, 'n' to decline")
 
 		try:
@@ -191,9 +170,8 @@ def main(screen: curses.window):
 				if os.path.exists(eula_file):
 					os.remove(eula_file)
 
-				f = open(eula_file, "w+")
-				f.write("eula=true")
-				f.close()
+				with open(eula_file, "w+") as f:
+					f.write("eula=true")
 
 				eula = True
 		except _curses.error:
