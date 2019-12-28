@@ -26,16 +26,18 @@ public abstract class MerchantLogic {
 		ArrayList<MerchantRecipe> recipes = new ArrayList<MerchantRecipe>();
 
 		switch (profession) {
-			case TOOLSMITH:
-				switch (level) {
-					default:
-						recipes.add(MerchantRecipes.getWoodAxe());
-				}
-				break;
+		case TOOLSMITH:
+			switch (level) {
 			default:
-				break;
+				recipes.add(MerchantRecipes.getWoodAxe());
+			}
+			break;
+		case NONE:
+			recipes.add(MerchantRecipes.sellSplinters());
+			recipes.add(MerchantRecipes.learnCraftingTable());
+		default:
+			break;
 		}
-		recipes.add(MerchantRecipes.sellSplinters());
 		return recipes;
 	}
 }
