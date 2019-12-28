@@ -96,6 +96,7 @@ public final class FyrePlugin extends JavaPlugin {
 		getServer().getCommandMap().getCommand("plugins");
 		this.getCommand("plugins").setExecutor(new PluginsCommand());
 		this.getCommand("status").setExecutor(new StatusCommand());
+		this.getCommand("trader").setExecutor(new TraderCommand());
 	}
 
 	/**
