@@ -8,7 +8,9 @@ import org.bukkit.NamespacedKey;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.attribute.AttributeModifier.Operation;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.EquipmentSlot;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.KnowledgeBookMeta;
@@ -27,6 +29,7 @@ public abstract class Items {
 	public static String PREFIX_RECIPE = ChatColor.LIGHT_PURPLE + "Recipe: ";
 	public static String PREFIX_SPECIAL = "" + ChatColor.GOLD;
 	public static String PREFIX_COMMON = "" + ChatColor.RESET;
+	public static String PREFIX_LORE_COMMON = PREFIX_COMMON + ChatColor.DARK_GRAY;
 
 	private static ItemStack SILVER_COIN;
 	private static ItemStack ERROR_ITEM;
@@ -89,13 +92,19 @@ public abstract class Items {
 	public static ItemStack craftingBook(CraftingBook book) {
 		ItemStack knowledgeBook = new ItemStack(Material.KNOWLEDGE_BOOK);
 		KnowledgeBookMeta itemMeta = (KnowledgeBookMeta) knowledgeBook.getItemMeta();
+
+		itemMeta.addEnchant(Enchantment.DURABILITY, 1, true);
+		itemMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+
 		switch (book) {
 		case CraftingTable:
 			itemMeta.setDisplayName(PREFIX_RECIPE + "Crafting Table");
+
 			ArrayList<String> loreCraftingTable = new ArrayList<String>();
+
 			loreCraftingTable.add(ChatColor.RESET + "" + ChatColor.AQUA + "Use to unlock Crafting Tables");
-			loreCraftingTable.add(ChatColor.RESET + "" + ChatColor.DARK_GRAY
-					+ "Crafting tables are used to craft complex items, such as tools.");
+			loreCraftingTable.add(PREFIX_LORE_COMMON + "Crafting tables are used to craft");
+			loreCraftingTable.add(PREFIX_LORE_COMMON + "complex items, such as tools.");
 			loreCraftingTable.add("");
 			loreCraftingTable.add(ChatColor.MAGIC + "Replacement for the B key");
 
