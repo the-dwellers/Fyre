@@ -29,8 +29,10 @@ So in other words: a custom plugin will have to be created to solve this issue.
 
 ### Building (Mason)
 
+
 1. Level 1
-	- Wood Log -> 1 silver
+	<!-- Cannot have ambiguous materials? -->
+	- Oak Log -> 1 silver
 
 ### Enchanting (Librarian)
 
@@ -54,6 +56,5 @@ So in other words: a custom plugin will have to be created to solve this issue.
 
 1. Level 1:
 	- 10 silver -> Wooden Axe
-	- 15 silver - > Recipe: Wooden Axe
 	- 5 silver -> Wooden Spade
-	- 10 silver - > Recipe: Wooden Spade
+	- 40 silver - > Recipe: Wooden Tools

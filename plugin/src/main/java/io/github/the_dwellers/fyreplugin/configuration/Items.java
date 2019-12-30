@@ -34,6 +34,7 @@ public abstract class Items {
 	private static ItemStack SILVER_COIN;
 	private static ItemStack ERROR_ITEM;
 	private static ItemStack WOOD_AXE;
+	private static ItemStack WOOD_SHOVEL;
 	private static ItemStack SPLINTERS;
 
 	public static ItemStack getSilverCoin() {
@@ -65,6 +66,13 @@ public abstract class Items {
 		return WOOD_AXE.clone();
 	}
 
+	public static ItemStack getWoodShovel() {
+		if (WOOD_SHOVEL == null) {
+			WOOD_SHOVEL = new ItemStack(Material.WOODEN_SHOVEL, 1);
+		}
+		return WOOD_SHOVEL.clone();
+	}
+
 	public static ItemStack getSplinters() {
 		if (SPLINTERS == null) {
 			SPLINTERS = new ItemStack(Material.STICK, 1);
@@ -86,7 +94,8 @@ public abstract class Items {
 	}
 
 	public enum CraftingBook {
-		CraftingTable
+		CraftingTable,
+		WoodenTools
 	}
 
 	public static ItemStack craftingBook(CraftingBook book) {
@@ -113,7 +122,24 @@ public abstract class Items {
 			// ? No alternative to NamespacedKey(), even though it's depreciated?
 			itemMeta.addRecipe(new NamespacedKey("minecraft", "crafting_table"));
 			break;
+		case WoodenTools:
+			itemMeta.setDisplayName(PREFIX_RECIPE + "Wooden Tools");
 
+			ArrayList<String> loreWoodenTools = new ArrayList<String>();
+
+			loreWoodenTools.add(ChatColor.RESET + "" + ChatColor.AQUA + "Use to unlock Wooden Tools");
+			loreWoodenTools.add(PREFIX_LORE_COMMON + "Wooden tools are the most basic,");
+			loreWoodenTools.add(PREFIX_LORE_COMMON + "but still better than punching.");
+			loreWoodenTools.add("");
+			loreWoodenTools.add(ChatColor.MAGIC + "Only used once");
+
+			itemMeta.setLore(loreWoodenTools);
+
+			itemMeta.addRecipe(new NamespacedKey("minecraft", "wooden_axe"));
+			itemMeta.addRecipe(new NamespacedKey("minecraft", "wooden_pickaxe"));
+			itemMeta.addRecipe(new NamespacedKey("minecraft", "wooden_shovel"));
+			itemMeta.addRecipe(new NamespacedKey("minecraft", "wooden_sword"));
+			break;
 		default:
 			itemMeta.setDisplayName(PREFIX_COMMON + "Green Broken Book");
 			ArrayList<String> loreDefault = new ArrayList<String>();

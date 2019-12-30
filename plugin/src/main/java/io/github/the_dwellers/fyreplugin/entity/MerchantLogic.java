@@ -30,6 +30,14 @@ public abstract class MerchantLogic {
 			switch (level) {
 			default:
 				recipes.add(MerchantRecipes.getWoodAxe());
+				recipes.add(MerchantRecipes.getWoodSpade());
+				recipes.add(MerchantRecipes.learnWoodenTools());
+			}
+			break;
+		case MASON:
+			switch (level) {
+			default:
+				recipes.add(MerchantRecipes.sellOakLog());
 			}
 			break;
 		case NONE:

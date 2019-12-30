@@ -1,5 +1,6 @@
 package io.github.the_dwellers.fyreplugin.configuration;
 
+import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.MerchantRecipe;
 
@@ -13,8 +14,11 @@ import java.util.ArrayList;
 public abstract class MerchantRecipes {
 
 	private static MerchantRecipe BUY_WOOD_AXE;
+	private static MerchantRecipe BUY_WOOD_SPADE;
 	private static MerchantRecipe SELL_SPLINTERS;
 	private static MerchantRecipe LEARN_CRAFTING_TABLE;
+	private static MerchantRecipe LEARN_WOODEN_TOOLS;
+	private static MerchantRecipe SELL_LOG;
 
 
 	public static MerchantRecipe getWoodAxe() {
@@ -27,6 +31,30 @@ public abstract class MerchantRecipes {
 			BUY_WOOD_AXE.setIngredients(ingredients);
 		}
 		return BUY_WOOD_AXE;
+	}
+
+	public static MerchantRecipe sellOakLog() {
+		if (SELL_LOG == null) {
+			SELL_LOG = new MerchantRecipe(silver(1), 90);
+
+			ArrayList<ItemStack> ingredients = new ArrayList<ItemStack>();
+			ingredients.add(new ItemStack(Material.OAK_LOG));
+
+			SELL_LOG.setIngredients(ingredients);
+		}
+		return SELL_LOG;
+	}
+
+	public static MerchantRecipe getWoodSpade() {
+		if (BUY_WOOD_SPADE == null) {
+			BUY_WOOD_SPADE = new MerchantRecipe(Items.getWoodShovel(), 90);
+
+			ArrayList<ItemStack> ingredients = new ArrayList<ItemStack>();
+			ingredients.add(silver(5));
+
+			BUY_WOOD_SPADE.setIngredients(ingredients);
+		}
+		return BUY_WOOD_SPADE;
 	}
 
 	public static MerchantRecipe sellSplinters() {
@@ -50,6 +78,16 @@ public abstract class MerchantRecipes {
 			LEARN_CRAFTING_TABLE.setIngredients(ingredients);
 		}
 		return LEARN_CRAFTING_TABLE;
+	}
+
+	public static MerchantRecipe learnWoodenTools() {
+		if (LEARN_WOODEN_TOOLS == null) {
+			LEARN_WOODEN_TOOLS = new MerchantRecipe(Items.craftingBook(CraftingBook.WoodenTools), 1);
+			ArrayList<ItemStack> ingredients = new ArrayList<ItemStack>();
+			ingredients.add(silver(40));
+			LEARN_WOODEN_TOOLS.setIngredients(ingredients);
+		}
+		return LEARN_WOODEN_TOOLS;
 	}
 
 	private static ItemStack silver(int amount) {
