@@ -122,6 +122,7 @@ public final class FyrePlugin extends JavaPlugin {
 		// getServer().getPluginManager().registerEvents(new BrickHit(), this);
 		getServer().getPluginManager().registerEvents(new PlayerDeath(), this);
 		getServer().getPluginManager().registerEvents(new TraderClick(), this);
+		getServer().getPluginManager().registerEvents(new KnowledgeBookUse(), this);
 	}
 
 	private void serverSetUp() {
