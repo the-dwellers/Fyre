@@ -13,6 +13,47 @@ per-player progression in regards to trades
 
 So in other words: a custom plugin will have to be created to solve this issue.
 
-## Global Trades
+## Trades
 
-Sticks -> 3 Silver Coins
+### Basics (None)
+
+1. Level 1:
+	- 3 Splinters -> 1 silver
+	- 10 silver -> Recipe: Crafting Table
+
+### ??? (Leatherworker)
+
+### Animals (Shepherd)
+
+### Armour (Armorer)
+
+### Building (Mason)
+
+1. Level 1
+	- Wood Log -> 1 silver
+
+### Enchanting (Librarian)
+
+### Farming (Farmer)
+
+### Fishing (Fisherman)
+
+### Meat Food (Butcher)
+
+### Miscellaneous (Cartographer)
+
+### Potions (Cleric)
+
+### Ranged Weapons (Fletcher)
+
+### Rare and Unique (NitWit)
+
+### Swords (Weaponsmith)
+
+### Toolsmith (Tools)
+
+1. Level 1:
+	- 10 silver -> Wooden Axe
+	- 15 silver - > Recipe: Wooden Axe
+	- 5 silver -> Wooden Spade
+	- 10 silver - > Recipe: Wooden Spade
