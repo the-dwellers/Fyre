@@ -35,13 +35,19 @@ public abstract class Items {
 	private static ItemStack ERROR_ITEM;
 	private static ItemStack WOOD_AXE;
 	private static ItemStack WOOD_SHOVEL;
+	private static ItemStack WOOD_SWORD;
+	private static ItemStack WOOD_PICKAXE;
 	private static ItemStack SPLINTERS;
+
+	private static ItemStack TOME_CRAFTING_TABLE;
+	private static ItemStack TOME_WOODEN_TOOLS;
+	private static ItemStack TOME_WOODEN_SWORD;
 
 	public static ItemStack getSilverCoin() {
 		if (SILVER_COIN == null) {
 			SILVER_COIN = new ItemStack(Material.IRON_NUGGET, 1);
 			ItemMeta meta = SILVER_COIN.getItemMeta();
-			meta.setLore(Arrays.asList(ChatColor.RESET + "Simple Currency"));
+			meta.setLore(Arrays.asList(PREFIX_LORE_COMMON + "Simple Currency"));
 			meta.setDisplayName(PREFIX_SPECIAL + "Silver Coin");
 			SILVER_COIN.setItemMeta(meta);
 		}
@@ -73,6 +79,13 @@ public abstract class Items {
 		return WOOD_SHOVEL.clone();
 	}
 
+	public static ItemStack getWoodPickaxe() {
+		if (WOOD_PICKAXE == null) {
+			WOOD_PICKAXE = new ItemStack(Material.WOODEN_PICKAXE, 1);
+		}
+		return WOOD_PICKAXE.clone();
+	}
+
 	public static ItemStack getSplinters() {
 		if (SPLINTERS == null) {
 			SPLINTERS = new ItemStack(Material.STICK, 1);
@@ -94,11 +107,32 @@ public abstract class Items {
 	}
 
 	public enum CraftingBook {
-		CraftingTable,
-		WoodenTools
+		CraftingTable, WoodenTools, WoodenSword
 	}
 
 	public static ItemStack craftingBook(CraftingBook book) {
+		switch (book) {
+		case CraftingTable:
+			if (TOME_CRAFTING_TABLE == null) {
+				TOME_CRAFTING_TABLE = generateCraftingBook(CraftingBook.CraftingTable);
+			}
+			return TOME_CRAFTING_TABLE.clone();
+		case WoodenTools:
+			if (TOME_WOODEN_TOOLS == null) {
+				TOME_WOODEN_TOOLS = generateCraftingBook(CraftingBook.WoodenTools);
+			}
+			return TOME_WOODEN_TOOLS.clone();
+		case WoodenSword:
+			if (TOME_WOODEN_SWORD == null) {
+				TOME_WOODEN_SWORD = generateCraftingBook(CraftingBook.WoodenSword);
+			}
+			return TOME_WOODEN_SWORD.clone();
+		default:
+			return generateCraftingBook(book);
+		}
+	}
+
+	public static ItemStack generateCraftingBook(CraftingBook book) {
 		ItemStack knowledgeBook = new ItemStack(Material.KNOWLEDGE_BOOK);
 		KnowledgeBookMeta itemMeta = (KnowledgeBookMeta) knowledgeBook.getItemMeta();
 
@@ -126,6 +160,7 @@ public abstract class Items {
 			itemMeta.addRecipe(new NamespacedKey("minecraft", "crafting_table"));
 			break;
 		case WoodenTools:
+
 			itemMeta.setDisplayName(PREFIX_RECIPE + "Wooden Tools");
 
 			ArrayList<String> loreWoodenTools = new ArrayList<String>();
@@ -146,6 +181,23 @@ public abstract class Items {
 			itemMeta.addRecipe(new NamespacedKey("minecraft", "wooden_axe"));
 			itemMeta.addRecipe(new NamespacedKey("minecraft", "wooden_pickaxe"));
 			itemMeta.addRecipe(new NamespacedKey("minecraft", "wooden_shovel"));
+			break;
+		case WoodenSword:
+			itemMeta.setDisplayName(PREFIX_RECIPE + "Wooden Sword");
+
+			ArrayList<String> loreWoodenSword = new ArrayList<String>();
+
+			loreWoodenSword.add(ChatColor.RESET + "" + ChatColor.AQUA + "Use to unlock Wooden Swords");
+			loreWoodenSword.add(PREFIX_LORE_COMMON + "A wooden sword isn't the best,");
+			loreWoodenSword.add(PREFIX_LORE_COMMON + "but it's sharper than some sticks.");
+			loreWoodenSword.add("");
+			loreWoodenSword.add(ChatColor.GREEN + "Unlocks:");
+			loreWoodenSword.add(PREFIX_LORE_COMMON + "- Wooden Sword");
+			loreWoodenSword.add("");
+			loreWoodenSword.add(ChatColor.MAGIC + "Only used once");
+
+			itemMeta.setLore(loreWoodenSword);
+
 			itemMeta.addRecipe(new NamespacedKey("minecraft", "wooden_sword"));
 			break;
 		default:
@@ -159,5 +211,12 @@ public abstract class Items {
 
 		knowledgeBook.setItemMeta(itemMeta);
 		return knowledgeBook;
+	}
+
+	public static ItemStack getWoodSword() {
+		if (WOOD_SWORD == null) {
+			WOOD_SWORD = new ItemStack(Material.WOODEN_SWORD, 1);
+		}
+		return WOOD_SWORD.clone();
 	}
 }
