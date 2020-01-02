@@ -115,6 +115,9 @@ public abstract class Items {
 			loreCraftingTable.add(PREFIX_LORE_COMMON + "Crafting tables are used to craft");
 			loreCraftingTable.add(PREFIX_LORE_COMMON + "complex items, such as tools.");
 			loreCraftingTable.add("");
+			loreCraftingTable.add(ChatColor.GREEN + "Unlocks:");
+			loreCraftingTable.add(PREFIX_LORE_COMMON + "- Crafting Table");
+			loreCraftingTable.add("");
 			loreCraftingTable.add(ChatColor.MAGIC + "Replacement for the B key");
 
 			itemMeta.setLore(loreCraftingTable);
@@ -130,6 +133,11 @@ public abstract class Items {
 			loreWoodenTools.add(ChatColor.RESET + "" + ChatColor.AQUA + "Use to unlock Wooden Tools");
 			loreWoodenTools.add(PREFIX_LORE_COMMON + "Wooden tools are the most basic,");
 			loreWoodenTools.add(PREFIX_LORE_COMMON + "but still better than punching.");
+			loreWoodenTools.add("");
+			loreWoodenTools.add(ChatColor.GREEN + "Unlocks:");
+			loreWoodenTools.add(PREFIX_LORE_COMMON + "- Wooden Axe");
+			loreWoodenTools.add(PREFIX_LORE_COMMON + "- Wooden Shovel");
+			loreWoodenTools.add(PREFIX_LORE_COMMON + "- Wooden Pickaxe");
 			loreWoodenTools.add("");
 			loreWoodenTools.add(ChatColor.MAGIC + "Only used once");
 
