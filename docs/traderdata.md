@@ -29,10 +29,28 @@ So in other words: a custom plugin will have to be created to solve this issue.
 
 ### Building (Mason)
 
-
 1. Level 1
-	<!-- Cannot have ambiguous materials? -->
+	Desert:
+	Jungle:
+	- Jungle Log -> 1 silver
+	- 3 silver -> Jungle Log
+	Plains:
 	- Oak Log -> 1 silver
+	- Birch Log -> 1 silver
+	- Dark Oak -> 1 silver
+	- 3 silver -> Oak Log
+	- 3 silver -> Birch Log
+	- 3 silver -> Dark Oak
+	Savanna:
+	- Acacia Log -> 1 silver
+	- 3 silver -> Acacia Log
+	Snow:
+	Swamp:
+	- Oak Log -> 1 silver
+	- 3 silver -> Oak Log
+	Taiga:
+	- Spruce Log -> 1 silver
+	- 3 silver -> Spruce Log
 
 ### Enchanting (Librarian)
 

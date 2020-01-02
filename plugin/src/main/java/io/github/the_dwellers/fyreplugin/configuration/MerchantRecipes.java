@@ -15,11 +15,25 @@ public abstract class MerchantRecipes {
 
 	private static MerchantRecipe BUY_WOOD_AXE;
 	private static MerchantRecipe BUY_WOOD_SPADE;
+
 	private static MerchantRecipe SELL_SPLINTERS;
+
 	private static MerchantRecipe LEARN_CRAFTING_TABLE;
 	private static MerchantRecipe LEARN_WOODEN_TOOLS;
-	private static MerchantRecipe SELL_LOG;
 
+	private static MerchantRecipe SELL_LOG_OAK;
+	private static MerchantRecipe SELL_LOG_SPRUCE;
+	private static MerchantRecipe SELL_LOG_BIRCH;
+	private static MerchantRecipe SELL_LOG_JUNGLE;
+	private static MerchantRecipe SELL_LOG_ACACIA;
+	private static MerchantRecipe SELL_LOG_OAK_DARK;
+
+	private static MerchantRecipe BUY_LOG_OAK;
+	private static MerchantRecipe BUY_LOG_SPRUCE;
+	private static MerchantRecipe BUY_LOG_BIRCH;
+	private static MerchantRecipe BUY_LOG_JUNGLE;
+	private static MerchantRecipe BUY_LOG_ACACIA;
+	private static MerchantRecipe BUY_LOG_OAK_DARK;
 
 	public static MerchantRecipe getWoodAxe() {
 		if (BUY_WOOD_AXE == null) {
@@ -34,15 +48,147 @@ public abstract class MerchantRecipes {
 	}
 
 	public static MerchantRecipe sellOakLog() {
-		if (SELL_LOG == null) {
-			SELL_LOG = new MerchantRecipe(silver(1), 90);
+		if (SELL_LOG_OAK == null) {
+			SELL_LOG_OAK = new MerchantRecipe(silver(1), 90);
 
 			ArrayList<ItemStack> ingredients = new ArrayList<ItemStack>();
 			ingredients.add(new ItemStack(Material.OAK_LOG));
 
-			SELL_LOG.setIngredients(ingredients);
+			SELL_LOG_OAK.setIngredients(ingredients);
 		}
-		return SELL_LOG;
+		return SELL_LOG_OAK;
+	}
+
+	public static MerchantRecipe sellSpruceLog() {
+		if (SELL_LOG_SPRUCE == null) {
+			SELL_LOG_SPRUCE = new MerchantRecipe(silver(1), 90);
+
+			ArrayList<ItemStack> ingredients = new ArrayList<ItemStack>();
+			ingredients.add(new ItemStack(Material.SPRUCE_LOG));
+
+			SELL_LOG_SPRUCE.setIngredients(ingredients);
+		}
+		return SELL_LOG_SPRUCE;
+	}
+
+	public static MerchantRecipe sellBirchLog() {
+		if (SELL_LOG_BIRCH == null) {
+			SELL_LOG_BIRCH = new MerchantRecipe(silver(1), 90);
+
+			ArrayList<ItemStack> ingredients = new ArrayList<ItemStack>();
+			ingredients.add(new ItemStack(Material.BIRCH_LOG));
+
+			SELL_LOG_BIRCH .setIngredients(ingredients);
+		}
+		return SELL_LOG_BIRCH ;
+	}
+
+	public static MerchantRecipe sellJungleLog() {
+		if (SELL_LOG_JUNGLE == null) {
+			SELL_LOG_JUNGLE = new MerchantRecipe(silver(1), 90);
+
+			ArrayList<ItemStack> ingredients = new ArrayList<ItemStack>();
+			ingredients.add(new ItemStack(Material.JUNGLE_LOG));
+
+			SELL_LOG_JUNGLE.setIngredients(ingredients);
+		}
+		return SELL_LOG_JUNGLE;
+	}
+
+	public static MerchantRecipe sellAcaciaLog() {
+		if (SELL_LOG_ACACIA == null) {
+			SELL_LOG_ACACIA = new MerchantRecipe(silver(1), 90);
+
+			ArrayList<ItemStack> ingredients = new ArrayList<ItemStack>();
+			ingredients.add(new ItemStack(Material.ACACIA_LOG));
+
+			SELL_LOG_ACACIA.setIngredients(ingredients);
+		}
+		return SELL_LOG_ACACIA;
+	}
+
+	public static MerchantRecipe sellDarkOakLog() {
+		if (SELL_LOG_OAK_DARK == null) {
+			SELL_LOG_OAK_DARK = new MerchantRecipe(silver(1), 90);
+
+			ArrayList<ItemStack> ingredients = new ArrayList<ItemStack>();
+			ingredients.add(new ItemStack(Material.DARK_OAK_LOG));
+
+			SELL_LOG_OAK_DARK.setIngredients(ingredients);
+		}
+		return SELL_LOG_OAK_DARK;
+	}
+
+	public static MerchantRecipe buyOakLog() {
+		if (BUY_LOG_OAK == null) {
+			BUY_LOG_OAK = new MerchantRecipe(new ItemStack(Material.OAK_LOG), 90);
+
+			ArrayList<ItemStack> ingredients = new ArrayList<ItemStack>();
+			ingredients.add(silver(3));
+
+			SELL_LOG_OAK.setIngredients(ingredients);
+		}
+		return BUY_LOG_OAK;
+	}
+
+	public static MerchantRecipe buySpruceLog() {
+		if (BUY_LOG_SPRUCE == null) {
+			BUY_LOG_SPRUCE = new MerchantRecipe(new ItemStack(Material.SPRUCE_LOG), 90);
+
+			ArrayList<ItemStack> ingredients = new ArrayList<ItemStack>();
+			ingredients.add(silver(3));
+
+			BUY_LOG_SPRUCE.setIngredients(ingredients);
+		}
+		return BUY_LOG_SPRUCE;
+	}
+
+	public static MerchantRecipe buyBirchLog() {
+		if (BUY_LOG_BIRCH == null) {
+			BUY_LOG_BIRCH = new MerchantRecipe(new ItemStack(Material.BIRCH_LOG), 90);
+
+			ArrayList<ItemStack> ingredients = new ArrayList<ItemStack>();
+			ingredients.add(silver(3));
+
+			BUY_LOG_BIRCH.setIngredients(ingredients);
+		}
+		return BUY_LOG_BIRCH;
+	}
+
+	public static MerchantRecipe buyJungleLog() {
+		if (BUY_LOG_JUNGLE == null) {
+			BUY_LOG_JUNGLE = new MerchantRecipe(new ItemStack(Material.JUNGLE_LOG), 90);
+
+			ArrayList<ItemStack> ingredients = new ArrayList<ItemStack>();
+			ingredients.add(silver(3));
+
+			BUY_LOG_JUNGLE.setIngredients(ingredients);
+		}
+		return BUY_LOG_JUNGLE;
+	}
+
+	public static MerchantRecipe buyAcaciaLog() {
+		if (BUY_LOG_ACACIA == null) {
+			BUY_LOG_ACACIA = new MerchantRecipe(new ItemStack(Material.ACACIA_LOG), 90);
+
+			ArrayList<ItemStack> ingredients = new ArrayList<ItemStack>();
+			ingredients.add(silver(3));
+
+			BUY_LOG_ACACIA.setIngredients(ingredients);
+		}
+		return BUY_LOG_ACACIA;
+	}
+
+	public static MerchantRecipe buyDarkOakLog() {
+		if (BUY_LOG_OAK_DARK == null) {
+			BUY_LOG_OAK_DARK = new MerchantRecipe(new ItemStack(Material.DARK_OAK_LOG), 90);
+
+			ArrayList<ItemStack> ingredients = new ArrayList<ItemStack>();
+			ingredients.add(silver(3));
+
+			BUY_LOG_OAK_DARK.setIngredients(ingredients);
+		}
+		return BUY_LOG_OAK_DARK;
 	}
 
 	public static MerchantRecipe getWoodSpade() {
@@ -95,4 +241,5 @@ public abstract class MerchantRecipes {
 		silver.setAmount(amount);
 		return silver;
 	}
+
 }

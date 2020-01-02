@@ -19,6 +19,7 @@ public class TraderClick implements Listener {
 		}
 		event.setCancelled(true);
 		Villager villager = (Villager) event.getRightClicked();
-		MerchantLogic.showMerchantUI(event.getPlayer(), villager.getProfession());
+
+		MerchantLogic.showMerchantUI(event.getPlayer(), villager.getProfession(), villager.getVillagerType());
 	}
 }
