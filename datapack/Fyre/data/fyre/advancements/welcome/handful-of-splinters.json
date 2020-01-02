@@ -18,7 +18,7 @@
 				"items": [
 					{
 						"item": "minecraft:stick",
-						"nbt": "{display:{Name:\"\\\"§rSplinters\\\"\"}}"
+						"nbt": "{AttributeModifiers:[{Slot:\"mainhand\", AttributeName:\"generic.attackDamage\", Name:\"generic.attackDamage\", Amount:2.0d, Operation:0, UUIDLeast:894654L, UUIDMost:2872L}],display:{Lore:[\"{\\\"text\\\":\\\"§r§7A Bundle of rough sharp sticks\\\"}\"],Name:\"{\\\"text\\\":\\\"§rSharp Splinters\\\"}\"}}"
 					}
 				]
 			}
