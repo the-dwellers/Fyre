@@ -15,11 +15,14 @@ public abstract class MerchantRecipes {
 
 	private static MerchantRecipe BUY_WOOD_AXE;
 	private static MerchantRecipe BUY_WOOD_SPADE;
+	private static MerchantRecipe BUY_WOOD_SWORD;
+	private static MerchantRecipe BUY_WOOD_PICKAXE;
 
 	private static MerchantRecipe SELL_SPLINTERS;
 
 	private static MerchantRecipe LEARN_CRAFTING_TABLE;
 	private static MerchantRecipe LEARN_WOODEN_TOOLS;
+	private static MerchantRecipe LEARN_WOODEN_SWORD;
 
 	private static MerchantRecipe SELL_LOG_OAK;
 	private static MerchantRecipe SELL_LOG_SPRUCE;
@@ -35,7 +38,7 @@ public abstract class MerchantRecipes {
 	private static MerchantRecipe BUY_LOG_ACACIA;
 	private static MerchantRecipe BUY_LOG_OAK_DARK;
 
-	public static MerchantRecipe getWoodAxe() {
+	public static MerchantRecipe buyWoodAxe() {
 		if (BUY_WOOD_AXE == null) {
 			BUY_WOOD_AXE = new MerchantRecipe(Items.getWoodAxe(), 90);
 
@@ -191,7 +194,7 @@ public abstract class MerchantRecipes {
 		return BUY_LOG_OAK_DARK;
 	}
 
-	public static MerchantRecipe getWoodSpade() {
+	public static MerchantRecipe buyWoodSpade() {
 		if (BUY_WOOD_SPADE == null) {
 			BUY_WOOD_SPADE = new MerchantRecipe(Items.getWoodShovel(), 90);
 
@@ -201,6 +204,30 @@ public abstract class MerchantRecipes {
 			BUY_WOOD_SPADE.setIngredients(ingredients);
 		}
 		return BUY_WOOD_SPADE;
+	}
+
+	public static MerchantRecipe buyWoodSword() {
+		if (BUY_WOOD_SWORD == null) {
+			BUY_WOOD_SWORD = new MerchantRecipe(Items.getWoodSword(), 90);
+
+			ArrayList<ItemStack> ingredients = new ArrayList<ItemStack>();
+			ingredients.add(silver(10));
+
+			BUY_WOOD_SWORD.setIngredients(ingredients);
+		}
+		return BUY_WOOD_SWORD;
+	}
+
+	public static MerchantRecipe buyWoodPickaxe() {
+		if (BUY_WOOD_PICKAXE == null) {
+			BUY_WOOD_PICKAXE = new MerchantRecipe(Items.getWoodPickaxe(), 90);
+
+			ArrayList<ItemStack> ingredients = new ArrayList<ItemStack>();
+			ingredients.add(silver(10));
+
+			BUY_WOOD_PICKAXE.setIngredients(ingredients);
+		}
+		return BUY_WOOD_PICKAXE;
 	}
 
 	public static MerchantRecipe sellSplinters() {
@@ -234,6 +261,16 @@ public abstract class MerchantRecipes {
 			LEARN_WOODEN_TOOLS.setIngredients(ingredients);
 		}
 		return LEARN_WOODEN_TOOLS;
+	}
+
+	public static MerchantRecipe learnWoodenSword() {
+		if (LEARN_WOODEN_SWORD == null) {
+			LEARN_WOODEN_SWORD = new MerchantRecipe(Items.craftingBook(CraftingBook.WoodenSword), 1);
+			ArrayList<ItemStack> ingredients = new ArrayList<ItemStack>();
+			ingredients.add(silver(20));
+			LEARN_WOODEN_SWORD.setIngredients(ingredients);
+		}
+		return LEARN_WOODEN_SWORD;
 	}
 
 	private static ItemStack silver(int amount) {

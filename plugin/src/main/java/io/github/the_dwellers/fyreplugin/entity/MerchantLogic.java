@@ -29,10 +29,14 @@ public abstract class MerchantLogic {
 		switch (profession) {
 		case TOOLSMITH:
 			switch (level) {
-			default:
-				recipes.add(MerchantRecipes.getWoodAxe());
-				recipes.add(MerchantRecipes.getWoodSpade());
+			case 1:
+				recipes.add(MerchantRecipes.buyWoodAxe());
+				recipes.add(MerchantRecipes.buyWoodSpade());
+				recipes.add(MerchantRecipes.buyWoodPickaxe());
 				recipes.add(MerchantRecipes.learnWoodenTools());
+				break;
+			default:
+				break;
 			}
 			break;
 		case MASON:
@@ -85,6 +89,15 @@ public abstract class MerchantLogic {
 				}
 			}
 			break;
+		case WEAPONSMITH:
+			switch (level) {
+			case 1:
+				recipes.add(MerchantRecipes.buyWoodSword());
+				recipes.add(MerchantRecipes.learnWoodenSword());
+				break;
+			default:
+				break;
+			}
 		case NONE:
 			recipes.add(MerchantRecipes.sellSplinters());
 			recipes.add(MerchantRecipes.learnCraftingTable());

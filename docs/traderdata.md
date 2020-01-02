@@ -29,8 +29,7 @@ So in other words: a custom plugin will have to be created to solve this issue.
 
 ### Building (Mason)
 
-1. Level 1
-	Desert:
+1. Level 1:
 	Jungle:
 	- Jungle Log -> 1 silver
 	- 3 silver -> Jungle Log
@@ -44,12 +43,24 @@ So in other words: a custom plugin will have to be created to solve this issue.
 	Savanna:
 	- Acacia Log -> 1 silver
 	- 3 silver -> Acacia Log
-	Snow:
 	Swamp:
 	- Oak Log -> 1 silver
 	- 3 silver -> Oak Log
 	Taiga:
 	- Spruce Log -> 1 silver
+	- 3 silver -> Spruce Log
+2. Level 2:
+	Jungle:
+	- 3 silver -> Jungle Log
+	Plains:
+	- 3 silver -> Oak Log
+	- 3 silver -> Birch Log
+	- 3 silver -> Dark Oak
+	Savanna:
+	- 3 silver -> Acacia Log
+	Swamp:
+	- 3 silver -> Oak Log
+	Taiga:
 	- 3 silver -> Spruce Log
 
 ### Enchanting (Librarian)
@@ -70,9 +81,14 @@ So in other words: a custom plugin will have to be created to solve this issue.
 
 ### Swords (Weaponsmith)
 
+1. Level 1:
+	- 10 silver -> Wooden Sword
+	- 20 silver -> Recipe: Wooden Sword
+
 ### Toolsmith (Tools)
 
 1. Level 1:
 	- 10 silver -> Wooden Axe
 	- 5 silver -> Wooden Spade
-	- 40 silver - > Recipe: Wooden Tools
+	- 10 silver -> Wooden Pickaxe
+	- 40 silver -> Recipe: Wooden Tools
