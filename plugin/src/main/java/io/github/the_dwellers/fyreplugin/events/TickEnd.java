@@ -23,7 +23,7 @@ public class TickEnd implements Listener {
 
 		List<World> worlds = Bukkit.getWorlds();
 		for (World world : worlds) {
-			if (world.isDayTime() && rand.nextInt(1) == 0) {
+			if (world.isDayTime() && rand.nextInt(2) == 0) {
 				world.setTime(world.getTime() - 1);
 			}
 		}
