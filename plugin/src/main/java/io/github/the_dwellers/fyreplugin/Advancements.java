@@ -97,7 +97,6 @@ public class Advancements {
 		}
 
 		if (player.getStatistic(Statistic.MINE_BLOCK, block) >= amount) {
-			player.sendMessage(block.name() + " " + amount);
 			// ? If anyone knows a shorter way to convert to an array while
 			// ? conserving type, please message me - WYVERN
 			progress.awardCriteria(
