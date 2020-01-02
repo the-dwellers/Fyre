@@ -15,5 +15,10 @@
 		"plugin": {
 			"trigger": "minecraft:impossible"
 		}
+	},
+	"rewards": {
+		"recipes": [
+			"minecraft:torch"
+		]
 	}
 }
