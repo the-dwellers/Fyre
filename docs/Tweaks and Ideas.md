@@ -39,6 +39,8 @@ This document is mostly a note of mechanic ideas an tweak brainstorming, feedbac
 
 - [ ] Enchanting water bottles give bottle o' enchanting
 - [ ] Stacking snow
+	- Snow stacks and builds up
+	<!-- https://www.spigotmc.org/resources/snowiersnow.72213/ -->
 - [ ] Tie leads to fenceposts
 - [ ] Some way to move spawners?
 	- May be changed if underground is overhauled
@@ -50,6 +52,19 @@ This document is mostly a note of mechanic ideas an tweak brainstorming, feedbac
 	- Uncrafting for example, perk would increase amount of resources obtained
 - [ ] Uncrafting
 	- Turn items into their components, might be a balance problem
+- [ ] Fishing in swamps give slimeballs
+- [ ] Zombies hold pickaxes when y<50
+- [ ] Redo loot tables
+- [ ] Leather boots do not destroy crops
+- [ ] Tickle pandas with feathers
+- [ ] Eat glistening melon
+- [ ] Eat Golden carrots
+- [ ] Cannot hurt mounted entity (Like horses)
+- [ ] Smelted red sand -> Red Stained Glass
+- [ ] New Moon Event (More mob spawning?)
+- [ ] Harvest crops with hoe
+- [ ] Compass points to spawnpoint
+- [ ] Red screen on hit (Worldborder effect)
 
 ## 🐲 Aims and Thoughts
 
