@@ -85,10 +85,9 @@ public class Advancements {
 	 */
 	@SuppressWarnings("deprecation")
 	private static void awardBlockBreak(Player player, Material block, int amount, String advancement) {
-		// NamespacedKey is deprecated, however there is no other alternative way to do
-		// this in O(1)
-		// The only other alternative would be looping over *all* advancements in the
-		// game!
+		// NamespacedKey is deprecated, however there is no other alternative
+		// way to do this in O(1). The only other alternative would be looping
+		// over *all* advancements in the game!
 		Advancement adv = player.getServer().getAdvancement(new NamespacedKey("fyre", advancement));
 		AdvancementProgress progress = player.getAdvancementProgress(adv);
 		if (progress.isDone()) {

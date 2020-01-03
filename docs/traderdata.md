@@ -15,40 +15,36 @@ So in other words: a custom plugin will have to be created to solve this issue.
 
 ## Trades
 
-### Basics (None)
+### Basics (None) [Nothing]
 
 1. Level 1:
 	- 3 Splinters -> 1 silver
 	- 10 silver -> Recipe: Crafting Table
 
-### ??? (Leatherworker)
+### ??? (Leatherworker) [Cauldron]
 
-### Animals (Shepherd)
+### Animals (Shepherd) [Loom]
 
-### Armour (Armorer)
+### Armour (Armorer) [Blast Furnace]
 
-### Building (Mason)
+1. Level 1:
+	2 coal -> 3 silver
+
+### Building (Mason) [Stonecutter]
 
 1. Level 1:
 	Jungle:
 	- Jungle Log -> 1 silver
-	- 3 silver -> Jungle Log
 	Plains:
 	- Oak Log -> 1 silver
 	- Birch Log -> 1 silver
 	- Dark Oak -> 1 silver
-	- 3 silver -> Oak Log
-	- 3 silver -> Birch Log
-	- 3 silver -> Dark Oak
 	Savanna:
 	- Acacia Log -> 1 silver
-	- 3 silver -> Acacia Log
 	Swamp:
 	- Oak Log -> 1 silver
-	- 3 silver -> Oak Log
 	Taiga:
 	- Spruce Log -> 1 silver
-	- 3 silver -> Spruce Log
 2. Level 2:
 	Jungle:
 	- 3 silver -> Jungle Log
@@ -63,29 +59,29 @@ So in other words: a custom plugin will have to be created to solve this issue.
 	Taiga:
 	- 3 silver -> Spruce Log
 
-### Enchanting (Librarian)
+### Enchanting (Librarian) [Lectern]
 
-### Farming (Farmer)
+### Farming (Farmer) [Composter]
 
-### Fishing (Fisherman)
+### Fishing (Fisherman) [Barrel]
 
-### Meat Food (Butcher)
+### Meat Food (Butcher) [Smoker]
 
-### Miscellaneous (Cartographer)
+### Miscellaneous (Cartographer) [Cartography Table]
 
-### Potions (Cleric)
+### Potions (Cleric) [Brewing Stand]
 
-### Ranged Weapons (Fletcher)
+### Ranged Weapons (Fletcher) [Fletching Table]
 
-### Rare and Unique (NitWit)
+### Rare and Unique (NitWit) [N/A]
 
-### Swords (Weaponsmith)
+### Swords (Weaponsmith) [Grindstone]
 
 1. Level 1:
 	- 10 silver -> Wooden Sword
 	- 20 silver -> Recipe: Wooden Sword
 
-### Toolsmith (Tools)
+### Toolsmith (Tools) [Smithing Table]
 
 1. Level 1:
 	- 10 silver -> Wooden Axe

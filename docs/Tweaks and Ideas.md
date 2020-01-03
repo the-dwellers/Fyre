@@ -32,8 +32,6 @@ This document is mostly a note of mechanic ideas an tweak brainstorming, feedbac
 	- [x] Zombies slow for 5 seconds
 	- [x] Enderman apply weakness for 10 seconds
 - [x] Glass breaks when fallen onto
-- [ ] Throwable bricks
-	- [ ] Hide snowball
 - [x] Rotten flesh in Composters
 - [x] Death to invisible players hides their name from chat
 
