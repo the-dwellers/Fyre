@@ -11,6 +11,7 @@ This document is mostly a note of mechanic ideas an tweak brainstorming, feedbac
 - [Tweaks and Ideas](#tweaks-and-ideas)
 	- [Confirmed / Implemented Mechanics](#confirmed--implemented-mechanics)
 	- [Mechanic ideas](#mechanic-ideas)
+	- [Land Protection](#land-protection)
 	- [🐲 Aims and Thoughts](#%f0%9f%90%b2-aims-and-thoughts)
 
 ---
@@ -65,6 +66,33 @@ This document is mostly a note of mechanic ideas an tweak brainstorming, feedbac
 - [ ] Harvest crops with hoe
 - [ ] Compass points to spawnpoint
 - [ ] Red screen on hit (Worldborder effect)
+
+## Land Protection
+
+With regards to the points made in [🐲 Aims and Thoughts](#%f0%9f%90%b2-aims-and-thoughts),
+a small summery of a protection system has been created.
+
+1. Protections are based on a block. This block will be at the centre of the
+	claimed region.
+2. Players can join the protection by right-clicking on the block.
+	- Owners of the claimed region can manage allowed players by right-clicking
+		the block, which opens a chestUI of player's heads.
+	- Players can only be a part of one claim
+	- A clam's power is defined by the amount of *active* players
+3. The protected area is a square originating from the block, with power
+	defining the radius.
+4. Power changes smoothly, any changes to current or max power, take time to change.
+	- If a player leaves the claim and the max power decreases, the claim area
+		does not instantly decrease to the new max.
+5. If a border collides with another border, that side will stop expanding.
+6. A particle effect and Toast, will define the edges of a claim.
+7. A claim is 256 blocks tall
+	- > 🐲 Not personally sure about this, however, most people are used to it.
+8. A decaying claim (shrinking) will decay previously claimed blocks. Effects include:
+	- Cracking stone bricks
+	- Forest Expanding
+	- Vines Spawning
+	- > 🐲 Any more ideas for making places look abandoned?
 
 ## 🐲 Aims and Thoughts
 
