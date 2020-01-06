@@ -132,6 +132,7 @@ public abstract class Items {
 		}
 	}
 
+	@SuppressWarnings("deprecation")
 	public static ItemStack generateCraftingBook(CraftingBook book) {
 		ItemStack knowledgeBook = new ItemStack(Material.KNOWLEDGE_BOOK);
 		KnowledgeBookMeta itemMeta = (KnowledgeBookMeta) knowledgeBook.getItemMeta();
