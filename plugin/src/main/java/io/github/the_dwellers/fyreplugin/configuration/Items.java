@@ -61,8 +61,12 @@ public abstract class Items {
 			ItemMeta meta = ARMOR_LEATHER_HELMET.getItemMeta();
 
 			Multimap<Attribute, AttributeModifier> modifiers = HashMultimap.create();
-			modifiers.put(Attribute.GENERIC_MAX_HEALTH, new AttributeModifier(new UUID(2872, 894654),
-					"generic.max_health", 1, Operation.ADD_NUMBER, EquipmentSlot.HEAD));
+
+			modifiers.put(Attribute.GENERIC_MAX_HEALTH, new AttributeModifier(UUID.randomUUID(),
+					"generic.max_health", 2, Operation.ADD_NUMBER, EquipmentSlot.HEAD));
+			modifiers.put(Attribute.GENERIC_ARMOR, new AttributeModifier(UUID.randomUUID(),
+					"generic.generic_armor", 1, Operation.ADD_NUMBER, EquipmentSlot.HEAD));
+
 			meta.setAttributeModifiers(modifiers);
 			ARMOR_LEATHER_HELMET.setItemMeta(meta);
 		}
@@ -70,15 +74,59 @@ public abstract class Items {
 	}
 
 	public static ItemStack getLeatherChestplate() {
-		return null;
+		if (ARMOR_LEATHER_CHESTPLATE == null) {
+			ARMOR_LEATHER_CHESTPLATE = new ItemStack(Material.LEATHER_CHESTPLATE, 1);
+			ItemMeta meta = ARMOR_LEATHER_CHESTPLATE.getItemMeta();
+
+			Multimap<Attribute, AttributeModifier> modifiers = HashMultimap.create();
+
+			modifiers.put(Attribute.GENERIC_MAX_HEALTH, new AttributeModifier(UUID.randomUUID(),
+					"generic.max_health", 4, Operation.ADD_NUMBER, EquipmentSlot.CHEST));
+			modifiers.put(Attribute.GENERIC_ARMOR, new AttributeModifier(UUID.randomUUID(),
+					"generic.generic_armor", 3, Operation.ADD_NUMBER, EquipmentSlot.CHEST));
+
+			meta.setAttributeModifiers(modifiers);
+			ARMOR_LEATHER_CHESTPLATE.setItemMeta(meta);
+		}
+		return ARMOR_LEATHER_CHESTPLATE.clone();
 	}
 
 	public static ItemStack getLeatherLeggings() {
-		return null;
+		if (ARMOR_LEATHER_LEGGINGS == null) {
+			ARMOR_LEATHER_LEGGINGS = new ItemStack(Material.LEATHER_LEGGINGS, 1);
+			ItemMeta meta = ARMOR_LEATHER_LEGGINGS.getItemMeta();
+
+			Multimap<Attribute, AttributeModifier> modifiers = HashMultimap.create();
+
+			modifiers.put(Attribute.GENERIC_MAX_HEALTH, new AttributeModifier(UUID.randomUUID(),
+					// "generic.leather_leggings_health", 1, Operation.ADD_NUMBER, EquipmentSlot.LEGS));
+					"generic.max_health", 2, Operation.ADD_NUMBER, EquipmentSlot.LEGS));
+			modifiers.put(Attribute.GENERIC_ARMOR, new AttributeModifier(UUID.randomUUID(),
+					// "generic.leather_leggings_armor", 2, Operation.ADD_NUMBER, EquipmentSlot.LEGS));
+					"generic.generic_armor", 2, Operation.ADD_NUMBER, EquipmentSlot.LEGS));
+
+			meta.setAttributeModifiers(modifiers);
+			ARMOR_LEATHER_LEGGINGS.setItemMeta(meta);
+		}
+		return ARMOR_LEATHER_LEGGINGS.clone();
 	}
 
 	public static ItemStack getLeatherBoots() {
-		return null;
+		if (ARMOR_LEATHER_BOOTS == null) {
+			ARMOR_LEATHER_BOOTS = new ItemStack(Material.LEATHER_BOOTS, 1);
+			ItemMeta meta = ARMOR_LEATHER_BOOTS.getItemMeta();
+
+			Multimap<Attribute, AttributeModifier> modifiers = HashMultimap.create();
+
+			modifiers.put(Attribute.GENERIC_MAX_HEALTH, new AttributeModifier(UUID.randomUUID(),
+					"generic.max_health", 2, Operation.ADD_NUMBER, EquipmentSlot.FEET));
+			modifiers.put(Attribute.GENERIC_ARMOR, new AttributeModifier(UUID.randomUUID(),
+					"generic.generic_armor", 1, Operation.ADD_NUMBER, EquipmentSlot.FEET));
+
+			meta.setAttributeModifiers(modifiers);
+			ARMOR_LEATHER_BOOTS.setItemMeta(meta);
+		}
+		return ARMOR_LEATHER_BOOTS.clone();
 	}
 
 	public static ItemStack getChainmailHelmet() {
@@ -151,7 +199,7 @@ public abstract class Items {
 			meta.setLore(lore);
 
 			Multimap<Attribute, AttributeModifier> modifiers = HashMultimap.create();
-			modifiers.put(Attribute.GENERIC_ATTACK_DAMAGE, new AttributeModifier(new UUID(2872, 894654),
+			modifiers.put(Attribute.GENERIC_ATTACK_DAMAGE, new AttributeModifier(UUID.randomUUID(),
 					"generic.attackDamage", 2, Operation.ADD_NUMBER, EquipmentSlot.HAND));
 			meta.setAttributeModifiers(modifiers);
 			SPLINTERS.setItemMeta(meta);

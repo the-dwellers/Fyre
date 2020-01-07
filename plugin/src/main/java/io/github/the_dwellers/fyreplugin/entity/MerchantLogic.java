@@ -105,6 +105,9 @@ public abstract class MerchantLogic {
 		case ARMORER:
 			recipes.add(MerchantRecipes.sellCoal());
 			recipes.add(MerchantRecipes.buyLeatherHelmet());
+			recipes.add(MerchantRecipes.buyLeatherChestPlate());
+			recipes.add(MerchantRecipes.buyLeatherLeggings());
+			recipes.add(MerchantRecipes.buyLeatherBoots());
 			break;
 		default:
 			break;

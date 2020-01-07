@@ -41,6 +41,9 @@ public abstract class MerchantRecipes {
 	private static MerchantRecipe BUY_LOG_OAK_DARK;
 
 	private static MerchantRecipe BUY_LEATHER_HELMET;
+	private static MerchantRecipe BUY_LEATHER_CHESTPLATE;
+	private static MerchantRecipe BUY_LEATHER_LEGGINGS;
+	private static MerchantRecipe BUY_LEATHER_BOOTS;
 
 	public static MerchantRecipe sellCoal() {
 		if (SELL_COAL == null) {
@@ -59,11 +62,47 @@ public abstract class MerchantRecipes {
 			BUY_LEATHER_HELMET = new MerchantRecipe(Items.getLeatherHelmet(), 90);
 
 			ArrayList<ItemStack> ingredients = new ArrayList<ItemStack>();
-			ingredients.add(silver(20));
+			ingredients.add(silver(15));
 
 			BUY_LEATHER_HELMET.setIngredients(ingredients);
 		}
 		return BUY_LEATHER_HELMET;
+	}
+
+	public static MerchantRecipe buyLeatherChestPlate() {
+		if (BUY_LEATHER_CHESTPLATE == null) {
+			BUY_LEATHER_CHESTPLATE = new MerchantRecipe(Items.getLeatherChestplate(), 90);
+
+			ArrayList<ItemStack> ingredients = new ArrayList<ItemStack>();
+			ingredients.add(silver(40));
+
+			BUY_LEATHER_CHESTPLATE.setIngredients(ingredients);
+		}
+		return BUY_LEATHER_CHESTPLATE;
+	}
+
+	public static MerchantRecipe buyLeatherLeggings() {
+		if (BUY_LEATHER_LEGGINGS == null) {
+			BUY_LEATHER_LEGGINGS = new MerchantRecipe(Items.getLeatherLeggings(), 90);
+
+			ArrayList<ItemStack> ingredients = new ArrayList<ItemStack>();
+			ingredients.add(silver(25));
+
+			BUY_LEATHER_LEGGINGS.setIngredients(ingredients);
+		}
+		return BUY_LEATHER_LEGGINGS;
+	}
+
+	public static MerchantRecipe buyLeatherBoots() {
+		if (BUY_LEATHER_BOOTS == null) {
+			BUY_LEATHER_BOOTS = new MerchantRecipe(Items.getLeatherBoots(), 90);
+
+			ArrayList<ItemStack> ingredients = new ArrayList<ItemStack>();
+			ingredients.add(silver(15));
+
+			BUY_LEATHER_BOOTS.setIngredients(ingredients);
+		}
+		return BUY_LEATHER_BOOTS;
 	}
 
 	public static MerchantRecipe buyWoodAxe() {
