@@ -101,6 +101,11 @@ public abstract class MerchantLogic {
 		case NONE:
 			recipes.add(MerchantRecipes.sellSplinters());
 			recipes.add(MerchantRecipes.learnCraftingTable());
+			break;
+		case ARMORER:
+			recipes.add(MerchantRecipes.sellCoal());
+			recipes.add(MerchantRecipes.buyLeatherHelmet());
+			break;
 		default:
 			break;
 		}

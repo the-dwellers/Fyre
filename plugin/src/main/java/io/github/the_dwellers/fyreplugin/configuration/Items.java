@@ -23,13 +23,15 @@ import java.util.UUID;
  * Static class of specific items that may may be referenced from other places
  * inside the application. This includes items such as Currency or other unique
  * materials. This class uses lazy instantiation.
+ * <p>
+ * * Note: Remember to {@code .clone()} any returned static
  */
 public abstract class Items {
 
 	public static String PREFIX_RECIPE = ChatColor.LIGHT_PURPLE + "Recipe: ";
 	public static String PREFIX_SPECIAL = "" + ChatColor.GOLD;
 	public static String PREFIX_COMMON = "" + ChatColor.RESET;
-	public static String PREFIX_LORE_COMMON = PREFIX_COMMON + ChatColor.DARK_GRAY;
+	public static String PREFIX_LORE_COMMON = PREFIX_COMMON + ChatColor.GRAY;
 
 	private static ItemStack SILVER_COIN;
 	private static ItemStack ERROR_ITEM;
@@ -42,6 +44,58 @@ public abstract class Items {
 	private static ItemStack TOME_CRAFTING_TABLE;
 	private static ItemStack TOME_WOODEN_TOOLS;
 	private static ItemStack TOME_WOODEN_SWORD;
+
+	private static ItemStack ARMOR_LEATHER_HELMET;
+	private static ItemStack ARMOR_LEATHER_CHESTPLATE;
+	private static ItemStack ARMOR_LEATHER_LEGGINGS;
+	private static ItemStack ARMOR_LEATHER_BOOTS;
+
+	private static ItemStack ARMOR_CHAINMAIL_HELMET;
+	private static ItemStack ARMOR_CHAINMAIL_CHESTPLATE;
+	private static ItemStack ARMOR_CHAINMAIL_LEGGINGS;
+	private static ItemStack ARMOR_CHAINMAIL_BOOTS;
+
+	public static ItemStack getLeatherHelmet() {
+		if (ARMOR_LEATHER_HELMET == null) {
+			ARMOR_LEATHER_HELMET = new ItemStack(Material.LEATHER_HELMET, 1);
+			ItemMeta meta = ARMOR_LEATHER_HELMET.getItemMeta();
+
+			Multimap<Attribute, AttributeModifier> modifiers = HashMultimap.create();
+			modifiers.put(Attribute.GENERIC_MAX_HEALTH, new AttributeModifier(new UUID(2872, 894654),
+					"generic.max_health", 1, Operation.ADD_NUMBER, EquipmentSlot.HEAD));
+			meta.setAttributeModifiers(modifiers);
+			ARMOR_LEATHER_HELMET.setItemMeta(meta);
+		}
+		return ARMOR_LEATHER_HELMET.clone();
+	}
+
+	public static ItemStack getLeatherChestplate() {
+		return null;
+	}
+
+	public static ItemStack getLeatherLeggings() {
+		return null;
+	}
+
+	public static ItemStack getLeatherBoots() {
+		return null;
+	}
+
+	public static ItemStack getChainmailHelmet() {
+		return null;
+	}
+
+	public static ItemStack getChainmailChestplate() {
+		return null;
+	}
+
+	public static ItemStack getChainmailLeggings() {
+		return null;
+	}
+
+	public static ItemStack getChainmailBoots() {
+		return null;
+	}
 
 	public static ItemStack getSilverCoin() {
 		if (SILVER_COIN == null) {

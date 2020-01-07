@@ -24,6 +24,8 @@ public abstract class MerchantRecipes {
 	private static MerchantRecipe LEARN_WOODEN_TOOLS;
 	private static MerchantRecipe LEARN_WOODEN_SWORD;
 
+	private static MerchantRecipe SELL_COAL;
+
 	private static MerchantRecipe SELL_LOG_OAK;
 	private static MerchantRecipe SELL_LOG_SPRUCE;
 	private static MerchantRecipe SELL_LOG_BIRCH;
@@ -37,6 +39,32 @@ public abstract class MerchantRecipes {
 	private static MerchantRecipe BUY_LOG_JUNGLE;
 	private static MerchantRecipe BUY_LOG_ACACIA;
 	private static MerchantRecipe BUY_LOG_OAK_DARK;
+
+	private static MerchantRecipe BUY_LEATHER_HELMET;
+
+	public static MerchantRecipe sellCoal() {
+		if (SELL_COAL == null) {
+			SELL_COAL = new MerchantRecipe(silver(3), 90);
+
+			ArrayList<ItemStack> ingredients = new ArrayList<ItemStack>();
+			ingredients.add(new ItemStack(Material.COAL, 2));
+
+			SELL_COAL.setIngredients(ingredients);
+		}
+		return SELL_COAL;
+	}
+
+	public static MerchantRecipe buyLeatherHelmet() {
+		if (BUY_LEATHER_HELMET == null) {
+			BUY_LEATHER_HELMET = new MerchantRecipe(Items.getLeatherHelmet(), 90);
+
+			ArrayList<ItemStack> ingredients = new ArrayList<ItemStack>();
+			ingredients.add(silver(20));
+
+			BUY_LEATHER_HELMET.setIngredients(ingredients);
+		}
+		return BUY_LEATHER_HELMET;
+	}
 
 	public static MerchantRecipe buyWoodAxe() {
 		if (BUY_WOOD_AXE == null) {
