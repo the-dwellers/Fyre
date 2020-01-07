@@ -20,6 +20,9 @@ public abstract class Attributes {
 	public static void applyPlayer(Player player) {
 		// 5 hearts of health
 		player.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(10);
+		// player.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(0.13);
+		// Default walkspeed is 0.2 with setWalkSpeed()
+		player.setWalkSpeed(0.226f);
 	}
 
 	public static void applyMob(Entity entity) {
