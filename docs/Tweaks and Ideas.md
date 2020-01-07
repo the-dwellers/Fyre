@@ -28,7 +28,7 @@ This document is mostly a note of mechanic ideas an tweak brainstorming, feedbac
 	- Shows common paths throughout places, quite effective when in small spaces
 	- Also functions faster on horses, converting grass blocks into grasspaths
 	- > 🐲 Decided to change grass paths into coarse dirt. It turned out better.
-- [x] Mob on-git Events
+- [x] Mob on-hit Events
 	- [x] Phantoms blind for 3 seconds
 	- [x] Zombies slow for 5 seconds
 	- [x] Enderman apply weakness for 10 seconds
@@ -92,6 +92,7 @@ a small summery of a protection system has been created.
 	- Cracking stone bricks
 	- Forest Expanding
 	- Vines Spawning
+	- Farmland converts to coarse dirt
 	- > 🐲 Any more ideas for making places look abandoned?
 
 ## 🐲 Aims and Thoughts
