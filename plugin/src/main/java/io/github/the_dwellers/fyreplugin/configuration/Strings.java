@@ -91,5 +91,10 @@ public abstract class Strings {
 	 * Color for optional usage arguments
 	 */
 	public static final String USAGE_OPTIONAL = ChatColor.AQUA + "";
+	/**
+	 * Color for notification messages sent to staff members
+	 * (Examples include; connecting ip addresses)
+	 */
+	public static final String CHAT_STAFF_MSG = ChatColor.GRAY + "> ";
 
 }
