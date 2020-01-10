@@ -19,6 +19,7 @@ import java.util.UUID;
  * ! Unoptimized. Should cache obtain classes for future reflection
  *
  * @version Minecraft 1.14.4
+ * @version Minecraft 1.15.1
  */
 public abstract class Reflected {
 	private static String version = Bukkit.getServer().getClass().getPackage().getName().replace(".", ",").split(",")[3]
