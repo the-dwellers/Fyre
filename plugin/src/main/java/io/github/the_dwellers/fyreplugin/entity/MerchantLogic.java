@@ -21,23 +21,14 @@ public abstract class MerchantLogic {
 	public static void showMerchantUI(Player player, Profession profession, Type type) {
 		Merchant merchant = Bukkit.getServer().createMerchant(profession.toString());
 
-		merchant.setRecipes(get(profession, 1, type));
+		// TODO: Replace with player's levels
+		int level = 1;
+		int xp = 0;
 
-		// Levels are not implemented for custom merchants in CraftBukkit
-		// So we just have to make our own implementation...
-
-		// CraftHumanEntity:588
-
-		// IMerchant mcMerchant.setTradingPlayer((CraftHumanEntity Player).getHandle());
-		// IMerchant mcMerchant.openTrade((CraftHumanEntity Player).getHandle(), name, level);
-
-		// net.minecraft.server.IMerchant mcMerchant = (net.minecraft.server.IMerchant merchant);
-		// net.minecraft.server.IChatBaseComponent name = ((net.minecraft.server.Entity) mcMerchant).getScoreboardDisplayName();
-		// mcMerchant.setTradingPlayer((org.bukkit.craftbukkit.entity.CraftHumanEntity Player).getHandle());
-		// mcMerchant.openTrade((org.bukkit.craftbukkit.entity.CraftHumanEntity Player).getHandle(), net.minecraft.server.IChatBaseComponent name, int level);
+		merchant.setRecipes(get(profession, level, type));
 
 		try {
-			Reflected.showTraderUI(player, merchant, 3);
+			Reflected.showTraderUI(player, merchant, level, xp);
 		} catch (ReflectionFailedException e) {
 			e.printStackTrace();
 		}

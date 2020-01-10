@@ -321,17 +321,18 @@ public abstract class Reflected {
 		}
 	}
 
-	public static void showTraderUI(Player player, Merchant merchant, int level) throws ReflectionFailedException {
+	public static void showTraderUI(Player player, Merchant merchant, int level, int xp) throws ReflectionFailedException {
 		try {
 
-			// IMerchant mcMerchant.setTradingPlayer((CraftHumanEntity Player).getHandle());
-			// IMerchant mcMerchant.openTrade((CraftHumanEntity Player).getHandle(), name, level);
-
-			// mcMerchant.openTrade(EntityHuman (org.bukkit.craftbukkit.entity.CraftHumanEntity Player).getHandle(), net.minecraft.server.IChatBaseComponent name, int level);
-
 			Class<?> bukkitCraftMerchantCustom = Class.forName(obcClass + "inventory.CraftMerchantCustom");
+
 			Class<?> bukkitCraftMinecraftMerchant = Class.forName(obcClass + "inventory.CraftMerchantCustom$MinecraftMerchant");
-			// bukkitCraftMinecraftMerchant.getMethod("getExperience").;
+
+			Field experience = bukkitCraftMinecraftMerchant.getDeclaredField("experience");
+			experience.setAccessible(true);
+
+			Field regularVillager = bukkitCraftMinecraftMerchant.getDeclaredField("regularVillager");
+			regularVillager.setAccessible(true);
 
 			// Get IMerchant Class
 			Class<?> nmsIMerchant = Class.forName(nmsClass + "IMerchant");
@@ -354,13 +355,20 @@ public abstract class Reflected {
 			// net.minecraft.server.IMerchant mcMerchant = ((org.bukkit.craftbukkit.inventory.CraftMerchantCustom) merchant).getMerchant();
 			Object mcMerchant = getMerchant.invoke(bukkitCraftMerchantCustom.cast(merchant));
 
-			Object name = getScoreboardDisplayName.invoke(bukkitCraftMinecraftMerchant.cast(mcMerchant));
+			Object mcMinecraftMerchant = bukkitCraftMinecraftMerchant.cast(mcMerchant);
+
+			experience.set(mcMinecraftMerchant, xp);
+			regularVillager.set(mcMinecraftMerchant, true);
+
+			Object name = getScoreboardDisplayName.invoke(mcMinecraftMerchant);
 
 			// net.minecraft.server.IChatBaseComponent name = ((org.bukkit.craftbukkit.inventory.CraftMerchantCustom) merchant).getMerchant().getScoreboardDisplayName();
 			Object chePlayer = getHandle.invoke(bukkitCraftHumanEntity.cast(player));
-			setTradingPlayer.invoke(mcMerchant, chePlayer);
 
 			// mcMerchant.setTradingPlayer((org.bukkit.craftbukkit.entity.CraftHumanEntity Player).getHandle());
+			setTradingPlayer.invoke(mcMerchant, chePlayer);
+
+			// mcMerchant.openTrade(EntityHuman (org.bukkit.craftbukkit.entity.CraftHumanEntity Player).getHandle(), net.minecraft.server.IChatBaseComponent name, int level);
 			openTrade.invoke(mcMerchant, chePlayer, name, level);
 
 		} catch (Exception e) {
