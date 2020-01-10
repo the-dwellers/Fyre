@@ -34,6 +34,43 @@ public abstract class MerchantLogic {
 		}
 	}
 
+	public static String getName(Profession profession) {
+		switch (profession) {
+		case ARMORER:
+			return "Armorer";
+		case BUTCHER:
+			return "Butcher";
+		case CARTOGRAPHER:
+			return "Antique Seller";
+		case CLERIC:
+			return "Potioneer";
+		case FARMER:
+			return "Farming";
+		case FISHERMAN:
+			return "Fisherman";
+		case FLETCHER:
+			return "Archer";
+		case LEATHERWORKER:
+			return "";
+		case LIBRARIAN:
+			return "Researcher";
+		case MASON:
+			return "Stone Mason";
+		case NITWIT:
+			return "NitWit";
+		case NONE:
+			return "Villager";
+		case SHEPHERD:
+			return "Stableman";
+		case TOOLSMITH:
+			return "Toolsmith";
+		case WEAPONSMITH:
+			return "Swordsman";
+		default:
+			return "";
+		}
+	}
+
 	public static ArrayList<MerchantRecipe> get(Profession profession, int level, Type type) {
 		ArrayList<MerchantRecipe> recipes = new ArrayList<MerchantRecipe>();
 
