@@ -64,7 +64,6 @@ This document is mostly a note of mechanic ideas an tweak brainstorming, feedbac
 - [ ] Smelted red sand -> Red Stained Glass
 - [ ] New Moon Event (More mob spawning?)
 - [ ] Harvest crops with hoe
-- [ ] Compass points to spawnpoint
 - [ ] Red screen on hit (Worldborder effect)
 
 ## Land Protection
