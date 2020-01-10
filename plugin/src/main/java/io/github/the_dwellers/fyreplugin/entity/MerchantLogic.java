@@ -1,9 +1,11 @@
 package io.github.the_dwellers.fyreplugin.entity;
 
+import io.github.the_dwellers.fyreplugin.Reflected;
 import io.github.the_dwellers.fyreplugin.configuration.MerchantRecipes;
+import io.github.the_dwellers.fyreplugin.exceptions.ReflectionFailedException;
+
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import org.bukkit.entity.Villager;
 import org.bukkit.entity.Villager.Profession;
 import org.bukkit.entity.Villager.Type;
 import org.bukkit.inventory.Merchant;
@@ -21,7 +23,6 @@ public abstract class MerchantLogic {
 
 		merchant.setRecipes(get(profession, 1, type));
 
-
 		// Levels are not implemented for custom merchants in CraftBukkit
 		// So we just have to make our own implementation...
 
@@ -30,14 +31,16 @@ public abstract class MerchantLogic {
 		// IMerchant mcMerchant.setTradingPlayer((CraftHumanEntity Player).getHandle());
 		// IMerchant mcMerchant.openTrade((CraftHumanEntity Player).getHandle(), name, level);
 
-
 		// net.minecraft.server.IMerchant mcMerchant = (net.minecraft.server.IMerchant merchant);
 		// net.minecraft.server.IChatBaseComponent name = ((net.minecraft.server.Entity) mcMerchant).getScoreboardDisplayName();
 		// mcMerchant.setTradingPlayer((org.bukkit.craftbukkit.entity.CraftHumanEntity Player).getHandle());
 		// mcMerchant.openTrade((org.bukkit.craftbukkit.entity.CraftHumanEntity Player).getHandle(), net.minecraft.server.IChatBaseComponent name, int level);
 
-
-		player.openMerchant(merchant, true);
+		try {
+			Reflected.showTraderUI(player, merchant, 3);
+		} catch (ReflectionFailedException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public static ArrayList<MerchantRecipe> get(Profession profession, int level, Type type) {

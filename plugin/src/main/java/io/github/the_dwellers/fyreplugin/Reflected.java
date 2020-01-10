@@ -3,7 +3,9 @@ package io.github.the_dwellers.fyreplugin;
 import io.github.the_dwellers.fyreplugin.exceptions.ReflectionFailedException;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.Merchant;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -314,6 +316,53 @@ public abstract class Reflected {
 
 		} catch (LinkageError | ClassNotFoundException | NoSuchMethodException | IllegalAccessException
 			| NoSuchFieldException | InvocationTargetException e) {
+			throw new ReflectionFailedException(e);
+		}
+	}
+
+	public static void showTraderUI(Player player, Merchant merchant, int level) throws ReflectionFailedException {
+		try {
+
+			// IMerchant mcMerchant.setTradingPlayer((CraftHumanEntity Player).getHandle());
+			// IMerchant mcMerchant.openTrade((CraftHumanEntity Player).getHandle(), name, level);
+
+			// mcMerchant.openTrade(EntityHuman (org.bukkit.craftbukkit.entity.CraftHumanEntity Player).getHandle(), net.minecraft.server.IChatBaseComponent name, int level);
+
+			Class<?> bukkitCraftMerchantCustom = Class.forName(obcClass + "inventory.CraftMerchantCustom");
+			Class<?> bukkitCraftMinecraftMerchant = Class.forName(obcClass + "inventory.CraftMerchantCustom$MinecraftMerchant");
+			// bukkitCraftMinecraftMerchant.getMethod("getExperience").;
+
+			// Get IMerchant Class
+			Class<?> nmsIMerchant = Class.forName(nmsClass + "IMerchant");
+
+			// Get CraftHumanEntity Class
+			Class<?> bukkitCraftHumanEntity = Class.forName(obcClass + "entity.CraftHumanEntity");
+
+			// Get IChatComponent Class
+			Class<?> nmsIChatBase = Class.forName(nmsClass + "IChatBaseComponent");
+
+			// Get EntityHuman Class
+			Class<?> nmsEntityHuman = Class.forName(nmsClass + "EntityHuman");
+
+			Method getScoreboardDisplayName = bukkitCraftMinecraftMerchant.getMethod("getScoreboardDisplayName");
+			Method setTradingPlayer = nmsIMerchant.getMethod("setTradingPlayer", nmsEntityHuman);
+			Method getHandle = bukkitCraftHumanEntity.getMethod("getHandle");
+			Method openTrade = nmsIMerchant.getMethod("openTrade", nmsEntityHuman, nmsIChatBase, int.class);
+			Method getMerchant = bukkitCraftMerchantCustom.getMethod("getMerchant");
+
+			// net.minecraft.server.IMerchant mcMerchant = ((org.bukkit.craftbukkit.inventory.CraftMerchantCustom) merchant).getMerchant();
+			Object mcMerchant = getMerchant.invoke(bukkitCraftMerchantCustom.cast(merchant));
+
+			Object name = getScoreboardDisplayName.invoke(bukkitCraftMinecraftMerchant.cast(mcMerchant));
+
+			// net.minecraft.server.IChatBaseComponent name = ((org.bukkit.craftbukkit.inventory.CraftMerchantCustom) merchant).getMerchant().getScoreboardDisplayName();
+			Object chePlayer = getHandle.invoke(bukkitCraftHumanEntity.cast(player));
+			setTradingPlayer.invoke(mcMerchant, chePlayer);
+
+			// mcMerchant.setTradingPlayer((org.bukkit.craftbukkit.entity.CraftHumanEntity Player).getHandle());
+			openTrade.invoke(mcMerchant, chePlayer, name, level);
+
+		} catch (Exception e) {
 			throw new ReflectionFailedException(e);
 		}
 	}
