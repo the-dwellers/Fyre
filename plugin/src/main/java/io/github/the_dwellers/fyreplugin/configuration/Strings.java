@@ -8,6 +8,8 @@ import net.md_5.bungee.api.ChatColor;
  */
 public abstract class Strings {
 
+	public static final String LOG_PREFIX = "[Fyre] ";
+
 	/**
 	 * Default Chat Color
 	 */

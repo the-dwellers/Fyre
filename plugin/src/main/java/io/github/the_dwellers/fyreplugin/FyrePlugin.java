@@ -4,6 +4,7 @@ import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.ProtocolManager;
 import io.github.the_dwellers.fyreplugin.commands.*;
 import io.github.the_dwellers.fyreplugin.configuration.ServerOperations;
+import io.github.the_dwellers.fyreplugin.configuration.Strings;
 import io.github.the_dwellers.fyreplugin.entity.TagInventory;
 import io.github.the_dwellers.fyreplugin.events.*;
 import io.github.the_dwellers.fyreplugin.exceptions.ReflectionFailedException;
@@ -52,6 +53,19 @@ public final class FyrePlugin extends JavaPlugin {
 
 	@Override
 	public void onEnable() {
+		switch (Reflected.setupCache(log)) {
+		case 0:
+			// If Fyre failed to setup reflections, stop loading the plugin
+			this.setEnabled(false);
+			return;
+		case 2:
+			log.warning(Strings.LOG_PREFIX + "Server jar is not patched with merchant fixes. XP and level bars will be disabled on traders.");
+			break;
+		case 1:
+			log.info(Strings.LOG_PREFIX + "Server jar is fully patched.");
+			break;
+		}
+
 		setupDependencies();
 		serverSetUp();
 		registerCommands();
@@ -77,7 +91,7 @@ public final class FyrePlugin extends JavaPlugin {
 		try {
 			Reflected.patchCompost();
 		} catch (ReflectionFailedException e) {
-			log.severe("[Fyre] Unable to Patch Composter due to reflection errors. /n" + e.getMessage());
+			log.severe(Strings.LOG_PREFIX + "Unable to Patch Composter due to reflection errors. \n" + e.getMessage());
 		}
 	}
 
@@ -118,7 +132,8 @@ public final class FyrePlugin extends JavaPlugin {
 		getServer().getPluginManager().registerEvents(new PlayerRespawn(), this);
 		getServer().getPluginManager().registerEvents(new EntitySpawn(), this);
 		getServer().getPluginManager().registerEvents(new FallDamage(), this);
-		// getServer().getPluginManager().registerEvents(new PlayerInteraction(protocolManager), this);
+		// getServer().getPluginManager().registerEvents(new
+		// PlayerInteraction(protocolManager), this);
 		// getServer().getPluginManager().registerEvents(new BrickHit(), this);
 		getServer().getPluginManager().registerEvents(new PlayerDeath(), this);
 		getServer().getPluginManager().registerEvents(new TraderClick(), this);
@@ -132,27 +147,27 @@ public final class FyrePlugin extends JavaPlugin {
 
 	private void setupDependencies() {
 		if (getServer().getPluginManager().getPlugin("Vault") == null) {
-			log.warning("[Fyre] Vault is not installed, some features may be unavailable");
+			log.warning(Strings.LOG_PREFIX + "Vault is not installed, some features may be unavailable");
 		} else {
 			RegisteredServiceProvider<Chat> chatService = getServer().getServicesManager().getRegistration(Chat.class);
 			RegisteredServiceProvider<Permission> permissionService = getServer().getServicesManager()
-				.getRegistration(Permission.class);
+					.getRegistration(Permission.class);
 
 			if (permissionService == null) {
-				log.info("[Fyre] No Permission Services registered. Default permissions will be used");
+				log.info(Strings.LOG_PREFIX + "No Permission Services registered. Default permissions will be used");
 			} else {
 				this.vaultPerms = permissionService.getProvider();
 			}
 
 			if (chatService == null) {
-				log.info("[Fyre] No Chat Services registered. Will use default Fyre values");
+				log.info(Strings.LOG_PREFIX + "No Chat Services registered. Will use default Fyre values");
 			} else {
 				this.vaultChat = chatService.getProvider();
 			}
 		}
 
 		if (getServer().getPluginManager().getPlugin("Protocol Lib") == null) {
-			log.warning("[Fyre] Protocol Lib not installed, bricks will not be throwable");
+			log.warning(Strings.LOG_PREFIX + "Protocol Lib not installed, bricks will not be throwable");
 		} else {
 			protocolManager = ProtocolLibrary.getProtocolManager();
 		}
