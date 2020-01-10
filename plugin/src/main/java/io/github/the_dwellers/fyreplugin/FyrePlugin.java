@@ -98,13 +98,14 @@ public final class FyrePlugin extends JavaPlugin {
 	 * Also attempts to replace {@code bukkit:plugins} with {@code fyre:plugins}
 	 */
 	private void registerCommands() {
+		// Remove Bukkit plugin command
+		getServer().getCommandMap().getCommand("plugins");
+
 		this.getCommand("armor").setExecutor(new ArmorCommand());
 		this.getCommand("debug").setExecutor(new DebugCommand());
 		this.getCommand("item").setExecutor(new ItemCommand());
 		this.getCommand("list").setExecutor(new ListCommand());
 		this.getCommand("money").setExecutor(new MoneyCommand());
-		// Remove Bukkit plugin command
-		getServer().getCommandMap().getCommand("plugins");
 		this.getCommand("plugins").setExecutor(new PluginsCommand());
 		this.getCommand("status").setExecutor(new StatusCommand());
 		this.getCommand("trader").setExecutor(new TraderCommand());
@@ -115,27 +116,24 @@ public final class FyrePlugin extends JavaPlugin {
 	 */
 	private void registerListeners() {
 		getServer().getPluginManager().registerEvents(new BlockBreak(), this);
+		getServer().getPluginManager().registerEvents(new BoatClick(), this);
 		getServer().getPluginManager().registerEvents(new Dismount(), this);
+		getServer().getPluginManager().registerEvents(new EntitySpawn(), this);
+		getServer().getPluginManager().registerEvents(new FallDamage(), this);
+		getServer().getPluginManager().registerEvents(new InventoryClosed(), this);
+		getServer().getPluginManager().registerEvents(new KnowledgeBookUse(), this);
+		getServer().getPluginManager().registerEvents(new OnDamage(), this);
 		getServer().getPluginManager().registerEvents(new PlayerChat(), this);
+		getServer().getPluginManager().registerEvents(new PlayerDeath(), this);
 		getServer().getPluginManager().registerEvents(new PlayerJoin(), this);
 		getServer().getPluginManager().registerEvents(new PlayerLeave(), this);
 		getServer().getPluginManager().registerEvents(new PlayerMove(), this);
 		getServer().getPluginManager().registerEvents(new PlayerPreProcessorCommand(), this);
-		getServer().getPluginManager().registerEvents(new BoatClick(), this);
-		getServer().getPluginManager().registerEvents(new InventoryClosed(), this);
-		getServer().getPluginManager().registerEvents(new VehicleDestroy(), this);
-		getServer().getPluginManager().registerEvents(new TickEnd(), this);
-		getServer().getPluginManager().registerEvents(new OnDamage(), this);
 		getServer().getPluginManager().registerEvents(new PlayerRespawn(), this);
-		getServer().getPluginManager().registerEvents(new EntitySpawn(), this);
-		getServer().getPluginManager().registerEvents(new FallDamage(), this);
-		// getServer().getPluginManager().registerEvents(new
-		// PlayerInteraction(protocolManager), this);
-		// getServer().getPluginManager().registerEvents(new BrickHit(), this);
-		getServer().getPluginManager().registerEvents(new PlayerDeath(), this);
-		getServer().getPluginManager().registerEvents(new TraderClick(), this);
-		getServer().getPluginManager().registerEvents(new KnowledgeBookUse(), this);
 		getServer().getPluginManager().registerEvents(new staffLog(), this);
+		getServer().getPluginManager().registerEvents(new TickEnd(), this);
+		getServer().getPluginManager().registerEvents(new TraderClick(), this);
+		getServer().getPluginManager().registerEvents(new VehicleDestroy(), this);
 	}
 
 	private void serverSetUp() {
