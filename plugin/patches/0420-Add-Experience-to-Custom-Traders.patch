@@ -1,0 +1,48 @@
+From c21021c444ce3adc24764910625bb16766e20bde Mon Sep 17 00:00:00 2001
+From: WYVERN2742 <35181365+WYVERN2742@users.noreply.github.com>
+Date: Fri, 10 Jan 2020 16:14:38 +0000
+Subject: [PATCH] Add Experience to Custom Traders
+
+
+diff --git a/src/main/java/org/bukkit/craftbukkit/inventory/CraftMerchantCustom.java b/src/main/java/org/bukkit/craftbukkit/inventory/CraftMerchantCustom.java
+index 39acedcf6..9929d4fb6 100644
+--- a/src/main/java/org/bukkit/craftbukkit/inventory/CraftMerchantCustom.java
++++ b/src/main/java/org/bukkit/craftbukkit/inventory/CraftMerchantCustom.java
+@@ -36,10 +36,14 @@ public class CraftMerchantCustom extends CraftMerchant {
+         private EntityHuman tradingPlayer;
+         private World tradingWorld;
+         protected CraftMerchant craftMerchant;
++        private int experience; // Paper
++        private boolean regularVillager; // Paper
+ 
+         public MinecraftMerchant(String title) {
+             Validate.notNull(title, "Title cannot be null");
+             this.title = new ChatComponentText(title);
++            this.experience = 0; // Paper
++            this.regularVillager = false;
+         }
+ 
+         @Override
+@@ -86,16 +90,17 @@ public class CraftMerchantCustom extends CraftMerchant {
+ 
+         @Override
+         public int getExperience() {
+-            return 0; // xp
++            return experience; // xp // Paper
+         }
+ 
+         @Override
+         public void setExperience(int i) {
++            experience = i; // Paper
+         }
+ 
+         @Override
+         public boolean isRegularVillager() {
+-            return false; // is-regular-villager flag (hides some gui elements: xp bar, name suffix)
++            return regularVillager; // is-regular-villager flag (hides some gui elements: xp bar, name suffix) // Paper
+         }
+ 
+         @Override
+-- 
+2.23.0.windows.1
+
