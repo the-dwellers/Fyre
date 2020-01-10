@@ -24,7 +24,6 @@ public class DebugCommand extends AbstractCommand {
 			try {
 				System.out.println(Reflected.itemStackToNBT(Items.getSplinters()));
 			} catch (ReflectionFailedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 

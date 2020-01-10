@@ -1,7 +1,5 @@
 package io.github.the_dwellers.fyreplugin;
 
-import com.comphenix.protocol.ProtocolLibrary;
-import com.comphenix.protocol.ProtocolManager;
 import io.github.the_dwellers.fyreplugin.commands.*;
 import io.github.the_dwellers.fyreplugin.configuration.ServerOperations;
 import io.github.the_dwellers.fyreplugin.configuration.Strings;
@@ -31,7 +29,6 @@ public final class FyrePlugin extends JavaPlugin {
 
 	private static final Logger log = Logger.getLogger("Minecraft");
 	private static FyrePlugin instance;
-	public ProtocolManager protocolManager;
 	private Chat vaultChat;
 	private Permission vaultPerms;
 
@@ -164,12 +161,6 @@ public final class FyrePlugin extends JavaPlugin {
 			} else {
 				this.vaultChat = chatService.getProvider();
 			}
-		}
-
-		if (getServer().getPluginManager().getPlugin("Protocol Lib") == null) {
-			log.warning(Strings.LOG_PREFIX + "Protocol Lib not installed, bricks will not be throwable");
-		} else {
-			protocolManager = ProtocolLibrary.getProtocolManager();
 		}
 	}
 }
