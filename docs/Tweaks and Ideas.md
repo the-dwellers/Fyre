@@ -35,6 +35,7 @@ This document is mostly a note of mechanic ideas an tweak brainstorming, feedbac
 - [x] Glass breaks when fallen onto
 - [x] Rotten flesh in Composters
 - [x] Death to invisible players hides their name from chat
+- [x] Harvest crops with hoe
 
 ## Mechanic ideas
 
@@ -63,7 +64,6 @@ This document is mostly a note of mechanic ideas an tweak brainstorming, feedbac
 - [ ] Cannot hurt mounted entity (Like horses)
 - [ ] Smelted red sand -> Red Stained Glass
 - [ ] New Moon Event (More mob spawning?)
-- [ ] Harvest crops with hoe
 - [ ] Red screen on hit (Worldborder effect)
 
 ## Land Protection

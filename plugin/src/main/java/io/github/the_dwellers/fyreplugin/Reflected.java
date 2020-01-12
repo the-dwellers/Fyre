@@ -4,7 +4,9 @@ import io.github.the_dwellers.fyreplugin.configuration.Strings;
 import io.github.the_dwellers.fyreplugin.exceptions.ReflectionFailedException;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.Merchant;
 
@@ -171,13 +173,15 @@ public abstract class Reflected {
 
 		classCache = new HashMap<String, Class<?>>();
 		methodCache = new HashMap<String, Method>();
-
+		int cacheTarget = 36;
 		int ref = 0;
 
 		// Classes
 		ref += cacheClass(nmsClass + "BlockComposter") ? 1 : 0;
 		ref += cacheClass(nmsClass + "Entity") ? 1 : 0;
 		ref += cacheClass(nmsClass + "EntityHuman") ? 1 : 0;
+		ref += cacheClass(nmsClass + "EntityLiving") ? 1 : 0;
+		ref += cacheClass(nmsClass + "EnumItemSlot") ? 1 : 0;
 		ref += cacheClass(nmsClass + "IChatBaseComponent") ? 1 : 0;
 		ref += cacheClass(nmsClass + "IMaterial") ? 1 : 0;
 		ref += cacheClass(nmsClass + "IMerchant") ? 1 : 0;
@@ -188,6 +192,7 @@ public abstract class Reflected {
 
 		ref += cacheClass(obcClass + "entity.CraftEntity") ? 1 : 0;
 		ref += cacheClass(obcClass + "entity.CraftHumanEntity") ? 1 : 0;
+		ref += cacheClass(obcClass + "entity.CraftLivingEntity") ? 1 : 0;
 		ref += cacheClass(obcClass + "inventory.CraftItemStack") ? 1 : 0;
 		ref += cacheClass(obcClass + "inventory.CraftMerchantCustom") ? 1 : 0;
 		ref += cacheClass(obcClass + "inventory.CraftMerchantCustom$MinecraftMerchant") ? 1 : 0;
@@ -200,7 +205,7 @@ public abstract class Reflected {
 
 		// org.bukkit.craftbukkit.entity.CraftEntity
 		ref += cacheMethod("CraftEntity#getHandle",
-			getClass(obcClass + "entity.CraftHumanEntity")) ? 1 : 0;
+			getClass(obcClass + "entity.CraftEntity")) ? 1 : 0;
 
 		// org.bukkit.craftbukkit.inventory.CraftItem
 		ref += cacheMethod("CraftItemStack#asBukkitCopy",
@@ -208,7 +213,7 @@ public abstract class Reflected {
 		ref += cacheMethod("CraftItemStack#asNMSCopy",
 			getClass(obcClass + "inventory.CraftItemStack"), ItemStack.class) ? 1 : 0;
 
-		// CraftMerchantCustom
+		// org.bukkit.craftbukkit.inventory.CraftMerchantCustom
 		ref += cacheMethod("CraftMerchantCustom#getMerchant",
 			getClass(obcClass + "inventory.CraftMerchantCustom")) ? 1 : 0;
 		ref += cacheMethod("CraftMerchantCustom$MinecraftMerchant#getScoreboardDisplayName",
@@ -224,6 +229,10 @@ public abstract class Reflected {
 		ref += cacheMethod("Entity#save",
 			getClass(nmsClass + "Entity"), getClass(nmsClass + "NBTTagCompound")) ? 1 : 0;
 
+		// net.minecraft.server.EntityLiving
+		ref += cacheMethod("EntityLiving#c",
+			getClass(nmsClass + "EntityLiving"), getClass(nmsClass + "EnumItemSlot")) ? 1 : 0;
+
 		// net.minecraft.server.EntityHuman
 		ref += cacheMethod("EntityHuman#openTrade",
 			getClass(nmsClass + "IMerchant"), getClass(nmsClass + "EntityHuman"), getClass(nmsClass + "IChatBaseComponent"), int.class) ? 1 : 0;
@@ -236,9 +245,13 @@ public abstract class Reflected {
 		ref += cacheMethod("ItemStack#save",
 			getClass(nmsClass + "ItemStack"), getClass(nmsClass + "NBTTagCompound")) ? 1 : 0;
 
+		// net.minecraft.server.EnumItemSlot
+		ref += cacheMethod("EnumItemSlot#fromName",
+			getClass(nmsClass + "EnumItemSlot"), String.class) ? 1 : 0;
+
 		// net.minecraft.server.MojangsonParser
 		ref += cacheMethod("MojangsonParser#parse",
-				getClass(nmsClass + "MojangsonParser"), String.class) ? 1 : 0;
+			getClass(nmsClass + "MojangsonParser"), String.class) ? 1 : 0;
 
 		// net.minecraft.server.NBTTagCompound
 		ref += cacheMethod("NBTTagCompound#toString",
@@ -261,8 +274,9 @@ public abstract class Reflected {
 			status = 2;
 		}
 
-		if (ref != 31) {
+		if (ref != cacheTarget) {
 			// Reflection Failed
+			log.severe("Failed to reflect " + (ref - cacheTarget) + " Methods and Classes");
 			log.severe(
 					"Fyre is unable to start due to failing to hook into Minecraft internals for mechanic tweaks.\n As a result, Fyre will now disable in order to prevent any data corruption.\n To fix this problem, please ensure that the current Minecraft version is supported.\n If you are still getting the problem. Please reinstall your server jar.");
 			status = 0;
@@ -604,6 +618,103 @@ public abstract class Reflected {
 
 		} catch (LinkageError | IllegalAccessException | NoSuchFieldException | InvocationTargetException e) {
 			throw new ReflectionFailedException(e);
+		}
+	}
+
+	/**
+	 * Play the effect of an entity's item breaking.
+	 * <p>
+	 * Due to the dependence on reflection, this method may fail entirely depending
+	 * on the Minecraft version. Please check {@link Reflected} for supported
+	 * versions.
+	 *
+	 * <pre>
+	 * net.minecraft.server.LivingEntity nmsEntity = ((org.bukkit.craftbukkit.craftLivingEntity) entity).getHandle();
+	 * nmsEntity.c(net.minecraft.server.EquipItemSlot.fromName(slotName));
+	 * </pre>
+	 *
+	 * @param entity Entity who's equipment will be broken
+	 * @param slot   Slot to break
+	 * @throws ReflectionFailedException thrown when any exception is encountered
+	 *                                   during reflection
+	 */
+	public static void breakEquipmentEffect(LivingEntity entity, EquipmentSlot slot) throws ReflectionFailedException {
+		try {
+
+			String slotName = "mainhand";
+
+			// Slot name are defined in `net.minecraft.server.EnumItemSlot`
+			switch (slot) {
+			case HEAD:
+				slotName = "head";
+				break;
+			case CHEST:
+				slotName = "chest";
+				break;
+			case LEGS:
+				slotName = "legs";
+				break;
+			case FEET:
+				slotName = "feet";
+				break;
+			case OFF_HAND:
+				slotName = "offhand";
+				break;
+			case HAND:
+			default:
+				slotName = "mainhand";
+				break;
+			}
+
+			Object nmsEnum = getMethod("EnumItemSlot#fromName").invoke(getClass(nmsClass + "EnumItemSlot"), slotName);
+
+			Object nmsEntity = getMethod("CraftEntity#getHandle")
+					.invoke(getClass(obcClass + "entity.CraftLivingEntity").cast(entity));
+
+			Object nmsLivingEntity = getClass(nmsClass + "EntityLiving").cast(nmsEntity);
+
+			getMethod("EntityLiving#c").invoke(nmsLivingEntity, nmsEnum);
+
+		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+			throw new ReflectionFailedException(e);
+		}
+	}
+
+	/**
+	 * Break equipment in the entity's slot. An attempt will be made to play
+	 * breaking animations, but will fail silently if errors occur.
+	 * @param entity Entity of equipment to break
+	 * @param slot Slot of equipment
+	 */
+	public static void breakEquipment(LivingEntity entity, EquipmentSlot slot) {
+		try {
+			breakEquipmentEffect(entity, slot);
+		} catch (ReflectionFailedException e) {
+			// Failed to play breaking effect.
+			// the effect is only cosmetic, so we don't care.
+		}
+
+		// Remove equipment depending on slot
+		switch (slot) {
+		case HEAD:
+			entity.getEquipment().getHelmet().subtract();
+			break;
+		case CHEST:
+			entity.getEquipment().getChestplate().subtract();
+			break;
+		case LEGS:
+			entity.getEquipment().getLeggings().subtract();
+			break;
+		case FEET:
+			entity.getEquipment().getBoots().subtract();
+			break;
+		case OFF_HAND:
+			entity.getEquipment().getItemInOffHand().subtract();
+			break;
+		case HAND:
+		default:
+			entity.getEquipment().getItemInMainHand().subtract();
+			break;
 		}
 	}
 }

@@ -117,6 +117,7 @@ public final class FyrePlugin extends JavaPlugin {
 	private void registerListeners() {
 		getServer().getPluginManager().registerEvents(new BlockBreak(), this);
 		getServer().getPluginManager().registerEvents(new BoatClick(), this);
+		getServer().getPluginManager().registerEvents(new CropClick(), this);
 		getServer().getPluginManager().registerEvents(new Dismount(), this);
 		getServer().getPluginManager().registerEvents(new EntitySpawn(), this);
 		getServer().getPluginManager().registerEvents(new FallDamage(), this);
