@@ -172,90 +172,90 @@ public abstract class Reflected {
 		Reflected.log = log;
 
 		classCache = new HashMap<String, Class<?>>();
+		final int classCacheTarget = 18;
+
 		methodCache = new HashMap<String, Method>();
-		int cacheTarget = 36;
-		int ref = 0;
+		final int methodCacheTarget = 18;
 
-		// Classes
-		ref += cacheClass(nmsClass + "BlockComposter") ? 1 : 0;
-		ref += cacheClass(nmsClass + "Entity") ? 1 : 0;
-		ref += cacheClass(nmsClass + "EntityHuman") ? 1 : 0;
-		ref += cacheClass(nmsClass + "EntityLiving") ? 1 : 0;
-		ref += cacheClass(nmsClass + "EnumItemSlot") ? 1 : 0;
-		ref += cacheClass(nmsClass + "IChatBaseComponent") ? 1 : 0;
-		ref += cacheClass(nmsClass + "IMaterial") ? 1 : 0;
-		ref += cacheClass(nmsClass + "IMerchant") ? 1 : 0;
-		ref += cacheClass(nmsClass + "Items") ? 1 : 0;
-		ref += cacheClass(nmsClass + "ItemStack") ? 1 : 0;
-		ref += cacheClass(nmsClass + "MojangsonParser") ? 1 : 0;
-		ref += cacheClass(nmsClass + "NBTTagCompound") ? 1 : 0;
+		// -------------- Classes
+		cacheClass(nmsClass + "BlockComposter");
+		cacheClass(nmsClass + "Entity");
+		cacheClass(nmsClass + "EntityHuman");
+		cacheClass(nmsClass + "EntityLiving");
+		cacheClass(nmsClass + "EnumItemSlot");
+		cacheClass(nmsClass + "IChatBaseComponent");
+		cacheClass(nmsClass + "IMaterial");
+		cacheClass(nmsClass + "IMerchant");
+		cacheClass(nmsClass + "Items");
+		cacheClass(nmsClass + "ItemStack");
+		cacheClass(nmsClass + "MojangsonParser");
+		cacheClass(nmsClass + "NBTTagCompound");
 
-		ref += cacheClass(obcClass + "entity.CraftEntity") ? 1 : 0;
-		ref += cacheClass(obcClass + "entity.CraftHumanEntity") ? 1 : 0;
-		ref += cacheClass(obcClass + "entity.CraftLivingEntity") ? 1 : 0;
-		ref += cacheClass(obcClass + "inventory.CraftItemStack") ? 1 : 0;
-		ref += cacheClass(obcClass + "inventory.CraftMerchantCustom") ? 1 : 0;
-		ref += cacheClass(obcClass + "inventory.CraftMerchantCustom$MinecraftMerchant") ? 1 : 0;
+		cacheClass(obcClass + "entity.CraftEntity");
+		cacheClass(obcClass + "entity.CraftHumanEntity");
+		cacheClass(obcClass + "entity.CraftLivingEntity");
+		cacheClass(obcClass + "inventory.CraftItemStack");
+		cacheClass(obcClass + "inventory.CraftMerchantCustom");
+		cacheClass(obcClass + "inventory.CraftMerchantCustom$MinecraftMerchant");
 
-		// Methods
-
+		// -------------- Methods
 		// net.minecraft.server.BlockComposter
-		ref += cacheDeclaredMethod("BlockComposter#a",
-			getClass(nmsClass + "BlockComposter"), float.class, getClass(nmsClass + "IMaterial")) ? 1 : 0;
+		cacheDeclaredMethod("BlockComposter#a",
+			getClass(nmsClass + "BlockComposter"), float.class, getClass(nmsClass + "IMaterial"));
 
 		// org.bukkit.craftbukkit.entity.CraftEntity
-		ref += cacheMethod("CraftEntity#getHandle",
-			getClass(obcClass + "entity.CraftEntity")) ? 1 : 0;
+		cacheMethod("CraftEntity#getHandle",
+			getClass(obcClass + "entity.CraftEntity"));
 
 		// org.bukkit.craftbukkit.inventory.CraftItem
-		ref += cacheMethod("CraftItemStack#asBukkitCopy",
-			getClass(obcClass + "inventory.CraftItemStack"), getClass(nmsClass + "ItemStack")) ? 1 : 0;
-		ref += cacheMethod("CraftItemStack#asNMSCopy",
-			getClass(obcClass + "inventory.CraftItemStack"), ItemStack.class) ? 1 : 0;
+		cacheMethod("CraftItemStack#asBukkitCopy",
+			getClass(obcClass + "inventory.CraftItemStack"), getClass(nmsClass + "ItemStack"));
+		cacheMethod("CraftItemStack#asNMSCopy",
+			getClass(obcClass + "inventory.CraftItemStack"), ItemStack.class);
 
 		// org.bukkit.craftbukkit.inventory.CraftMerchantCustom
-		ref += cacheMethod("CraftMerchantCustom#getMerchant",
-			getClass(obcClass + "inventory.CraftMerchantCustom")) ? 1 : 0;
-		ref += cacheMethod("CraftMerchantCustom$MinecraftMerchant#getScoreboardDisplayName",
-			getClass(obcClass + "inventory.CraftMerchantCustom$MinecraftMerchant")) ? 1 : 0;
+		cacheMethod("CraftMerchantCustom#getMerchant",
+			getClass(obcClass + "inventory.CraftMerchantCustom"));
+		cacheMethod("CraftMerchantCustom$MinecraftMerchant#getScoreboardDisplayName",
+			getClass(obcClass + "inventory.CraftMerchantCustom$MinecraftMerchant"));
 
 		// net.minecraft.server.Entity
-		ref += cacheMethod("Entity#a",
-			getClass(nmsClass + "Entity"), UUID.class) ? 1 : 0;
-		ref += cacheMethod("Entity#f",
-			getClass(nmsClass + "Entity"), getClass(nmsClass + "NBTTagCompound")) ? 1 : 0;
-		ref += cacheMethod("Entity#getUniqueID",
-			getClass(nmsClass + "Entity")) ? 1 : 0;
-		ref += cacheMethod("Entity#save",
-			getClass(nmsClass + "Entity"), getClass(nmsClass + "NBTTagCompound")) ? 1 : 0;
+		cacheMethod("Entity#a",
+			getClass(nmsClass + "Entity"), UUID.class);
+		cacheMethod("Entity#f",
+			getClass(nmsClass + "Entity"), getClass(nmsClass + "NBTTagCompound"));
+		cacheMethod("Entity#getUniqueID",
+			getClass(nmsClass + "Entity"));
+		cacheMethod("Entity#save",
+			getClass(nmsClass + "Entity"), getClass(nmsClass + "NBTTagCompound"));
 
 		// net.minecraft.server.EntityLiving
-		ref += cacheMethod("EntityLiving#c",
-			getClass(nmsClass + "EntityLiving"), getClass(nmsClass + "EnumItemSlot")) ? 1 : 0;
+		cacheMethod("EntityLiving#c",
+			getClass(nmsClass + "EntityLiving"), getClass(nmsClass + "EnumItemSlot"));
 
 		// net.minecraft.server.EntityHuman
-		ref += cacheMethod("EntityHuman#openTrade",
-			getClass(nmsClass + "IMerchant"), getClass(nmsClass + "EntityHuman"), getClass(nmsClass + "IChatBaseComponent"), int.class) ? 1 : 0;
-		ref += cacheMethod("EntityHuman#setTradingPlayer",
-			getClass(nmsClass + "IMerchant"), getClass(nmsClass + "EntityHuman")) ? 1 : 0;
+		cacheMethod("EntityHuman#openTrade",
+			getClass(nmsClass + "IMerchant"), getClass(nmsClass + "EntityHuman"), getClass(nmsClass + "IChatBaseComponent"), int.class);
+		cacheMethod("EntityHuman#setTradingPlayer",
+			getClass(nmsClass + "IMerchant"), getClass(nmsClass + "EntityHuman"));
 
 		// net.minecraft.server.ItemStack
-		ref += cacheMethod("ItemStack#a",
-			getClass(nmsClass + "ItemStack"), getClass(nmsClass + "NBTTagCompound")) ? 1 : 0;
-		ref += cacheMethod("ItemStack#save",
-			getClass(nmsClass + "ItemStack"), getClass(nmsClass + "NBTTagCompound")) ? 1 : 0;
+		cacheMethod("ItemStack#a",
+			getClass(nmsClass + "ItemStack"), getClass(nmsClass + "NBTTagCompound"));
+		cacheMethod("ItemStack#save",
+			getClass(nmsClass + "ItemStack"), getClass(nmsClass + "NBTTagCompound"));
 
 		// net.minecraft.server.EnumItemSlot
-		ref += cacheMethod("EnumItemSlot#fromName",
-			getClass(nmsClass + "EnumItemSlot"), String.class) ? 1 : 0;
+		cacheMethod("EnumItemSlot#fromName",
+			getClass(nmsClass + "EnumItemSlot"), String.class);
 
 		// net.minecraft.server.MojangsonParser
-		ref += cacheMethod("MojangsonParser#parse",
-			getClass(nmsClass + "MojangsonParser"), String.class) ? 1 : 0;
+		cacheMethod("MojangsonParser#parse",
+			getClass(nmsClass + "MojangsonParser"), String.class);
 
 		// net.minecraft.server.NBTTagCompound
-		ref += cacheMethod("NBTTagCompound#toString",
-			getClass(nmsClass + "NBTTagCompound")) ? 1 : 0;
+		cacheMethod("NBTTagCompound#toString",
+			getClass(nmsClass + "NBTTagCompound"));
 
 		log.info(Strings.LOG_PREFIX + "Cached " + ref + " reflections.");
 
@@ -274,9 +274,18 @@ public abstract class Reflected {
 			status = 2;
 		}
 
-		if (ref != cacheTarget) {
+		if (classCache.size() != classCacheTarget) {
+			log.severe("Failed to reflect " + (classCacheTarget - classCache.size() + " classes"));
+			status = 0;
+		}
+
+		if (methodCache.size() != methodCacheTarget) {
+			log.severe("Failed to reflect " + (methodCacheTarget - methodCache.size() + " methods"));
+			status = 0;
+		}
+
+		if (status == 0) {
 			// Reflection Failed
-			log.severe("Failed to reflect " + (ref - cacheTarget) + " Methods and Classes");
 			log.severe(
 					"Fyre is unable to start due to failing to hook into Minecraft internals for mechanic tweaks.\n As a result, Fyre will now disable in order to prevent any data corruption.\n To fix this problem, please ensure that the current Minecraft version is supported.\n If you are still getting the problem. Please reinstall your server jar.");
 			status = 0;
