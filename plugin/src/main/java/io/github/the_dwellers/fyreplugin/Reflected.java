@@ -257,7 +257,7 @@ public abstract class Reflected {
 		cacheMethod("NBTTagCompound#toString",
 			getClass(nmsClass + "NBTTagCompound"));
 
-		log.info(Strings.LOG_PREFIX + "Cached " + ref + " reflections.");
+		log.info(Strings.LOG_PREFIX + "Cached " + (classCache.size() + methodCache.size()) + " reflections.");
 
 		// Error checking
 		int status = 1;
