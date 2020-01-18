@@ -37,31 +37,37 @@ This document is mostly a note of mechanic ideas an tweak brainstorming, feedbac
 - [x] Death to invisible players hides their name from chat
 - [x] Harvest crops with hoe
 - [x] Leather boots do not destroy crops
+- [ ] Dying to undead creates a zombie/skeleton at the player which has their inventory.
+	- The mob uses the player's equipped armor and weapon
+	- The mob drops the player's inventory
+- [ ] Loot table changes
+	- Smelted red sand -> Red Stained Glass
 
 ## Mechanic ideas
 
-- [ ] Enchanting water bottles give bottle o' enchanting
-- [ ] Stacking snow
-	- Snow stacks and builds up
-	<!-- https://www.spigotmc.org/resources/snowiersnow.72213/ -->
-- [ ] Tie leads to fenceposts
-- [ ] Some way to move spawners?
+- Loot table changes
+	- Fishing in swamps give slimeballs
+- Uncrafting
+	- Turn items into their components, might be a balance problem
+- Tie leads to fenceposts
+- Some way to move spawners?
 	- May be changed if underground is overhauled
 	- Mob grinding is risk-free to get xp, not good.
-- [ ] Extended potion crafting
+- Extended potion crafting
 	- Current brewing has a large amount of limits. Combine potions?
-- [ ] Perk System
+- Perk System
 	- Allows adding mechanics for everyone, but perks make some stronger?
 	- Uncrafting for example, perk would increase amount of resources obtained
-- [ ] Uncrafting
-	- Turn items into their components, might be a balance problem
-- [ ] Fishing in swamps give slimeballs
-- [ ] Zombies hold pickaxes when y<50
-- [ ] Redo loot tables
-- [ ] Tickle pandas with feathers
-- [ ] Smelted red sand -> Red Stained Glass
-- [ ] New Moon Event (More mob spawning?)
-- [ ] Red screen on hit (Worldborder effect)
+- Zombies hold pickaxes when y<50
+- Tickle pandas with feathers
+- New Moon Event (More mob spawning?)
+- ~~Enchanting water bottles give bottle o' enchanting~~
+	- Would require rewriting minecraft's enchanting code
+- ~~Red screen on hit (Worldborder effect)~~
+	- Requires messing around with https://wiki.vg/Protocol#World_Border
+- ~~Stacking snow~~
+	- Snow stacks and builds up
+	- > 🐲 Just use <https://www.spigotmc.org/resources/snowiersnow.72213/> instead
 
 ## Land Protection
 
