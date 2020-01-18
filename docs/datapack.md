@@ -27,6 +27,7 @@ advancements:
   - minecraft:adventure/adventuring_time
   - minecraft:adventure/arbalistic
   - minecraft:adventure/hero_of_the_village
+  - minecraft:adventure/honey_block_slide
   - minecraft:adventure/kill_a_mob
   - minecraft:adventure/kill_all_mobs
   - minecraft:adventure/ol_betsy
@@ -59,6 +60,8 @@ advancements:
   - minecraft:husbandry/fishy_business
   - minecraft:husbandry/plant_seed
   - minecraft:husbandry/root
+  - minecraft:husbandry/safely_harvest_honey
+  - minecraft:husbandry/silk_touch_nest
   - minecraft:husbandry/tactical_fishing
   - minecraft:husbandry/tame_an_animal
   - minecraft:nether/all_effects
