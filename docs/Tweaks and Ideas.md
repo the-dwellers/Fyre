@@ -36,6 +36,7 @@ This document is mostly a note of mechanic ideas an tweak brainstorming, feedbac
 - [x] Rotten flesh in Composters
 - [x] Death to invisible players hides their name from chat
 - [x] Harvest crops with hoe
+- [x] Leather boots do not destroy crops
 
 ## Mechanic ideas
 
@@ -57,11 +58,7 @@ This document is mostly a note of mechanic ideas an tweak brainstorming, feedbac
 - [ ] Fishing in swamps give slimeballs
 - [ ] Zombies hold pickaxes when y<50
 - [ ] Redo loot tables
-- [ ] Leather boots do not destroy crops
 - [ ] Tickle pandas with feathers
-- [ ] Eat glistening melon
-- [ ] Eat Golden carrots
-- [ ] Cannot hurt mounted entity (Like horses)
 - [ ] Smelted red sand -> Red Stained Glass
 - [ ] New Moon Event (More mob spawning?)
 - [ ] Red screen on hit (Worldborder effect)

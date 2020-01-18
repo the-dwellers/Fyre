@@ -115,6 +115,7 @@ public abstract class Items {
 		if (ARMOR_LEATHER_BOOTS == null) {
 			ARMOR_LEATHER_BOOTS = new ItemStack(Material.LEATHER_BOOTS, 1);
 			ItemMeta meta = ARMOR_LEATHER_BOOTS.getItemMeta();
+			meta.setLore(Arrays.asList(PREFIX_LORE_COMMON + "Cannot Trample Crops"));
 
 			Multimap<Attribute, AttributeModifier> modifiers = HashMultimap.create();
 

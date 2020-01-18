@@ -135,6 +135,7 @@ public final class FyrePlugin extends JavaPlugin {
 		getServer().getPluginManager().registerEvents(new TickEnd(), this);
 		getServer().getPluginManager().registerEvents(new TraderClick(), this);
 		getServer().getPluginManager().registerEvents(new VehicleDestroy(), this);
+		getServer().getPluginManager().registerEvents(new CropTrample(), this);
 	}
 
 	private void serverSetUp() {
