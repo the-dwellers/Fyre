@@ -10,6 +10,7 @@ plugins.
 	- [Advancements](#advancements)
 		- [Welcome to Fyre](#welcome-to-fyre)
 		- [Mining](#mining)
+	- [Armor Scaling](#armor-scaling)
 
 ---
 
@@ -90,3 +91,58 @@ adventuring in mines at the moment, but this may change
 | A Small Loan           | Mine a full inventory of Gold Ore. Enough gold to rule the world! | Plugin:Mine 1728 Gold          | Task  |
 
 *Requirements prefixed by Plugin: are triggered by [the server-side plugin](../plugin/README.md)*
+
+## Armor Scaling
+
+Although max hearts can be half, they do not render correctly in the client.
+<!--
+| Armor              | Hearts | Armor Points |
+| ------------------ | ------ | ------------ |
+| Leather Helmet     | 1      | 1            |
+| Leather Chestplate | 2      | 3            |
+| Leather Leggings   | 1      | 2            |
+| Leather Boots      | 1      | 1            |
+| Leather Set        | 5      | 7            |
+| Chain Helmet       | 2      | 3            |
+| Chain Chestplate   | 2      | 5            |
+| Chain Leggings     | 2      | 4            |
+| Chain Boots        | 1      | 2            |
+| Chain Set          | 7      | 14           |
+| Iron Helmet        | 2      | 3            |
+| Iron Chestplate    | 3      | 6            |
+| Iron Leggings      | 3      | 4            |
+| Iron Boots         | 2      | 3            |
+| Iron Set           | 10     | 16           |
+| Diamond Helmet     | 3      | 4            |
+| Diamond Chestplate | 5      | 7            |
+| Diamond Leggings   | 4      | 5            |
+| Diamond Boots      | 3      | 4            |
+| Diamond Set        | 15     | 20           |
+ -->
+
+| Armor              | Hearts | Armor Points (Damage Resistance)                                                                                                                            |
+| ------------------ | ------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Leather Helmet     | 1      | 1  ![Half Armor](img/sprites/Half_Armor.svg)                                                                                                                |
+| Leather Chestplate | 2      | 3  ![Full Armor](img/sprites/Armor.svg) ![Half Armor](img/sprites/Half_Armor.svg)                                                                           |
+| Leather Leggings   | 1      | 2  ![Full Armor](img/sprites/Armor.svg)                                                                                                                     |
+| Leather Boots      | 1      | 1  ![Half Armor](img/sprites/Half_Armor.svg)                                                                                                                |
+| Leather Set        | 5      | 7  (6%)                                                                                                                                                     |
+| Chain Helmet       | 2      | 3  ![Full Armor](img/sprites/Armor.svg) ![Half Armor](img/sprites/Half_Armor.svg)                                                                           |
+| Chain Chestplate   | 2      | 5  ![Full Armor](img/sprites/Armor.svg) ![Full Armor](img/sprites/Armor.svg) ![Half Armor](img/sprites/Half_Armor.svg)                                      |
+| Chain Leggings     | 2      | 4  ![Full Armor](img/sprites/Armor.svg) ![Full Armor](img/sprites/Armor.svg)                                                                                |
+| Chain Boots        | 1      | 2  ![Full Armor](img/sprites/Armor.svg)                                                                                                                     |
+| Chain Set          | 7      | 14 (16%)                                                                                                                                                    |
+| Iron Helmet        | 2      | 3  ![Full Armor](img/sprites/Armor.svg) ![Half Armor](img/sprites/Half_Armor.svg)                                                                           |
+| Iron Chestplate    | 3      | 6  ![Full Armor](img/sprites/Armor.svg) ![Full Armor](img/sprites/Armor.svg) ![Full Armor](img/sprites/Armor.svg)                                           |
+| Iron Leggings      | 3      | 4  ![Full Armor](img/sprites/Armor.svg) ![Full Armor](img/sprites/Armor.svg)                                                                                |
+| Iron Boots         | 2      | 3  ![Full Armor](img/sprites/Armor.svg)                                                                                                                     |
+| Iron Set           | 10     | 16 (24%)                                                                                                                                                    |
+| Diamond Helmet     | 3      | 4  ![Full Armor](img/sprites/Armor.svg) ![Full Armor](img/sprites/Armor.svg)                                                                                |
+| Diamond Chestplate | 5      | 7  ![Full Armor](img/sprites/Armor.svg) ![Full Armor](img/sprites/Armor.svg) ![Full Armor](img/sprites/Armor.svg) ![Half Armor](img/sprites/Half_Armor.svg) |
+| Diamond Leggings   | 4      | 5  ![Full Armor](img/sprites/Armor.svg) ![Full Armor](img/sprites/Armor.svg) ![Half Armor](img/sprites/Half_Armor.svg)                                      |
+| Diamond Boots      | 3      | 4  ![Full Armor](img/sprites/Armor.svg) ![Full Armor](img/sprites/Armor.svg)                                                                                |
+| Diamond Set        | 15     | 20 (40%)                                                                                                                                                    |
+
+
+![Full Armor](img/sprites/Armor.svg)
+![Half Armor](img/sprites/Half_Armor.svg)
