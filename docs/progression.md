@@ -96,25 +96,25 @@ adventuring in mines at the moment, but this may change
 
 Although max hearts can be half, they do not render correctly in the client.
 
-| Armor              | Hearts | Armor Points (Damage Resistance) |
-| ------------------ | ------ | -------------------------------- |
-| Leather Helmet     | 1      | 1                                |
-| Leather Chestplate | 2      | 3                                |
-| Leather Leggings   | 1      | 2                                |
-| Leather Boots      | 1      | 1                                |
-| **Leather Set**    | **5**  | **7 (6%)**                       |
-| Chain Helmet       | 2      | 3                                |
-| Chain Chestplate   | 2      | 5                                |
-| Chain Leggings     | 2      | 4                                |
-| Chain Boots        | 1      | 2                                |
-| **Chain Set**      | **7**  | **14  (16%)**                    |
-| Iron Helmet        | 2      | 3                                |
-| Iron Chestplate    | 3      | 6                                |
-| Iron Leggings      | 3      | 4                                |
-| Iron Boots         | 2      | 3                                |
-| **Iron Set**       | **10** | **16  (24%)**                    |
-| Diamond Helmet     | 3      | 4                                |
-| Diamond Chestplate | 5      | 7                                |
-| Diamond Leggings   | 4      | 5                                |
-| Diamond Boots      | 3      | 4                                |
-| **Diamond Set**    | **15** | **20 (40%)**                     |
+| Armor              | Health (Hearts) | Armor Points (Damage Resistance) |
+| ------------------ | --------------- | -------------------------------- |
+| Leather Helmet     | 2               | 1                                |
+| Leather Chestplate | 4               | 3                                |
+| Leather Leggings   | 2               | 2                                |
+| Leather Boots      | 2               | 1                                |
+| **Leather Set**    | **10 (5)**      | **7 (6%)**                       |
+| Chain Helmet       | 4               | 3                                |
+| Chain Chestplate   | 4               | 5                                |
+| Chain Leggings     | 4               | 4                                |
+| Chain Boots        | 2               | 2                                |
+| **Chain Set**      | **14 (7)**      | **14  (16%)**                    |
+| Iron Helmet        | 4               | 3                                |
+| Iron Chestplate    | 6               | 6                                |
+| Iron Leggings      | 6               | 4                                |
+| Iron Boots         | 4               | 3                                |
+| **Iron Set**       | **20 (10)**     | **16  (24%)**                    |
+| Diamond Helmet     | 6               | 4                                |
+| Diamond Chestplate | 10              | 7                                |
+| Diamond Leggings   | 8               | 5                                |
+| Diamond Boots      | 6               | 4                                |
+| **Diamond Set**    | **30 (15)**     | **20 (40%)**                     |
