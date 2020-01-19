@@ -19,7 +19,7 @@ import java.util.ArrayList;
 public abstract class MerchantLogic {
 
 	public static void showMerchantUI(Player player, Profession profession, Type type) {
-		Merchant merchant = Bukkit.getServer().createMerchant(profession.toString());
+		Merchant merchant = Bukkit.getServer().createMerchant(getName(profession));
 
 		// TODO: Replace with player's levels
 		int level = 1;
@@ -156,6 +156,17 @@ public abstract class MerchantLogic {
 			recipes.add(MerchantRecipes.buyLeatherChestPlate());
 			recipes.add(MerchantRecipes.buyLeatherLeggings());
 			recipes.add(MerchantRecipes.buyLeatherBoots());
+
+			recipes.add(MerchantRecipes.buyChainmailHelmet());
+			recipes.add(MerchantRecipes.buyChainmailChestPlate());
+			recipes.add(MerchantRecipes.buyChainmailLeggings());
+			recipes.add(MerchantRecipes.buyChainmailBoots());
+
+			recipes.add(MerchantRecipes.buyIronHelmet());
+			recipes.add(MerchantRecipes.buyIronChestPlate());
+			recipes.add(MerchantRecipes.buyIronLeggings());
+			recipes.add(MerchantRecipes.buyIronBoots());
+
 			break;
 		default:
 			break;

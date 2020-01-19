@@ -45,6 +45,16 @@ public abstract class MerchantRecipes {
 	private static MerchantRecipe BUY_LEATHER_LEGGINGS;
 	private static MerchantRecipe BUY_LEATHER_BOOTS;
 
+	private static MerchantRecipe BUY_CHAINMAIL_HELMET;
+	private static MerchantRecipe BUY_CHAINMAIL_CHESTPLATE;
+	private static MerchantRecipe BUY_CHAINMAIL_LEGGINGS;
+	private static MerchantRecipe BUY_CHAINMAIL_BOOTS;
+
+	private static MerchantRecipe BUY_IRON_HELMET;
+	private static MerchantRecipe BUY_IRON_CHESTPLATE;
+	private static MerchantRecipe BUY_IRON_LEGGINGS;
+	private static MerchantRecipe BUY_IRON_BOOTS;
+
 	public static MerchantRecipe sellCoal() {
 		if (SELL_COAL == null) {
 			SELL_COAL = new MerchantRecipe(silver(3), 90);
@@ -103,6 +113,110 @@ public abstract class MerchantRecipes {
 			BUY_LEATHER_BOOTS.setIngredients(ingredients);
 		}
 		return BUY_LEATHER_BOOTS;
+	}
+
+	// TODO: Pricing
+	public static MerchantRecipe buyChainmailHelmet() {
+		if (BUY_CHAINMAIL_HELMET == null) {
+			BUY_CHAINMAIL_HELMET = new MerchantRecipe(Items.getChainmailHelmet(), 90);
+
+			ArrayList<ItemStack> ingredients = new ArrayList<ItemStack>();
+			ingredients.add(silver(15));
+
+			BUY_CHAINMAIL_HELMET.setIngredients(ingredients);
+		}
+		return BUY_CHAINMAIL_HELMET;
+	}
+
+	// TODO: Pricing
+	public static MerchantRecipe buyChainmailChestPlate() {
+		if (BUY_CHAINMAIL_CHESTPLATE == null) {
+			BUY_CHAINMAIL_CHESTPLATE = new MerchantRecipe(Items.getChainmailChestplate(), 90);
+
+			ArrayList<ItemStack> ingredients = new ArrayList<ItemStack>();
+			ingredients.add(silver(40));
+
+			BUY_CHAINMAIL_CHESTPLATE.setIngredients(ingredients);
+		}
+		return BUY_CHAINMAIL_CHESTPLATE;
+	}
+
+	// TODO: Pricing
+	public static MerchantRecipe buyChainmailLeggings() {
+		if (BUY_CHAINMAIL_LEGGINGS == null) {
+			BUY_CHAINMAIL_LEGGINGS = new MerchantRecipe(Items.getChainmailLeggings(), 90);
+
+			ArrayList<ItemStack> ingredients = new ArrayList<ItemStack>();
+			ingredients.add(silver(25));
+
+			BUY_CHAINMAIL_LEGGINGS.setIngredients(ingredients);
+		}
+		return BUY_CHAINMAIL_LEGGINGS;
+	}
+
+	// TODO: Pricing
+	public static MerchantRecipe buyChainmailBoots() {
+		if (BUY_CHAINMAIL_BOOTS == null) {
+			BUY_CHAINMAIL_BOOTS = new MerchantRecipe(Items.getChainmailBoots(), 90);
+
+			ArrayList<ItemStack> ingredients = new ArrayList<ItemStack>();
+			ingredients.add(silver(15));
+
+			BUY_CHAINMAIL_BOOTS.setIngredients(ingredients);
+		}
+		return BUY_CHAINMAIL_BOOTS;
+	}
+
+	// TODO: Pricing
+	public static MerchantRecipe buyIronHelmet() {
+		if (BUY_IRON_HELMET == null) {
+			BUY_IRON_HELMET = new MerchantRecipe(Items.getIronHelmet(), 90);
+
+			ArrayList<ItemStack> ingredients = new ArrayList<ItemStack>();
+			ingredients.add(silver(15));
+
+			BUY_IRON_HELMET.setIngredients(ingredients);
+		}
+		return BUY_IRON_HELMET;
+	}
+
+	// TODO: Pricing
+	public static MerchantRecipe buyIronChestPlate() {
+		if (BUY_IRON_CHESTPLATE == null) {
+			BUY_IRON_CHESTPLATE = new MerchantRecipe(Items.getIronChestplate(), 90);
+
+			ArrayList<ItemStack> ingredients = new ArrayList<ItemStack>();
+			ingredients.add(silver(40));
+
+			BUY_IRON_CHESTPLATE.setIngredients(ingredients);
+		}
+		return BUY_IRON_CHESTPLATE;
+	}
+
+	// TODO: Pricing
+	public static MerchantRecipe buyIronLeggings() {
+		if (BUY_IRON_LEGGINGS == null) {
+			BUY_IRON_LEGGINGS = new MerchantRecipe(Items.getIronLeggings(), 90);
+
+			ArrayList<ItemStack> ingredients = new ArrayList<ItemStack>();
+			ingredients.add(silver(25));
+
+			BUY_IRON_LEGGINGS.setIngredients(ingredients);
+		}
+		return BUY_IRON_LEGGINGS;
+	}
+
+	// TODO: Pricing
+	public static MerchantRecipe buyIronBoots() {
+		if (BUY_IRON_BOOTS == null) {
+			BUY_IRON_BOOTS = new MerchantRecipe(Items.getIronBoots(), 90);
+
+			ArrayList<ItemStack> ingredients = new ArrayList<ItemStack>();
+			ingredients.add(silver(15));
+
+			BUY_IRON_BOOTS.setIngredients(ingredients);
+		}
+		return BUY_IRON_BOOTS;
 	}
 
 	public static MerchantRecipe buyWoodAxe() {
