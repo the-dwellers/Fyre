@@ -352,7 +352,7 @@ public abstract class Reflected {
 	 *
 	 * <pre>
 	 * return (ItemStack) org.bukkit.craftbukkit.inventory.CraftItemStack
-	 *      .asBukkitCopy(net.minecraft.item.ItemStack(net.minecraft.mojangsonParser.parse((nbt)));
+	 *      .asBukkitCopy(net.minecraft.item.ItemStack(net.minecraft.MojangsonParser.parse((nbt)));
 	 * </pre>
 	 *
 	 * @param nbt NBT tag to convert to an ItemStack
@@ -363,11 +363,11 @@ public abstract class Reflected {
 	 */
 	public static ItemStack nbtToItem(String nbt) throws ReflectionFailedException {
 		try {
-			// Get net.minecraft.mojangsonParser#parse(String)
-			Method getTagFromJson = getMethod("mojangsonParser#parse");
+			// Get net.minecraft.MojangsonParser#parse(String)
+			Method getTagFromJson = getMethod("MojangsonParser#parse");
 
 			// Convert nbt (string) tag to component using
-			// net.minecraft.mojangsonParser#parse(String)
+			// net.minecraft.MojangsonParser#parse(String)
 			Object nbtItem = getTagFromJson.invoke(null, nbt);
 
 			// Get net.minecraft.item.ItemStack#a(net.minecraft.nbt.NBTTagCompound)
@@ -453,7 +453,7 @@ public abstract class Reflected {
 	 * versions.
 	 *
 	 * <pre>
-	 * net.minecraft.NBTTagCompound nbtTag = net.minecraft.mojangsonParser.parse((nbt))
+	 * net.minecraft.NBTTagCompound nbtTag = net.minecraft.MojangsonParser.parse((nbt))
 	 * net.minecraft.Entity ent = org.bukkit.craftbukkit.entity.CraftEntity.getHandle()
 	 * UUID uuid = ent.getUniqueID();
 	 * ent.f(nbtTag);
@@ -467,11 +467,11 @@ public abstract class Reflected {
 	 */
 	public static void saveNBTToEntity(String nbt, Entity entity) throws ReflectionFailedException {
 		try {
-			// Get net.minecraft.mojangsonParser#parse(String)
-			Method getTagFromJson = getMethod("mojangsonParser#parse");
+			// Get net.minecraft.MojangsonParser#parse(String)
+			Method getTagFromJson = getMethod("MojangsonParser#parse");
 
 			// Convert nbt (string) tag to component using
-			// net.minecraft.mojangsonParser#parse(String)
+			// net.minecraft.MojangsonParser#parse(String)
 			Object nbtItem = getTagFromJson.invoke(null, nbt);
 
 			// Get net.minecraft.Entity#f(NBTTagCompound)
