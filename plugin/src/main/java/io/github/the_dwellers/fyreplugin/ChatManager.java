@@ -7,7 +7,7 @@ import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.HoverEvent.Action;
 import net.md_5.bungee.api.chat.TextComponent;
-import net.milkbowl.vault.chat.Chat;
+// import net.milkbowl.vault.chat.Chat;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Statistic;
@@ -80,17 +80,17 @@ public abstract class ChatManager {
 		TextComponent text = new TextComponent();
 
 		// Attempt to get chat manager, or information provided by vault
-		Chat vaultChat = FyrePlugin.getInstance().getVaultChat();
+		// Chat vaultChat = FyrePlugin.getInstance().getVaultChat();
 
 		// Setup prefix and suffix defaults
 		String prefix = Strings.CHAT_PREFIX;
 		String suffix = Strings.CHAT_SUFFIX;
 
-		if (vaultChat != null) {
-			// If vault provides a chat manager, then apply the suffix and prefix
-			prefix = vaultChat.getPlayerPrefix(player);
-			suffix = vaultChat.getPlayerSuffix(player);
-		}
+		// if (vaultChat != null) {
+		//  // If vault provides a chat manager, then apply the suffix and prefix
+		//  prefix = vaultChat.getPlayerPrefix(player);
+		//  suffix = vaultChat.getPlayerSuffix(player);
+		// }
 
 		// Construct text message
 		// USERNAME: message

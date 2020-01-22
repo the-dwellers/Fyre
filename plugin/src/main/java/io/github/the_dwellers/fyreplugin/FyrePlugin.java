@@ -6,8 +6,8 @@ import io.github.the_dwellers.fyreplugin.configuration.Strings;
 import io.github.the_dwellers.fyreplugin.entity.TagInventory;
 import io.github.the_dwellers.fyreplugin.events.*;
 import io.github.the_dwellers.fyreplugin.exceptions.ReflectionFailedException;
-import net.milkbowl.vault.chat.Chat;
-import net.milkbowl.vault.permission.Permission;
+// import net.milkbowl.vault.chat.Chat;
+// import net.milkbowl.vault.permission.Permission;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.RegisteredServiceProvider;
@@ -29,8 +29,8 @@ public final class FyrePlugin extends JavaPlugin {
 
 	private static final Logger log = Logger.getLogger("Minecraft");
 	private static FyrePlugin instance;
-	private Chat vaultChat;
-	private Permission vaultPerms;
+	// private Chat vaultChat;
+	// private Permission vaultPerms;
 
 	public FyrePlugin() {
 		instance = this;
@@ -40,13 +40,13 @@ public final class FyrePlugin extends JavaPlugin {
 		return instance;
 	}
 
-	public Chat getVaultChat() {
-		return vaultChat;
-	}
+	// public Chat getVaultChat() {
+	//  return vaultChat;
+	// }
 
-	public Permission getVaultPerms() {
-		return vaultPerms;
-	}
+	// public Permission getVaultPerms() {
+	//  return vaultPerms;
+	// }
 
 	@Override
 	public void onEnable() {
@@ -143,8 +143,9 @@ public final class FyrePlugin extends JavaPlugin {
 	}
 
 	private void setupDependencies() {
-		if (getServer().getPluginManager().getPlugin("Vault") == null) {
-			log.warning(Strings.LOG_PREFIX + "Vault is not installed, some features may be unavailable");
+		// ! Upstream Dependency issue
+		// if (getServer().getPluginManager().getPlugin("Vault") == null) {
+			log.warning(Strings.LOG_PREFIX + "Vault is not installed, some features may be unavailable"); /*
 		} else {
 			RegisteredServiceProvider<Chat> chatService = getServer().getServicesManager().getRegistration(Chat.class);
 			RegisteredServiceProvider<Permission> permissionService = getServer().getServicesManager()
@@ -161,6 +162,6 @@ public final class FyrePlugin extends JavaPlugin {
 			} else {
 				this.vaultChat = chatService.getProvider();
 			}
-		}
+		}*/
 	}
 }
