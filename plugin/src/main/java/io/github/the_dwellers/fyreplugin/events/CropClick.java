@@ -48,6 +48,7 @@ public class CropClick implements Listener {
 			Material leftMat = left.getType();
 			Collection<ItemStack> drops;
 
+			// Main Hand
 			if (rightMat == Material.WOODEN_HOE || rightMat == Material.STONE_HOE || rightMat == Material.IRON_HOE
 					|| rightMat == Material.GOLDEN_HOE || rightMat == Material.DIAMOND_HOE) {
 
@@ -63,6 +64,7 @@ public class CropClick implements Listener {
 				right.setItemMeta((ItemMeta) itemMeta);
 				drops = block.getDrops(right);
 
+			// Off Hand
 			} else if (leftMat == Material.WOODEN_HOE || leftMat == Material.STONE_HOE || leftMat == Material.IRON_HOE
 					|| leftMat == Material.GOLDEN_HOE || leftMat == Material.DIAMOND_HOE) {
 
