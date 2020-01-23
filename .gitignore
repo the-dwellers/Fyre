@@ -1,3 +1,12 @@
+### Fyre-Specific ###
+# Debug server folder
+**/server/
+
+# Debug command
+# Changes should be ignored, but .gitignore does not work on already-tracked files.
+# Use `git update-index --assume-unchanged DebugCommand.java` to prevent tracking changes.
+# `git update-index --no-assume-unchanged DebugCommand.java` beings tracking changes again.
+**/commands/DebugCommand.java
 
 # Created by https://www.gitignore.io/api/java,linux,macos,gradle,windows,eclipse,jetbrains,visualstudiocode
 # Edit at https://www.gitignore.io/?templates=java,linux,macos,gradle,windows,eclipse,jetbrains,visualstudiocode
@@ -284,6 +293,3 @@ gradle-app.setting
 **/build/
 
 # End of https://www.gitignore.io/api/java,linux,macos,gradle,windows,eclipse,jetbrains,visualstudiocode
-
-### Custom ###
-**/server/
