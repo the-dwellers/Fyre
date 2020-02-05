@@ -24,6 +24,7 @@ import java.util.UUID;
  *
  * @version Minecraft 1.14.4
  * @version Minecraft 1.15.1
+ * @version Minecraft 1.15.2
  */
 public abstract class Reflected {
 	private static String version = Bukkit.getServer().getClass().getPackage().getName().replace(".", ",").split(",")[3]
@@ -91,7 +92,8 @@ public abstract class Reflected {
 	}
 
 	/**
-	 * Cache a method to the {@code methodCache}.
+	 * Cache a method to the {@code methodCache}. Prints an error message to
+	 * console if fails.
 	 * <p>
 	 * Works on <b>public</b> inherited and defined methods.
 	 * <p>
@@ -107,12 +109,35 @@ public abstract class Reflected {
 	 *         failures.
 	 */
 	private static boolean cacheMethod(String name, Class<?> class1, Class<?>... parameterTypes) {
+		boolean succeeded = cacheMethodNoLog(name, class1, parameterTypes);
+		if (!succeeded) {
+			log.severe(
+					Strings.LOG_PREFIX + "Failed to Cache " + class1.getName() + "#" + name.split("#")[1] + " Method.");
+		}
+		return succeeded;
+	}
+
+	/**
+	 * Cache a method to the {@code methodCache}.
+	 * <p>
+	 * Works on <b>public</b> inherited and defined methods.
+	 * <p>
+	 * Use {@link Reflected#cacheDeclaredMethod(String, Class, Class...)} if the
+	 * method is private.
+	 *
+	 * @param name           Name of the method in the format "Class#function" Where
+	 *                       'function' is the exact name of the function to find.
+	 *                       'Class' may be any value.
+	 * @param class1         Class to reflect the function from.
+	 * @param parameterTypes Parameters that the function takes
+	 * @return true if method was cached, false otherwise. A log is made on
+	 *         failures.
+	 */
+	private static boolean cacheMethodNoLog(String name, Class<?> class1, Class<?>... parameterTypes) {
 		try {
 			methodCache.put(name, class1.getMethod(name.split("#")[1], parameterTypes));
 			return true;
 		} catch (NoSuchMethodException e) {
-			log.severe(
-					Strings.LOG_PREFIX + "Failed to Cache " + class1.getName() + "#" + name.split("#")[1] + " Method.");
 			return false;
 		}
 	}
@@ -230,8 +255,13 @@ public abstract class Reflected {
 			getClass(nmsClass + "Entity"), getClass(nmsClass + "NBTTagCompound"));
 
 		// net.minecraft.server.EntityLiving
-		cacheMethod("EntityLiving#c",
-			getClass(nmsClass + "EntityLiving"), getClass(nmsClass + "EnumItemSlot"));
+		try {
+			// 1.14.x - 1.15.1
+			methodCache.put("EntityLiving#broadcastItemBreak", getClass(nmsClass + "EntityLiving").getMethod("c", getClass(nmsClass + "EnumItemSlot")));
+		} catch (NoSuchMethodException e) {
+			// 1.15.2+
+			cacheMethod("EntityLiving#broadcastItemBreak", getClass(nmsClass + "EntityLiving"), getClass(nmsClass + "EnumItemSlot"));
+		}
 
 		// net.minecraft.server.EntityHuman
 		cacheMethod("EntityHuman#openTrade",
