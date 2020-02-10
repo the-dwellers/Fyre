@@ -1,7 +1,7 @@
 Traders:
-	☐ Trader levels @WYVERN
+	✔ Trader levels @WYVERN @done(20-02-05 22:34)
 	☐ Stone Tool Progression @WYVERN
-	☐ Trader Names @WYVERN
+	✔ Trader Names @WYVERN @done(20-02-05 22:35)
 
 Config:
 	☐ Config Generation
@@ -11,6 +11,6 @@ Config:
 	☐ Database for Player Heuristics
 
 Mechanics:
-	☐ Enchant water bottles to bottle o' enchanting
-	☐ Harvest crops with hoe
+	✘ Enchant water bottles to bottle o' enchanting @cancelled(20-02-05 22:35)
+	✔ Harvest crops with hoe @done(20-02-05 22:35)
 	☐ Fishing in swamps give slimeballs

@@ -2,6 +2,9 @@ package io.github.the_dwellers.fyreplugin;
 
 import io.github.the_dwellers.fyreplugin.configuration.Strings;
 import io.github.the_dwellers.fyreplugin.exceptions.ReflectionFailedException;
+import io.github.the_dwellers.fyreplugin.util.MinecraftVersion;
+import io.github.the_dwellers.fyreplugin.util.SupportedVersions;
+
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
@@ -27,10 +30,11 @@ import java.util.UUID;
  * @version Minecraft 1.15.2
  */
 public abstract class Reflected {
-	private static String version = Bukkit.getServer().getClass().getPackage().getName().replace(".", ",").split(",")[3]
-			+ ".";
-	private static String nmsClass = "net.minecraft.server." + version;
-	private static String obcClass = "org.bukkit.craftbukkit." + version;
+	public static MinecraftVersion mcVersion;
+	private static String packageVersion = Bukkit.getServer().getClass().getPackage().getName().replace(".", ",")
+			.split(",")[3] + ".";
+	private static String nmsClass = "net.minecraft.server." + packageVersion;
+	private static String obcClass = "org.bukkit.craftbukkit." + packageVersion;
 
 	// Server supports custom merchant XP
 	private static boolean merchantShowXP;
@@ -92,8 +96,8 @@ public abstract class Reflected {
 	}
 
 	/**
-	 * Cache a method to the {@code methodCache}. Prints an error message to
-	 * console if fails.
+	 * Cache a method to the {@code methodCache}. Prints an error message to console
+	 * if fails.
 	 * <p>
 	 * Works on <b>public</b> inherited and defined methods.
 	 * <p>
@@ -108,11 +112,14 @@ public abstract class Reflected {
 	 * @return true if method was cached, false otherwise. A log is made on
 	 *         failures.
 	 */
-	private static boolean cacheMethod(String name, Class<?> class1, Class<?>... parameterTypes) {
-		boolean succeeded = cacheMethodNoLog(name, class1, parameterTypes);
+	private static boolean cacheMethod(String key, Class<?> class1, Class<?>... parameterTypes) {
+		return cacheMethod(key.split("#")[1], key, class1, parameterTypes);
+	}
+
+	private static boolean cacheMethod(String name, String key, Class<?> class1, Class<?>... parameterTypes) {
+		boolean succeeded = cacheMethodNoLog(name, key, class1, parameterTypes);
 		if (!succeeded) {
-			log.severe(
-					Strings.LOG_PREFIX + "Failed to Cache " + class1.getName() + "#" + name.split("#")[1] + " Method.");
+			log.severe(Strings.LOG_PREFIX + "Failed to Cache " + class1.getName() + "#" + name + " Method.");
 		}
 		return succeeded;
 	}
@@ -133,9 +140,9 @@ public abstract class Reflected {
 	 * @return true if method was cached, false otherwise. A log is made on
 	 *         failures.
 	 */
-	private static boolean cacheMethodNoLog(String name, Class<?> class1, Class<?>... parameterTypes) {
+	private static boolean cacheMethodNoLog(String name, String key, Class<?> class1, Class<?>... parameterTypes) {
 		try {
-			methodCache.put(name, class1.getMethod(name.split("#")[1], parameterTypes));
+			methodCache.put(key, class1.getMethod(name, parameterTypes));
 			return true;
 		} catch (NoSuchMethodException e) {
 			return false;
@@ -196,97 +203,112 @@ public abstract class Reflected {
 	public static int setupCache(Logger log) {
 		Reflected.log = log;
 
-		classCache = new HashMap<String, Class<?>>();
-		final int classCacheTarget = 18;
+		// Version string format is normally `git-Paper-1618 (MC: 1.12.2)`
+		// We want `1.12.2`
+		String versionString = Bukkit.getVersion().substring(Bukkit.getVersion().indexOf("(", 0) + 5,
+				Bukkit.getVersion().length() - 1);
 
-		methodCache = new HashMap<String, Method>();
-		final int methodCacheTarget = 18;
-
-		// -------------- Classes
-		cacheClass(nmsClass + "BlockComposter");
-		cacheClass(nmsClass + "Entity");
-		cacheClass(nmsClass + "EntityHuman");
-		cacheClass(nmsClass + "EntityLiving");
-		cacheClass(nmsClass + "EnumItemSlot");
-		cacheClass(nmsClass + "IChatBaseComponent");
-		cacheClass(nmsClass + "IMaterial");
-		cacheClass(nmsClass + "IMerchant");
-		cacheClass(nmsClass + "Items");
-		cacheClass(nmsClass + "ItemStack");
-		cacheClass(nmsClass + "MojangsonParser");
-		cacheClass(nmsClass + "NBTTagCompound");
-
-		cacheClass(obcClass + "entity.CraftEntity");
-		cacheClass(obcClass + "entity.CraftHumanEntity");
-		cacheClass(obcClass + "entity.CraftLivingEntity");
-		cacheClass(obcClass + "inventory.CraftItemStack");
-		cacheClass(obcClass + "inventory.CraftMerchantCustom");
-		cacheClass(obcClass + "inventory.CraftMerchantCustom$MinecraftMerchant");
-
-		// -------------- Methods
-		// net.minecraft.server.BlockComposter
-		cacheDeclaredMethod("BlockComposter#a",
-			getClass(nmsClass + "BlockComposter"), float.class, getClass(nmsClass + "IMaterial"));
-
-		// org.bukkit.craftbukkit.entity.CraftEntity
-		cacheMethod("CraftEntity#getHandle",
-			getClass(obcClass + "entity.CraftEntity"));
-
-		// org.bukkit.craftbukkit.inventory.CraftItem
-		cacheMethod("CraftItemStack#asBukkitCopy",
-			getClass(obcClass + "inventory.CraftItemStack"), getClass(nmsClass + "ItemStack"));
-		cacheMethod("CraftItemStack#asNMSCopy",
-			getClass(obcClass + "inventory.CraftItemStack"), ItemStack.class);
-
-		// org.bukkit.craftbukkit.inventory.CraftMerchantCustom
-		cacheMethod("CraftMerchantCustom#getMerchant",
-			getClass(obcClass + "inventory.CraftMerchantCustom"));
-		cacheMethod("CraftMerchantCustom$MinecraftMerchant#getScoreboardDisplayName",
-			getClass(obcClass + "inventory.CraftMerchantCustom$MinecraftMerchant"));
-
-		// net.minecraft.server.Entity
-		cacheMethod("Entity#a",
-			getClass(nmsClass + "Entity"), UUID.class);
-		cacheMethod("Entity#f",
-			getClass(nmsClass + "Entity"), getClass(nmsClass + "NBTTagCompound"));
-		cacheMethod("Entity#getUniqueID",
-			getClass(nmsClass + "Entity"));
-		cacheMethod("Entity#save",
-			getClass(nmsClass + "Entity"), getClass(nmsClass + "NBTTagCompound"));
-
-		// net.minecraft.server.EntityLiving
 		try {
-			// 1.14.x - 1.15.1
-			methodCache.put("EntityLiving#broadcastItemBreak", getClass(nmsClass + "EntityLiving").getMethod("c", getClass(nmsClass + "EnumItemSlot")));
-		} catch (NoSuchMethodException e) {
-			// 1.15.2+
-			cacheMethod("EntityLiving#broadcastItemBreak", getClass(nmsClass + "EntityLiving"), getClass(nmsClass + "EnumItemSlot"));
+			// Attempt to parse mc version
+			Reflected.mcVersion = new MinecraftVersion(versionString);
+
+		} catch (IllegalArgumentException e) {
+			log.severe(Strings.LOG_PREFIX + "Unable to decipher Minecraft version from '" + versionString
+					+ "' Fyre cannot safely load, and will now disable.");
+			return 0;
 		}
 
-		// net.minecraft.server.EntityHuman
-		cacheMethod("EntityHuman#openTrade",
-			getClass(nmsClass + "IMerchant"), getClass(nmsClass + "EntityHuman"), getClass(nmsClass + "IChatBaseComponent"), int.class);
-		cacheMethod("EntityHuman#setTradingPlayer",
-			getClass(nmsClass + "IMerchant"), getClass(nmsClass + "EntityHuman"));
+		log.info("Setting up for " + mcVersion.toString());
+		if (!mcVersion.equals(SupportedVersions.MC1152)) {
+			log.warning(
+					Strings.LOG_PREFIX + "Loading for unsupported minecraft version! Some features may be disabled!");
+		}
 
-		// net.minecraft.server.ItemStack
-		cacheMethod("ItemStack#a",
-			getClass(nmsClass + "ItemStack"), getClass(nmsClass + "NBTTagCompound"));
-		cacheMethod("ItemStack#save",
-			getClass(nmsClass + "ItemStack"), getClass(nmsClass + "NBTTagCompound"));
+		classCache = new HashMap<String, Class<?>>();
+		methodCache = new HashMap<String, Method>();
 
-		// net.minecraft.server.EnumItemSlot
-		cacheMethod("EnumItemSlot#fromName",
-			getClass(nmsClass + "EnumItemSlot"), String.class);
+		// Reflection Setup
+		if (SupportedVersions.MC1144.compareTo(SupportedVersions.MC1122) != -1) {
 
-		// net.minecraft.server.MojangsonParser
-		cacheMethod("MojangsonParser#parse",
-			getClass(nmsClass + "MojangsonParser"), String.class);
+			// -------------- Classes
+			cacheClass(nmsClass + "Entity");
+			cacheClass(nmsClass + "EntityHuman");
+			cacheClass(nmsClass + "EntityLiving");
+			cacheClass(nmsClass + "EnumItemSlot");
+			cacheClass(nmsClass + "IChatBaseComponent");
+			cacheClass(nmsClass + "Items");
+			cacheClass(nmsClass + "ItemStack");
+			cacheClass(nmsClass + "MojangsonParser");
+			cacheClass(nmsClass + "NBTTagCompound");
 
-		// net.minecraft.server.NBTTagCompound
-		cacheMethod("NBTTagCompound#toString",
-			getClass(nmsClass + "NBTTagCompound"));
+			cacheClass(obcClass + "entity.CraftEntity");
+			cacheClass(obcClass + "entity.CraftHumanEntity");
+			cacheClass(obcClass + "entity.CraftLivingEntity");
+			cacheClass(obcClass + "inventory.CraftItemStack");
+			cacheClass(obcClass + "inventory.CraftMerchantCustom");
+			cacheClass(obcClass + "inventory.CraftMerchantCustom$MinecraftMerchant");
 
+			// -------------- Methods
+
+			// org.bukkit.craftbukkit.entity.CraftEntity
+			cacheMethod("CraftEntity#getHandle", getClass(obcClass + "entity.CraftEntity"));
+
+			// org.bukkit.craftbukkit.inventory.CraftItem
+			cacheMethod("CraftItemStack#asBukkitCopy", getClass(obcClass + "inventory.CraftItemStack"),
+					getClass(nmsClass + "ItemStack"));
+			cacheMethod("CraftItemStack#asNMSCopy", getClass(obcClass + "inventory.CraftItemStack"), ItemStack.class);
+
+			// org.bukkit.craftbukkit.inventory.CraftMerchantCustom
+			cacheMethod("CraftMerchantCustom#getMerchant", getClass(obcClass + "inventory.CraftMerchantCustom"));
+			cacheMethod("CraftMerchantCustom$MinecraftMerchant#getScoreboardDisplayName",
+					getClass(obcClass + "inventory.CraftMerchantCustom$MinecraftMerchant"));
+
+			// net.minecraft.server.Entity
+			cacheMethod("Entity#a", getClass(nmsClass + "Entity"), UUID.class);
+			cacheMethod("Entity#f", getClass(nmsClass + "Entity"), getClass(nmsClass + "NBTTagCompound"));
+			cacheMethod("Entity#getUniqueID", getClass(nmsClass + "Entity"));
+			cacheMethod("Entity#save", getClass(nmsClass + "Entity"), getClass(nmsClass + "NBTTagCompound"));
+
+
+
+			// net.minecraft.server.MojangsonParser
+			cacheMethod("MojangsonParser#parse", getClass(nmsClass + "MojangsonParser"), String.class);
+
+			// net.minecraft.server.NBTTagCompound
+			cacheMethod("NBTTagCompound#toString", getClass(nmsClass + "NBTTagCompound"));
+		}
+
+		if (mcVersion.compareTo(SupportedVersions.MC1144) != -1) {
+			cacheClass(nmsClass + "BlockComposter");
+			cacheClass(nmsClass + "IMaterial");
+			cacheClass(nmsClass + "IMerchant");
+
+			// net.minecraft.server.BlockComposter
+			cacheDeclaredMethod("BlockComposter#a", getClass(nmsClass + "BlockComposter"), float.class,
+				getClass(nmsClass + "IMaterial"));
+
+
+			// net.minecraft.server.ItemStack
+			cacheMethod("ItemStack#a", getClass(nmsClass + "ItemStack"), getClass(nmsClass + "NBTTagCompound")); // 1.13
+			cacheMethod("ItemStack#save", getClass(nmsClass + "ItemStack"), getClass(nmsClass + "NBTTagCompound"));
+
+			// net.minecraft.server.EntityHuman
+			cacheMethod("EntityHuman#openTrade", getClass(nmsClass + "IMerchant"), getClass(nmsClass + "EntityHuman"),
+					getClass(nmsClass + "IChatBaseComponent"), int.class);
+			cacheMethod("EntityHuman#setTradingPlayer", getClass(nmsClass + "IMerchant"),
+					getClass(nmsClass + "EntityHuman"));
+
+			// net.minecraft.server.EnumItemSlot
+			cacheMethod("EnumItemSlot#fromName", getClass(nmsClass + "EnumItemSlot"), String.class);
+
+			// net.minecraft.server.EntityLiving
+			cacheMethod("EntityLiving#broadcastItemBreak", getClass(nmsClass + "EntityLiving"),
+					getClass(nmsClass + "EnumItemSlot"));
+			if (methodCache.get("EntityLiving#broadcastItemBreak") == null) {
+				cacheMethod("EntityLiving#broadcastItemBreak", "c", getClass(nmsClass + "EntityLiving"));
+			}
+
+		}
 		log.info(Strings.LOG_PREFIX + "Cached " + (classCache.size() + methodCache.size()) + " reflections.");
 
 		// Error checking
@@ -304,15 +326,17 @@ public abstract class Reflected {
 			status = 2;
 		}
 
-		if (classCache.size() != classCacheTarget) {
-			log.severe("Failed to reflect " + (classCacheTarget - classCache.size() + " classes"));
-			status = 0;
-		}
+		// if (classCache.size() != classCacheTarget) {
+		// log.severe("Failed to reflect " + (classCacheTarget - classCache.size() + "
+		// classes"));
+		// status = 0;
+		// }
 
-		if (methodCache.size() != methodCacheTarget) {
-			log.severe("Failed to reflect " + (methodCacheTarget - methodCache.size() + " methods"));
-			status = 0;
-		}
+		// if (methodCache.size() != methodCacheTarget) {
+		// log.severe("Failed to reflect " + (methodCacheTarget - methodCache.size() + "
+		// methods"));
+		// status = 0;
+		// }
 
 		if (status == 0) {
 			// Reflection Failed
@@ -722,8 +746,9 @@ public abstract class Reflected {
 	/**
 	 * Break equipment in the entity's slot. An attempt will be made to play
 	 * breaking animations, but will fail silently if errors occur.
+	 *
 	 * @param entity Entity of equipment to break
-	 * @param slot Slot of equipment
+	 * @param slot   Slot of equipment
 	 */
 	public static void breakEquipment(LivingEntity entity, EquipmentSlot slot) {
 		try {

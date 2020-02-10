@@ -6,11 +6,12 @@ import io.github.the_dwellers.fyreplugin.configuration.Strings;
 import io.github.the_dwellers.fyreplugin.entity.TagInventory;
 import io.github.the_dwellers.fyreplugin.events.*;
 import io.github.the_dwellers.fyreplugin.exceptions.ReflectionFailedException;
+import io.github.the_dwellers.fyreplugin.util.SupportedVersions;
+
 // import net.milkbowl.vault.chat.Chat;
 // import net.milkbowl.vault.permission.Permission;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.logging.Logger;
@@ -85,10 +86,12 @@ public final class FyrePlugin extends JavaPlugin {
 	 * Executes reflected code to patch vanilla Minecraft
 	 */
 	private void patchNMS() {
-		try {
-			Reflected.patchCompost();
-		} catch (ReflectionFailedException e) {
-			log.severe(Strings.LOG_PREFIX + "Unable to Patch Composter due to reflection errors. \n" + e.getMessage());
+		if (Reflected.mcVersion.compareTo(SupportedVersions.MC1144) > -1) {
+			try {
+				Reflected.patchCompost();
+			} catch (ReflectionFailedException e) {
+				log.severe(Strings.LOG_PREFIX + "Unable to Patch Composter due to reflection errors. \n" + e.getMessage());
+			}
 		}
 	}
 
@@ -117,7 +120,12 @@ public final class FyrePlugin extends JavaPlugin {
 	private void registerListeners() {
 		getServer().getPluginManager().registerEvents(new BlockBreak(), this);
 		getServer().getPluginManager().registerEvents(new BoatClick(), this);
-		getServer().getPluginManager().registerEvents(new CropClick(), this);
+
+		if (Reflected.mcVersion.compareTo(SupportedVersions.MC1144) > -1) {
+			getServer().getPluginManager().registerEvents(new CropClick(), this);
+			getServer().getPluginManager().registerEvents(new TickEnd(), this);
+		}
+
 		getServer().getPluginManager().registerEvents(new Dismount(), this);
 		getServer().getPluginManager().registerEvents(new EntitySpawn(), this);
 		getServer().getPluginManager().registerEvents(new FallDamage(), this);
@@ -132,7 +140,6 @@ public final class FyrePlugin extends JavaPlugin {
 		getServer().getPluginManager().registerEvents(new PlayerPreProcessorCommand(), this);
 		getServer().getPluginManager().registerEvents(new PlayerRespawn(), this);
 		getServer().getPluginManager().registerEvents(new staffLog(), this);
-		getServer().getPluginManager().registerEvents(new TickEnd(), this);
 		getServer().getPluginManager().registerEvents(new TraderClick(), this);
 		getServer().getPluginManager().registerEvents(new VehicleDestroy(), this);
 		getServer().getPluginManager().registerEvents(new CropTrample(), this);
