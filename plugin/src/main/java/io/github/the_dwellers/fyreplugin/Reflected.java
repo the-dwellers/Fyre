@@ -3,7 +3,7 @@ package io.github.the_dwellers.fyreplugin;
 import io.github.the_dwellers.fyreplugin.configuration.Strings;
 import io.github.the_dwellers.fyreplugin.exceptions.ReflectionFailedException;
 import io.github.the_dwellers.fyreplugin.util.MinecraftVersion;
-import io.github.the_dwellers.fyreplugin.util.SupportedVersions;
+import io.github.the_dwellers.fyreplugin.configuration.SupportedVersions;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;

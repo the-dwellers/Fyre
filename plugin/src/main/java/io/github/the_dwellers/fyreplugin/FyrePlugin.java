@@ -6,7 +6,7 @@ import io.github.the_dwellers.fyreplugin.configuration.Strings;
 import io.github.the_dwellers.fyreplugin.entity.TagInventory;
 import io.github.the_dwellers.fyreplugin.events.*;
 import io.github.the_dwellers.fyreplugin.exceptions.ReflectionFailedException;
-import io.github.the_dwellers.fyreplugin.util.SupportedVersions;
+import io.github.the_dwellers.fyreplugin.configuration.SupportedVersions;
 
 // import net.milkbowl.vault.chat.Chat;
 // import net.milkbowl.vault.permission.Permission;
