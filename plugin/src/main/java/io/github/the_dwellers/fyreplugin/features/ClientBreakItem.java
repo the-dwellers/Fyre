@@ -37,6 +37,11 @@ public class ClientBreakItem implements AbstractFeature {
 	}
 
 	@Override
+	public String getName() {
+		return name;
+	}
+
+	@Override
 	public boolean setup(FyrePlugin plugin) {
 		if (!enabled) {
 			if (Reflected.getClass("EnumItemSlot") == null) {
@@ -209,8 +214,4 @@ public class ClientBreakItem implements AbstractFeature {
 		}
 	}
 
-	@Override
-	public String getName() {
-		return name;
-	}
 }

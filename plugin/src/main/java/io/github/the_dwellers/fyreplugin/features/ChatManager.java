@@ -1,7 +1,10 @@
-package io.github.the_dwellers.fyreplugin;
+package io.github.the_dwellers.fyreplugin.features;
 
+import io.github.the_dwellers.fyreplugin.FyrePlugin;
+import io.github.the_dwellers.fyreplugin.commands.AbstractCommand;
 import io.github.the_dwellers.fyreplugin.configuration.Strings;
-import io.github.the_dwellers.fyreplugin.exceptions.ReflectionFailedException;
+import io.github.the_dwellers.fyreplugin.configuration.SupportedVersions;
+import io.github.the_dwellers.fyreplugin.util.MinecraftVersion;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.HoverEvent;
@@ -11,15 +14,100 @@ import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Statistic;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.player.AsyncPlayerChatEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.potion.PotionEffectType;
 
 import java.util.ArrayList;
 
 /**
  * Functions dedicated to chat manipulation and formatting.
  */
-public abstract class ChatManager {
+public abstract class ChatManager implements AbstractFeature {
+
+	public static MinecraftVersion minVersion = SupportedVersions.MIN;
+
+	protected boolean enabled = false;
+	protected static String name = "Advancements";
+	private static ClientBreakItem featureInstance;
+
+	public static ClientBreakItem getInstance() {
+		if (featureInstance == null) {
+			featureInstance = new ClientBreakItem();
+		}
+		return featureInstance;
+	}
+
+	@Override
+	public MinecraftVersion getMinecraftVersion() {
+		return minVersion;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	@Override
+	public String getName() {
+		return name;
+	}
+
+	@Override
+	public boolean setup(FyrePlugin plugin) {
+		return false;
+	}
+
+
+	/**
+ * Sends chat events into Fyre's {@link ChatManager}<p>
+ * This is almost guaranteed to be incompatible with any other chat systems!
+ */
+	@EventHandler(priority = EventPriority.HIGHEST)
+	public void onPlayerJoin(AsyncPlayerChatEvent event) {
+		// Cancel the chat event and dispatch the message to the ChatManager
+		event.setCancelled(true);
+		sendPlayerMessage(event.getPlayer(), event.getMessage());
+	}
+
+
+	@EventHandler()
+	public void onPlayerDeath(PlayerDeathEvent event) {
+		if (!(event.getEntity().getLastDamageCause() instanceof EntityDamageByEntityEvent)) {
+			return;
+		}
+
+		EntityDamageByEntityEvent lastDamage = (EntityDamageByEntityEvent) event.getEntity().getLastDamageCause();
+		if (lastDamage.getDamager() instanceof Player) {
+			if (((Player) lastDamage.getDamager()).hasPotionEffect(PotionEffectType.INVISIBILITY)) {
+				event.setDeathMessage(event.getEntity().getDisplayName() + " was killed by something invisible");
+			}
+		}
+	}
+
+	@EventHandler()
+	public void onPlayerJoin(PlayerJoinEvent event) {
+		// Custom join message
+		event.setJoinMessage("");
+		sendPlayerJoin(event.getPlayer());
+	}
+
+	@EventHandler()
+	public void onPlayerJoin(PlayerQuitEvent event) {
+		event.setQuitMessage("");
+		sendPlayerLeave(event.getPlayer());
+	}
+
+
 
 	/**
 	 * Send a message to all online players.
@@ -535,4 +623,55 @@ public abstract class ChatManager {
 		}
 		return newMessage;
 	}
+
+
+
+	/**
+	 * Displays the currently worm armor set to chat
+	 */
+	public class ArmorCommand extends AbstractCommand {
+		@Override
+		public String getPermission() {
+			return "fyre.armor.use";
+		}
+
+		@Override
+		public boolean execute(CommandSender sender, Command command, String label, String[] args) {
+			if (sender instanceof Player) {
+				Player player = (Player) sender;
+				TextComponent armorText = getArmourText(player);
+				if (armorText == null) {
+					player.sendMessage(Strings.NO_ITEM_WORN);
+				} else {
+					sendPlayerMessage(player, armorText);
+				}
+			}
+			return true;
+		}
+	}
+
+	/**
+	 * Displays the currently held item to main chat
+	 */
+	public class ItemCommand extends AbstractCommand {
+		@Override
+		public String getPermission() {
+			return "fyre.item.use";
+		}
+
+		@Override
+		public boolean execute(CommandSender sender, Command command, String label, String[] args) {
+			if (sender instanceof Player) {
+				Player player = (Player) sender;
+				TextComponent itemText = getItemText(getDisplayStackMainHand(player));
+				if (itemText == null) {
+					player.sendMessage(Strings.NO_ITEM_HELD);
+				} else {
+					sendPlayerMessage(player, itemText);
+				}
+			}
+			return true;
+		}
+	}
+
 }
