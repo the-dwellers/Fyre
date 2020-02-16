@@ -12,7 +12,7 @@ IF NOT EXIST "server\plugins" (
 	mkdir "server\plugins"
 )
 
-call .\gradlew.bat clean build
+call .\gradlew.bat clean jar
 
 IF EXIST "server\plugins\FyrePlugin.jar" (
 	del "server\plugins\FyrePlugin.jar"
@@ -46,7 +46,7 @@ xcopy """..\..\datapack" "world\datapacks" /S /E /D /Q
 IF NOT EXIST "server.jar" (
 	echo Downloading PaperMC...
 
-	curl -o "server.jar" "https://papermc.io/api/v1/paper/1.15.2/latest/download"
+	curl -o "server.jar" "https://papermc.io/api/v1/paper/1.12.2/latest/download"
 
 	echo PaperMC downloaded
 )

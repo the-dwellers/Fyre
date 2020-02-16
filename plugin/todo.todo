@@ -14,3 +14,7 @@ Mechanics:
 	✘ Enchant water bottles to bottle o' enchanting @cancelled(20-02-05 22:35)
 	✔ Harvest crops with hoe @done(20-02-05 22:35)
 	☐ Fishing in swamps give slimeballs
+
+Structure:
+	☐ Organize system into feature sets with required mc versions and localized fallback
+	☐ Create feature-loading system

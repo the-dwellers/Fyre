@@ -301,7 +301,7 @@ public abstract class ChatManager {
 		}
 
 		try {
-			String nbt = Reflected.itemStackToNBT(item);
+			String nbt = null;
 			TextComponent text;
 
 			String itemName = item.getItemMeta().hasDisplayName() ? item.getItemMeta().getDisplayName()
@@ -334,7 +334,7 @@ public abstract class ChatManager {
 			text.setHoverEvent(new HoverEvent(Action.SHOW_ITEM, new TextComponent[] { new TextComponent(nbt) }));
 			return text;
 
-		} catch (ReflectionFailedException e) {
+		} catch (Exception e) {
 			// Encountered an issue during reflection
 			e.printStackTrace();
 			return new TextComponent(Strings.C_ERROR + "[Invalid Item!]");
