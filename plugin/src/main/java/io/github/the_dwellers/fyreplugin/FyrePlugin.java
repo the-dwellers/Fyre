@@ -1,9 +1,6 @@
 package io.github.the_dwellers.fyreplugin;
 
-import io.github.the_dwellers.fyreplugin.commands.*;
-import io.github.the_dwellers.fyreplugin.configuration.ServerOperations;
 import io.github.the_dwellers.fyreplugin.configuration.Strings;
-import io.github.the_dwellers.fyreplugin.exceptions.ReflectionFailedException;
 import io.github.the_dwellers.fyreplugin.features.*;
 import io.github.the_dwellers.fyreplugin.util.MinecraftVersion;
 import io.github.the_dwellers.fyreplugin.configuration.SupportedVersions;
@@ -11,14 +8,8 @@ import io.github.the_dwellers.fyreplugin.configuration.SupportedVersions;
 // import net.milkbowl.vault.chat.Chat;
 // import net.milkbowl.vault.permission.Permission;
 import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.reflections.Reflections;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.logging.Logger;
 
 /**
