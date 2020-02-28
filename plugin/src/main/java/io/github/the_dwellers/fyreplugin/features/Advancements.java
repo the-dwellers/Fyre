@@ -14,6 +14,9 @@ import io.github.the_dwellers.fyreplugin.FyrePlugin;
 import io.github.the_dwellers.fyreplugin.configuration.SupportedVersions;
 import io.github.the_dwellers.fyreplugin.util.MinecraftVersion;
 
+/**
+ * Manage and reward advancements based on server events and player statistics
+ */
 public class Advancements implements Listener, AbstractFeature {
 
 	public static MinecraftVersion minVersion = SupportedVersions.MIN;

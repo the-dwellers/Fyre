@@ -37,7 +37,7 @@ public abstract class ChatManager implements AbstractFeature {
 	public static MinecraftVersion minVersion = SupportedVersions.MIN;
 
 	protected boolean enabled = false;
-	protected static String name = "Advancements";
+	protected static String name = "Chat Manager";
 	private static ClientBreakItem featureInstance;
 
 	public static ClientBreakItem getInstance() {

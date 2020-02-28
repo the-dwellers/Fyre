@@ -30,7 +30,7 @@ repositories {
 }
 
 dependencies {
-	implementation group: 'com.destroystokyo.paper', name: 'paper-api', version: '1.14.1-R0.1-SNAPSHOT'
+	implementation group: 'com.destroystokyo.paper', name: 'paper-api', version: '1.15.1-R0.1-SNAPSHOT'
 
 	compile group: 'org.reflections', name: 'reflections', version: '0.9.10'
 

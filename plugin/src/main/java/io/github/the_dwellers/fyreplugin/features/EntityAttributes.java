@@ -23,14 +23,14 @@ import io.github.the_dwellers.fyreplugin.configuration.SupportedVersions;
 import io.github.the_dwellers.fyreplugin.util.MinecraftVersion;
 
 /**
- * EntityAttributes
+ * Attribute changes to entities.
  */
 public class EntityAttributes implements AbstractFeature, Listener {
 
 	public static MinecraftVersion minVersion = SupportedVersions.MIN;
 
 	protected boolean enabled = false;
-	protected static String name = "EntityAttributes";
+	protected static String name = "Entity Attributes";
 	private static ClientBreakItem featureInstance;
 
 	public static ClientBreakItem getInstance() {

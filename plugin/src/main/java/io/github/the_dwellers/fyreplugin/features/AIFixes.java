@@ -11,14 +11,14 @@ import io.github.the_dwellers.fyreplugin.configuration.SupportedVersions;
 import io.github.the_dwellers.fyreplugin.util.MinecraftVersion;
 
 /**
- * AIFixes
+ * Miscellaneous Entity AI fixes.
  */
 public class AIFixes implements AbstractFeature, Listener {
 
 	public static MinecraftVersion minVersion = SupportedVersions.MIN;
 
 	protected boolean enabled = false;
-	protected static String name = "AIFixes";
+	protected static String name = "AI Fixes";
 	private static ClientBreakItem featureInstance;
 
 	public static ClientBreakItem getInstance() {

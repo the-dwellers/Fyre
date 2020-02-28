@@ -32,9 +32,21 @@ public final class FyrePlugin extends JavaPlugin {
 	// extends AbstractFeature>[]' turns into 'Cannot create a generic array of
 	// Class<? extends AbstractFeature>'
 	public static Class<? extends AbstractFeature>[] features = new Class[] {
+		Advancements.class, // Advancement Progression
+		AIFixes.class, // AI Bugfixes and improvements
+		BoatInventories.class, // Open boats like chests
+		ChatManager.class, // Chat formatting
 		ClientBreakItem.class, // Client tool break (Why is this not in the api‽)
+		DaylightExtension.class, // Daylight Extending
+		EntityAttributes.class, // Entity Value changes
+		ItemFeatures.class, // Functionality relating to items
+		LandTrampling.class, // Trample grass and crops into dirt
+		Management.class, // Server management utilities
+		Merchants.class, // Trade with NPCs and unlock levels
+		NBTAdapter.class, // NBT functions such as saving, loading, generating chat text, etc...
 		PlantHoeHarvest.class, // Right-click to harvest crops
-		NBTAdapter.class, // NBT functions such as saving, loading, generating chat text, etc..
+		TagDataHolder.class, // Store arbitrary data in entity nbt
+		TagInventory.class, // Store inventories in entity tags
 	};
 
 	public FyrePlugin() {
@@ -47,6 +59,8 @@ public final class FyrePlugin extends JavaPlugin {
 
 	@Override
 	public void onEnable() {
+		long tStart = System.currentTimeMillis();
+
 		log.info(Strings.LOG_PREFIX + "Loading Experimental Feature Branch...");
 
 		// Version string format is normally `git-Paper-1618 (MC: 1.12.2)`
@@ -82,7 +96,8 @@ public final class FyrePlugin extends JavaPlugin {
 					}
 
 				} else {
-					log.info(Strings.LOG_PREFIX + "Skipped " + feature.getName() + ", requires MC v" +feature.getMinecraftVersion().toString());
+					log.info(Strings.LOG_PREFIX + "Skipped " + feature.getName() + ", requires MC v"
+							+ feature.getMinecraftVersion().toString());
 				}
 			} catch (InstantiationException | IllegalAccessException e) {
 				log.severe(Strings.LOG_PREFIX + "Malformed Feature :" + featureClass.getName());
@@ -90,6 +105,8 @@ public final class FyrePlugin extends JavaPlugin {
 				log.info(Strings.LOG_PREFIX + "Skipped " + featureClass.getName() + ", unknown API");
 			}
 		}
+
+		log.info(Strings.LOG_PREFIX + "Fyre Loaded in " + (System.currentTimeMillis() - tStart / 1000.0) + "s");
 
 	}
 }

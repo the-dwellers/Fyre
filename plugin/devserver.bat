@@ -46,7 +46,7 @@ xcopy """..\..\datapack" "world\datapacks" /S /E /D /Q
 IF NOT EXIST "server.jar" (
 	echo Downloading PaperMC...
 
-	curl -o "server.jar" "https://papermc.io/api/v1/paper/1.12.2/latest/download"
+	curl -o "server.jar" "https://papermc.io/api/v1/paper/1.15.2/latest/download"
 
 	echo PaperMC downloaded
 )

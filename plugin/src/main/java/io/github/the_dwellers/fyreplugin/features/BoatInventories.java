@@ -17,14 +17,15 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 /**
- * BoatInventories
+ * Allow boats to open as chests on sneak right-click, ensures only one player
+ * can open at once and data is saved correctly.
  */
 public class BoatInventories implements AbstractFeature {
 
 	public static MinecraftVersion minVersion = SupportedVersions.MIN;
 
 	protected boolean enabled = false;
-	protected static String name = "Advancements";
+	protected static String name = "Boat Inventories";
 	private static ClientBreakItem featureInstance;
 
 	public static ClientBreakItem getInstance() {

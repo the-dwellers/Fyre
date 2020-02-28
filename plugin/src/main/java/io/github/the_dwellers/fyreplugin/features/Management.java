@@ -9,7 +9,9 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.plugin.Plugin;
 
@@ -94,7 +96,7 @@ public class Management implements AbstractFeature, Listener {
 			decimalFormat.setRoundingMode(RoundingMode.DOWN);
 
 			// Players
-			responseText.addExtra(ListCommand.getPlayers(sender));
+			responseText.addExtra(getPlayers(sender, false));
 
 			// Player Ping
 			if (players.length != 0) {
@@ -169,7 +171,7 @@ public class Management implements AbstractFeature, Listener {
 
 			// Plugins
 			responseText.addExtra("\n");
-			responseText.addExtra(PluginsCommand.getPlugins(sender));
+			responseText.addExtra(getPlugins(sender, false));
 
 			// TPS
 			ChatColor[] tpsColors = new ChatColor[4];
@@ -294,54 +296,49 @@ public class Management implements AbstractFeature, Listener {
 
 	}
 
+	private static TextComponent getPlugins(CommandSender sender, boolean longForm) {
+		boolean isPlayer = sender instanceof Player;
+		Plugin[] plugins = sender.getServer().getPluginManager().getPlugins();
+		int enabled = 0;
+
+		for (Plugin plugin : plugins) {
+			if (plugin.isEnabled()) {
+				// No Casting boolean to int in java?
+				enabled += 1;
+			}
+		}
+
+		if (longForm) {
+			return pluginLongForm(plugins);
+		}
+
+		TextComponent pluginText = new TextComponent(Strings.OUT_PREFIX + "In total, there are " + Strings.C_ACCENT
+				+ enabled + Strings.C_DEFAULT + " enabled plugins");
+		if (isPlayer) {
+			pluginText.setHoverEvent(
+					new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TextComponent[] { pluginLongForm(plugins) }));
+		}
+		return pluginText;
+	}
+
+	private static TextComponent pluginLongForm(Plugin[] plugins) {
+		TextComponent text = new TextComponent();
+		for (int i = 0; i < plugins.length; i++) {
+			Plugin plugin = plugins[i];
+			ChatColor color = plugin.isEnabled() ? ChatColor.DARK_GREEN : ChatColor.RED;
+			text.addExtra("" + color + plugin.getDescription().getName() + Strings.C_DEFAULT + " v"
+					+ Strings.C_ACCENT + plugin.getDescription().getVersion());
+			if (i < plugins.length - 1) {
+				text.addExtra("\n");
+			}
+		}
+		return text;
+	}
+
 	/**
 	 * Show which plugins are loaded by the server
 	 */
 	public class PluginsCommand extends AbstractCommand {
-		public static TextComponent getPlugins(CommandSender sender) {
-			return getPlugins(sender, false);
-		}
-
-		public static TextComponent getPlugins(CommandSender sender, boolean longForm) {
-			boolean isPlayer = sender instanceof Player;
-			Plugin[] plugins = sender.getServer().getPluginManager().getPlugins();
-			int enabled = 0;
-
-			for (Plugin plugin : plugins) {
-				if (plugin.isEnabled()) {
-					// No Casting boolean to int in java?
-					enabled += 1;
-				}
-			}
-
-			if (longForm) {
-				return buildLongForm(plugins);
-			}
-
-			TextComponent pluginText = new TextComponent(Strings.OUT_PREFIX + "In total, there are " + Strings.C_ACCENT
-					+ enabled + Strings.C_DEFAULT + " enabled plugins");
-			if (isPlayer) {
-				pluginText.setHoverEvent(
-						new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TextComponent[] { buildLongForm(plugins) }));
-			}
-			return pluginText;
-
-		}
-
-		private static TextComponent buildLongForm(Plugin[] plugins) {
-			TextComponent text = new TextComponent();
-			for (int i = 0; i < plugins.length; i++) {
-				Plugin plugin = plugins[i];
-				ChatColor color = plugin.isEnabled() ? ChatColor.DARK_GREEN : ChatColor.RED;
-				text.addExtra("" + color + plugin.getDescription().getName() + Strings.C_DEFAULT + " v"
-						+ Strings.C_ACCENT + plugin.getDescription().getVersion());
-				if (i < plugins.length - 1) {
-					text.addExtra("\n");
-				}
-			}
-			return text;
-		}
-
 		@Override
 		public String getPermission() {
 			return "fyre.plugins.use";
@@ -354,68 +351,65 @@ public class Management implements AbstractFeature, Listener {
 		}
 	}
 
+	private static TextComponent playerLongForm(Player[] players) {
+
+		if (players.length == 0) {
+			return new TextComponent();
+		}
+
+		TextComponent longFormText = new TextComponent(Strings.C_DEFAULT);
+
+		// Construct list of player names
+		for (int i = 0; i < players.length; i++) {
+			Player player = players[i];
+			longFormText.addExtra(player.getDisplayName());
+
+			if (i + 1 != players.length) {
+				longFormText.addExtra(Strings.C_DEFAULT);
+			}
+		}
+		return longFormText;
+	}
+
+	public static TextComponent getPlayers(CommandSender src, boolean longForm) {
+		boolean isPlayer = src instanceof Player;
+
+		Player[] players = src.getServer().getOnlinePlayers()
+				.toArray(new Player[src.getServer().getOnlinePlayers().size()]);
+		if (players.length == 0) {
+			// No players online
+			return new TextComponent(Strings.OUT_PREFIX + "There are no players online");
+		}
+
+		if (longForm) {
+			// Return longform output
+			return playerLongForm(players);
+		}
+
+		TextComponent text = new TextComponent();
+		if (players.length == 1) {
+			// English single
+			text.addExtra(Strings.OUT_PREFIX + "There is " + Strings.C_ACCENT + players.length + Strings.C_DEFAULT
+					+ " player online");
+		} else {
+			text.addExtra(Strings.OUT_PREFIX + "There is " + Strings.C_ACCENT + players.length + Strings.C_DEFAULT
+					+ " players online");
+
+		}
+
+		if (!isPlayer) {
+			return text;
+		}
+
+		text.setHoverEvent(
+				new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TextComponent[] { playerLongForm(players) }));
+		return text;
+	}
+
 	/**
 	 * List the players currently online on the server.
 	 */
 	public class ListCommand extends AbstractCommand {
-		public static TextComponent getPlayers(CommandSender src) {
-			return getPlayers(src, false);
-		}
-
-		public static TextComponent getPlayers(CommandSender src, boolean longForm) {
-			boolean isPlayer = src instanceof Player;
-
-			Player[] players = src.getServer().getOnlinePlayers()
-					.toArray(new Player[src.getServer().getOnlinePlayers().size()]);
-			if (players.length == 0) {
-				// No players online
-				return new TextComponent(Strings.OUT_PREFIX + "There are no players online");
-			}
-
-			if (longForm) {
-				// Return longform output
-				return buildLongForm(players);
-			}
-
-			TextComponent text = new TextComponent();
-			if (players.length == 1) {
-				// English single
-				text.addExtra(Strings.OUT_PREFIX + "There is " + Strings.C_ACCENT + players.length + Strings.C_DEFAULT
-						+ " player online");
-			} else {
-				text.addExtra(Strings.OUT_PREFIX + "There is " + Strings.C_ACCENT + players.length + Strings.C_DEFAULT
-						+ " players online");
-
-			}
-
-			if (!isPlayer) {
-				return text;
-			}
-
-			text.setHoverEvent(
-					new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TextComponent[] { buildLongForm(players) }));
-			return text;
-		}
-
-		private static TextComponent buildLongForm(Player[] players) {
-
-			if (players.length == 0) {
-				return new TextComponent();
-			}
-
-			TextComponent longFormText = new TextComponent(Strings.C_DEFAULT);
-
-			// Construct list of player names
-			for (int i = 0; i < players.length; i++) {
-				Player player = players[i];
-				longFormText.addExtra(player.getDisplayName());
-
-				if (i + 1 != players.length) {
-					longFormText.addExtra(Strings.C_DEFAULT);
-				}
-			}
-			return longFormText;
-		}
 
 		@Override
 		public String getPermission() {
