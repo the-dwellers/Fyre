@@ -7,23 +7,24 @@ import org.bukkit.event.Listener;
 import org.spigotmc.event.entity.EntityDismountEvent;
 
 import io.github.the_dwellers.fyreplugin.FyrePlugin;
+import io.github.the_dwellers.fyreplugin.Feature;
 import io.github.the_dwellers.fyreplugin.configuration.SupportedVersions;
 import io.github.the_dwellers.fyreplugin.util.MinecraftVersion;
 
 /**
  * Miscellaneous Entity AI fixes.
  */
-public class AIFixes implements AbstractFeature, Listener {
+public class AIFixes extends Feature implements Listener {
 
 	public static MinecraftVersion minVersion = SupportedVersions.MIN;
 
 	protected boolean enabled = false;
 	protected static String name = "AI Fixes";
-	private static ClientBreakItem featureInstance;
+	private static AIFixes featureInstance;
 
-	public static ClientBreakItem getInstance() {
+	public static AIFixes getInstance() {
 		if (featureInstance == null) {
-			featureInstance = new ClientBreakItem();
+			featureInstance = new AIFixes();
 		}
 		return featureInstance;
 	}

@@ -1,7 +1,7 @@
 package io.github.the_dwellers.fyreplugin;
 
 // haha, need to import just for comment references, nice!
-import io.github.the_dwellers.fyreplugin.features.TagDataHolder;
+import io.github.the_dwellers.fyreplugin.features.tagdata.TagDataHolder;
 
 /**
  * Functions pertaining to manipulating NBT in a {@link String} format.

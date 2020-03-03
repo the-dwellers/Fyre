@@ -1,11 +1,8 @@
-package io.github.the_dwellers.fyreplugin.features;
+package io.github.the_dwellers.fyreplugin.features.tagdata;
 
-import io.github.the_dwellers.fyreplugin.FyrePlugin;
 import io.github.the_dwellers.fyreplugin.configuration.Items;
 import io.github.the_dwellers.fyreplugin.exceptions.ReflectionFailedException;
-import io.github.the_dwellers.fyreplugin.features.AbstractFeature;
 import io.github.the_dwellers.fyreplugin.features.NBTAdapter;
-import io.github.the_dwellers.fyreplugin.util.MinecraftVersion;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -24,32 +21,7 @@ import java.util.List;
  * Represents an entity that contains an inventory defined within their 'Tags'
  * nbt Tag.
  */
-public class TagInventory extends TagDataHolder implements InventoryHolder, AbstractFeature {
-	public static MinecraftVersion minVersion = NBTAdapter.minVersion;
-
-	protected boolean enabled = false;
-	protected static String name = "NBT TagInventory";
-
-
-	@Override
-	public MinecraftVersion getMinecraftVersion() {
-		return minVersion;
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return enabled;
-	}
-
-	@Override
-	public boolean setup(FyrePlugin plugin) {
-		return NBTAdapter.getInstance().isEnabled();
-	}
-
-	@Override
-	public String getName() {
-		return name;
-	}
+public class TagInventory extends TagDataHolder implements InventoryHolder {
 
 	private static HashSet<String> instances = new HashSet<String>();
 	private Inventory inventory;

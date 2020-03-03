@@ -11,23 +11,24 @@ import org.bukkit.advancement.AdvancementProgress;
 import org.bukkit.entity.Player;
 
 import io.github.the_dwellers.fyreplugin.FyrePlugin;
+import io.github.the_dwellers.fyreplugin.Feature;
 import io.github.the_dwellers.fyreplugin.configuration.SupportedVersions;
 import io.github.the_dwellers.fyreplugin.util.MinecraftVersion;
 
 /**
  * Manage and reward advancements based on server events and player statistics
  */
-public class Advancements implements Listener, AbstractFeature {
+public class Advancements extends Feature implements Listener {
 
 	public static MinecraftVersion minVersion = SupportedVersions.MIN;
 
 	protected boolean enabled = false;
 	protected static String name = "Advancements";
-	private static ClientBreakItem instance;
+	private static Advancements instance;
 
-	public static ClientBreakItem getInstance() {
+	public static Advancements getInstance() {
 		if (instance == null) {
-			instance = new ClientBreakItem();
+			instance = new Advancements();
 		}
 		return instance;
 	}
@@ -48,10 +49,9 @@ public class Advancements implements Listener, AbstractFeature {
 	}
 
 	@Override
-	public boolean setup(FyrePlugin plugin) {return false;
-
+	public boolean setup(FyrePlugin plugin) {
+		return true;
 	}
-
 
 	@EventHandler()
 	public void onBlockBreak(BlockBreakEvent event) {
@@ -145,7 +145,7 @@ public class Advancements implements Listener, AbstractFeature {
 			// ? If anyone knows a shorter way to convert to an array while
 			// ? conserving type, please message me - WYVERN
 			progress.awardCriteria(
-				progress.getRemainingCriteria().toArray(new String[progress.getRemainingCriteria().size()])[0]);
+					progress.getRemainingCriteria().toArray(new String[progress.getRemainingCriteria().size()])[0]);
 		}
 	}
 }

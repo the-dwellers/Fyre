@@ -7,6 +7,7 @@ import org.bukkit.inventory.EquipmentSlot;
 
 import io.github.the_dwellers.fyreplugin.FyrePlugin;
 import io.github.the_dwellers.fyreplugin.Reflected;
+import io.github.the_dwellers.fyreplugin.Feature;
 import io.github.the_dwellers.fyreplugin.configuration.SupportedVersions;
 import io.github.the_dwellers.fyreplugin.exceptions.ReflectionFailedException;
 import io.github.the_dwellers.fyreplugin.util.MinecraftVersion;
@@ -14,7 +15,7 @@ import io.github.the_dwellers.fyreplugin.util.MinecraftVersion;
 /**
  * Break a tool, including breaking effects
  */
-public class ClientBreakItem implements AbstractFeature {
+public class ClientBreakItem extends Feature {
 
 	public static MinecraftVersion minVersion = SupportedVersions.MIN;
 

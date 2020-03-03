@@ -11,22 +11,23 @@ import io.github.the_dwellers.fyreplugin.FyrePlugin;
 import io.github.the_dwellers.fyreplugin.Reflected;
 import io.github.the_dwellers.fyreplugin.configuration.SupportedVersions;
 import io.github.the_dwellers.fyreplugin.exceptions.ReflectionFailedException;
+import io.github.the_dwellers.fyreplugin.Feature;
 import io.github.the_dwellers.fyreplugin.util.MinecraftVersion;
 
 /**
  * NBTAdapter
  */
-public class NBTAdapter implements AbstractFeature {
+public class NBTAdapter extends Feature {
 
-	public static MinecraftVersion minVersion = SupportedVersions.MIN;
+	public static MinecraftVersion minVersion = SupportedVersions.MC1132;
 
 	protected boolean enabled = false;
 	protected static String name = "NBT Features";
-	private static ClientBreakItem instance;
+	private static NBTAdapter instance;
 
-	public static ClientBreakItem getInstance() {
+	public static NBTAdapter getInstance() {
 		if (instance == null) {
-			instance = new ClientBreakItem();
+			instance = new NBTAdapter();
 		}
 		return instance;
 	}
@@ -43,7 +44,124 @@ public class NBTAdapter implements AbstractFeature {
 
 	@Override
 	public boolean setup(FyrePlugin plugin) {
-		return false;
+		if (Reflected.getClass("ItemStack") == null) {
+			if (!Reflected.cacheClass(Reflected.nmsClass+"ItemStack")) {
+				plugin.getLogger().warning("Unable to Cache ItemStack");
+				return false;
+			}
+		}
+
+		if (Reflected.getClass("NBTTagCompound") == null) {
+			if (!Reflected.cacheClass(Reflected.nmsClass+"NBTTagCompound")) {
+				plugin.getLogger().warning("Unable to Cache NBTTagCompound");
+				return false;
+			}
+		}
+
+		if (Reflected.getMethod("NBTTagCompound#toString") == null) {
+			if (!Reflected.cacheClassMethod("NBTTagCompound#toString")) {;
+				plugin.getLogger().warning("Unable to Cache NBTTagCompound#toString");
+				return false;
+			}
+		}
+
+		if (Reflected.getMethod("ItemStack#save") == null) {
+			// Save Item to NBT
+			if (!Reflected.cacheClassMethod("ItemStack#save", Reflected.getClass("NBTTagCompound"))) {
+				plugin.getLogger().warning("Unable to Cache ItemStack#save");
+				return false;
+			}
+		}
+
+		if (Reflected.getMethod("ItemStack#load") == null) {
+			// Load item From NBT (Requires 1.13)
+			if (!Reflected.cacheMethod("a", "ItemStack#load", Reflected.getClass("ItemStack"), Reflected.getClass("NBTTagCompound"))) {
+				plugin.getLogger().warning("Unable to Cache ItemStack#a");
+				return false;
+			}
+		}
+
+		if (Reflected.getClass("MojangsonParser") == null) {
+			if (!Reflected.cacheClass(Reflected.nmsClass+"MojangsonParser")) {
+				plugin.getLogger().warning("Unable to Cache MojangsonParser");
+				return false;
+			}
+		}
+		if (Reflected.getMethod("MojangsonParser#parse") == null) {
+			if (!Reflected.cacheClassMethod("MojangsonParser#parse", String.class)) {;
+				plugin.getLogger().warning("Unable to Cache MojangsonParser#parse");
+			return false;
+			}
+		}
+
+		if (Reflected.getClass("Entity") == null) {
+			if (!Reflected.cacheClass(Reflected.nmsClass+"Entity")) {
+				plugin.getLogger().warning("Unable to Cache Entity");
+				return false;
+			}
+		}
+		if (Reflected.getMethod("Entity#getUniqueID") == null) {
+			if (!Reflected.cacheClassMethod("Entity#getUniqueID")) {;
+				plugin.getLogger().warning("Unable to Cache Entity#getUniqueID");
+				return false;
+			}
+		}
+
+		if (Reflected.getMethod("Entity#save") == null) {
+			if (!Reflected.cacheClassMethod("Entity#save",Reflected.getClass("NBTTagCompound"))) {
+				plugin.getLogger().warning("Unable to Cache Entity#save");
+				return false;
+			}
+		}
+		if (Reflected.getMethod("Entity#load") == null) {
+			if (!Reflected.cacheMethod("f", "Entity#load", Reflected.getClass("Entity"), Reflected.getClass("NBTTagCompound"))) {
+				plugin.getLogger().warning("Unable to Cache Entity#load");
+				return false;
+			}
+		}
+
+		if (Reflected.getMethod("Entity#setUUID") == null) {
+			if (!Reflected.cacheMethod("a", "Entity#setUUID", Reflected.getClass("Entity"), UUID.class)) {
+				plugin.getLogger().warning("Unable to Cache Entity#setUUID");
+				return false;
+			}
+		}
+
+		if (Reflected.getClass("CraftItemStack") == null) {
+			if (!Reflected.cacheClass(Reflected.obcClass+"inventory.CraftItemStack")) {
+				plugin.getLogger().warning("Unable to Cache CraftItemStack");
+				return false;
+			}
+		}
+		if (Reflected.getMethod("CraftItemStack#asBukkitCopy") == null) {
+			if (!Reflected.cacheClassMethod("CraftItemStack#asBukkitCopy", Reflected.getClass("ItemStack") )) {
+				plugin.getLogger().warning("Unable to Cache CraftItemStack#asBukkitCopy");
+				return false;
+			}
+		}
+
+		if (Reflected.getMethod("CraftItemStack#asNMSCopy") == null) {
+			if (!Reflected.cacheMethod("CraftItemStack#asNMSCopy", Reflected.getClass("CraftItemStack"), ItemStack.class)) {
+				plugin.getLogger().warning("Unable to Cache CraftItemStack#asNMSCopy");
+				return false;
+			}
+		}
+
+		if (Reflected.getClass("CraftEntity") == null) {
+			if (!Reflected.cacheClass(Reflected.obcClass+"entity.CraftEntity")) {
+				plugin.getLogger().warning("Unable to Cache CraftEntity");
+				return false;
+			}
+		}
+		if (Reflected.getMethod("CraftEntity#getHandle") == null) {
+			if (!Reflected.cacheClassMethod("CraftEntity#getHandle")) {
+				plugin.getLogger().warning("Unable to Cache CraftEntity#getHandle");
+				return false;
+			}
+		}
+
+		enabled = true;
+		return true;
 	}
 
 	@Override
@@ -80,7 +198,7 @@ public class NBTAdapter implements AbstractFeature {
 			Object nmsItemStack = asNMSCopyMethod.invoke(null, item);
 
 			// Get net.minecraft.NBTTagCompound
-			Class<?> nmsNBTTagCompoundClass = Reflected.getClass(Reflected.nmsClass + "NBTTagCompound");
+			Class<?> nmsNBTTagCompoundClass = Reflected.getClass("NBTTagCompound");
 
 			// Get net.minecraft.ItemStack#save(net.minecraft.NBTTagCompound)
 			Method nmsItemStackSaveMethod = Reflected.getMethod("ItemStack#save");
@@ -128,7 +246,7 @@ public class NBTAdapter implements AbstractFeature {
 			Object nbtItem = getTagFromJson.invoke(null, nbt);
 
 			// Get net.minecraft.item.ItemStack#a(net.minecraft.nbt.NBTTagCompound)
-			Method nmsItemStackFromNBT = Reflected.getMethod("ItemStack#a");
+			Method nmsItemStackFromNBT = Reflected.getMethod("ItemStack#load");
 
 			// Construct class using
 			// net.minecraft.item.ItemStack#a(net.minecraft.nbt.NBTTagCompound)
@@ -168,7 +286,7 @@ public class NBTAdapter implements AbstractFeature {
 	public static String getNBTOfEntity(Entity entity) throws ReflectionFailedException {
 		try {
 			// Get net.minecraft.NBTTagCompound
-			Class<?> NBTTagCompoundClass = Reflected.getClass(Reflected.nmsClass + "NBTTagCompound");
+			Class<?> NBTTagCompoundClass = Reflected.getClass("NBTTagCompound");
 
 			// Get net.minecraft.Entity#save(NBTTagCompound)
 			Method entitySave = Reflected.getMethod("Entity#save");
@@ -177,7 +295,7 @@ public class NBTAdapter implements AbstractFeature {
 			Object nbtData = NBTTagCompoundClass.newInstance();
 
 			// Get org.bukkit.craftbukkit.CraftEntity
-			Class<?> bukkitEntity = Reflected.getClass(Reflected.obcClass + "entity.CraftEntity");
+			Class<?> bukkitEntity = Reflected.getClass("CraftEntity");
 
 			// Get org.bukkit.craftbukkit.CraftEntity#getHandle()
 			Method getHandle = Reflected.getMethod("CraftEntity#getHandle");
@@ -232,16 +350,16 @@ public class NBTAdapter implements AbstractFeature {
 			Object nbtItem = getTagFromJson.invoke(null, nbt);
 
 			// Get net.minecraft.Entity#f(NBTTagCompound)
-			Method entityF = Reflected.getMethod("Entity#f");
+			Method entityF = Reflected.getMethod("Entity#load");
 
 			// Get net.minecraft.Entity#getUniqueID()
 			Method entityGetUUID = Reflected.getMethod("Entity#getUniqueID");
 
 			// Get net.minecraft.Entity#a(UUID)
-			Method entityA = Reflected.getMethod("Entity#a");
+			Method entityA = Reflected.getMethod("Entity#setUUID");
 
 			// Get org.bukkit.craftbukkit.CraftEntity
-			Class<?> bukkitEntity = Reflected.getClass(Reflected.obcClass + "entity.CraftEntity");
+			Class<?> bukkitEntity = Reflected.getClass("CraftEntity");
 
 			// Get org.bukkit.craftbukkit.CraftEntity#getHandle()
 			Method getHandle = Reflected.getMethod("CraftEntity#getHandle");
@@ -265,11 +383,4 @@ public class NBTAdapter implements AbstractFeature {
 			throw new ReflectionFailedException(e);
 		}
 	}
-
-
-
-
-
-
-
 }

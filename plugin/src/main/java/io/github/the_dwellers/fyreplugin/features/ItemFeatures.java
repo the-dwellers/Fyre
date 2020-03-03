@@ -21,22 +21,23 @@ import io.github.the_dwellers.fyreplugin.FyrePlugin;
 import io.github.the_dwellers.fyreplugin.commands.AbstractCommand;
 import io.github.the_dwellers.fyreplugin.configuration.Items;
 import io.github.the_dwellers.fyreplugin.configuration.SupportedVersions;
+import io.github.the_dwellers.fyreplugin.Feature;
 import io.github.the_dwellers.fyreplugin.util.MinecraftVersion;
 
 /**
  * Features and logic required by custom items
  */
-public class ItemFeatures implements AbstractFeature, Listener {
+public class ItemFeatures extends Feature implements Listener {
 
 	public static MinecraftVersion minVersion = SupportedVersions.MIN;
 
 	protected boolean enabled = false;
 	protected static String name = "Item Features";
-	private static ClientBreakItem featureInstance;
+	private static ItemFeatures featureInstance;
 
-	public static ClientBreakItem getInstance() {
+	public static ItemFeatures getInstance() {
 		if (featureInstance == null) {
-			featureInstance = new ClientBreakItem();
+			featureInstance = new ItemFeatures();
 		}
 		return featureInstance;
 	}

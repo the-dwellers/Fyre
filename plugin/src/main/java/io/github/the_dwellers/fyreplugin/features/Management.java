@@ -17,6 +17,7 @@ import org.bukkit.plugin.Plugin;
 
 import io.github.the_dwellers.fyreplugin.FyrePlugin;
 import io.github.the_dwellers.fyreplugin.commands.AbstractCommand;
+import io.github.the_dwellers.fyreplugin.Feature;
 import io.github.the_dwellers.fyreplugin.configuration.Strings;
 import io.github.the_dwellers.fyreplugin.configuration.SupportedVersions;
 import io.github.the_dwellers.fyreplugin.util.MinecraftVersion;
@@ -26,17 +27,17 @@ import net.md_5.bungee.api.chat.TextComponent;
 /**
  * Management
  */
-public class Management implements AbstractFeature, Listener {
+public class Management extends Feature implements Listener {
 
 	public static MinecraftVersion minVersion = SupportedVersions.MIN;
 
 	protected boolean enabled = false;
 	protected static String name = "Management";
-	private static ClientBreakItem featureInstance;
+	private static Management featureInstance;
 
-	public static ClientBreakItem getInstance() {
+	public static Management getInstance() {
 		if (featureInstance == null) {
-			featureInstance = new ClientBreakItem();
+			featureInstance = new Management();
 		}
 		return featureInstance;
 	}

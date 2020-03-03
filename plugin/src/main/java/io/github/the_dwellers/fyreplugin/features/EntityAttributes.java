@@ -19,23 +19,24 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import io.github.the_dwellers.fyreplugin.FyrePlugin;
+import io.github.the_dwellers.fyreplugin.Feature;
 import io.github.the_dwellers.fyreplugin.configuration.SupportedVersions;
 import io.github.the_dwellers.fyreplugin.util.MinecraftVersion;
 
 /**
  * Attribute changes to entities.
  */
-public class EntityAttributes implements AbstractFeature, Listener {
+public class EntityAttributes extends Feature implements Listener {
 
 	public static MinecraftVersion minVersion = SupportedVersions.MIN;
 
 	protected boolean enabled = false;
 	protected static String name = "Entity Attributes";
-	private static ClientBreakItem featureInstance;
+	private static EntityAttributes featureInstance;
 
-	public static ClientBreakItem getInstance() {
+	public static EntityAttributes getInstance() {
 		if (featureInstance == null) {
-			featureInstance = new ClientBreakItem();
+			featureInstance = new EntityAttributes();
 		}
 		return featureInstance;
 	}

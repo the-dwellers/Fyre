@@ -1,10 +1,7 @@
 package io.github.the_dwellers.fyreplugin.features;
 
-import io.github.the_dwellers.fyreplugin.FyrePlugin;
 import io.github.the_dwellers.fyreplugin.commands.AbstractCommand;
 import io.github.the_dwellers.fyreplugin.configuration.Strings;
-import io.github.the_dwellers.fyreplugin.configuration.SupportedVersions;
-import io.github.the_dwellers.fyreplugin.util.MinecraftVersion;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.HoverEvent;
@@ -32,53 +29,18 @@ import java.util.ArrayList;
 /**
  * Functions dedicated to chat manipulation and formatting.
  */
-public abstract class ChatManager implements AbstractFeature {
-
-	public static MinecraftVersion minVersion = SupportedVersions.MIN;
-
-	protected boolean enabled = false;
-	protected static String name = "Chat Manager";
-	private static ClientBreakItem featureInstance;
-
-	public static ClientBreakItem getInstance() {
-		if (featureInstance == null) {
-			featureInstance = new ClientBreakItem();
-		}
-		return featureInstance;
-	}
-
-	@Override
-	public MinecraftVersion getMinecraftVersion() {
-		return minVersion;
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return enabled;
-	}
-
-	@Override
-	public String getName() {
-		return name;
-	}
-
-	@Override
-	public boolean setup(FyrePlugin plugin) {
-		return false;
-	}
-
-
+public abstract class ChatManager {
 	/**
- * Sends chat events into Fyre's {@link ChatManager}<p>
- * This is almost guaranteed to be incompatible with any other chat systems!
- */
+	 * Sends chat events into Fyre's {@link ChatManager}
+	 * <p>
+	 * This is almost guaranteed to be incompatible with any other chat systems!
+	 */
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onPlayerJoin(AsyncPlayerChatEvent event) {
 		// Cancel the chat event and dispatch the message to the ChatManager
 		event.setCancelled(true);
 		sendPlayerMessage(event.getPlayer(), event.getMessage());
 	}
-
 
 	@EventHandler()
 	public void onPlayerDeath(PlayerDeathEvent event) {
@@ -106,8 +68,6 @@ public abstract class ChatManager implements AbstractFeature {
 		event.setQuitMessage("");
 		sendPlayerLeave(event.getPlayer());
 	}
-
-
 
 	/**
 	 * Send a message to all online players.
@@ -148,20 +108,19 @@ public abstract class ChatManager implements AbstractFeature {
 	}
 
 	/**
-	 * Send the provided {@link TextComponent} to all players on the server as
-	 * the provided player. This is the default method for sending all chat
-	 * messages.
+	 * Send the provided {@link TextComponent} to all players on the server as the
+	 * provided player. This is the default method for sending all chat messages.
 	 * <p>
-	 * This function will automatically add the required prefixes and suffixes
-	 * to the player's name. This is done via Vault, or by using the default
-	 * in-built configuration.
+	 * This function will automatically add the required prefixes and suffixes to
+	 * the player's name. This is done via Vault, or by using the default in-built
+	 * configuration.
 	 * <p>
 	 * For parsing of a players message, such as resolving {@code @hand}, use
 	 * {@link ChatManager#sendPlayerMessage(Player, String)}
 	 *
 	 * @param player  Sender of the message
-	 * @param message TextComponent of the message to send. No Additional
-	 *                parsing will be performed on the message.
+	 * @param message TextComponent of the message to send. No Additional parsing
+	 *                will be performed on the message.
 	 */
 	public static void sendPlayerMessage(Player player, TextComponent message) {
 		// Master text component
@@ -175,9 +134,9 @@ public abstract class ChatManager implements AbstractFeature {
 		String suffix = Strings.CHAT_SUFFIX;
 
 		// if (vaultChat != null) {
-		//  // If vault provides a chat manager, then apply the suffix and prefix
-		//  prefix = vaultChat.getPlayerPrefix(player);
-		//  suffix = vaultChat.getPlayerSuffix(player);
+		// // If vault provides a chat manager, then apply the suffix and prefix
+		// prefix = vaultChat.getPlayerPrefix(player);
+		// suffix = vaultChat.getPlayerSuffix(player);
 		// }
 
 		// Construct text message
@@ -192,17 +151,17 @@ public abstract class ChatManager implements AbstractFeature {
 	}
 
 	/**
-	 * Parses the provided string and returns a correctly formatted
-	 * TextComponent. This text component will contain additional information,
-	 * such as items resolved from {@code @} notation within the message.
+	 * Parses the provided string and returns a correctly formatted TextComponent.
+	 * This text component will contain additional information, such as items
+	 * resolved from {@code @} notation within the message.
 	 * <p>
-	 * If any notations fail, a message is sent to the player, and the notation
-	 * is replaced by a placeholder.
+	 * If any notations fail, a message is sent to the player, and the notation is
+	 * replaced by a placeholder.
 	 *
 	 * @param player  Sender of the message. Will receive any error messages.
 	 * @param message Message sent by the sender. This will be parsed.
-	 * @return Returns a constructed {@link TextComponent} with formatted
-	 *         {@code @} notations and any other parsing results
+	 * @return Returns a constructed {@link TextComponent} with formatted {@code @}
+	 *         notations and any other parsing results
 	 */
 	private static TextComponent parseTextMessage(Player player, String message) {
 		// Text Components keeps a rolling list of constructs to be added
@@ -393,7 +352,7 @@ public abstract class ChatManager implements AbstractFeature {
 			TextComponent text;
 
 			String itemName = item.getItemMeta().hasDisplayName() ? item.getItemMeta().getDisplayName()
-				: item.getI18NDisplayName();
+					: item.getI18NDisplayName();
 
 			// Check to see if the item has a custom colored name. This includes enchanted
 			// and renamed items
@@ -431,12 +390,11 @@ public abstract class ChatManager implements AbstractFeature {
 
 	/**
 	 * Obtains the ItemStack of the player's Main Hand item. This includes a
-	 * quantity of all items exactly like the held item in the player's
-	 * inventory.
+	 * quantity of all items exactly like the held item in the player's inventory.
 	 *
 	 * @param player Player to get main hand item of
-	 * @return ItemStack of player's main hand, with a quantity of all items of
-	 *         the same kind in the player's inventory
+	 * @return ItemStack of player's main hand, with a quantity of all items of the
+	 *         same kind in the player's inventory
 	 * @see ChatManager#getDisplayStackOffHand(Player)
 	 * @see ChatManager#getArmourText(Player)
 	 */
@@ -456,14 +414,14 @@ public abstract class ChatManager implements AbstractFeature {
 	}
 
 	/**
-	 * Returns a TextComponent representing all the worn armor of the player.
-	 * Quite long!
+	 * Returns a TextComponent representing all the worn armor of the player. Quite
+	 * long!
 	 * <p>
 	 * If the player is not wearing any armor, {@code null} is returned
 	 *
 	 * @param player Player to obtain armor from
-	 * @return Returns {@code null} if the player is not wearing armor.
-	 *         Otherwise returns a TextComponent of all worn items
+	 * @return Returns {@code null} if the player is not wearing armor. Otherwise
+	 *         returns a TextComponent of all worn items
 	 * @see ChatManager#getItemText(ItemStack)
 	 * @see ChatManager#getDisplayStackMainHand(Player)
 	 * @see ChatManager#getDisplayStackOffHand(Player)
@@ -489,13 +447,12 @@ public abstract class ChatManager implements AbstractFeature {
 	}
 
 	/**
-	 * Obtains the ItemStack of the player's Off-Hand item. This includes a
-	 * quantity of all items exactly like the held item in the player's
-	 * inventory.
+	 * Obtains the ItemStack of the player's Off-Hand item. This includes a quantity
+	 * of all items exactly like the held item in the player's inventory.
 	 *
 	 * @param player Player to get off-hand item of
-	 * @return ItemStack of player's off-hand, with a quantity of all items of
-	 *         the same kind in the player's inventory
+	 * @return ItemStack of player's off-hand, with a quantity of all items of the
+	 *         same kind in the player's inventory
 	 * @see ChatManager#getDisplayStackMainHand(Player)
 	 * @see ChatManager#getArmourText(Player)
 	 */
@@ -531,7 +488,7 @@ public abstract class ChatManager implements AbstractFeature {
 		// Playtime
 		int secondsPlayed = player.getStatistic(Statistic.PLAY_ONE_MINUTE) / 60;
 		hover.addExtra(Strings.C_DEFAULT + "Playtime: " + Strings.C_ACCENT
-			+ buildTime(Integer.toUnsignedLong(secondsPlayed), false) + "\n");
+				+ buildTime(Integer.toUnsignedLong(secondsPlayed), false) + "\n");
 
 		// Times disconnected, & Average Session Length
 		int timesDisconnected = player.getStatistic(Statistic.LEAVE_GAME);
@@ -540,18 +497,18 @@ public abstract class ChatManager implements AbstractFeature {
 			hover.addExtra(Strings.C_POSITIVE + "First time on Fyre! Welcome them!" + "\n");
 		} else {
 			hover.addExtra(Strings.C_DEFAULT + "Average Session: " + Strings.C_ACCENT
-				+ buildTime(Integer.toUnsignedLong(secondsPlayed / timesDisconnected), false) + "\n");
+					+ buildTime(Integer.toUnsignedLong(secondsPlayed / timesDisconnected), false) + "\n");
 			hover.addExtra(Strings.C_DEFAULT + "Times Disconnected: " + Strings.C_ACCENT + timesDisconnected + "\n");
 		}
 
 		// Cake slices eaten
 		hover.addExtra(Strings.C_DEFAULT + "Cake Slices Eaten: " + Strings.C_ACCENT
-			+ player.getStatistic(Statistic.CAKE_SLICES_EATEN));
+				+ player.getStatistic(Statistic.CAKE_SLICES_EATEN));
 
 		hover.addExtra("\n" + Strings.C_MUTED + "Click to private message");
 		name.setHoverEvent(new HoverEvent(Action.SHOW_TEXT, new TextComponent[] { hover }));
 		name.setClickEvent(new ClickEvent(net.md_5.bungee.api.chat.ClickEvent.Action.SUGGEST_COMMAND,
-			"/msg " + player.getName() + " "));
+				"/msg " + player.getName() + " "));
 		return name;
 	}
 
@@ -623,8 +580,6 @@ public abstract class ChatManager implements AbstractFeature {
 		}
 		return newMessage;
 	}
-
-
 
 	/**
 	 * Displays the currently worm armor set to chat

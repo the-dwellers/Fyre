@@ -2,6 +2,7 @@ package io.github.the_dwellers.fyreplugin;
 
 import io.github.the_dwellers.fyreplugin.configuration.Strings;
 import io.github.the_dwellers.fyreplugin.features.*;
+import io.github.the_dwellers.fyreplugin.features.tagdata.*;
 import io.github.the_dwellers.fyreplugin.util.MinecraftVersion;
 import io.github.the_dwellers.fyreplugin.configuration.SupportedVersions;
 
@@ -10,6 +11,8 @@ import io.github.the_dwellers.fyreplugin.configuration.SupportedVersions;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.logging.Logger;
 
 /**
@@ -31,22 +34,23 @@ public final class FyrePlugin extends JavaPlugin {
 	// No other way to do this? Complains about Type safety, but 'Class<?
 	// extends AbstractFeature>[]' turns into 'Cannot create a generic array of
 	// Class<? extends AbstractFeature>'
-	public static Class<? extends AbstractFeature>[] features = new Class[] {
-		Advancements.class, // Advancement Progression
-		AIFixes.class, // AI Bugfixes and improvements
-		BoatInventories.class, // Open boats like chests
-		ChatManager.class, // Chat formatting
-		ClientBreakItem.class, // Client tool break (Why is this not in the api‽)
-		DaylightExtension.class, // Daylight Extending
-		EntityAttributes.class, // Entity Value changes
-		ItemFeatures.class, // Functionality relating to items
-		LandTrampling.class, // Trample grass and crops into dirt
-		Management.class, // Server management utilities
-		Merchants.class, // Trade with NPCs and unlock levels
+	public static Class<? extends Feature>[] features = new Class[] {
+		Development.class, // Development Features
 		NBTAdapter.class, // NBT functions such as saving, loading, generating chat text, etc...
-		PlantHoeHarvest.class, // Right-click to harvest crops
-		TagDataHolder.class, // Store arbitrary data in entity nbt
-		TagInventory.class, // Store inventories in entity tags
+		TagDataHolderFeature.class, // Store arbitrary data in entity nbt
+		TagInventoryFeature.class, // Store inventories in entity tags
+		BoatInventories.class, // Open boats like chests
+		// Advancements.class, // Advancement Progression
+		// AIFixes.class, // AI Bugfixes and improvements
+		// ChatManagerFeature.class, // Chat formatting
+		// ClientBreakItem.class, // Client tool break (Why is this not in the api‽)
+		// DaylightExtension.class, // Daylight Extending
+		// EntityAttributes.class, // Entity Value changes
+		// ItemFeatures.class, // Functionality relating to items
+		// LandTrampling.class, // Trample grass and crops into dirt
+		// Management.class, // Server management utilities
+		// Merchants.class, // Trade with NPCs and unlock levels
+		// PlantHoeHarvest.class, // Right-click to harvest crops
 	};
 
 	public FyrePlugin() {
@@ -79,27 +83,31 @@ public final class FyrePlugin extends JavaPlugin {
 		}
 
 		log.info(Strings.LOG_PREFIX + "Setting up for " + mcVersion.toString());
-		if (!mcVersion.equals(SupportedVersions.MC1152)) {
+		if (mcVersion.compareTo(SupportedVersions.MC1152) != 0) {
 			log.warning(
 					Strings.LOG_PREFIX + "Loading for unsupported minecraft version! Some features may be disabled!");
 		}
 
-		for (Class<? extends AbstractFeature> featureClass : features) {
-			AbstractFeature feature;
+		for (Class<? extends Feature> featureClass : features) {
 			try {
-				feature = featureClass.newInstance();
+				// ! I hate this, is there any other method for abstracted static instantiation code??
+				Method getInstanceMethod = featureClass.getMethod("getInstance");
+				Object instanceObject = getInstanceMethod.invoke(null);
+				Feature feature = Feature.class.cast(instanceObject);
 
 				if (mcVersion.compareTo(feature.getMinecraftVersion()) > -1) {
 					boolean result = feature.setup(this);
 					if (!result) {
 						log.info("Failed to load " + feature.getName());
+					} else {
+						log.info("Loaded " + feature.getName());
 					}
 
 				} else {
 					log.info(Strings.LOG_PREFIX + "Skipped " + feature.getName() + ", requires MC v"
 							+ feature.getMinecraftVersion().toString());
 				}
-			} catch (InstantiationException | IllegalAccessException e) {
+			} catch (NullPointerException | InvocationTargetException | NoSuchMethodException | IllegalAccessException e) {
 				log.severe(Strings.LOG_PREFIX + "Malformed Feature :" + featureClass.getName());
 			} catch (NoClassDefFoundError e) {
 				log.info(Strings.LOG_PREFIX + "Skipped " + featureClass.getName() + ", unknown API");

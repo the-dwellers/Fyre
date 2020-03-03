@@ -1,11 +1,8 @@
-package io.github.the_dwellers.fyreplugin.features;
+package io.github.the_dwellers.fyreplugin.features.tagdata;
 
-import io.github.the_dwellers.fyreplugin.FyrePlugin;
 import io.github.the_dwellers.fyreplugin.NBT;
 import io.github.the_dwellers.fyreplugin.exceptions.ReflectionFailedException;
-import io.github.the_dwellers.fyreplugin.features.AbstractFeature;
 import io.github.the_dwellers.fyreplugin.features.NBTAdapter;
-import io.github.the_dwellers.fyreplugin.util.MinecraftVersion;
 
 import org.bukkit.entity.Entity;
 
@@ -15,32 +12,7 @@ import java.util.Base64;
  * Represents any {@link Entity} that may have external data serialized to their
  * 'Tag' nbt value.
  */
-public abstract class TagDataHolder implements AbstractFeature {
-
-	public static MinecraftVersion minVersion = NBTAdapter.minVersion;
-
-	protected boolean enabled = false;
-	protected static String name = "TagDataHolder";
-
-	@Override
-	public MinecraftVersion getMinecraftVersion() {
-		return minVersion;
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return enabled;
-	}
-
-	@Override
-	public boolean setup(FyrePlugin plugin) {
-		return NBTAdapter.getInstance().isEnabled();
-	}
-
-	@Override
-	public String getName() {
-		return name;
-	}
+public abstract class TagDataHolder {
 
 	protected Entity entity;
 

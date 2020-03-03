@@ -11,23 +11,24 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
 import io.github.the_dwellers.fyreplugin.FyrePlugin;
+import io.github.the_dwellers.fyreplugin.Feature;
 import io.github.the_dwellers.fyreplugin.configuration.SupportedVersions;
 import io.github.the_dwellers.fyreplugin.util.MinecraftVersion;
 
 /**
  * Prolong daylight by randomly delaying day advancement
  */
-public class DaylightExtension implements AbstractFeature, Listener {
+public class DaylightExtension extends Feature implements Listener {
 
 	public static MinecraftVersion minVersion = SupportedVersions.MIN;
 
 	protected boolean enabled = false;
 	protected static String name = "DaylightExtension";
-	private static ClientBreakItem featureInstance;
+	private static DaylightExtension featureInstance;
 
-	public static ClientBreakItem getInstance() {
+	public static DaylightExtension getInstance() {
 		if (featureInstance == null) {
-			featureInstance = new ClientBreakItem();
+			featureInstance = new DaylightExtension();
 		}
 		return featureInstance;
 	}

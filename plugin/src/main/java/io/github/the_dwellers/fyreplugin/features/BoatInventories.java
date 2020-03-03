@@ -1,7 +1,9 @@
 package io.github.the_dwellers.fyreplugin.features;
 
 import io.github.the_dwellers.fyreplugin.FyrePlugin;
-import io.github.the_dwellers.fyreplugin.configuration.SupportedVersions;
+import io.github.the_dwellers.fyreplugin.features.tagdata.TagInventory;
+import io.github.the_dwellers.fyreplugin.Feature;
+import io.github.the_dwellers.fyreplugin.features.tagdata.TagInventoryFeature;
 import io.github.the_dwellers.fyreplugin.util.MinecraftVersion;
 
 import org.bukkit.Material;
@@ -9,6 +11,7 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Vehicle;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.vehicle.VehicleDestroyEvent;
@@ -20,17 +23,17 @@ import org.bukkit.inventory.ItemStack;
  * Allow boats to open as chests on sneak right-click, ensures only one player
  * can open at once and data is saved correctly.
  */
-public class BoatInventories implements AbstractFeature {
+public class BoatInventories extends Feature implements Listener {
 
-	public static MinecraftVersion minVersion = SupportedVersions.MIN;
+	public static MinecraftVersion minVersion = TagInventoryFeature.minVersion;
 
 	protected boolean enabled = false;
-	protected static String name = "Boat Inventories";
-	private static ClientBreakItem featureInstance;
+	protected static String name = "Chest Boats";
+	private static BoatInventories featureInstance;
 
-	public static ClientBreakItem getInstance() {
+	public static BoatInventories getInstance() {
 		if (featureInstance == null) {
-			featureInstance = new ClientBreakItem();
+			featureInstance = new BoatInventories();
 		}
 		return featureInstance;
 	}
@@ -52,7 +55,11 @@ public class BoatInventories implements AbstractFeature {
 
 	@Override
 	public boolean setup(FyrePlugin plugin) {
-		return false;
+		if (TagInventoryFeature.getInstance().isEnabled()) {
+			plugin.getServer().getPluginManager().registerEvents(this, plugin);
+			enabled = true;
+		}
+		return enabled;
 	}
 
 	@EventHandler

@@ -1,6 +1,5 @@
-package io.github.the_dwellers.fyreplugin.features;
+package io.github.the_dwellers.fyreplugin;
 
-import io.github.the_dwellers.fyreplugin.FyrePlugin;
 import io.github.the_dwellers.fyreplugin.util.MinecraftVersion;
 
 /**
@@ -11,9 +10,12 @@ import io.github.the_dwellers.fyreplugin.util.MinecraftVersion;
  *
  * @see MinecraftVersion
  */
-public interface AbstractFeature {
+public  class Feature {
 
-	public MinecraftVersion getMinecraftVersion();
+	public MinecraftVersion getMinecraftVersion(){
+		return new MinecraftVersion("0.0.0");
+	}
+	protected boolean enabled = false;
 
 	/**
 	 * Setup and start the feature. It is assumed that the version has already been
@@ -23,14 +25,25 @@ public interface AbstractFeature {
 	 * @param plugin FyrePlugin to handle registrations.
 	 * @return True if registration succeeded without errors.
 	 */
-	public boolean setup(FyrePlugin plugin);
+	public boolean setup(FyrePlugin plugin){
+		return false;
+	}
+
 
 	/**
 	 * Is the feature setup and ready for use?
 	 * @return True if feature is enabled.
 	 */
-	public boolean isEnabled();
+	public boolean isEnabled(){
+		return enabled;
+	}
 
 
-	public String getName();
+	public String getName(){
+		return null;
+	}
+
+	public static Feature getInstance(){
+		return null;
+	}
 }

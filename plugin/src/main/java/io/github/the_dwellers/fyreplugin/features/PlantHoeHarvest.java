@@ -17,19 +17,20 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import io.github.the_dwellers.fyreplugin.FyrePlugin;
 import io.github.the_dwellers.fyreplugin.configuration.SupportedVersions;
+import io.github.the_dwellers.fyreplugin.Feature;
 import io.github.the_dwellers.fyreplugin.util.MinecraftVersion;
 
-public class PlantHoeHarvest implements Listener, AbstractFeature {
+public class PlantHoeHarvest extends Feature implements Listener {
 
 	public static MinecraftVersion minVersion = SupportedVersions.MC1144;
 
 	protected boolean enabled = false;
 	protected static String name = "Hoe Harvest";
-	private static ClientBreakItem instance;
+	private static PlantHoeHarvest instance;
 
-	public static ClientBreakItem getInstance() {
+	public static PlantHoeHarvest getInstance() {
 		if (instance == null) {
-			instance = new ClientBreakItem();
+			instance = new PlantHoeHarvest();
 		}
 		return instance;
 	}

@@ -12,23 +12,24 @@ import org.bukkit.event.player.PlayerMoveEvent;
 
 import io.github.the_dwellers.fyreplugin.FyrePlugin;
 import io.github.the_dwellers.fyreplugin.configuration.SupportedVersions;
+import io.github.the_dwellers.fyreplugin.Feature;
 import io.github.the_dwellers.fyreplugin.util.MinecraftVersion;
 import io.github.the_dwellers.fyreplugin.util.RandomUtil;
 
 /**
  * Trample grass into dirt
  */
-public class LandTrampling implements AbstractFeature, Listener {
+public class LandTrampling extends Feature implements Listener {
 
 	public static MinecraftVersion minVersion = SupportedVersions.MIN;
 
 	protected boolean enabled = false;
 	protected static String name = "LandTrampling";
-	private static ClientBreakItem featureInstance;
+	private static LandTrampling featureInstance;
 
-	public static ClientBreakItem getInstance() {
+	public static LandTrampling getInstance() {
 		if (featureInstance == null) {
-			featureInstance = new ClientBreakItem();
+			featureInstance = new LandTrampling();
 		}
 		return featureInstance;
 	}

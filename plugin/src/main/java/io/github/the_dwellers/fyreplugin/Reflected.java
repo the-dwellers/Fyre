@@ -1,9 +1,9 @@
 package io.github.the_dwellers.fyreplugin;
 
-import org.bukkit.Bukkit;
-
 import java.lang.reflect.Method;
 import java.util.HashMap;
+
+import org.bukkit.Bukkit;
 
 /**
  * Provides functions integrated into Net.Minecraft.Server via reflection Note:
@@ -49,7 +49,25 @@ public abstract class Reflected {
 	 */
 	public static boolean cacheClass(String name) {
 		try {
-			classCache.put(name, Class.forName(name));
+			Class<?> c = Class.forName(name);
+			classCache.put(c.getSimpleName(), c);
+			return true;
+		} catch (ClassNotFoundException e) {
+			return false;
+		}
+	}
+
+	/**
+	 * Cache a class to the {@code classCache}.
+	 *
+	 * @param key Key to store class under
+	 * @param name Name of the class to cache
+	 * @return true if method was cached, false otherwise. A log is made on
+	 *         failures.
+	 */
+	public static boolean cacheClass(String key, String name) {
+		try {
+			classCache.put(key, Class.forName(name));
 			return true;
 		} catch (ClassNotFoundException e) {
 			return false;
@@ -93,6 +111,27 @@ public abstract class Reflected {
 	 */
 	public static boolean cacheMethod(String key, Class<?> class1, Class<?>... parameterTypes) {
 		return cacheMethod(key.split("#")[1], key, class1, parameterTypes);
+	}
+
+	/**
+	 * Cache a method to the {@code methodCache}. Prints an error message to console
+	 * if fails.
+	 * <p>
+	 * Works on <b>public</b> inherited and defined methods.
+	 * <p>
+	 * Use {@link Reflected#cacheDeclaredMethod(String, Class, Class...)} if the
+	 * method is private.
+	 *
+	 * @param name           Name of the method in the format "Class#function" Where
+	 *                       'function' is the exact name of the function to find.
+	 *                       'Class' may be any value.
+	 * @param class1         Class to reflect the function from.
+	 * @param parameterTypes Parameters that the function takes
+	 * @return true if method was cached, false otherwise. A log is made on
+	 *         failures.
+	 */
+	public static boolean cacheClassMethod(String key, Class<?>... parameterTypes) {
+		return cacheMethod(key.split("#")[1], key, getClass(key.split("#")[0]), parameterTypes);
 	}
 
 	/**

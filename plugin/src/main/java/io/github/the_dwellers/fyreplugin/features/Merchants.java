@@ -21,6 +21,7 @@ import org.bukkit.inventory.MerchantRecipe;
 
 import io.github.the_dwellers.fyreplugin.FyrePlugin;
 import io.github.the_dwellers.fyreplugin.Reflected;
+import io.github.the_dwellers.fyreplugin.Feature;
 import io.github.the_dwellers.fyreplugin.commands.AbstractCommand;
 import io.github.the_dwellers.fyreplugin.configuration.MerchantRecipes;
 import io.github.the_dwellers.fyreplugin.configuration.SupportedVersions;
@@ -30,19 +31,19 @@ import io.github.the_dwellers.fyreplugin.util.MinecraftVersion;
 /**
  * Merchants
  */
-public class Merchants implements AbstractFeature, Listener {
+public class Merchants extends Feature implements Listener {
 
 	public static MinecraftVersion minVersion = SupportedVersions.MC1144;
 
 	protected boolean enabled = false;
 	protected static String name = "Client Break Item";
-	private static ClientBreakItem instance;
+	private static Merchants instance;
 
 	private static boolean merchantShowXP;
 
-	public static ClientBreakItem getInstance() {
+	public static Merchants getInstance() {
 		if (instance == null) {
-			instance = new ClientBreakItem();
+			instance = new Merchants();
 		}
 		return instance;
 	}
