@@ -88,7 +88,7 @@ public class PlantHoeHarvest extends Feature implements Listener {
 				// ? Why do items not naturally break?
 				if (itemMeta.getDamage() > right.getType().getMaxDurability()) {
 					if (ClientBreakItem.getInstance().isEnabled()) {
-						ClientBreakItem.getInstance().breakEquipment((LivingEntity) player, EquipmentSlot.HAND);
+						ClientBreakItem.breakEquipment((LivingEntity) player, EquipmentSlot.HAND);
 					} else {
 						player.getEquipment().getItemInMainHand().subtract();
 					}
@@ -106,7 +106,7 @@ public class PlantHoeHarvest extends Feature implements Listener {
 
 				if (itemMeta.getDamage() > left.getType().getMaxDurability()) {
 					if (ClientBreakItem.getInstance().isEnabled()) {
-						ClientBreakItem.getInstance().breakEquipment((LivingEntity) player, EquipmentSlot.HAND);
+						ClientBreakItem.breakEquipment((LivingEntity) player, EquipmentSlot.HAND);
 					} else {
 						player.getEquipment().getItemInMainHand().subtract();
 					}

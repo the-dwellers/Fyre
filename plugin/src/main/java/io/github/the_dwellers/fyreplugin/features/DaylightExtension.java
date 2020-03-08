@@ -23,7 +23,7 @@ public class DaylightExtension extends Feature implements Listener {
 	public static MinecraftVersion minVersion = SupportedVersions.MIN;
 
 	protected boolean enabled = false;
-	protected static String name = "DaylightExtension";
+	protected static String name = "Daylight Extension";
 	private static DaylightExtension featureInstance;
 
 	public static DaylightExtension getInstance() {
@@ -50,7 +50,9 @@ public class DaylightExtension extends Feature implements Listener {
 
 	@Override
 	public boolean setup(FyrePlugin plugin) {
-		return false;
+		plugin.getServer().getPluginManager().registerEvents(this, plugin);
+		enabled = true;
+		return isEnabled();
 	}
 
 	private Random rand;

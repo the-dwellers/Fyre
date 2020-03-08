@@ -50,7 +50,9 @@ public class Advancements extends Feature implements Listener {
 
 	@Override
 	public boolean setup(FyrePlugin plugin) {
-		return true;
+		plugin.getServer().getPluginManager().registerEvents(this, plugin);
+		enabled = true;
+		return enabled;
 	}
 
 	@EventHandler()

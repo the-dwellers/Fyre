@@ -53,6 +53,7 @@ public class Development extends Feature implements Listener {
 	public boolean setup(FyrePlugin plugin) {
 		plugin.getLogger().warning("Development mode is enabled");
 		plugin.getCommand("debug").setExecutor(new DebugCommand());
+		enabled = true;
 		return true;
 	}
 

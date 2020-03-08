@@ -59,7 +59,10 @@ public class ItemFeatures extends Feature implements Listener {
 
 	@Override
 	public boolean setup(FyrePlugin plugin) {
-		return false;
+		plugin.getServer().getPluginManager().registerEvents(this, plugin);
+		plugin.getCommand("money").setExecutor(new MoneyCommand());
+		enabled = true;
+		return isEnabled();
 	}
 
 	@EventHandler()

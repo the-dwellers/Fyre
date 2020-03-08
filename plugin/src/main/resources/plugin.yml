@@ -2,7 +2,7 @@ name: Fyre
 description: Fyre is a helper plugin that allows the implementation of server administration features, merchant and bank functionality and so on.
 version: "@version@"
 main: io.github.the_dwellers.fyreplugin.FyrePlugin
-api-version: "1.14"
+api-version: "1.13"
 load: STARTUP
 authors:
   - WYVERN

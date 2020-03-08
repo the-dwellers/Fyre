@@ -59,7 +59,12 @@ public class Management extends Feature implements Listener {
 
 	@Override
 	public boolean setup(FyrePlugin plugin) {
-		return false;
+		plugin.getCommand("status").setExecutor(new StatusCommand());
+		plugin.getCommand("plugins").setExecutor(new PluginsCommand());
+		plugin.getCommand("list").setExecutor(new ListCommand());
+		plugin.getServer().getPluginManager().registerEvents(this, plugin);
+		enabled = true;
+		return isEnabled();
 	}
 
 	/**

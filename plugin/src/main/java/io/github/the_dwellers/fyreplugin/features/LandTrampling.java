@@ -24,7 +24,7 @@ public class LandTrampling extends Feature implements Listener {
 	public static MinecraftVersion minVersion = SupportedVersions.MIN;
 
 	protected boolean enabled = false;
-	protected static String name = "LandTrampling";
+	protected static String name = "Land Trampling";
 	private static LandTrampling featureInstance;
 
 	public static LandTrampling getInstance() {
@@ -51,7 +51,9 @@ public class LandTrampling extends Feature implements Listener {
 
 	@Override
 	public boolean setup(FyrePlugin plugin) {
-		return false;
+		plugin.getServer().getPluginManager().registerEvents(this, plugin);
+		enabled = true;
+		return isEnabled();
 	}
 
 	@EventHandler()

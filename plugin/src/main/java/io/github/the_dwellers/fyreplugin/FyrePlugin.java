@@ -13,6 +13,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.logging.Logger;
 
 /**
@@ -40,17 +42,17 @@ public final class FyrePlugin extends JavaPlugin {
 		TagDataHolderFeature.class, // Store arbitrary data in entity nbt
 		TagInventoryFeature.class, // Store inventories in entity tags
 		BoatInventories.class, // Open boats like chests
-		// Advancements.class, // Advancement Progression
-		// AIFixes.class, // AI Bugfixes and improvements
-		// ChatManagerFeature.class, // Chat formatting
-		// ClientBreakItem.class, // Client tool break (Why is this not in the api‽)
-		// DaylightExtension.class, // Daylight Extending
-		// EntityAttributes.class, // Entity Value changes
-		// ItemFeatures.class, // Functionality relating to items
-		// LandTrampling.class, // Trample grass and crops into dirt
-		// Management.class, // Server management utilities
-		// Merchants.class, // Trade with NPCs and unlock levels
-		// PlantHoeHarvest.class, // Right-click to harvest crops
+		Advancements.class, // Advancement Progression
+		AIFixes.class, // AI Bugfixes and improvements
+		ChatManagerFeature.class, // Chat formatting
+		ClientBreakItem.class, // Client tool break (Why is this not in the api‽)
+		DaylightExtension.class, // Daylight Extending
+		EntityAttributes.class, // Entity Value changes
+		ItemFeatures.class, // Functionality relating to items
+		LandTrampling.class, // Trample grass and crops into dirt
+		Management.class, // Server management utilities
+		Merchants.class, // Trade with NPCs and unlock levels
+		PlantHoeHarvest.class, // Right-click to harvest crops
 	};
 
 	public FyrePlugin() {
@@ -98,9 +100,11 @@ public final class FyrePlugin extends JavaPlugin {
 				if (mcVersion.compareTo(feature.getMinecraftVersion()) > -1) {
 					boolean result = feature.setup(this);
 					if (!result) {
-						log.info("Failed to load " + feature.getName());
+						log.info(Strings.LOG_PREFIX + "Failed to load " + feature.getName());
 					} else {
-						log.info("Loaded " + feature.getName());
+						if (Development.getInstance().isEnabled()) {
+							log.info(Strings.LOG_PREFIX + "Loaded " + feature.getName());
+						}
 					}
 
 				} else {
@@ -109,12 +113,21 @@ public final class FyrePlugin extends JavaPlugin {
 				}
 			} catch (NullPointerException | InvocationTargetException | NoSuchMethodException | IllegalAccessException e) {
 				log.severe(Strings.LOG_PREFIX + "Malformed Feature :" + featureClass.getName());
+				if (Development.getInstance().isEnabled()) {
+					e.printStackTrace();
+				}
 			} catch (NoClassDefFoundError e) {
 				log.info(Strings.LOG_PREFIX + "Skipped " + featureClass.getName() + ", unknown API");
+				if (Development.getInstance().isEnabled()) {
+					e.printStackTrace();
+				}
 			}
 		}
 
-		log.info(Strings.LOG_PREFIX + "Fyre Loaded in " + (System.currentTimeMillis() - tStart / 1000.0) + "s");
+		// Time taken to load
+		DecimalFormat decimalFormat = new DecimalFormat("0.00");
+		decimalFormat.setRoundingMode(RoundingMode.DOWN);
+		log.info(Strings.LOG_PREFIX + "Fyre Loaded in " + decimalFormat.format((System.currentTimeMillis() - tStart) / 1000.0) + "s");
 
 	}
 }

@@ -17,7 +17,7 @@ import io.github.the_dwellers.fyreplugin.util.MinecraftVersion;
  */
 public class ClientBreakItem extends Feature {
 
-	public static MinecraftVersion minVersion = SupportedVersions.MIN;
+	public static MinecraftVersion minVersion = SupportedVersions.MC1144;
 
 	protected boolean enabled = false;
 	protected static String name = "Client Break Item";
@@ -56,56 +56,43 @@ public class ClientBreakItem extends Feature {
 			}
 
 			if (Reflected.getMethod("EnumItemSlot#fromName") == null) {
-
-				if (plugin.mcVersion.compareTo(new MinecraftVersion("1.13.2")) != 1) {
-					Reflected.cacheMethod("a", "EnumItemSlot#fromName", Reflected.getClass(Reflected.nmsClass + "EnumItemSlot"),
-							String.class);
-				} else {
-					Reflected.cacheMethod("EnumItemSlot#fromName",
-							Reflected.getClass(Reflected.nmsClass + "EnumItemSlot"), String.class);
-				}
-
-				if (Reflected.getMethod("EnumItemSlot#fromName") == null) {
+				if (!Reflected.cacheMethod("EnumItemSlot#fromName", Reflected.getClass("EnumItemSlot"), String.class)) {
 					plugin.getLogger().warning("Unable to Cache EnumItemSlot#fromName");
 					return false;
 				}
 			}
 
-			if (Reflected.getClass(Reflected.obcClass + "CraftEntity") == null) {
+			if (Reflected.getClass("CraftEntity") == null) {
 				if (!Reflected.cacheClass(Reflected.obcClass + "entity.CraftEntity")) {
 					plugin.getLogger().warning("Unable to Cache CraftEntity");
 					return false;
 				}
 			}
 
-			if (Reflected.getClass(Reflected.obcClass + "CraftLivingEntity") == null) {
+			if (Reflected.getClass("CraftLivingEntity") == null) {
 				if (!Reflected.cacheClass(Reflected.obcClass + "entity.CraftLivingEntity")) {
 					plugin.getLogger().warning("Unable to Cache CraftLivingEntity");
 					return false;
 				}
 			}
-			if (Reflected.getClass(Reflected.nmsClass + "EntityLiving") == null) {
+			if (Reflected.getClass("EntityLiving") == null) {
 				if (!Reflected.cacheClass(Reflected.nmsClass + "EntityLiving")) {
 					plugin.getLogger().warning("Unable to Cache EntityLiving");
 					return false;
 				}
 			}
 			if (Reflected.getMethod("CraftEntity#getHandle") == null) {
-				if (!Reflected.cacheMethod("CraftEntity#getHandle", Reflected.getClass(Reflected.obcClass + "entity.CraftEntity"))) {
+				if (!Reflected.cacheMethod("CraftEntity#getHandle", Reflected.getClass("CraftEntity"))) {
 					plugin.getLogger().warning("Unable to Cache raftEntity#getHandle");
 					return false;
 				}
 			}
 
 			if (Reflected.getMethod("EntityLiving#broadcastItemBreak") == null) {
-
-
-				if (plugin.mcVersion.compareTo(SupportedVersions.MC1132) < 1) {
-					return false;
-				} else if (plugin.mcVersion.compareTo(SupportedVersions.MC1144) < 1) {
-					Reflected.cacheMethod("c", "EntityLiving#broadcastItemBreak", Reflected.getClass(Reflected.nmsClass + "EntityLiving"), Reflected.getClass(Reflected.nmsClass + "EnumItemSlot"));
+				if (plugin.mcVersion.compareTo(SupportedVersions.MC1144) < 1) {
+					Reflected.cacheMethod("c", "EntityLiving#broadcastItemBreak", Reflected.getClass("EntityLiving"), Reflected.getClass("EnumItemSlot"));
 				} else if (plugin.mcVersion.compareTo(SupportedVersions.MC1152) < 1) {
-					Reflected.cacheMethod("EntityLiving#broadcastItemBreak", Reflected.getClass(Reflected.nmsClass + "EntityLiving"), Reflected.getClass(Reflected.nmsClass + "EnumItemSlot"));
+					Reflected.cacheMethod("EntityLiving#broadcastItemBreak", Reflected.getClass("EntityLiving"), Reflected.getClass("EnumItemSlot"));
 				}
 
 				if (Reflected.getMethod("EntityLiving#broadcastItemBreak") == null) {
@@ -114,9 +101,9 @@ public class ClientBreakItem extends Feature {
 				}
 			}
 
-			this.enabled = true;
+			enabled = true;
 		}
-		return isEnabled();
+		return enabled;
 	}
 
 	/**
@@ -186,7 +173,7 @@ public class ClientBreakItem extends Feature {
 	 * @param entity Entity of equipment to break
 	 * @param slot   Slot of equipment
 	 */
-	public void breakEquipment(LivingEntity entity, EquipmentSlot slot) {
+	public static void breakEquipment(LivingEntity entity, EquipmentSlot slot) {
 		try {
 			breakEquipmentEffect(entity, slot);
 		} catch (ReflectionFailedException e) {
