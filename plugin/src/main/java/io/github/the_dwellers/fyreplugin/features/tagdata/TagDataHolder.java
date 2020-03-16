@@ -1,8 +1,9 @@
-package io.github.the_dwellers.fyreplugin.entity;
+package io.github.the_dwellers.fyreplugin.features.tagdata;
 
 import io.github.the_dwellers.fyreplugin.NBT;
-import io.github.the_dwellers.fyreplugin.Reflected;
 import io.github.the_dwellers.fyreplugin.exceptions.ReflectionFailedException;
+import io.github.the_dwellers.fyreplugin.features.NBTAdapter;
+
 import org.bukkit.entity.Entity;
 
 import java.util.Base64;
@@ -64,7 +65,7 @@ public abstract class TagDataHolder {
 	protected void writeToEntity(String data) throws ReflectionFailedException {
 		data = encodeString(data);
 		data = "['" + data + "']";
-		Reflected.saveNBTToEntity(NBT.setTag(Reflected.getNBTOfEntity(entity), "Tags", data), entity);
+		NBTAdapter.saveNBTToEntity(NBT.setTag(NBTAdapter.getNBTOfEntity(entity), "Tags", data), entity);
 	}
 
 	/**
@@ -75,7 +76,7 @@ public abstract class TagDataHolder {
 	 *                                   reflection to read entity nbt
 	 */
 	protected String readFromEntity() throws ReflectionFailedException {
-		String data = NBT.getTag(Reflected.getNBTOfEntity(entity), "Tags", true);
+		String data = NBT.getTag(NBTAdapter.getNBTOfEntity(entity), "Tags", true);
 		if (data != null) {
 			data = data.substring(2, data.length() - 2);
 			data = decodeString(data);

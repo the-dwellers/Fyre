@@ -1,5 +1,8 @@
-package io.github.the_dwellers.fyreplugin;
+package io.github.the_dwellers.fyreplugin.features;
 
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.Statistic;
@@ -7,10 +10,55 @@ import org.bukkit.advancement.Advancement;
 import org.bukkit.advancement.AdvancementProgress;
 import org.bukkit.entity.Player;
 
+import io.github.the_dwellers.fyreplugin.FyrePlugin;
+import io.github.the_dwellers.fyreplugin.Feature;
+import io.github.the_dwellers.fyreplugin.configuration.SupportedVersions;
+import io.github.the_dwellers.fyreplugin.util.MinecraftVersion;
+
 /**
- * Handles advancement functions
+ * Manage and reward advancements based on server events and player statistics
  */
-public class Advancements {
+public class Advancements extends Feature implements Listener {
+
+	public static MinecraftVersion minVersion = SupportedVersions.MIN;
+
+	protected boolean enabled = false;
+	protected static String name = "Advancements";
+	private static Advancements instance;
+
+	public static Advancements getInstance() {
+		if (instance == null) {
+			instance = new Advancements();
+		}
+		return instance;
+	}
+
+	@Override
+	public MinecraftVersion getMinecraftVersion() {
+		return minVersion;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	@Override
+	public String getName() {
+		return name;
+	}
+
+	@Override
+	public boolean setup(FyrePlugin plugin) {
+		plugin.getServer().getPluginManager().registerEvents(this, plugin);
+		enabled = true;
+		return enabled;
+	}
+
+	@EventHandler()
+	public void onBlockBreak(BlockBreakEvent event) {
+		Advancements.updateBlockBreakAdvancement(event.getPlayer(), event.getBlock().getType());
+	}
 
 	/**
 	 * Awards the provided player any advancements they are entitled to. This only
@@ -99,7 +147,7 @@ public class Advancements {
 			// ? If anyone knows a shorter way to convert to an array while
 			// ? conserving type, please message me - WYVERN
 			progress.awardCriteria(
-				progress.getRemainingCriteria().toArray(new String[progress.getRemainingCriteria().size()])[0]);
+					progress.getRemainingCriteria().toArray(new String[progress.getRemainingCriteria().size()])[0]);
 		}
 	}
 }

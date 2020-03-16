@@ -1,7 +1,6 @@
-package io.github.the_dwellers.fyreplugin.events;
+package io.github.the_dwellers.fyreplugin.features;
 
 import java.util.Collection;
-
 
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -16,12 +15,42 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import io.github.the_dwellers.fyreplugin.Reflected;
+import io.github.the_dwellers.fyreplugin.FyrePlugin;
+import io.github.the_dwellers.fyreplugin.configuration.SupportedVersions;
+import io.github.the_dwellers.fyreplugin.Feature;
+import io.github.the_dwellers.fyreplugin.util.MinecraftVersion;
 
-/**
- * CropClick
- */
-public class CropClick implements Listener {
+public class PlantHoeHarvest extends Feature implements Listener {
+
+	public static MinecraftVersion minVersion = SupportedVersions.MC1144;
+
+	protected boolean enabled = false;
+	protected static String name = "Hoe Harvest";
+	private static PlantHoeHarvest instance;
+
+	public static PlantHoeHarvest getInstance() {
+		if (instance == null) {
+			instance = new PlantHoeHarvest();
+		}
+		return instance;
+	}
+
+	@Override
+	public MinecraftVersion getMinecraftVersion() {
+		return minVersion;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	@Override
+	public boolean setup(FyrePlugin plugin) {
+		plugin.getServer().getPluginManager().registerEvents(this, plugin);
+		enabled = true;
+		return true;
+	}
 
 	@EventHandler()
 	public void onCropClick(PlayerInteractEvent event) {
@@ -58,13 +87,17 @@ public class CropClick implements Listener {
 				// ? Why is there no api method to break items?
 				// ? Why do items not naturally break?
 				if (itemMeta.getDamage() > right.getType().getMaxDurability()) {
-					Reflected.breakEquipment((LivingEntity) player, EquipmentSlot.HAND);
+					if (ClientBreakItem.getInstance().isEnabled()) {
+						ClientBreakItem.breakEquipment((LivingEntity) player, EquipmentSlot.HAND);
+					} else {
+						player.getEquipment().getItemInMainHand().subtract();
+					}
 				}
 
 				right.setItemMeta((ItemMeta) itemMeta);
 				drops = block.getDrops(right);
 
-			// Off Hand
+				// Off Hand
 			} else if (leftMat == Material.WOODEN_HOE || leftMat == Material.STONE_HOE || leftMat == Material.IRON_HOE
 					|| leftMat == Material.GOLDEN_HOE || leftMat == Material.DIAMOND_HOE) {
 
@@ -72,7 +105,11 @@ public class CropClick implements Listener {
 				itemMeta.setDamage(itemMeta.getDamage() + 1);
 
 				if (itemMeta.getDamage() > left.getType().getMaxDurability()) {
-					Reflected.breakEquipment((LivingEntity) player, EquipmentSlot.OFF_HAND);
+					if (ClientBreakItem.getInstance().isEnabled()) {
+						ClientBreakItem.breakEquipment((LivingEntity) player, EquipmentSlot.HAND);
+					} else {
+						player.getEquipment().getItemInMainHand().subtract();
+					}
 				}
 
 				left.setItemMeta((ItemMeta) itemMeta);
@@ -92,4 +129,10 @@ public class CropClick implements Listener {
 			block.setBlockData(Blockdata);
 		}
 	}
+
+	@Override
+	public String getName() {
+		return name;
+	}
+
 }

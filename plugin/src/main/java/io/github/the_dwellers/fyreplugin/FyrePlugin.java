@@ -1,19 +1,20 @@
 package io.github.the_dwellers.fyreplugin;
 
-import io.github.the_dwellers.fyreplugin.commands.*;
-import io.github.the_dwellers.fyreplugin.configuration.ServerOperations;
 import io.github.the_dwellers.fyreplugin.configuration.Strings;
-import io.github.the_dwellers.fyreplugin.entity.TagInventory;
-import io.github.the_dwellers.fyreplugin.events.*;
-import io.github.the_dwellers.fyreplugin.exceptions.ReflectionFailedException;
+import io.github.the_dwellers.fyreplugin.features.*;
+import io.github.the_dwellers.fyreplugin.features.tagdata.*;
+import io.github.the_dwellers.fyreplugin.util.MinecraftVersion;
 import io.github.the_dwellers.fyreplugin.configuration.SupportedVersions;
 
 // import net.milkbowl.vault.chat.Chat;
 // import net.milkbowl.vault.permission.Permission;
 import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.logging.Logger;
 
 /**
@@ -30,8 +31,29 @@ public final class FyrePlugin extends JavaPlugin {
 
 	private static final Logger log = Logger.getLogger("Minecraft");
 	private static FyrePlugin instance;
-	// private Chat vaultChat;
-	// private Permission vaultPerms;
+	public MinecraftVersion mcVersion;
+
+	// No other way to do this? Complains about Type safety, but 'Class<?
+	// extends AbstractFeature>[]' turns into 'Cannot create a generic array of
+	// Class<? extends AbstractFeature>'
+	public static Class<? extends Feature>[] features = new Class[] {
+		Development.class, // Development Features
+		NBTAdapter.class, // NBT functions such as saving, loading, generating chat text, etc...
+		TagDataHolderFeature.class, // Store arbitrary data in entity nbt
+		TagInventoryFeature.class, // Store inventories in entity tags
+		BoatInventories.class, // Open boats like chests
+		Advancements.class, // Advancement Progression
+		AIFixes.class, // AI Bugfixes and improvements
+		ChatManagerFeature.class, // Chat formatting
+		ClientBreakItem.class, // Client tool break (Why is this not in the api‽)
+		DaylightExtension.class, // Daylight Extending
+		EntityAttributes.class, // Entity Value changes
+		ItemFeatures.class, // Functionality relating to items
+		LandTrampling.class, // Trample grass and crops into dirt
+		Management.class, // Server management utilities
+		Merchants.class, // Trade with NPCs and unlock levels
+		PlantHoeHarvest.class, // Right-click to harvest crops
+	};
 
 	public FyrePlugin() {
 		instance = this;
@@ -41,134 +63,71 @@ public final class FyrePlugin extends JavaPlugin {
 		return instance;
 	}
 
-	// public Chat getVaultChat() {
-	//  return vaultChat;
-	// }
-
-	// public Permission getVaultPerms() {
-	//  return vaultPerms;
-	// }
-
 	@Override
 	public void onEnable() {
-		switch (Reflected.setupCache(log)) {
-		case 0:
-			// If Fyre failed to setup reflections, stop loading the plugin
-			this.setEnabled(false);
+		long tStart = System.currentTimeMillis();
+
+		log.info(Strings.LOG_PREFIX + "Loading Experimental Feature Branch...");
+
+		// Version string format is normally `git-Paper-1618 (MC: 1.12.2)`
+		// We want `1.12.2`
+		String versionString = Bukkit.getVersion().substring(Bukkit.getVersion().indexOf("(", 0) + 5,
+				Bukkit.getVersion().length() - 1);
+
+		try {
+			// Attempt to parse mc version
+			mcVersion = new MinecraftVersion(versionString);
+
+		} catch (IllegalArgumentException e) {
+			log.severe(Strings.LOG_PREFIX + "Unable to decipher Minecraft version from '" + versionString
+					+ "' Fyre cannot safely load, and will now disable.");
 			return;
-		case 2:
-			log.warning(Strings.LOG_PREFIX + "Server jar is not patched with merchant fixes. XP and level bars will be disabled on traders.");
-			break;
-		case 1:
-			log.info(Strings.LOG_PREFIX + "Server jar is fully patched.");
-			break;
 		}
 
-		setupDependencies();
-		serverSetUp();
-		registerCommands();
-		registerListeners();
-		patchNMS();
-	}
+		log.info(Strings.LOG_PREFIX + "Setting up for " + mcVersion.toString());
+		if (mcVersion.compareTo(SupportedVersions.MC1152) != 0) {
+			log.warning(
+					Strings.LOG_PREFIX + "Loading for unsupported minecraft version! Some features may be disabled!");
+		}
 
-	@Override
-	public void onDisable() {
-		for (Player player : Bukkit.getOnlinePlayers()) {
-			if (player.getOpenInventory().getTopInventory().getHolder() != null) {
-				if (player.getOpenInventory().getTopInventory().getHolder().getClass() == TagInventory.class) {
-					((TagInventory) player.getOpenInventory().getTopInventory().getHolder()).closeInventory();
+		for (Class<? extends Feature> featureClass : features) {
+			try {
+				// ! I hate this, is there any other method for abstracted static instantiation code??
+				Method getInstanceMethod = featureClass.getMethod("getInstance");
+				Object instanceObject = getInstanceMethod.invoke(null);
+				Feature feature = Feature.class.cast(instanceObject);
+
+				if (mcVersion.compareTo(feature.getMinecraftVersion()) > -1) {
+					boolean result = feature.setup(this);
+					if (!result) {
+						log.info(Strings.LOG_PREFIX + "Failed to load " + feature.getName());
+					} else {
+						if (Development.getInstance().isEnabled()) {
+							log.info(Strings.LOG_PREFIX + "Loaded " + feature.getName());
+						}
+					}
+
+				} else {
+					log.info(Strings.LOG_PREFIX + "Skipped " + feature.getName() + ", requires MC v"
+							+ feature.getMinecraftVersion().toString());
+				}
+			} catch (NullPointerException | InvocationTargetException | NoSuchMethodException | IllegalAccessException e) {
+				log.severe(Strings.LOG_PREFIX + "Malformed Feature :" + featureClass.getName());
+				if (Development.getInstance().isEnabled()) {
+					e.printStackTrace();
+				}
+			} catch (NoClassDefFoundError e) {
+				log.info(Strings.LOG_PREFIX + "Skipped " + featureClass.getName() + ", unknown API");
+				if (Development.getInstance().isEnabled()) {
+					e.printStackTrace();
 				}
 			}
 		}
-	}
 
-	/**
-	 * Executes reflected code to patch vanilla Minecraft
-	 */
-	private void patchNMS() {
-		if (Reflected.mcVersion.compareTo(SupportedVersions.MC1144) > -1) {
-			try {
-				Reflected.patchCompost();
-			} catch (ReflectionFailedException e) {
-				log.severe(Strings.LOG_PREFIX + "Unable to Patch Composter due to reflection errors. \n" + e.getMessage());
-			}
-		}
-	}
+		// Time taken to load
+		DecimalFormat decimalFormat = new DecimalFormat("0.00");
+		decimalFormat.setRoundingMode(RoundingMode.DOWN);
+		log.info(Strings.LOG_PREFIX + "Fyre Loaded in " + decimalFormat.format((System.currentTimeMillis() - tStart) / 1000.0) + "s");
 
-	/**
-	 * Registers all commands provided by the Fyre plugin.
-	 * <p>
-	 * Also attempts to replace {@code bukkit:plugins} with {@code fyre:plugins}
-	 */
-	private void registerCommands() {
-		// Remove Bukkit plugin command
-		getServer().getCommandMap().getCommand("plugins");
-
-		this.getCommand("armor").setExecutor(new ArmorCommand());
-		this.getCommand("debug").setExecutor(new DebugCommand());
-		this.getCommand("item").setExecutor(new ItemCommand());
-		this.getCommand("list").setExecutor(new ListCommand());
-		this.getCommand("money").setExecutor(new MoneyCommand());
-		this.getCommand("plugins").setExecutor(new PluginsCommand());
-		this.getCommand("status").setExecutor(new StatusCommand());
-		this.getCommand("trader").setExecutor(new TraderCommand());
-	}
-
-	/**
-	 * Register all event listeners provided by the Fyre plugin.
-	 */
-	private void registerListeners() {
-		getServer().getPluginManager().registerEvents(new BlockBreak(), this);
-		getServer().getPluginManager().registerEvents(new BoatClick(), this);
-
-		if (Reflected.mcVersion.compareTo(SupportedVersions.MC1144) > -1) {
-			getServer().getPluginManager().registerEvents(new CropClick(), this);
-			getServer().getPluginManager().registerEvents(new TickEnd(), this);
-		}
-
-		getServer().getPluginManager().registerEvents(new Dismount(), this);
-		getServer().getPluginManager().registerEvents(new EntitySpawn(), this);
-		getServer().getPluginManager().registerEvents(new FallDamage(), this);
-		getServer().getPluginManager().registerEvents(new InventoryClosed(), this);
-		getServer().getPluginManager().registerEvents(new KnowledgeBookUse(), this);
-		getServer().getPluginManager().registerEvents(new OnDamage(), this);
-		getServer().getPluginManager().registerEvents(new PlayerChat(), this);
-		getServer().getPluginManager().registerEvents(new PlayerDeath(), this);
-		getServer().getPluginManager().registerEvents(new PlayerJoin(), this);
-		getServer().getPluginManager().registerEvents(new PlayerLeave(), this);
-		getServer().getPluginManager().registerEvents(new PlayerMove(), this);
-		getServer().getPluginManager().registerEvents(new PlayerPreProcessorCommand(), this);
-		getServer().getPluginManager().registerEvents(new PlayerRespawn(), this);
-		getServer().getPluginManager().registerEvents(new staffLog(), this);
-		getServer().getPluginManager().registerEvents(new TraderClick(), this);
-		getServer().getPluginManager().registerEvents(new VehicleDestroy(), this);
-		getServer().getPluginManager().registerEvents(new CropTrample(), this);
-	}
-
-	private void serverSetUp() {
-		ServerOperations.createPlayerDataDirectory();
-	}
-
-	private void setupDependencies() {
-		// ! Upstream Dependency issue
-		// if (getServer().getPluginManager().getPlugin("Vault") == null) {
-			log.warning(Strings.LOG_PREFIX + "Vault is not installed, some features may be unavailable"); /*
-		} else {
-			RegisteredServiceProvider<Chat> chatService = getServer().getServicesManager().getRegistration(Chat.class);
-			RegisteredServiceProvider<Permission> permissionService = getServer().getServicesManager()
-					.getRegistration(Permission.class);
-
-			if (permissionService == null) {
-				log.info(Strings.LOG_PREFIX + "No Permission Services registered. Default permissions will be used");
-			} else {
-				this.vaultPerms = permissionService.getProvider();
-			}
-
-			if (chatService == null) {
-				log.info(Strings.LOG_PREFIX + "No Chat Services registered. Will use default Fyre values");
-			} else {
-				this.vaultChat = chatService.getProvider();
-			}
-		}*/
 	}
 }
