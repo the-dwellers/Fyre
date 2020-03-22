@@ -53,6 +53,7 @@ public final class FyrePlugin extends JavaPlugin {
 		Management.class, // Server management utilities
 		Merchants.class, // Trade with NPCs and unlock levels
 		PlantHoeHarvest.class, // Right-click to harvest crops
+		Compost.class, // Compost extra items
 	};
 
 	public FyrePlugin() {

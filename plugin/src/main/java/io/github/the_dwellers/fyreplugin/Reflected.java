@@ -178,11 +178,11 @@ public abstract class Reflected {
 	 * @return true if method was cached, false otherwise. A log is made on
 	 *         failures.
 	 */
-	public static boolean cacheDeclaredMethod(String name, Class<?> class1, Class<?>... parameterTypes) {
+	public static boolean cacheDeclaredMethod(String name, String key, Class<?> class1, Class<?>... parameterTypes) {
 		try {
-			Method method = class1.getDeclaredMethod(name.split("#")[1], parameterTypes);
+			Method method = class1.getDeclaredMethod(name, parameterTypes);
 			method.setAccessible(true);
-			methodCache.put(name, method);
+			methodCache.put(key, method);
 			return true;
 		} catch (NoSuchMethodException e) {
 			return false;
