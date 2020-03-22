@@ -27,6 +27,7 @@ import java.util.logging.Logger;
  * @version 0.1
  * @see https://github.com/the-dwellers/Fyre
  */
+@SuppressWarnings("unchecked")
 public final class FyrePlugin extends JavaPlugin {
 
 	private static final Logger log = Logger.getLogger("Minecraft");
