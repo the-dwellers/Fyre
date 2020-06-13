@@ -9,4 +9,4 @@ Modular features also makes development easier, since each component is
 independent (while still allowing dependencies), and issues with one section
 is easier to find, than with a monolithic setup.
 
-![Feature System Overview](E:\Development\Gits\fyre\plugin\doc\img\feature-system-overview.drawio.png)
+![Feature System Overview](.\img\feature-system-overview.drawio.png)
