@@ -79,7 +79,7 @@ public class LandTrampling extends Feature implements Listener {
 				}
 			}
 		} else if (player.getVehicle() instanceof AbstractHorse) {
-			// Player is in a horse
+			// Player is on a horse
 			// instanceof returns false if player.getVehicle() is null or not a horse
 			Entity vehicle = player.getVehicle();
 

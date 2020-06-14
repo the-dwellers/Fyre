@@ -57,7 +57,6 @@ public class Development extends Feature implements Listener {
 		return true;
 	}
 
-
 	public class DebugCommand extends AbstractCommand {
 		@Override
 		public String getPermission() {
