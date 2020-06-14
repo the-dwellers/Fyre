@@ -414,6 +414,8 @@ public abstract class Items {
 	}
 
 	public static ItemStack getSplinters() {
+		// ? Potential issue with UUID set by attributes preventing proper usage with datapacks
+		// TODO: Need to look more into this, unsure which specific component prevents usage with nbt-string defined items
 		if (SPLINTERS == null) {
 			SPLINTERS = new ItemStack(Material.STICK, 1);
 			ItemMeta meta = SPLINTERS.getItemMeta();
@@ -460,7 +462,7 @@ public abstract class Items {
 	}
 
 	@SuppressWarnings("deprecation")
-	public static ItemStack generateCraftingBook(CraftingBook book) {
+	private static ItemStack generateCraftingBook(CraftingBook book) {
 		ItemStack knowledgeBook = new ItemStack(Material.KNOWLEDGE_BOOK);
 		KnowledgeBookMeta itemMeta = (KnowledgeBookMeta) knowledgeBook.getItemMeta();
 
