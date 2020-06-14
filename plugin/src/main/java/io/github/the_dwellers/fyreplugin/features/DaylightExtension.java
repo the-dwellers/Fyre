@@ -50,9 +50,11 @@ public class DaylightExtension extends Feature implements Listener {
 
 	@Override
 	public boolean setup(FyrePlugin plugin) {
-		plugin.getServer().getPluginManager().registerEvents(this, plugin);
-		enabled = true;
-		return isEnabled();
+		return false;
+		// ! Bug in onTickEndEvent(), causes crazy day progression
+		// plugin.getServer().getPluginManager().registerEvents(this, plugin);
+		// enabled = true;
+		// return isEnabled();
 	}
 
 	private Random rand;
@@ -66,6 +68,8 @@ public class DaylightExtension extends Feature implements Listener {
 		List<World> worlds = Bukkit.getWorlds();
 		for (World world : worlds) {
 			if (world.isDayTime() && rand.nextInt(2) == 0) {
+				// ! Setting a time negative from the current time advances the day forward!
+				// ! Thus breaking any mechanic related to days passed.
 				world.setTime(world.getTime() - 1);
 			}
 		}
