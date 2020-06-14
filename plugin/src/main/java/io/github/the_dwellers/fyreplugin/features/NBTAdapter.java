@@ -204,14 +204,14 @@ public class NBTAdapter extends Feature {
 			Method nmsItemStackSaveMethod = Reflected.getMethod("ItemStack#save");
 
 			// Create an instance of net.minecraft.NBTTagCompound
-			Object nmsNBTTagCompoundObject = nmsNBTTagCompoundClass.newInstance();
+			Object nmsNBTTagCompoundObject = nmsNBTTagCompoundClass.getDeclaredConstructor().newInstance();
 
 			// use net.minecraft.NBTTagCompound#save(net.minecraft.NBTTagCompound) on
 			// nmsItemStack
 			Object nbtObject = nmsItemStackSaveMethod.invoke(nmsItemStack, nmsNBTTagCompoundObject);
 
 			return nbtObject.toString();
-		} catch (LinkageError | IllegalAccessException | InvocationTargetException | InstantiationException e) {
+		} catch (LinkageError | IllegalAccessException | InvocationTargetException | InstantiationException | NoSuchMethodException e) {
 			throw new ReflectionFailedException(e);
 		}
 	}
@@ -292,7 +292,7 @@ public class NBTAdapter extends Feature {
 			Method entitySave = Reflected.getMethod("Entity#save");
 
 			// net.minecraft.NBTTagCompound()
-			Object nbtData = NBTTagCompoundClass.newInstance();
+			Object nbtData = NBTTagCompoundClass.getDeclaredConstructor().newInstance();
 
 			// Get org.bukkit.craftbukkit.CraftEntity
 			Class<?> bukkitEntity = Reflected.getClass("CraftEntity");
@@ -314,7 +314,7 @@ public class NBTAdapter extends Feature {
 
 			return (String) toString.invoke(nbtData);
 
-		} catch (LinkageError | IllegalAccessException | InstantiationException | InvocationTargetException e) {
+		} catch (LinkageError | IllegalAccessException | InstantiationException | InvocationTargetException | NoSuchMethodException e) {
 			throw new ReflectionFailedException(e);
 		}
 	}

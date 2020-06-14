@@ -12,7 +12,7 @@ IF NOT EXIST "server\plugins" (
 	mkdir "server\plugins"
 )
 
-call .\gradlew.bat clean jar
+call .\gradlew.bat jar --warning-mode all
 
 IF EXIST "server\plugins\FyrePlugin.jar" (
 	del "server\plugins\FyrePlugin.jar"
@@ -37,11 +37,11 @@ IF NOT EXIST "world" (
 )
 
 IF EXIST "world\datapacks" (
-    echo Y|rmdir /s "world\datapacks"
+	echo Y|rmdir /s "world\datapacks"
 )
 
-REM mkdir "world\datapacks"
-REM xcopy """..\..\datapack" "world\datapacks" /S /E /D /Q
+mkdir "world\datapacks"
+xcopy """..\..\datapack" "world\datapacks" /S /E /D /Q
 
 IF NOT EXIST "server.jar" (
 	echo Downloading PaperMC...
