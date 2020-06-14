@@ -55,6 +55,7 @@ public final class FyrePlugin extends JavaPlugin {
 		Merchants.class, // Trade with NPCs and unlock levels
 		PlantHoeHarvest.class, // Right-click to harvest crops
 		Compost.class, // Compost extra items
+		Mobs.class, // Mob tweaks, including equipment
 	};
 
 	public FyrePlugin() {
@@ -102,7 +103,7 @@ public final class FyrePlugin extends JavaPlugin {
 				if (mcVersion.compareTo(feature.getMinecraftVersion()) > -1) {
 					boolean result = feature.setup(this);
 					if (!result) {
-						log.info(Strings.LOG_PREFIX + "Failed to load " + feature.getName());
+						log.warning(Strings.LOG_PREFIX + "Failed to load " + feature.getName());
 					} else {
 						if (Development.getInstance().isEnabled()) {
 							log.info(Strings.LOG_PREFIX + "Loaded " + feature.getName());
@@ -110,7 +111,7 @@ public final class FyrePlugin extends JavaPlugin {
 					}
 
 				} else {
-					log.info(Strings.LOG_PREFIX + "Skipped " + feature.getName() + ", requires MC v"
+					log.warning(Strings.LOG_PREFIX + "Skipped " + feature.getName() + ", requires MC v"
 							+ feature.getMinecraftVersion().toString());
 				}
 			} catch (NullPointerException | InvocationTargetException | NoSuchMethodException | IllegalAccessException e) {

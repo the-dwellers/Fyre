@@ -8,6 +8,7 @@ import org.bukkit.attribute.AttributeModifier.Operation;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Creeper;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Spider;
 import org.bukkit.event.EventHandler;
@@ -63,7 +64,6 @@ public class EntityAttributes extends Feature implements Listener {
 		return isEnabled();
 	}
 
-
 	/**
 	 * Update player attributes.
 	 *
@@ -118,8 +118,12 @@ public class EntityAttributes extends Feature implements Listener {
 	@EventHandler()
 	public void onDamage(EntityDamageByEntityEvent event) {
 		if (event.getEntity() instanceof Creeper) {
-			// Creepers explode when hit
-			((Creeper) event.getEntity()).ignite();
+			if (event.getDamager().getType() == EntityType.CREEPER) {
+				((Creeper) event.getEntity()).explode();
+			} else {
+				// Creepers explode when hit
+				((Creeper) event.getEntity()).ignite();
+			}
 		}
 
 		if (event.getEntity() instanceof Spider) {

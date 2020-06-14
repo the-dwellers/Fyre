@@ -39,6 +39,7 @@ public abstract class Items {
 	private static ItemStack WOOD_SHOVEL;
 	private static ItemStack WOOD_SWORD;
 	private static ItemStack WOOD_PICKAXE;
+	private static ItemStack WOOD_HOE;
 	private static ItemStack SPLINTERS;
 
 	private static ItemStack TOME_CRAFTING_TABLE;
@@ -411,6 +412,13 @@ public abstract class Items {
 			WOOD_PICKAXE = new ItemStack(Material.WOODEN_PICKAXE, 1);
 		}
 		return WOOD_PICKAXE.clone();
+	}
+
+	public static ItemStack getWoodHoe() {
+		if (WOOD_HOE == null) {
+			WOOD_HOE = new ItemStack(Material.WOODEN_HOE, 1);
+		}
+		return WOOD_HOE.clone();
 	}
 
 	public static ItemStack getSplinters() {
