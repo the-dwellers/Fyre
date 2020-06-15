@@ -1,0 +1,8 @@
+{
+	"recommendations": [
+		"editorconfig.editorconfig",
+		"vscjava.vscode-java-pack",
+		"fwcd.kotlin",
+		"naco-siren.gradle-language"
+	]
+}
