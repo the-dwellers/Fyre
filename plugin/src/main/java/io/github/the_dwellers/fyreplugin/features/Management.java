@@ -25,7 +25,7 @@ import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 
 /**
- * Management
+ * Management utilities for staff and players.
  */
 public class Management extends Feature implements Listener {
 

@@ -17,7 +17,7 @@ import io.github.the_dwellers.fyreplugin.util.MinecraftVersion;
 import io.github.the_dwellers.fyreplugin.util.RandomUtil;
 
 /**
- * Trample grass into dirt
+ * Trample grass into dirt.
  */
 public class LandTrampling extends Feature implements Listener {
 

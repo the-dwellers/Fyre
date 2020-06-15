@@ -25,7 +25,7 @@ import io.github.the_dwellers.fyreplugin.Feature;
 import io.github.the_dwellers.fyreplugin.util.MinecraftVersion;
 
 /**
- * Features and logic required by custom items
+ * Features and logic required by custom items.
  */
 public class ItemFeatures extends Feature implements Listener {
 

@@ -12,7 +12,9 @@ import io.github.the_dwellers.fyreplugin.configuration.SupportedVersions;
 import io.github.the_dwellers.fyreplugin.util.MinecraftVersion;
 
 /**
- * Miscellaneous Entity AI fixes.
+ * Miscellaneous Entity AI fixes. <p>
+ * @see EntityAttributes
+ * @see Mobs
  */
 public class AIFixes extends Feature implements Listener {
 

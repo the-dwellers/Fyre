@@ -16,7 +16,9 @@ import io.github.the_dwellers.fyreplugin.configuration.SupportedVersions;
 import io.github.the_dwellers.fyreplugin.util.MinecraftVersion;
 
 /**
- * Prolong daylight by randomly delaying day advancement
+ * Prolong daylight by randomly delaying day advancement.
+ * <p>
+ * Note: Currently there is a problem with day reversal.
  */
 public class DaylightExtension extends Feature implements Listener {
 

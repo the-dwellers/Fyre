@@ -25,11 +25,12 @@ import io.github.the_dwellers.fyreplugin.util.MinecraftVersion;
 import io.github.the_dwellers.fyreplugin.util.RandomUtil;
 
 /**
- * Feature wrapper for {@link TagDataHolder}
- * <hr>
- * Represents any {@link Entity} that may have external data serialized to their
- * 'Tag' nbt value.
- */
+ * Adds different equipment rules for Mobs, including difficulty based on depth.
+ * Also provides methods for setting up bosses and events. See
+ * {@link EntityAttributes} for default on-hit effects and general attribute
+ * changes.
+ * @see EntityAttributes
+ * */
 public class Mobs extends Feature implements Listener {
 
 	public static MinecraftVersion minVersion = SupportedVersions.MIN;
@@ -87,10 +88,18 @@ public class Mobs extends Feature implements Listener {
 		}
 	}
 
+	/**
+	 * Fyre Mob difficulty.
+	 */
 	public enum MobDifficulty {
 		Weak, Medium, Strong, VeryStrong, Boss, RaidBoss
 	}
 
+	/**
+	 * Generates a difficulty based on the current yPosition. Does not include boss chances.
+	 * @param yPos depth in blocks, with 0 at the bottom.
+	 * @return Difficulty of a mob spawned at the provided depth.
+	 */
 	private MobDifficulty getDifficulty(int yPos) {
 		if (yPos < 21) {
 			return MobDifficulty.VeryStrong;
@@ -103,6 +112,12 @@ public class Mobs extends Feature implements Listener {
 		}
 	}
 
+	/**
+	 * Sets up the provided entity with the equipment for the given difficulty. <p>
+	 * Entities which do not scale with difficulty will be unaffected.
+	 * @param entity Entity to setup.
+	 * @param difficulty Difficulty to equip mob for.
+	 */
 	private void setupMobEquipment(Monster entity, MobDifficulty difficulty) {
 		// Java is a good language and has no bugs whatsoever
 		int rand;
@@ -203,15 +218,31 @@ public class Mobs extends Feature implements Listener {
 		}
 	}
 
+	/**
+	 * Type of bosses available in Fyre. These are replacements for common
+	 * enemies and are not specific events.
+	 */
 	public enum BossType {
 		Random, GuardCaptain
 	}
 
+	/**
+	 * Spawns a boss at the provided location.
+	 * @param bossType Type of boss to spawn.
+	 * @param location Location to spawn boss at.
+	 */
 	public void spawnBoss(BossType bossType, Location location) {
 		Entity boss = location.getWorld().spawnEntity(location, EntityType.ZOMBIE);
 		setupBoss((Monster) boss, bossType);
 	}
 
+	/**
+	 * Setup a boss entity with correct equipment and attribute changes. <p>
+	 * Some boss types may be incompatible with the provided entity, ensure
+	 * passed entity types are supported! <p> Supports {@link BossType}.Random
+	 * @param entity Entity to setup as a boss
+	 * @param type Type of boss to setup entity as.
+	 */
 	private void setupBoss(Monster entity, BossType type) {
 		if (type == BossType.Random) {
 			// Todo: Multiple boss types
@@ -253,7 +284,6 @@ public class Mobs extends Feature implements Listener {
 
 				entity.getEquipment().setBoots(Items.getIronBoots());
 				entity.getEquipment().setBootsDropChance(1);
-
 				break;
 		}
 	}

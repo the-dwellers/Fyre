@@ -15,7 +15,9 @@ import io.github.the_dwellers.fyreplugin.Feature;
 import io.github.the_dwellers.fyreplugin.util.MinecraftVersion;
 
 /**
- * NBTAdapter
+ * Adapter for general NBT interactions with Minecraft.
+ * <p>
+ * This is the most likely part to break during version changes!
  */
 public class NBTAdapter extends Feature {
 

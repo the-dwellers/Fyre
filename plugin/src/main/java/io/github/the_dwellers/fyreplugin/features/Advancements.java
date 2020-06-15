@@ -16,7 +16,7 @@ import io.github.the_dwellers.fyreplugin.configuration.SupportedVersions;
 import io.github.the_dwellers.fyreplugin.util.MinecraftVersion;
 
 /**
- * Manage and reward advancements based on server events and player statistics
+ * Manage and reward advancements based on server events and player statistics,
  */
 public class Advancements extends Feature implements Listener {
 

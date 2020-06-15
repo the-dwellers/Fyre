@@ -11,7 +11,7 @@ import io.github.the_dwellers.fyreplugin.configuration.SupportedVersions;
 import io.github.the_dwellers.fyreplugin.util.MinecraftVersion;
 
 /**
- * Add additional items to the composter
+ * Add additional items to the composter.
  */
 public class Compost extends Feature {
 

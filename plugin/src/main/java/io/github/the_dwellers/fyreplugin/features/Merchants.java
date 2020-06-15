@@ -29,7 +29,7 @@ import io.github.the_dwellers.fyreplugin.exceptions.ReflectionFailedException;
 import io.github.the_dwellers.fyreplugin.util.MinecraftVersion;
 
 /**
- * Merchants
+ * Merchants that interact with the player to sell items.
  */
 public class Merchants extends Feature implements Listener {
 

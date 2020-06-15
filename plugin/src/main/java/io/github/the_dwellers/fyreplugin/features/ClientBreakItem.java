@@ -13,7 +13,7 @@ import io.github.the_dwellers.fyreplugin.exceptions.ReflectionFailedException;
 import io.github.the_dwellers.fyreplugin.util.MinecraftVersion;
 
 /**
- * Break a tool, including breaking effects
+ * Break a tool, including breaking effects.
  */
 public class ClientBreakItem extends Feature {
 

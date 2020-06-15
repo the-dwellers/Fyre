@@ -26,7 +26,9 @@ import io.github.the_dwellers.fyreplugin.configuration.SupportedVersions;
 import io.github.the_dwellers.fyreplugin.util.MinecraftVersion;
 
 /**
- * Attribute changes to entities.
+ * Attribute changes to entities, as well as some minor tweaks to common monster
+ * interactions. See {@link Mobs} for difficulty and equipment interactions.
+ * @see Mobs
  */
 public class EntityAttributes extends Feature implements Listener {
 

@@ -20,6 +20,11 @@ import io.github.the_dwellers.fyreplugin.configuration.SupportedVersions;
 import io.github.the_dwellers.fyreplugin.Feature;
 import io.github.the_dwellers.fyreplugin.util.MinecraftVersion;
 
+/**
+ * Harvest plants by right-clicking with a hoe!
+ * <p>
+ * Will play correct item breaking effects if {@link ClientBreakItem} is enabled.
+ */
 public class PlantHoeHarvest extends Feature implements Listener {
 
 	public static MinecraftVersion minVersion = SupportedVersions.MC1144;
