@@ -23,7 +23,7 @@ echo F|xcopy "build\libs\FyrePlugin-1.0-SNAPSHOT.jar" "server\plugins\FyrePlugin
 cd "server"
 
 IF NOT EXIST "eula.txt" (
-	echo By continuing you accept the Minecraft EULA "https://account.mojang.com\documents\minecraft_eula"
+	echo By continuing you accept the Minecraft EULA "https://account.mojang.com/documents/minecraft_eula"
 	echo Press any key to accept or Ctrl+C to decline
 	PAUSE>NUL
 
