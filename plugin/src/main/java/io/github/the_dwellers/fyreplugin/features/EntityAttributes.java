@@ -18,6 +18,7 @@ import org.bukkit.event.entity.EntitySpawnEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.spigotmc.event.player.PlayerSpawnLocationEvent;
 
 import io.github.the_dwellers.fyreplugin.FyrePlugin;
 import io.github.the_dwellers.fyreplugin.Feature;
@@ -71,6 +72,7 @@ public class EntityAttributes extends Feature implements Listener {
 	 */
 	public static void applyPlayer(Player player) {
 		// 5 hearts of health
+		// ! Applying the attribute will replace armour bonuses!
 		player.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(10);
 
 		// player.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(0.13);
@@ -99,12 +101,12 @@ public class EntityAttributes extends Feature implements Listener {
 
 	public static void applyOverworldHostile(Attributable entity) {
 		entity.getAttribute(Attribute.GENERIC_MAX_HEALTH)
-			.addModifier(new AttributeModifier("Fyre Spawn Health 1.5", 0.5, Operation.MULTIPLY_SCALAR_1));
+				.addModifier(new AttributeModifier("Fyre Spawn Health 1.5", 0.5, Operation.MULTIPLY_SCALAR_1));
 	}
 
 	public static void applyNetherHostile(Attributable entity) {
 		entity.getAttribute(Attribute.GENERIC_MAX_HEALTH)
-			.addModifier(new AttributeModifier("Fyre Spawn Health 2", 1, Operation.MULTIPLY_SCALAR_1));
+				.addModifier(new AttributeModifier("Fyre Spawn Health 2", 1, Operation.MULTIPLY_SCALAR_1));
 
 	}
 
@@ -152,10 +154,12 @@ public class EntityAttributes extends Feature implements Listener {
 			}
 
 			// TODO: Add one-shot health threshold to config
-			if (player.getHealth() < 3 && event.getFinalDamage() >= player.getHealth()) {
-				// One-shot protection
-				event.setDamage(0);
-				player.setHealth(1);
+			if (player.getHealth() != 1) {
+				if (player.getHealth() < 3 && event.getFinalDamage() >= player.getHealth()) {
+					// One-shot protection
+					event.setDamage(0);
+					player.setHealth(1);
+				}
 			}
 		}
 	}
@@ -164,6 +168,13 @@ public class EntityAttributes extends Feature implements Listener {
 	public void onPlayerRespawnEvent(PlayerRespawnEvent event) {
 		// Apply spawn attributes
 		applyPlayer(event.getPlayer());
+	}
+
+	@EventHandler()
+	public void onFirstJoin(PlayerSpawnLocationEvent event){
+		if (!event.getPlayer().hasPlayedBefore()) {
+			applyPlayer(event.getPlayer());
+		}
 	}
 
 }
