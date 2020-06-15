@@ -57,7 +57,7 @@ tasks {
         val path = sourceSets.main.get().resources.srcDirs
         from(path) {
             val tokens = mapOf("version" to version)
-            filter<ReplaceTokens>(tokens)
+            filter<ReplaceTokens>("tokens" to tokens)
         }
     }
 

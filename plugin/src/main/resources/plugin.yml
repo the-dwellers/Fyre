@@ -10,7 +10,6 @@ authors:
   - ChargedByte
 website: https://github.com/the-dwellers/Fyre
 softdepend:
-  - Vault
   - ProtocolLib
 
 commands:
