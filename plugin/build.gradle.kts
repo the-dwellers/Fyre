@@ -34,16 +34,7 @@ dependencies {
     implementation(kotlin("reflect"))
     implementation(kotlin("stdlib-jdk8"))
 
-    implementation("com.destroystokyo.paper", "paper-api", "1.15.1-R0.1-SNAPSHOT")
-
-    compileOnly("org.reflections", "reflections", "0.9.10")
-
-    compileOnly("com.google.code.gson", "gson", "2.8.6")
-    compileOnly("org.projectlombok", "lombok", "1.18.10")
-
-    annotationProcessor("org.projectlombok", "lombok", "1.18.10")
-
-    testImplementation("org.junit.jupiter", "junit-jupiter", "5.5.2")
+    implementation("com.destroystokyo.paper", "paper-api", "1.15.2-R0.1-SNAPSHOT")
 }
 
 java {
