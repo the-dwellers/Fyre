@@ -35,11 +35,19 @@ public abstract class Items {
 
 	private static ItemStack SILVER_COIN;
 	private static ItemStack ERROR_ITEM;
+
 	private static ItemStack WOOD_AXE;
 	private static ItemStack WOOD_SHOVEL;
 	private static ItemStack WOOD_SWORD;
 	private static ItemStack WOOD_PICKAXE;
 	private static ItemStack WOOD_HOE;
+
+	private static ItemStack STONE_AXE;
+	private static ItemStack STONE_SHOVEL;
+	private static ItemStack STONE_SWORD;
+	private static ItemStack STONE_PICKAXE;
+	private static ItemStack STONE_HOE;
+
 	private static ItemStack SPLINTERS;
 
 	private static ItemStack TOME_CRAFTING_TABLE;
@@ -65,6 +73,8 @@ public abstract class Items {
 	private static ItemStack ARMOR_DIAMOND_CHESTPLATE;
 	private static ItemStack ARMOR_DIAMOND_LEGGINGS;
 	private static ItemStack ARMOR_DIAMOND_BOOTS;
+
+	private static ItemStack SHIELD;
 
 	public static ItemStack getLeatherHelmet() {
 		if (ARMOR_LEATHER_HELMET == null) {
@@ -393,6 +403,20 @@ public abstract class Items {
 		return ERROR_ITEM.clone();
 	}
 
+	public static ItemStack getShield() {
+		if (SHIELD == null) {
+			SHIELD = new ItemStack(Material.SHIELD, 1);
+		}
+		return SHIELD.clone();
+	}
+
+	public static ItemStack getWoodSword() {
+		if (WOOD_SWORD == null) {
+			WOOD_SWORD = new ItemStack(Material.WOODEN_SWORD, 1);
+		}
+		return WOOD_SWORD.clone();
+	}
+
 	public static ItemStack getWoodAxe() {
 		if (WOOD_AXE == null) {
 			WOOD_AXE = new ItemStack(Material.WOODEN_AXE, 1);
@@ -419,6 +443,41 @@ public abstract class Items {
 			WOOD_HOE = new ItemStack(Material.WOODEN_HOE, 1);
 		}
 		return WOOD_HOE.clone();
+	}
+
+	public static ItemStack getStoneSword() {
+		if (STONE_SWORD == null) {
+			STONE_SWORD = new ItemStack(Material.STONE_SWORD, 1);
+		}
+		return STONE_SWORD.clone();
+	}
+
+	public static ItemStack getStoneShovel() {
+		if (STONE_AXE == null) {
+			STONE_AXE = new ItemStack(Material.STONE_SHOVEL, 1);
+		}
+		return STONE_AXE.clone();
+	}
+
+	public static ItemStack getStonePickaxe() {
+		if (STONE_SHOVEL == null) {
+			STONE_SHOVEL = new ItemStack(Material.STONE_PICKAXE, 1);
+		}
+		return STONE_SHOVEL.clone();
+	}
+
+	public static ItemStack getStoneAxe() {
+		if (STONE_PICKAXE == null) {
+			STONE_PICKAXE = new ItemStack(Material.STONE_AXE, 1);
+		}
+		return STONE_PICKAXE.clone();
+	}
+
+	public static ItemStack getStoneHoe() {
+		if (STONE_HOE == null) {
+			STONE_HOE = new ItemStack(Material.STONE_HOE, 1);
+		}
+		return STONE_HOE.clone();
 	}
 
 	public static ItemStack getSplinters() {
@@ -551,10 +610,4 @@ public abstract class Items {
 		return knowledgeBook;
 	}
 
-	public static ItemStack getWoodSword() {
-		if (WOOD_SWORD == null) {
-			WOOD_SWORD = new ItemStack(Material.WOODEN_SWORD, 1);
-		}
-		return WOOD_SWORD.clone();
-	}
 }

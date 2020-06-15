@@ -21,6 +21,20 @@ public abstract class ItemCollections {
 
 	public static ItemStack getTool(ToolMaterial material, Tool tool) {
 		switch (material) {
+		case Stone:
+			switch (tool) {
+			case Axe:
+				return Items.getStoneAxe();
+			case Pickaxe:
+				return Items.getStonePickaxe();
+			case Hoe:
+				return Items.getStoneHoe();
+			case Shovel:
+				return Items.getStoneShovel();
+			case Sword:
+			default:
+				return Items.getStoneSword();
+			}
 		default:
 		case Wood:
 			switch (tool) {
@@ -36,7 +50,6 @@ public abstract class ItemCollections {
 			default:
 				return Items.getWoodSword();
 			}
-			// case Stone:
 			// case Iron:
 			// case Gold:
 			// case Diamond:
