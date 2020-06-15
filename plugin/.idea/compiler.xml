@@ -11,5 +11,6 @@
         <module name="FyrePlugin.main" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel target="14" />
   </component>
 </project>

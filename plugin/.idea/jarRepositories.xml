@@ -17,14 +17,19 @@
       <option name="url" value="https://repo.maven.apache.org/maven2/" />
     </remote-repository>
     <remote-repository>
-      <option name="id" value="papermc" />
-      <option name="name" value="papermc" />
+      <option name="id" value="PaperMC" />
+      <option name="name" value="PaperMC" />
       <option name="url" value="https://papermc.io/repo/repository/maven-public/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="JitPack" />
+      <option name="name" value="JitPack" />
+      <option name="url" value="https://jitpack.io" />
     </remote-repository>
     <remote-repository>
       <option name="id" value="dmulloy2" />
       <option name="name" value="dmulloy2" />
-      <option name="url" value="http://repo.dmulloy2.net/nexus/repository/public/" />
+      <option name="url" value="https://repo.dmulloy2.net/nexus/repository/public/" />
     </remote-repository>
     <remote-repository>
       <option name="id" value="BintrayJCenter" />
@@ -32,13 +37,8 @@
       <option name="url" value="https://jcenter.bintray.com/" />
     </remote-repository>
     <remote-repository>
-      <option name="id" value="jitpack.io" />
-      <option name="name" value="jitpack.io" />
-      <option name="url" value="https://jitpack.io" />
-    </remote-repository>
-    <remote-repository>
-      <option name="id" value="sonatype" />
-      <option name="name" value="sonatype" />
+      <option name="id" value="Sonatype" />
+      <option name="name" value="Sonatype" />
       <option name="url" value="https://oss.sonatype.org/content/groups/public/" />
     </remote-repository>
   </component>
