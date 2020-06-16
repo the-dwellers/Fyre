@@ -12,22 +12,10 @@ version = "1.0-SNAPSHOT"
 repositories {
     mavenCentral()
     jcenter()
-    maven {
-        name = "PaperMC"
-        url = uri("https://papermc.io/repo/repository/maven-public/")
-    }
-    maven {
-        name = "Sonatype"
-        url = uri("https://oss.sonatype.org/content/groups/public/")
-    }
-    maven {
-        name = "JitPack"
-        url = uri("https://jitpack.io")
-    }
-    maven {
-        name = "dmulloy2"
-        url = uri("https://repo.dmulloy2.net/nexus/repository/public/")
-    }
+    maven { url = uri("https://papermc.io/repo/repository/maven-public/") }
+    maven { url = uri("https://oss.sonatype.org/content/groups/public/") }
+    maven { url = uri("https://jitpack.io") }
+    maven { url = uri("https://repo.dmulloy2.net/nexus/repository/public/") }
 }
 
 dependencies {
