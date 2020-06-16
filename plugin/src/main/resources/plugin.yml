@@ -9,8 +9,6 @@ authors:
   - Brandagot
   - ChargedByte
 website: https://github.com/the-dwellers/Fyre
-softdepend:
-  - ProtocolLib
 
 commands:
   armor:
