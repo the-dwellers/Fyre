@@ -193,6 +193,7 @@ Temporary Items
 ### Gradle template
 .gradle
 /build/
+/bin/
 
 # Ignore Gradle GUI config
 gradle-app.setting
@@ -230,3 +231,8 @@ gradle-app.setting
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+
+# Eclipse-based java addons
+.classpath
+.project
+.settings/
