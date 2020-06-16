@@ -14,11 +14,11 @@ fi
 
 ./gradlew jar --warning-mode all
 
-if [[ -a "server\plugins\FyrePlugin.jar" ]]; then
-	rm -f "server\plugins\FyrePlugin.jar"
+if [[ -a "server/plugins/FyrePlugin.jar" ]]; then
+	rm -f "server/plugins/FyrePlugin.jar"
 fi
 
-cp "build\libs\FyrePlugin-1.0-SNAPSHOT.jar" "server\plugins\FyrePlugin.jar"
+cp "build/libs/FyrePlugin-1.0-SNAPSHOT.jar" "server/plugins/FyrePlugin.jar"
 
 cd "server"
 
@@ -41,7 +41,7 @@ if [[ -d "world/datapacks" ]]; then
 fi
 
 mkdir "world/datapacks"
-cp -r "../../datapack" "world/datapacks"
+cp -r "../../datapack/." "world/datapacks"
 
 if [[ ! -a "server.jar" ]]; then
 	echo Downloading PaperMC...
