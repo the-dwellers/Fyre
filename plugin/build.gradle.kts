@@ -22,7 +22,7 @@ dependencies {
     implementation(kotlin("reflect"))
     implementation(kotlin("stdlib-jdk8"))
 
-    implementation("com.destroystokyo.paper", "paper-api", "1.15.2-R0.1-SNAPSHOT")
+    compileOnly("com.destroystokyo.paper", "paper-api", "1.15.2-R0.1-SNAPSHOT")
 }
 
 java {
@@ -34,13 +34,6 @@ kapt {
 }
 
 tasks {
-    jar {
-        manifest {
-            val attributes = mapOf("Main-Class" to "io.github.the-dwellers.fyre.FyrePlugin")
-            attributes(attributes)
-        }
-    }
-
     processResources {
         val path = sourceSets.main.get().resources.srcDirs
         from(path) {

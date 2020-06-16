@@ -22,7 +22,7 @@ IF EXIST "server\plugins\FyrePlugin.jar" (
 	del "server\plugins\FyrePlugin.jar"
 )
 
-echo F|xcopy "build\libs\FyrePlugin-1.0-SNAPSHOT.jar" "server\plugins\FyrePlugin.jar" /Q
+echo F|xcopy "build\libs\FyrePlugin-0.1.0-SNAPSHOT.jar" "server\plugins\FyrePlugin.jar" /Q
 
 cd "server"
 

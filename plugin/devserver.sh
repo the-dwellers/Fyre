@@ -22,7 +22,7 @@ if [[ -a "server/plugins/FyrePlugin.jar" ]]; then
 	rm -f "server/plugins/FyrePlugin.jar"
 fi
 
-cp "build/libs/FyrePlugin-1.0-SNAPSHOT.jar" "server/plugins/FyrePlugin.jar"
+cp "build/libs/FyrePlugin-0-1.0-SNAPSHOT.jar" "server/plugins/FyrePlugin.jar"
 
 cd "server"
 
