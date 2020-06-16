@@ -13,6 +13,10 @@ if [[ ! -d "server/plugins" ]]; then
 fi
 
 ./gradlew jar --warning-mode all
+if [[ $? -ne 0 ]]; then
+	echo ERROR: Gradle build finished with non-zero exit code
+	exit 1
+fi
 
 if [[ -a "server/plugins/FyrePlugin.jar" ]]; then
 	rm -f "server/plugins/FyrePlugin.jar"
