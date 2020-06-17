@@ -26,6 +26,10 @@ dependencies {
 	compileOnly group: 'com.destroystokyo.paper', name: 'paper-api', version: '1.15.2-R0.1-SNAPSHOT'
 }
 
+shadowJar {
+	minimize()
+}
+
 java {
 	sourceCompatibility = JavaVersion.VERSION_14
 	targetCompatibility = JavaVersion.VERSION_14
