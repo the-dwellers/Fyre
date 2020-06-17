@@ -41,5 +41,10 @@
       <option name="name" value="Sonatype" />
       <option name="url" value="https://oss.sonatype.org/content/groups/public/" />
     </remote-repository>
+    <remote-repository>
+      <option name="id" value="maven4" />
+      <option name="name" value="maven4" />
+      <option name="url" value="file:/$PROJECT_DIR$/" />
+    </remote-repository>
   </component>
 </project>
