@@ -1,11 +1,13 @@
 package io.github.the_dwellers.fyreplugin.features;
 
+import io.github.the_dwellers.fyreplugin.Feature;
 import io.github.the_dwellers.fyreplugin.FyrePlugin;
 import io.github.the_dwellers.fyreplugin.configuration.ItemCollections;
+import io.github.the_dwellers.fyreplugin.configuration.ItemCollections.ToolMaterial;
 import io.github.the_dwellers.fyreplugin.configuration.Items;
 import io.github.the_dwellers.fyreplugin.configuration.SupportedVersions;
-import io.github.the_dwellers.fyreplugin.configuration.ItemCollections.ToolMaterial;
-
+import io.github.the_dwellers.fyreplugin.util.MinecraftVersion;
+import io.github.the_dwellers.fyreplugin.util.RandomUtil;
 import org.bukkit.Location;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
@@ -20,24 +22,20 @@ import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-import io.github.the_dwellers.fyreplugin.Feature;
-import io.github.the_dwellers.fyreplugin.util.MinecraftVersion;
-import io.github.the_dwellers.fyreplugin.util.RandomUtil;
-
 /**
  * Adds different equipment rules for Mobs, including difficulty based on depth.
  * Also provides methods for setting up bosses and events. See
  * {@link EntityAttributes} for default on-hit effects and general attribute
  * changes.
+ *
  * @see EntityAttributes
- * */
+ */
 public class Mobs extends Feature implements Listener {
 
 	public static MinecraftVersion minVersion = SupportedVersions.MIN;
-
-	protected boolean enabled = false;
 	protected static String name = "Mob Tweaks";
 	private static Mobs instance;
+	protected boolean enabled = false;
 
 	public static Mobs getInstance() {
 		if (instance == null) {
@@ -79,7 +77,7 @@ public class Mobs extends Feature implements Listener {
 					if (RandomUtil.integer(100) == 1) {
 						setupBoss((Monster) entity, BossType.Random);
 						((Monster) entity)
-								.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, 999999, 1, false, false));
+							.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, 999999, 1, false, false));
 						return;
 					}
 				}
@@ -89,14 +87,8 @@ public class Mobs extends Feature implements Listener {
 	}
 
 	/**
-	 * Fyre Mob difficulty.
-	 */
-	public enum MobDifficulty {
-		Weak, Medium, Strong, VeryStrong, Boss, RaidBoss
-	}
-
-	/**
 	 * Generates a difficulty based on the current yPosition. Does not include boss chances.
+	 *
 	 * @param yPos depth in blocks, with 0 at the bottom.
 	 * @return Difficulty of a mob spawned at the provided depth.
 	 */
@@ -115,7 +107,8 @@ public class Mobs extends Feature implements Listener {
 	/**
 	 * Sets up the provided entity with the equipment for the given difficulty. <p>
 	 * Entities which do not scale with difficulty will be unaffected.
-	 * @param entity Entity to setup.
+	 *
+	 * @param entity     Entity to setup.
 	 * @param difficulty Difficulty to equip mob for.
 	 */
 	private void setupMobEquipment(Monster entity, MobDifficulty difficulty) {
@@ -127,20 +120,20 @@ public class Mobs extends Feature implements Listener {
 				switch (difficulty) {
 					case Weak:
 						entity.getEquipment().setItemInMainHand(ItemCollections.randomlyBreak(
-								ItemCollections.getTool(ToolMaterial.Wood, ItemCollections.getRandomTool(false))));
+							ItemCollections.getTool(ToolMaterial.Wood, ItemCollections.getRandomTool(false))));
 						break;
 					case Medium:
 						entity.getEquipment().setItemInMainHand(ItemCollections.randomlyBreak(
-								ItemCollections.getTool(ToolMaterial.Stone, ItemCollections.getRandomTool(false))));
+							ItemCollections.getTool(ToolMaterial.Stone, ItemCollections.getRandomTool(false))));
 						rand = RandomUtil.integer(2);
 						if (rand == 1) {
 							entity.getEquipment()
-									.setChestplate(ItemCollections.randomlyBreak(Items.getLeatherChestplate()));
+								.setChestplate(ItemCollections.randomlyBreak(Items.getLeatherChestplate()));
 						}
 						rand = RandomUtil.integer(2);
 						if (rand == 1) {
 							entity.getEquipment()
-									.setLeggings(ItemCollections.randomlyBreak(Items.getLeatherLeggings()));
+								.setLeggings(ItemCollections.randomlyBreak(Items.getLeatherLeggings()));
 						}
 						rand = RandomUtil.integer(2);
 						if (rand == 1) {
@@ -149,22 +142,22 @@ public class Mobs extends Feature implements Listener {
 						break;
 					case Strong:
 						entity.getEquipment().setItemInMainHand(ItemCollections.randomlyBreak(
-								ItemCollections.getTool(ToolMaterial.Stone, ItemCollections.getRandomTool(true))));
+							ItemCollections.getTool(ToolMaterial.Stone, ItemCollections.getRandomTool(true))));
 						rand = RandomUtil.integer(2);
 						if (rand == 1) {
 							entity.getEquipment()
-									.setChestplate(ItemCollections.randomlyBreak(Items.getLeatherChestplate()));
+								.setChestplate(ItemCollections.randomlyBreak(Items.getLeatherChestplate()));
 						} else {
 							entity.getEquipment()
-									.setChestplate(ItemCollections.randomlyBreak(Items.getChainmailChestplate()));
+								.setChestplate(ItemCollections.randomlyBreak(Items.getChainmailChestplate()));
 						}
 						rand = RandomUtil.integer(2);
 						if (rand == 1) {
 							entity.getEquipment()
-									.setLeggings(ItemCollections.randomlyBreak(Items.getLeatherLeggings()));
+								.setLeggings(ItemCollections.randomlyBreak(Items.getLeatherLeggings()));
 						} else {
 							entity.getEquipment()
-									.setLeggings(ItemCollections.randomlyBreak(Items.getChainmailLeggings()));
+								.setLeggings(ItemCollections.randomlyBreak(Items.getChainmailLeggings()));
 						}
 						rand = RandomUtil.integer(2);
 						if (rand == 1) {
@@ -175,21 +168,21 @@ public class Mobs extends Feature implements Listener {
 						break;
 					case VeryStrong:
 						entity.getEquipment().setItemInMainHand(ItemCollections.randomlyBreak(
-								ItemCollections.getTool(ToolMaterial.Stone, ItemCollections.getRandomTool(true))));
+							ItemCollections.getTool(ToolMaterial.Stone, ItemCollections.getRandomTool(true))));
 						rand = RandomUtil.integer(2);
 						if (rand == 1) {
 							entity.getEquipment()
-									.setChestplate(ItemCollections.randomlyBreak(Items.getIronChestplate()));
+								.setChestplate(ItemCollections.randomlyBreak(Items.getIronChestplate()));
 						} else {
 							entity.getEquipment()
-									.setChestplate(ItemCollections.randomlyBreak(Items.getChainmailChestplate()));
+								.setChestplate(ItemCollections.randomlyBreak(Items.getChainmailChestplate()));
 						}
 						rand = RandomUtil.integer(2);
 						if (rand == 1) {
 							entity.getEquipment().setLeggings(ItemCollections.randomlyBreak(Items.getIronLeggings()));
 						} else {
 							entity.getEquipment()
-									.setLeggings(ItemCollections.randomlyBreak(Items.getChainmailLeggings()));
+								.setLeggings(ItemCollections.randomlyBreak(Items.getChainmailLeggings()));
 						}
 						rand = RandomUtil.integer(2);
 						if (rand == 1) {
@@ -219,15 +212,8 @@ public class Mobs extends Feature implements Listener {
 	}
 
 	/**
-	 * Type of bosses available in Fyre. These are replacements for common
-	 * enemies and are not specific events.
-	 */
-	public enum BossType {
-		Random, GuardCaptain
-	}
-
-	/**
 	 * Spawns a boss at the provided location.
+	 *
 	 * @param bossType Type of boss to spawn.
 	 * @param location Location to spawn boss at.
 	 */
@@ -240,8 +226,9 @@ public class Mobs extends Feature implements Listener {
 	 * Setup a boss entity with correct equipment and attribute changes. <p>
 	 * Some boss types may be incompatible with the provided entity, ensure
 	 * passed entity types are supported! <p> Supports {@link BossType}.Random
+	 *
 	 * @param entity Entity to setup as a boss
-	 * @param type Type of boss to setup entity as.
+	 * @param type   Type of boss to setup entity as.
 	 */
 	private void setupBoss(Monster entity, BossType type) {
 		if (type == BossType.Random) {
@@ -258,13 +245,13 @@ public class Mobs extends Feature implements Listener {
 
 				// Attributes
 				entity.getAttribute(Attribute.GENERIC_MAX_HEALTH)
-						.addModifier(new AttributeModifier("Fyre Boss Health", 1, Operation.MULTIPLY_SCALAR_1));
+					.addModifier(new AttributeModifier("Fyre Boss Health", 1, Operation.MULTIPLY_SCALAR_1));
 				entity.getAttribute(Attribute.GENERIC_KNOCKBACK_RESISTANCE).addModifier(
-						new AttributeModifier("Fyre Boss Knockback Resistance", 0.6, Operation.ADD_NUMBER));
+					new AttributeModifier("Fyre Boss Knockback Resistance", 0.6, Operation.ADD_NUMBER));
 				entity.getAttribute(Attribute.GENERIC_FOLLOW_RANGE)
-						.addModifier(new AttributeModifier("Fyre Boss Follow Range", 40, Operation.ADD_NUMBER));
+					.addModifier(new AttributeModifier("Fyre Boss Follow Range", 40, Operation.ADD_NUMBER));
 				entity.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)
-						.addModifier(new AttributeModifier("Fyre Boss Speed", 1, Operation.MULTIPLY_SCALAR_1));
+					.addModifier(new AttributeModifier("Fyre Boss Speed", 1, Operation.MULTIPLY_SCALAR_1));
 
 				// Equipment
 				entity.getEquipment().setItemInMainHand(Items.getWoodSword());
@@ -286,5 +273,20 @@ public class Mobs extends Feature implements Listener {
 				entity.getEquipment().setBootsDropChance(1);
 				break;
 		}
+	}
+
+	/**
+	 * Fyre Mob difficulty.
+	 */
+	public enum MobDifficulty {
+		Weak, Medium, Strong, VeryStrong, Boss, RaidBoss
+	}
+
+	/**
+	 * Type of bosses available in Fyre. These are replacements for common
+	 * enemies and are not specific events.
+	 */
+	public enum BossType {
+		Random, GuardCaptain
 	}
 }

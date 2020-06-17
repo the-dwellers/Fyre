@@ -1,10 +1,13 @@
 package io.github.the_dwellers.fyreplugin.features;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.ArrayList;
-
+import io.github.the_dwellers.fyreplugin.Feature;
+import io.github.the_dwellers.fyreplugin.FyrePlugin;
+import io.github.the_dwellers.fyreplugin.Reflected;
+import io.github.the_dwellers.fyreplugin.commands.AbstractCommand;
+import io.github.the_dwellers.fyreplugin.configuration.MerchantRecipes;
+import io.github.the_dwellers.fyreplugin.configuration.SupportedVersions;
+import io.github.the_dwellers.fyreplugin.exceptions.ReflectionFailedException;
+import io.github.the_dwellers.fyreplugin.util.MinecraftVersion;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -19,14 +22,10 @@ import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.inventory.Merchant;
 import org.bukkit.inventory.MerchantRecipe;
 
-import io.github.the_dwellers.fyreplugin.FyrePlugin;
-import io.github.the_dwellers.fyreplugin.Reflected;
-import io.github.the_dwellers.fyreplugin.Feature;
-import io.github.the_dwellers.fyreplugin.commands.AbstractCommand;
-import io.github.the_dwellers.fyreplugin.configuration.MerchantRecipes;
-import io.github.the_dwellers.fyreplugin.configuration.SupportedVersions;
-import io.github.the_dwellers.fyreplugin.exceptions.ReflectionFailedException;
-import io.github.the_dwellers.fyreplugin.util.MinecraftVersion;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
 
 /**
  * Merchants that interact with the player to sell items.
@@ -34,149 +33,16 @@ import io.github.the_dwellers.fyreplugin.util.MinecraftVersion;
 public class Merchants extends Feature implements Listener {
 
 	public static MinecraftVersion minVersion = SupportedVersions.MC1144;
-
-	protected boolean enabled = false;
 	protected static String name = "Merchants";
 	private static Merchants instance;
-
 	private static boolean merchantShowXP;
+	protected boolean enabled = false;
 
 	public static Merchants getInstance() {
 		if (instance == null) {
 			instance = new Merchants();
 		}
 		return instance;
-	}
-
-	@Override
-	public MinecraftVersion getMinecraftVersion() {
-		return minVersion;
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return enabled;
-	}
-
-	@Override
-	public String getName() {
-		return name;
-	}
-
-	@Override
-	public boolean setup(FyrePlugin plugin) {
-		if (!ItemFeatures.getInstance().isEnabled()) {
-			return false;
-		}
-
-		if (Reflected.getClass("IMaterial") == null) {
-			if (!Reflected.cacheClass(Reflected.nmsClass+"IMaterial")) {
-				plugin.getLogger().warning("Unable to Cache IMaterial");
-				return false;
-			}
-		}
-
-		if (Reflected.getClass("IMerchant") == null) {
-			if (!Reflected.cacheClass(Reflected.nmsClass+"IMerchant")) {
-				plugin.getLogger().warning("Unable to Cache IMerchant");
-				return false;
-			}
-		}
-
-		if (Reflected.getClass("CraftMerchantCustom") == null) {
-			if (!Reflected.cacheClass(Reflected.obcClass + "inventory.CraftMerchantCustom")) {
-				plugin.getLogger().warning("Unable to Cache CraftMerchantCustom");
-				return false;
-			}
-		}
-		if (Reflected.getClass("MinecraftMerchant") == null) {
-			if (!Reflected.cacheClass(Reflected.obcClass + "inventory.CraftMerchantCustom$MinecraftMerchant")) {
-				plugin.getLogger().warning("Unable to Cache CraftMerchantCustom$MinecraftMerchant");
-				return false;
-			}
-		}
-		if (Reflected.getClass("CraftHumanEntity") == null) {
-			if (!Reflected.cacheClass(Reflected.obcClass + "entity.CraftHumanEntity")) {
-				plugin.getLogger().warning("Unable to Cache CraftHumanEntity");
-				return false;
-			}
-		}
-
-		if (Reflected.getClass("EntityHuman") == null) {
-			if (!Reflected.cacheClass(Reflected.nmsClass + "EntityHuman")) {
-				plugin.getLogger().warning("Unable to Cache EntityHuman");
-				return false;
-			}
-		}
-
-		if (Reflected.getClass("CraftEntity") == null) {
-			if (!Reflected.cacheClass(Reflected.obcClass + "entity.CraftEntity")) {
-				plugin.getLogger().warning("Unable to Cache CraftEntity");
-				return false;
-			}
-		}
-
-		if (Reflected.getClass("IChatBaseComponent") == null) {
-			if (!Reflected.cacheClass(Reflected.nmsClass + "IChatBaseComponent")) {
-				plugin.getLogger().warning("Unable to Cache IChatBaseComponent");
-				return false;
-			}
-		}
-
-		if (Reflected.getMethod("IMerchant#openTrade") == null) {
-			if (!Reflected.cacheClassMethod("IMerchant#openTrade", Reflected.getClass("EntityHuman"), Reflected.getClass("IChatBaseComponent"), int.class)) {;
-				plugin.getLogger().warning("Unable to Cache IMerchant#openTrade");
-				return false;
-			}
-		}
-
-		if (Reflected.getMethod("IMerchant#setTradingPlayer") == null) {
-			if (!Reflected.cacheClassMethod("IMerchant#setTradingPlayer", Reflected.getClass("EntityHuman"))) {;
-				plugin.getLogger().warning("Unable to Cache IMerchant#setTradingPlayer");
-				return false;
-			}
-		}
-
-		if (Reflected.getMethod("MinecraftMerchant#getScoreboardDisplayName") == null) {
-			if (!Reflected.cacheClassMethod("MinecraftMerchant#getScoreboardDisplayName")) {;
-				plugin.getLogger().warning("Unable to Cache MinecraftMerchant#getScoreboardDisplayName");
-				return false;
-			}
-		}
-
-		if (Reflected.getMethod("CraftEntity#getHandle") == null) {
-			if (!Reflected.cacheClassMethod("CraftEntity#getHandle")) {;
-				plugin.getLogger().warning("Unable to Cache CraftEntity#getHandle");
-				return false;
-			}
-		}
-
-		if (Reflected.getMethod("CraftMerchantCustom#getMerchant") == null) {
-			if (!Reflected.cacheClassMethod("CraftMerchantCustom#getMerchant")) {;
-				plugin.getLogger().warning("Unable to Cache CraftMerchantCustom#getMerchant");
-				return false;
-			}
-		}
-
-		// Check patch status
-		try {
-			Reflected.getClass("MinecraftMerchant").getDeclaredField("experience");
-			Reflected.getClass("MinecraftMerchant").getDeclaredField("regularVillager");
-			merchantShowXP = true;
-		} catch (NoSuchFieldException e) {
-			plugin.getLogger().warning("Server jar is not patched with merchant fixes. XP and level bars will be disabled on traders.");
-			if (Development.getInstance().isEnabled()) {
-				plugin.getLogger().warning("Unable to find experience and regularVillager fields on " + Reflected.obcClass
-					+ "inventory.CraftMerchantCustom$MinecraftMerchant");
-			}
-			merchantShowXP = false;
-		}
-
-		plugin.getServer().getPluginManager().registerEvents(this, plugin);
-		plugin.getCommand("list").setExecutor(new TraderCommand());
-
-		enabled = true;
-		return isEnabled();
 	}
 
 	public static void showMerchantUI(Player player, Profession profession, Type type) {
@@ -363,7 +229,7 @@ public class Merchants extends Feature implements Listener {
 	 *                                   during reflection
 	 */
 	public static void showTraderUI(Player player, Merchant merchant, int level, int xp)
-			throws ReflectionFailedException {
+		throws ReflectionFailedException {
 		try {
 			Class<?> bukkitCraftMerchantCustom = Reflected.getClass("CraftMerchantCustom");
 			Class<?> bukkitCraftMinecraftMerchant = Reflected.getClass("MinecraftMerchant");
@@ -415,6 +281,137 @@ public class Merchants extends Feature implements Listener {
 		}
 	}
 
+	@Override
+	public MinecraftVersion getMinecraftVersion() {
+		return minVersion;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	@Override
+	public String getName() {
+		return name;
+	}
+
+	@Override
+	public boolean setup(FyrePlugin plugin) {
+		if (!ItemFeatures.getInstance().isEnabled()) {
+			return false;
+		}
+
+		if (Reflected.getClass("IMaterial") == null) {
+			if (!Reflected.cacheClass(Reflected.nmsClass + "IMaterial")) {
+				plugin.getLogger().warning("Unable to Cache IMaterial");
+				return false;
+			}
+		}
+
+		if (Reflected.getClass("IMerchant") == null) {
+			if (!Reflected.cacheClass(Reflected.nmsClass + "IMerchant")) {
+				plugin.getLogger().warning("Unable to Cache IMerchant");
+				return false;
+			}
+		}
+
+		if (Reflected.getClass("CraftMerchantCustom") == null) {
+			if (!Reflected.cacheClass(Reflected.obcClass + "inventory.CraftMerchantCustom")) {
+				plugin.getLogger().warning("Unable to Cache CraftMerchantCustom");
+				return false;
+			}
+		}
+		if (Reflected.getClass("MinecraftMerchant") == null) {
+			if (!Reflected.cacheClass(Reflected.obcClass + "inventory.CraftMerchantCustom$MinecraftMerchant")) {
+				plugin.getLogger().warning("Unable to Cache CraftMerchantCustom$MinecraftMerchant");
+				return false;
+			}
+		}
+		if (Reflected.getClass("CraftHumanEntity") == null) {
+			if (!Reflected.cacheClass(Reflected.obcClass + "entity.CraftHumanEntity")) {
+				plugin.getLogger().warning("Unable to Cache CraftHumanEntity");
+				return false;
+			}
+		}
+
+		if (Reflected.getClass("EntityHuman") == null) {
+			if (!Reflected.cacheClass(Reflected.nmsClass + "EntityHuman")) {
+				plugin.getLogger().warning("Unable to Cache EntityHuman");
+				return false;
+			}
+		}
+
+		if (Reflected.getClass("CraftEntity") == null) {
+			if (!Reflected.cacheClass(Reflected.obcClass + "entity.CraftEntity")) {
+				plugin.getLogger().warning("Unable to Cache CraftEntity");
+				return false;
+			}
+		}
+
+		if (Reflected.getClass("IChatBaseComponent") == null) {
+			if (!Reflected.cacheClass(Reflected.nmsClass + "IChatBaseComponent")) {
+				plugin.getLogger().warning("Unable to Cache IChatBaseComponent");
+				return false;
+			}
+		}
+
+		if (Reflected.getMethod("IMerchant#openTrade") == null) {
+			if (!Reflected.cacheClassMethod("IMerchant#openTrade", Reflected.getClass("EntityHuman"), Reflected.getClass("IChatBaseComponent"), int.class)) {
+				plugin.getLogger().warning("Unable to Cache IMerchant#openTrade");
+				return false;
+			}
+		}
+
+		if (Reflected.getMethod("IMerchant#setTradingPlayer") == null) {
+			if (!Reflected.cacheClassMethod("IMerchant#setTradingPlayer", Reflected.getClass("EntityHuman"))) {
+				plugin.getLogger().warning("Unable to Cache IMerchant#setTradingPlayer");
+				return false;
+			}
+		}
+
+		if (Reflected.getMethod("MinecraftMerchant#getScoreboardDisplayName") == null) {
+			if (!Reflected.cacheClassMethod("MinecraftMerchant#getScoreboardDisplayName")) {
+				plugin.getLogger().warning("Unable to Cache MinecraftMerchant#getScoreboardDisplayName");
+				return false;
+			}
+		}
+
+		if (Reflected.getMethod("CraftEntity#getHandle") == null) {
+			if (!Reflected.cacheClassMethod("CraftEntity#getHandle")) {
+				plugin.getLogger().warning("Unable to Cache CraftEntity#getHandle");
+				return false;
+			}
+		}
+
+		if (Reflected.getMethod("CraftMerchantCustom#getMerchant") == null) {
+			if (!Reflected.cacheClassMethod("CraftMerchantCustom#getMerchant")) {
+				plugin.getLogger().warning("Unable to Cache CraftMerchantCustom#getMerchant");
+				return false;
+			}
+		}
+
+		// Check patch status
+		try {
+			Reflected.getClass("MinecraftMerchant").getDeclaredField("experience");
+			Reflected.getClass("MinecraftMerchant").getDeclaredField("regularVillager");
+			merchantShowXP = true;
+		} catch (NoSuchFieldException e) {
+			plugin.getLogger().warning("Server jar is not patched with merchant fixes. XP and level bars will be disabled on traders.");
+			if (Development.getInstance().isEnabled()) {
+				plugin.getLogger().warning("Unable to find experience and regularVillager fields on " + Reflected.obcClass
+					+ "inventory.CraftMerchantCustom$MinecraftMerchant");
+			}
+			merchantShowXP = false;
+		}
+
+		plugin.getServer().getPluginManager().registerEvents(this, plugin);
+		plugin.getCommand("list").setExecutor(new TraderCommand());
+
+		enabled = true;
+		return isEnabled();
+	}
+
 	@EventHandler()
 	public void onTraderClick(PlayerInteractEntityEvent event) {
 		if (event.getRightClicked().getType() != EntityType.VILLAGER) {
@@ -445,7 +442,7 @@ public class Merchants extends Feature implements Listener {
 					return true;
 				}
 				Villager villager = (Villager) player.getLocation().getWorld().spawnEntity(player.getEyeLocation(),
-						EntityType.VILLAGER);
+					EntityType.VILLAGER);
 				villager.setProfession(Profession.valueOf(args[0]));
 			}
 			return true;

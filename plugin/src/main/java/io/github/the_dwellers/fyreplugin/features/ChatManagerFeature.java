@@ -1,8 +1,11 @@
 package io.github.the_dwellers.fyreplugin.features;
 
+import io.github.the_dwellers.fyreplugin.Feature;
 import io.github.the_dwellers.fyreplugin.FyrePlugin;
 import io.github.the_dwellers.fyreplugin.commands.AbstractCommand;
-
+import io.github.the_dwellers.fyreplugin.configuration.Strings;
+import io.github.the_dwellers.fyreplugin.util.MinecraftVersion;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -16,21 +19,15 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.potion.PotionEffectType;
 
-import io.github.the_dwellers.fyreplugin.Feature;
-import io.github.the_dwellers.fyreplugin.configuration.Strings;
-import io.github.the_dwellers.fyreplugin.util.MinecraftVersion;
-import net.md_5.bungee.api.chat.TextComponent;
-
 /**
  * Functions dedicated to chat manipulation and formatting.
  */
 public class ChatManagerFeature extends Feature implements Listener {
 
 	public static MinecraftVersion minVersion = NBTAdapter.minVersion;
-
-	protected boolean enabled = false;
 	protected static String name = "Chat Manager";
 	private static ChatManagerFeature featureInstance;
+	protected boolean enabled = false;
 
 	public static ChatManagerFeature getInstance() {
 		if (featureInstance == null) {

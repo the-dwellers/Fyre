@@ -1,13 +1,11 @@
 package io.github.the_dwellers.fyreplugin;
 
 import io.github.the_dwellers.fyreplugin.configuration.Strings;
-import io.github.the_dwellers.fyreplugin.features.*;
-import io.github.the_dwellers.fyreplugin.features.tagdata.*;
-import io.github.the_dwellers.fyreplugin.util.MinecraftVersion;
 import io.github.the_dwellers.fyreplugin.configuration.SupportedVersions;
-
-// import net.milkbowl.vault.chat.Chat;
-// import net.milkbowl.vault.permission.Permission;
+import io.github.the_dwellers.fyreplugin.features.*;
+import io.github.the_dwellers.fyreplugin.features.tagdata.TagDataHolderFeature;
+import io.github.the_dwellers.fyreplugin.features.tagdata.TagInventoryFeature;
+import io.github.the_dwellers.fyreplugin.util.MinecraftVersion;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -16,6 +14,9 @@ import java.lang.reflect.Method;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.util.logging.Logger;
+
+// import net.milkbowl.vault.chat.Chat;
+// import net.milkbowl.vault.permission.Permission;
 
 /**
  * The Fyre Plugin is a helper plugin to implement features such as server
@@ -31,13 +32,10 @@ import java.util.logging.Logger;
 public final class FyrePlugin extends JavaPlugin {
 
 	private static final Logger log = Logger.getLogger("Minecraft");
-	private static FyrePlugin instance;
-	public MinecraftVersion mcVersion;
-
 	// No other way to do this? Complains about Type safety, but 'Class<?
 	// extends AbstractFeature>[]' turns into 'Cannot create a generic array of
 	// Class<? extends AbstractFeature>'
-	public static Class<? extends Feature>[] features = new Class[] {
+	public static Class<? extends Feature>[] features = new Class[]{
 		Development.class, // Development Features
 		NBTAdapter.class, // NBT functions such as saving, loading, generating chat text, etc...
 		TagDataHolderFeature.class, // Store arbitrary data in entity nbt
@@ -57,6 +55,8 @@ public final class FyrePlugin extends JavaPlugin {
 		Compost.class, // Compost extra items
 		Mobs.class, // Mob tweaks, including equipment
 	};
+	private static FyrePlugin instance;
+	public MinecraftVersion mcVersion;
 
 	public FyrePlugin() {
 		instance = this;
@@ -74,8 +74,8 @@ public final class FyrePlugin extends JavaPlugin {
 
 		// Version string format is normally `git-Paper-1618 (MC: 1.12.2)`
 		// We want `1.12.2`
-		String versionString = Bukkit.getVersion().substring(Bukkit.getVersion().indexOf("(", 0) + 5,
-				Bukkit.getVersion().length() - 1);
+		String versionString = Bukkit.getVersion().substring(Bukkit.getVersion().indexOf("(") + 5,
+			Bukkit.getVersion().length() - 1);
 
 		try {
 			// Attempt to parse mc version
@@ -83,14 +83,14 @@ public final class FyrePlugin extends JavaPlugin {
 
 		} catch (IllegalArgumentException e) {
 			log.severe(Strings.LOG_PREFIX + "Unable to decipher Minecraft version from '" + versionString
-					+ "' Fyre cannot safely load, and will now disable.");
+				+ "' Fyre cannot safely load, and will now disable.");
 			return;
 		}
 
 		log.info(Strings.LOG_PREFIX + "Setting up for " + mcVersion.toString());
 		if (mcVersion.compareTo(SupportedVersions.MC1152) != 0) {
 			log.warning(
-					Strings.LOG_PREFIX + "Loading for unsupported minecraft version! Some features may be disabled!");
+				Strings.LOG_PREFIX + "Loading for unsupported minecraft version! Some features may be disabled!");
 		}
 
 		for (Class<? extends Feature> featureClass : features) {
@@ -98,7 +98,7 @@ public final class FyrePlugin extends JavaPlugin {
 				// ! I hate this, is there any other method for abstracted static instantiation code??
 				Method getInstanceMethod = featureClass.getMethod("getInstance");
 				Object instanceObject = getInstanceMethod.invoke(null);
-				Feature feature = Feature.class.cast(instanceObject);
+				Feature feature = (Feature) instanceObject;
 
 				if (mcVersion.compareTo(feature.getMinecraftVersion()) > -1) {
 					boolean result = feature.setup(this);
@@ -112,7 +112,7 @@ public final class FyrePlugin extends JavaPlugin {
 
 				} else {
 					log.warning(Strings.LOG_PREFIX + "Skipped " + feature.getName() + ", requires MC v"
-							+ feature.getMinecraftVersion().toString());
+						+ feature.getMinecraftVersion().toString());
 				}
 			} catch (NullPointerException | InvocationTargetException | NoSuchMethodException | IllegalAccessException e) {
 				log.severe(Strings.LOG_PREFIX + "Malformed Feature :" + featureClass.getName());

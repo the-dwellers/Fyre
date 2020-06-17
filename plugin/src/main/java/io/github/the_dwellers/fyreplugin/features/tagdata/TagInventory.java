@@ -3,7 +3,6 @@ package io.github.the_dwellers.fyreplugin.features.tagdata;
 import io.github.the_dwellers.fyreplugin.configuration.Items;
 import io.github.the_dwellers.fyreplugin.exceptions.ReflectionFailedException;
 import io.github.the_dwellers.fyreplugin.features.NBTAdapter;
-
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
@@ -24,7 +23,7 @@ import java.util.List;
 public class TagInventory extends TagDataHolder implements InventoryHolder {
 
 	private static HashSet<String> instances = new HashSet<String>();
-	private Inventory inventory;
+	private final Inventory inventory;
 
 	public TagInventory(Entity entity) {
 		super(entity);

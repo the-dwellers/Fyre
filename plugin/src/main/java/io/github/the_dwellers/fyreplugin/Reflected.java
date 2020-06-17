@@ -1,27 +1,24 @@
 package io.github.the_dwellers.fyreplugin;
 
+import org.bukkit.Bukkit;
+
 import java.lang.reflect.Method;
 import java.util.HashMap;
-
-import org.bukkit.Bukkit;
 
 /**
  * Provides functions integrated into Net.Minecraft.Server via reflection Note:
  * due to the nature of reflection, this class is Minecraft version-dependent!
  * <p>
  *
- * @version Minecraft 1.14.4
- * @version Minecraft 1.15.1
  * @version Minecraft 1.15.2
  */
 public abstract class Reflected {
-	private static String packageVersion = Bukkit.getServer().getClass().getPackage().getName().replace(".", ",")
-			.split(",")[3] + ".";
+	private static final String packageVersion = Bukkit.getServer().getClass().getPackage().getName().replace(".", ",")
+		.split(",")[3] + ".";
+	private static final HashMap<String, Class<?>> classCache = new HashMap<String, Class<?>>();
+	private static final HashMap<String, Method> methodCache = new HashMap<String, Method>();
 	public static String nmsClass = "net.minecraft.server." + packageVersion;
 	public static String obcClass = "org.bukkit.craftbukkit." + packageVersion;
-
-	private static HashMap<String, Class<?>> classCache = new HashMap<String, Class<?>>();
-	private static HashMap<String, Method> methodCache = new HashMap<String, Method>();;
 
 	/**
 	 * Get the named method from {@code classCache} If the class does not exist
@@ -45,7 +42,7 @@ public abstract class Reflected {
 	 *
 	 * @param name Name of the class to cache
 	 * @return true if method was cached, false otherwise. A log is made on
-	 *         failures.
+	 * failures.
 	 */
 	public static boolean cacheClass(String name) {
 		try {
@@ -60,10 +57,10 @@ public abstract class Reflected {
 	/**
 	 * Cache a class to the {@code classCache}.
 	 *
-	 * @param key Key to store class under
+	 * @param key  Key to store class under
 	 * @param name Name of the class to cache
 	 * @return true if method was cached, false otherwise. A log is made on
-	 *         failures.
+	 * failures.
 	 */
 	public static boolean cacheClass(String key, String name) {
 		try {
@@ -86,7 +83,7 @@ public abstract class Reflected {
 	 *
 	 * @param name Key of method
 	 * @return {@link java.lang.reflect.Method} stored under the named key.
-	 *         {@code Null} otherwise.
+	 * {@code Null} otherwise.
 	 */
 	public static Method getMethod(String name) {
 		return methodCache.get(name);
@@ -107,7 +104,7 @@ public abstract class Reflected {
 	 * @param class1         Class to reflect the function from.
 	 * @param parameterTypes Parameters that the function takes
 	 * @return true if method was cached, false otherwise. A log is made on
-	 *         failures.
+	 * failures.
 	 */
 	public static boolean cacheMethod(String key, Class<?> class1, Class<?>... parameterTypes) {
 		return cacheMethod(key.split("#")[1], key, class1, parameterTypes);
@@ -128,7 +125,7 @@ public abstract class Reflected {
 	 * @param class1         Class to reflect the function from.
 	 * @param parameterTypes Parameters that the function takes
 	 * @return true if method was cached, false otherwise. A log is made on
-	 *         failures.
+	 * failures.
 	 */
 	public static boolean cacheClassMethod(String key, Class<?>... parameterTypes) {
 		return cacheMethod(key.split("#")[1], key, getClass(key.split("#")[0]), parameterTypes);
@@ -148,7 +145,7 @@ public abstract class Reflected {
 	 * @param class1         Class to reflect the function from.
 	 * @param parameterTypes Parameters that the function takes
 	 * @return true if method was cached, false otherwise. A log is made on
-	 *         failures.
+	 * failures.
 	 */
 	public static boolean cacheMethod(String name, String key, Class<?> class1, Class<?>... parameterTypes) {
 		try {
@@ -176,7 +173,7 @@ public abstract class Reflected {
 	 * @param class1         Class to reflect the function from.
 	 * @param parameterTypes Parameters that the function takes
 	 * @return true if method was cached, false otherwise. A log is made on
-	 *         failures.
+	 * failures.
 	 */
 	public static boolean cacheDeclaredMethod(String name, String key, Class<?> class1, Class<?>... parameterTypes) {
 		try {

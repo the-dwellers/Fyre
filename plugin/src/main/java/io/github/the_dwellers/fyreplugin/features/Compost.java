@@ -1,14 +1,14 @@
 package io.github.the_dwellers.fyreplugin.features;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-
 import io.github.the_dwellers.fyreplugin.Feature;
 import io.github.the_dwellers.fyreplugin.FyrePlugin;
 import io.github.the_dwellers.fyreplugin.Reflected;
 import io.github.the_dwellers.fyreplugin.configuration.SupportedVersions;
 import io.github.the_dwellers.fyreplugin.util.MinecraftVersion;
+
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 /**
  * Add additional items to the composter.
@@ -16,10 +16,9 @@ import io.github.the_dwellers.fyreplugin.util.MinecraftVersion;
 public class Compost extends Feature {
 
 	public static MinecraftVersion minVersion = SupportedVersions.MC1144;
-
-	protected boolean enabled = false;
 	protected static String name = "Extended Compost";
 	private static Compost instance;
+	protected boolean enabled = false;
 
 	public static Compost getInstance() {
 		if (instance == null) {
@@ -83,9 +82,9 @@ public class Compost extends Feature {
 
 			// Execute the add method using the ROTTEN_FLESH item
 			a.invoke(Reflected.getClass("BlockComposter"), 0.5F,
-					itemsRottenFleshField.get(Reflected.getClass("Items")));
+				itemsRottenFleshField.get(Reflected.getClass("Items")));
 		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchFieldException
-				| SecurityException e) {
+			| SecurityException e) {
 			plugin.getLogger().warning("Unable to Add Items To Composter: " + e.getMessage());
 			return false;
 		}

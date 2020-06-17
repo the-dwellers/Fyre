@@ -1,9 +1,9 @@
 package io.github.the_dwellers.fyreplugin.util;
 
 public class MinecraftVersion implements Comparable<MinecraftVersion> {
-	private int major;
-	private int minor;
-	private int build;
+	private final int major;
+	private final int minor;
+	private final int build;
 
 	public MinecraftVersion(int major, int minor, int build) {
 		this.major = major;

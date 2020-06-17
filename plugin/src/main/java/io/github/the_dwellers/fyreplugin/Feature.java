@@ -10,12 +10,17 @@ import io.github.the_dwellers.fyreplugin.util.MinecraftVersion;
  *
  * @see MinecraftVersion
  */
-public  class Feature {
+public class Feature {
 
-	public MinecraftVersion getMinecraftVersion(){
+	protected boolean enabled = false;
+
+	public static Feature getInstance() {
+		return null;
+	}
+
+	public MinecraftVersion getMinecraftVersion() {
 		return new MinecraftVersion("0.0.0");
 	}
-	protected boolean enabled = false;
 
 	/**
 	 * Setup and start the feature. It is assumed that the version has already been
@@ -25,25 +30,20 @@ public  class Feature {
 	 * @param plugin FyrePlugin to handle registrations.
 	 * @return True if registration succeeded without errors.
 	 */
-	public boolean setup(FyrePlugin plugin){
+	public boolean setup(FyrePlugin plugin) {
 		return false;
 	}
 
-
 	/**
 	 * Is the feature setup and ready for use?
+	 *
 	 * @return True if feature is enabled.
 	 */
-	public boolean isEnabled(){
+	public boolean isEnabled() {
 		return enabled;
 	}
 
-
-	public String getName(){
-		return null;
-	}
-
-	public static Feature getInstance(){
+	public String getName() {
 		return null;
 	}
 }

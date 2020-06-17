@@ -1,5 +1,10 @@
 package io.github.the_dwellers.fyreplugin.features;
 
+import io.github.the_dwellers.fyreplugin.Feature;
+import io.github.the_dwellers.fyreplugin.FyrePlugin;
+import io.github.the_dwellers.fyreplugin.configuration.SupportedVersions;
+import io.github.the_dwellers.fyreplugin.util.MinecraftVersion;
+import io.github.the_dwellers.fyreplugin.util.RandomUtil;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
@@ -10,22 +15,15 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
 
-import io.github.the_dwellers.fyreplugin.FyrePlugin;
-import io.github.the_dwellers.fyreplugin.configuration.SupportedVersions;
-import io.github.the_dwellers.fyreplugin.Feature;
-import io.github.the_dwellers.fyreplugin.util.MinecraftVersion;
-import io.github.the_dwellers.fyreplugin.util.RandomUtil;
-
 /**
  * Trample grass into dirt.
  */
 public class LandTrampling extends Feature implements Listener {
 
 	public static MinecraftVersion minVersion = SupportedVersions.MIN;
-
-	protected boolean enabled = false;
 	protected static String name = "Land Trampling";
 	private static LandTrampling featureInstance;
+	protected boolean enabled = false;
 
 	public static LandTrampling getInstance() {
 		if (featureInstance == null) {

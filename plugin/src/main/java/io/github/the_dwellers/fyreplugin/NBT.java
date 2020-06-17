@@ -1,6 +1,7 @@
 package io.github.the_dwellers.fyreplugin;
 
 // haha, need to import just for comment references, nice!
+
 import io.github.the_dwellers.fyreplugin.features.tagdata.TagDataHolder;
 
 /**
@@ -92,7 +93,7 @@ public abstract class NBT {
 		} else {
 			loc = loc + tag.length() + 1;
 			int end = getOtherBracket(nbt, loc) + 1;
-			return nbt.substring(0, loc) + value + nbt.substring(end, nbt.length());
+			return nbt.substring(0, loc) + value + nbt.substring(end);
 		}
 	}
 

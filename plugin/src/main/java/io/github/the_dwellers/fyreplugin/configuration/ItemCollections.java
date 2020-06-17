@@ -1,58 +1,49 @@
 package io.github.the_dwellers.fyreplugin.configuration;
 
+import io.github.the_dwellers.fyreplugin.util.RandomUtil;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
-
-import io.github.the_dwellers.fyreplugin.util.RandomUtil;
 
 /**
  * Helper functions to retrieve specific types and collections of projects.
  */
 public abstract class ItemCollections {
 
-	public enum Tool {
-		Sword, Axe, Pickaxe, Hoe, Shovel
-	}
-
-	public enum ToolMaterial {
-		Wood, Stone, Iron, Gold, Diamond
-	}
-
 	public static ItemStack getTool(ToolMaterial material, Tool tool) {
 		switch (material) {
-		case Stone:
-			switch (tool) {
-			case Axe:
-				return Items.getStoneAxe();
-			case Pickaxe:
-				return Items.getStonePickaxe();
-			case Hoe:
-				return Items.getStoneHoe();
-			case Shovel:
-				return Items.getStoneShovel();
-			case Sword:
+			case Stone:
+				switch (tool) {
+					case Axe:
+						return Items.getStoneAxe();
+					case Pickaxe:
+						return Items.getStonePickaxe();
+					case Hoe:
+						return Items.getStoneHoe();
+					case Shovel:
+						return Items.getStoneShovel();
+					case Sword:
+					default:
+						return Items.getStoneSword();
+				}
 			default:
-				return Items.getStoneSword();
-			}
-		default:
-		case Wood:
-			switch (tool) {
-			case Axe:
-				return Items.getWoodAxe();
-			case Pickaxe:
-				return Items.getWoodPickaxe();
-			case Hoe:
-				return Items.getWoodHoe();
-			case Shovel:
-				return Items.getWoodShovel();
-			case Sword:
-			default:
-				return Items.getWoodSword();
-			}
-			// case Iron:
-			// case Gold:
-			// case Diamond:
+			case Wood:
+				switch (tool) {
+					case Axe:
+						return Items.getWoodAxe();
+					case Pickaxe:
+						return Items.getWoodPickaxe();
+					case Hoe:
+						return Items.getWoodHoe();
+					case Shovel:
+						return Items.getWoodShovel();
+					case Sword:
+					default:
+						return Items.getWoodSword();
+				}
+				// case Iron:
+				// case Gold:
+				// case Diamond:
 		}
 	}
 
@@ -101,10 +92,18 @@ public abstract class ItemCollections {
 			// More complex than it has to be, who designed this api?
 			Damageable toolMeta = (Damageable) item.getItemMeta();
 			toolMeta.setDamage(RandomUtil.integer(Math.round(item.getType().getMaxDurability() * 0.2f),
-					Math.round(item.getType().getMaxDurability() * 0.8f)));
+				Math.round(item.getType().getMaxDurability() * 0.8f)));
 			item.setItemMeta((ItemMeta) toolMeta);
 		}
 		return item;
+	}
+
+	public enum Tool {
+		Sword, Axe, Pickaxe, Hoe, Shovel
+	}
+
+	public enum ToolMaterial {
+		Wood, Stone, Iron, Gold, Diamond
 	}
 
 }

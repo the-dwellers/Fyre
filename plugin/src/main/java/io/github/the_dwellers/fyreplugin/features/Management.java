@@ -1,8 +1,13 @@
 package io.github.the_dwellers.fyreplugin.features;
 
-import java.math.RoundingMode;
-import java.text.DecimalFormat;
-
+import io.github.the_dwellers.fyreplugin.Feature;
+import io.github.the_dwellers.fyreplugin.FyrePlugin;
+import io.github.the_dwellers.fyreplugin.commands.AbstractCommand;
+import io.github.the_dwellers.fyreplugin.configuration.Strings;
+import io.github.the_dwellers.fyreplugin.configuration.SupportedVersions;
+import io.github.the_dwellers.fyreplugin.util.MinecraftVersion;
+import net.md_5.bungee.api.chat.HoverEvent;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.ChatColor;
 import org.bukkit.World;
 import org.bukkit.command.Command;
@@ -15,14 +20,8 @@ import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.plugin.Plugin;
 
-import io.github.the_dwellers.fyreplugin.FyrePlugin;
-import io.github.the_dwellers.fyreplugin.commands.AbstractCommand;
-import io.github.the_dwellers.fyreplugin.Feature;
-import io.github.the_dwellers.fyreplugin.configuration.Strings;
-import io.github.the_dwellers.fyreplugin.configuration.SupportedVersions;
-import io.github.the_dwellers.fyreplugin.util.MinecraftVersion;
-import net.md_5.bungee.api.chat.HoverEvent;
-import net.md_5.bungee.api.chat.TextComponent;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 
 /**
  * Management utilities for staff and players.
@@ -30,16 +29,123 @@ import net.md_5.bungee.api.chat.TextComponent;
 public class Management extends Feature implements Listener {
 
 	public static MinecraftVersion minVersion = SupportedVersions.MIN;
-
-	protected boolean enabled = false;
 	protected static String name = "Management";
 	private static Management featureInstance;
+	protected boolean enabled = false;
 
 	public static Management getInstance() {
 		if (featureInstance == null) {
 			featureInstance = new Management();
 		}
 		return featureInstance;
+	}
+
+	/**
+	 * Events related to heuristics and logs to assist administration.
+	 * <p>
+	 * This includes:
+	 * <ul>
+	 * <li>Printing of IP address of connecting users</li>
+	 * </ul>
+	 */
+	@EventHandler()
+	public static void onConnect(PlayerLoginEvent event) {
+		ChatManager.sendStaffMessage(
+			"'" + event.getPlayer().getName() + "' is connecting from " + event.getAddress().toString());
+	}
+
+	private static TextComponent getPlugins(CommandSender sender, boolean longForm) {
+		boolean isPlayer = sender instanceof Player;
+		Plugin[] plugins = sender.getServer().getPluginManager().getPlugins();
+		int enabled = 0;
+
+		for (Plugin plugin : plugins) {
+			if (plugin.isEnabled()) {
+				// No Casting boolean to int in java?
+				enabled += 1;
+			}
+		}
+
+		if (longForm) {
+			return pluginLongForm(plugins);
+		}
+
+		TextComponent pluginText = new TextComponent(Strings.OUT_PREFIX + "In total, there are " + Strings.C_ACCENT
+			+ enabled + Strings.C_DEFAULT + " enabled plugins");
+		if (isPlayer) {
+			pluginText.setHoverEvent(
+				new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TextComponent[]{pluginLongForm(plugins)}));
+		}
+		return pluginText;
+	}
+
+	private static TextComponent pluginLongForm(Plugin[] plugins) {
+		TextComponent text = new TextComponent();
+		for (int i = 0; i < plugins.length; i++) {
+			Plugin plugin = plugins[i];
+			ChatColor color = plugin.isEnabled() ? ChatColor.DARK_GREEN : ChatColor.RED;
+			text.addExtra("" + color + plugin.getDescription().getName() + Strings.C_DEFAULT + " v"
+				+ Strings.C_ACCENT + plugin.getDescription().getVersion());
+			if (i < plugins.length - 1) {
+				text.addExtra("\n");
+			}
+		}
+		return text;
+	}
+
+	private static TextComponent playerLongForm(Player[] players) {
+
+		if (players.length == 0) {
+			return new TextComponent();
+		}
+
+		TextComponent longFormText = new TextComponent(Strings.C_DEFAULT);
+
+		// Construct list of player names
+		for (int i = 0; i < players.length; i++) {
+			Player player = players[i];
+			longFormText.addExtra(player.getDisplayName());
+
+			if (i + 1 != players.length) {
+				longFormText.addExtra(Strings.C_DEFAULT);
+			}
+		}
+		return longFormText;
+	}
+
+	public static TextComponent getPlayers(CommandSender src, boolean longForm) {
+		boolean isPlayer = src instanceof Player;
+
+		Player[] players = src.getServer().getOnlinePlayers()
+			.toArray(new Player[src.getServer().getOnlinePlayers().size()]);
+		if (players.length == 0) {
+			// No players online
+			return new TextComponent(Strings.OUT_PREFIX + "There are no players online");
+		}
+
+		if (longForm) {
+			// Return longform output
+			return playerLongForm(players);
+		}
+
+		TextComponent text = new TextComponent();
+		if (players.length == 1) {
+			// English single
+			text.addExtra(Strings.OUT_PREFIX + "There is " + Strings.C_ACCENT + players.length + Strings.C_DEFAULT
+				+ " player online");
+		} else {
+			text.addExtra(Strings.OUT_PREFIX + "There is " + Strings.C_ACCENT + players.length + Strings.C_DEFAULT
+				+ " players online");
+
+		}
+
+		if (!isPlayer) {
+			return text;
+		}
+
+		text.setHoverEvent(
+			new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TextComponent[]{playerLongForm(players)}));
+		return text;
 	}
 
 	@Override
@@ -68,24 +174,10 @@ public class Management extends Feature implements Listener {
 	}
 
 	/**
-	 * Events related to heuristics and logs to assist administration.
-	 * <p>
-	 * This includes:
-	 * <ul>
-	 * <li>Printing of IP address of connecting users</li>
-	 * </ul>
-	 */
-	@EventHandler()
-	public static void onConnect(PlayerLoginEvent event) {
-		ChatManager.sendStaffMessage(
-				"'" + event.getPlayer().getName() + "' is connecting from " + event.getAddress().toString());
-	}
-
-	/**
 	 * View server status information, such as ram usage, plugins, players, tps, etc
 	 */
 	public class StatusCommand extends AbstractCommand {
-		private FyrePlugin plugin = FyrePlugin.getInstance();
+		private final FyrePlugin plugin = FyrePlugin.getInstance();
 
 		@Override
 		public String getPermission() {
@@ -95,7 +187,7 @@ public class Management extends Feature implements Listener {
 		@Override
 		public boolean execute(CommandSender sender, Command command, String label, String[] args) {
 			Player[] players = plugin.getServer().getOnlinePlayers()
-					.toArray(new Player[plugin.getServer().getOnlinePlayers().size()]);
+				.toArray(new Player[plugin.getServer().getOnlinePlayers().size()]);
 			boolean isPlayer = sender instanceof Player;
 			TextComponent responseText = new TextComponent();
 			DecimalFormat decimalFormat = new DecimalFormat("0.00");
@@ -131,7 +223,7 @@ public class Management extends Feature implements Listener {
 						latencyText.addExtra("" + ChatColor.YELLOW + playerLatency + "ms");
 					}
 					latencyText.setHoverEvent(
-							new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TextComponent[] { hoverText }));
+						new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TextComponent[]{hoverText}));
 
 				} else {
 					latencyText.addExtra("Average Ping: ");
@@ -158,19 +250,19 @@ public class Management extends Feature implements Listener {
 			}
 
 			TextComponent chunkText = new TextComponent(
-					"\n" + Strings.OUT_PREFIX + "Loaded Chunks: " + Strings.C_ACCENT + loadedChunks);
+				"\n" + Strings.OUT_PREFIX + "Loaded Chunks: " + Strings.C_ACCENT + loadedChunks);
 
 			if (isPlayer) {
 				// Add hover for player
 				TextComponent chunkHoverText = new TextComponent(
-						Strings.C_DEFAULT + "Chunks per player: " + Strings.C_ACCENT + loadedChunks / players.length);
+					Strings.C_DEFAULT + "Chunks per player: " + Strings.C_ACCENT + loadedChunks / players.length);
 				chunkText.setHoverEvent(
-						new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TextComponent[] { chunkHoverText }));
+					new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TextComponent[]{chunkHoverText}));
 			} else {
 				// Caller is console
 				if (players.length != 0) {
 					chunkText.addExtra("\n" + Strings.OUT_PREFIX + "Chunks per player: " + Strings.C_ACCENT
-							+ loadedChunks / players.length);
+						+ loadedChunks / players.length);
 				}
 			}
 			responseText.addExtra(chunkText);
@@ -204,12 +296,12 @@ public class Management extends Feature implements Listener {
 			}
 
 			TextComponent tpsText = new TextComponent(
-					Strings.OUT_PREFIX + "Ticks Per Second: " + tpsColors[0] + decimalFormat.format(tps[0]));
+				Strings.OUT_PREFIX + "Ticks Per Second: " + tpsColors[0] + decimalFormat.format(tps[0]));
 
 			if (isPlayer) {
 				TextComponent hoverText = new TextComponent("" + tpsColors[0] + decimalFormat.format(tps[0]) + " "
-						+ tpsColors[1] + decimalFormat.format(tps[1]) + " " + tpsColors[2]
-						+ decimalFormat.format(tps[2]) + "\n");
+					+ tpsColors[1] + decimalFormat.format(tps[1]) + " " + tpsColors[2]
+					+ decimalFormat.format(tps[2]) + "\n");
 				switch (tpsColors[3]) {
 					case DARK_GREEN:
 						hoverText.addExtra(tpsColors[3] + "TPS is perfect");
@@ -227,10 +319,10 @@ public class Management extends Feature implements Listener {
 						hoverText.addExtra(tpsColors[3] + "Unplayable");
 						break;
 				}
-				tpsText.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TextComponent[] { hoverText }));
+				tpsText.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TextComponent[]{hoverText}));
 			} else {
 				tpsText.addExtra(" " + tpsColors[1] + decimalFormat.format(tps[1]) + " " + tpsColors[2]
-						+ decimalFormat.format(tps[2]));
+					+ decimalFormat.format(tps[2]));
 			}
 			responseText.addExtra("\n");
 			responseText.addExtra(tpsText);
@@ -244,10 +336,10 @@ public class Management extends Feature implements Listener {
 			// We divide the values by 0x100000 to return the amount of memory used in MB
 
 			// Maximum amount of memory the server process can use (-Xmx)
-			long maxMemory = Runtime.getRuntime().maxMemory() / (int) 0x100000;
+			long maxMemory = Runtime.getRuntime().maxMemory() / 0x100000;
 
 			// Memory already allocated to the JVM, excluding empty memory
-			long usedMemory = (Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / (int) 0x100000;
+			long usedMemory = (Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / 0x100000;
 
 			if (maxMemory == Integer.MAX_VALUE) {
 				// No max memory limit
@@ -268,21 +360,21 @@ public class Management extends Feature implements Listener {
 					memoryColor = ChatColor.DARK_GREEN;
 				}
 				memoryText.addExtra("Using " + memoryColor + usedMemory + "MB / " + maxMemory + "MB ("
-						+ decimalFormat.format((((double) usedMemory / (double) maxMemory) * 100)) + "%)"
-						+ Strings.C_DEFAULT + " of memory");
+					+ decimalFormat.format((((double) usedMemory / (double) maxMemory) * 100)) + "%)"
+					+ Strings.C_DEFAULT + " of memory");
 			}
 
 			if (isPlayer) {
 				TextComponent memoryHover = new TextComponent(Strings.C_DEFAULT + "Max Memory: " + Strings.C_ACCENT
-						+ maxMemory + Strings.C_DEFAULT + "\nAllocated Memory: " + Strings.C_ACCENT
-						+ (Runtime.getRuntime().totalMemory() / (int) 0x100000) + Strings.C_DEFAULT + "\nUsed Memory: "
-						+ Strings.C_ACCENT + usedMemory + Strings.C_DEFAULT + "\nUnused Memory: " + Strings.C_ACCENT
-						+ (Runtime.getRuntime().freeMemory() / (int) 0x100000) + Strings.C_DEFAULT + "\nFree Memory: "
-						+ Strings.C_ACCENT + (maxMemory - usedMemory) + Strings.C_MUTED
-						+ "\nAll values in Megabytes (MB)");
+					+ maxMemory + Strings.C_DEFAULT + "\nAllocated Memory: " + Strings.C_ACCENT
+					+ (Runtime.getRuntime().totalMemory() / 0x100000) + Strings.C_DEFAULT + "\nUsed Memory: "
+					+ Strings.C_ACCENT + usedMemory + Strings.C_DEFAULT + "\nUnused Memory: " + Strings.C_ACCENT
+					+ (Runtime.getRuntime().freeMemory() / 0x100000) + Strings.C_DEFAULT + "\nFree Memory: "
+					+ Strings.C_ACCENT + (maxMemory - usedMemory) + Strings.C_MUTED
+					+ "\nAll values in Megabytes (MB)");
 
 				memoryText.setHoverEvent(
-						new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TextComponent[] { memoryHover }));
+					new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TextComponent[]{memoryHover}));
 			}
 
 			responseText.addExtra("\n");
@@ -302,45 +394,6 @@ public class Management extends Feature implements Listener {
 
 	}
 
-	private static TextComponent getPlugins(CommandSender sender, boolean longForm) {
-		boolean isPlayer = sender instanceof Player;
-		Plugin[] plugins = sender.getServer().getPluginManager().getPlugins();
-		int enabled = 0;
-
-		for (Plugin plugin : plugins) {
-			if (plugin.isEnabled()) {
-				// No Casting boolean to int in java?
-				enabled += 1;
-			}
-		}
-
-		if (longForm) {
-			return pluginLongForm(plugins);
-		}
-
-		TextComponent pluginText = new TextComponent(Strings.OUT_PREFIX + "In total, there are " + Strings.C_ACCENT
-				+ enabled + Strings.C_DEFAULT + " enabled plugins");
-		if (isPlayer) {
-			pluginText.setHoverEvent(
-					new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TextComponent[] { pluginLongForm(plugins) }));
-		}
-		return pluginText;
-	}
-
-	private static TextComponent pluginLongForm(Plugin[] plugins) {
-		TextComponent text = new TextComponent();
-		for (int i = 0; i < plugins.length; i++) {
-			Plugin plugin = plugins[i];
-			ChatColor color = plugin.isEnabled() ? ChatColor.DARK_GREEN : ChatColor.RED;
-			text.addExtra("" + color + plugin.getDescription().getName() + Strings.C_DEFAULT + " v"
-					+ Strings.C_ACCENT + plugin.getDescription().getVersion());
-			if (i < plugins.length - 1) {
-				text.addExtra("\n");
-			}
-		}
-		return text;
-	}
-
 	/**
 	 * Show which plugins are loaded by the server
 	 */
@@ -355,61 +408,6 @@ public class Management extends Feature implements Listener {
 			sender.sendMessage(getPlugins(sender, !(sender instanceof Player)));
 			return true;
 		}
-	}
-
-	private static TextComponent playerLongForm(Player[] players) {
-
-		if (players.length == 0) {
-			return new TextComponent();
-		}
-
-		TextComponent longFormText = new TextComponent(Strings.C_DEFAULT);
-
-		// Construct list of player names
-		for (int i = 0; i < players.length; i++) {
-			Player player = players[i];
-			longFormText.addExtra(player.getDisplayName());
-
-			if (i + 1 != players.length) {
-				longFormText.addExtra(Strings.C_DEFAULT);
-			}
-		}
-		return longFormText;
-	}
-
-	public static TextComponent getPlayers(CommandSender src, boolean longForm) {
-		boolean isPlayer = src instanceof Player;
-
-		Player[] players = src.getServer().getOnlinePlayers()
-				.toArray(new Player[src.getServer().getOnlinePlayers().size()]);
-		if (players.length == 0) {
-			// No players online
-			return new TextComponent(Strings.OUT_PREFIX + "There are no players online");
-		}
-
-		if (longForm) {
-			// Return longform output
-			return playerLongForm(players);
-		}
-
-		TextComponent text = new TextComponent();
-		if (players.length == 1) {
-			// English single
-			text.addExtra(Strings.OUT_PREFIX + "There is " + Strings.C_ACCENT + players.length + Strings.C_DEFAULT
-					+ " player online");
-		} else {
-			text.addExtra(Strings.OUT_PREFIX + "There is " + Strings.C_ACCENT + players.length + Strings.C_DEFAULT
-					+ " players online");
-
-		}
-
-		if (!isPlayer) {
-			return text;
-		}
-
-		text.setHoverEvent(
-				new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TextComponent[] { playerLongForm(players) }));
-		return text;
 	}
 
 	/**
@@ -437,7 +435,7 @@ public class Management extends Feature implements Listener {
 	 */
 	public class PlayerPreProcessorCommand implements Listener {
 
-		private FyrePlugin plugin = FyrePlugin.getInstance();
+		private final FyrePlugin plugin = FyrePlugin.getInstance();
 
 		@EventHandler(priority = EventPriority.HIGH)
 		public void onPlayerCommand(PlayerCommandPreprocessEvent event) {

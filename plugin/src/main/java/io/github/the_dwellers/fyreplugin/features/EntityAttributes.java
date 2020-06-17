@@ -1,16 +1,16 @@
 package io.github.the_dwellers.fyreplugin.features;
 
+import io.github.the_dwellers.fyreplugin.Feature;
+import io.github.the_dwellers.fyreplugin.FyrePlugin;
+import io.github.the_dwellers.fyreplugin.configuration.SupportedVersions;
+import io.github.the_dwellers.fyreplugin.util.MinecraftVersion;
 import org.bukkit.Material;
 import org.bukkit.attribute.Attributable;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.attribute.AttributeModifier.Operation;
 import org.bukkit.block.Block;
-import org.bukkit.entity.Creeper;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.Player;
-import org.bukkit.entity.Spider;
+import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -20,51 +20,24 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.spigotmc.event.player.PlayerSpawnLocationEvent;
 
-import io.github.the_dwellers.fyreplugin.FyrePlugin;
-import io.github.the_dwellers.fyreplugin.Feature;
-import io.github.the_dwellers.fyreplugin.configuration.SupportedVersions;
-import io.github.the_dwellers.fyreplugin.util.MinecraftVersion;
-
 /**
  * Attribute changes to entities, as well as some minor tweaks to common monster
  * interactions. See {@link Mobs} for difficulty and equipment interactions.
+ *
  * @see Mobs
  */
 public class EntityAttributes extends Feature implements Listener {
 
 	public static MinecraftVersion minVersion = SupportedVersions.MIN;
-
-	protected boolean enabled = false;
 	protected static String name = "Entity Attributes";
 	private static EntityAttributes featureInstance;
+	protected boolean enabled = false;
 
 	public static EntityAttributes getInstance() {
 		if (featureInstance == null) {
 			featureInstance = new EntityAttributes();
 		}
 		return featureInstance;
-	}
-
-	@Override
-	public MinecraftVersion getMinecraftVersion() {
-		return minVersion;
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return enabled;
-	}
-
-	@Override
-	public String getName() {
-		return name;
-	}
-
-	@Override
-	public boolean setup(FyrePlugin plugin) {
-		plugin.getServer().getPluginManager().registerEvents(this, plugin);
-		enabled = true;
-		return isEnabled();
 	}
 
 	/**
@@ -103,13 +76,35 @@ public class EntityAttributes extends Feature implements Listener {
 
 	public static void applyOverworldHostile(Attributable entity) {
 		entity.getAttribute(Attribute.GENERIC_MAX_HEALTH)
-				.addModifier(new AttributeModifier("Fyre Spawn Health 1.5", 0.5, Operation.MULTIPLY_SCALAR_1));
+			.addModifier(new AttributeModifier("Fyre Spawn Health 1.5", 0.5, Operation.MULTIPLY_SCALAR_1));
 	}
 
 	public static void applyNetherHostile(Attributable entity) {
 		entity.getAttribute(Attribute.GENERIC_MAX_HEALTH)
-				.addModifier(new AttributeModifier("Fyre Spawn Health 2", 1, Operation.MULTIPLY_SCALAR_1));
+			.addModifier(new AttributeModifier("Fyre Spawn Health 2", 1, Operation.MULTIPLY_SCALAR_1));
 
+	}
+
+	@Override
+	public MinecraftVersion getMinecraftVersion() {
+		return minVersion;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	@Override
+	public String getName() {
+		return name;
+	}
+
+	@Override
+	public boolean setup(FyrePlugin plugin) {
+		plugin.getServer().getPluginManager().registerEvents(this, plugin);
+		enabled = true;
+		return isEnabled();
 	}
 
 	@EventHandler()
@@ -173,7 +168,7 @@ public class EntityAttributes extends Feature implements Listener {
 	}
 
 	@EventHandler()
-	public void onFirstJoin(PlayerSpawnLocationEvent event){
+	public void onFirstJoin(PlayerSpawnLocationEvent event) {
 		if (!event.getPlayer().hasPlayedBefore()) {
 			applyPlayer(event.getPlayer());
 		}

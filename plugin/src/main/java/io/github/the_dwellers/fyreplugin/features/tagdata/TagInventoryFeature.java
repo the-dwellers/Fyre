@@ -1,7 +1,7 @@
 package io.github.the_dwellers.fyreplugin.features.tagdata;
 
-import io.github.the_dwellers.fyreplugin.FyrePlugin;
 import io.github.the_dwellers.fyreplugin.Feature;
+import io.github.the_dwellers.fyreplugin.FyrePlugin;
 import io.github.the_dwellers.fyreplugin.features.NBTAdapter;
 import io.github.the_dwellers.fyreplugin.util.MinecraftVersion;
 
@@ -14,10 +14,9 @@ import io.github.the_dwellers.fyreplugin.util.MinecraftVersion;
 public class TagInventoryFeature extends Feature {
 
 	public static MinecraftVersion minVersion = TagDataHolderFeature.minVersion;
-
-	protected boolean enabled = false;
 	protected static String name = "NBT TagInventory";
 	private static TagInventoryFeature instance;
+	protected boolean enabled = false;
 
 	public static TagInventoryFeature getInstance() {
 		if (instance == null) {

@@ -1,5 +1,11 @@
 package io.github.the_dwellers.fyreplugin.features;
 
+import io.github.the_dwellers.fyreplugin.Feature;
+import io.github.the_dwellers.fyreplugin.FyrePlugin;
+import io.github.the_dwellers.fyreplugin.commands.AbstractCommand;
+import io.github.the_dwellers.fyreplugin.configuration.SupportedVersions;
+import io.github.the_dwellers.fyreplugin.features.Mobs.BossType;
+import io.github.the_dwellers.fyreplugin.util.MinecraftVersion;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
@@ -8,23 +14,15 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 
-import io.github.the_dwellers.fyreplugin.FyrePlugin;
-import io.github.the_dwellers.fyreplugin.commands.AbstractCommand;
-import io.github.the_dwellers.fyreplugin.configuration.SupportedVersions;
-import io.github.the_dwellers.fyreplugin.Feature;
-import io.github.the_dwellers.fyreplugin.features.Mobs.BossType;
-import io.github.the_dwellers.fyreplugin.util.MinecraftVersion;
-
 /**
  * Development module for random testing.
  */
 public class Development extends Feature implements Listener {
 
 	public static MinecraftVersion minVersion = SupportedVersions.MIN;
-
-	protected boolean enabled = false;
 	protected static String name = "Development";
 	private static Development instance;
+	protected boolean enabled = false;
 
 	public static Development getInstance() {
 		if (instance == null) {

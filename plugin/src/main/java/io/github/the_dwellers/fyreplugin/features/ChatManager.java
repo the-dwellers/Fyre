@@ -7,7 +7,6 @@ import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.HoverEvent.Action;
 import net.md_5.bungee.api.chat.TextComponent;
-// import net.milkbowl.vault.chat.Chat;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Statistic;
@@ -15,6 +14,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
+
+// import net.milkbowl.vault.chat.Chat;
 
 /**
  * Functions dedicated to chat manipulation and formatting.
@@ -114,7 +115,7 @@ public abstract class ChatManager {
 	 * @param player  Sender of the message. Will receive any error messages.
 	 * @param message Message sent by the sender. This will be parsed.
 	 * @return Returns a constructed {@link TextComponent} with formatted {@code @}
-	 *         notations and any other parsing results
+	 * notations and any other parsing results
 	 */
 	private static TextComponent parseTextMessage(Player player, String message) {
 		// Text Components keeps a rolling list of constructs to be added
@@ -151,7 +152,7 @@ public abstract class ChatManager {
 				// At notation started, and not at the end of the message
 
 				// Duplicate the current text component and add it to the list
-				textComponents.add((TextComponent) currentText.duplicate());
+				textComponents.add(currentText.duplicate());
 
 				// Reset text component
 				currentText = new TextComponent(ChatColor.RESET + " ");
@@ -185,7 +186,7 @@ public abstract class ChatManager {
 							textComponents.add(new TextComponent(Strings.C_ERROR + "[Nothing]"));
 						} else {
 							// Item in offhand
-							textComponents.add((TextComponent) offhand.duplicate());
+							textComponents.add(offhand.duplicate());
 						}
 					} else {
 						// Item in MainHand
@@ -292,7 +293,7 @@ public abstract class ChatManager {
 	 *
 	 * @param item Item to represent as a TextComponent
 	 * @return Returns {@code null} if the item is air or invalid. Otherwise a
-	 *         TextComponent representing the item
+	 * TextComponent representing the item
 	 */
 	public static TextComponent getItemText(ItemStack item) {
 		if (item == null || item.getType() == Material.AIR) {
@@ -305,7 +306,7 @@ public abstract class ChatManager {
 			TextComponent text;
 
 			String itemName = item.getItemMeta().hasDisplayName() ? item.getItemMeta().getDisplayName()
-					: item.getI18NDisplayName();
+				: item.getI18NDisplayName();
 
 			// Check to see if the item has a custom colored name. This includes enchanted
 			// and renamed items
@@ -316,7 +317,7 @@ public abstract class ChatManager {
 
 			if (customItem) {
 				// Item has a custom name / color
-				color = String.valueOf(new char[] { '\u00a7', itemName.toCharArray()[1] });
+				color = String.valueOf(new char[]{'\u00a7', itemName.toCharArray()[1]});
 			} else {
 				// If the item is not a custom item, then display the default name to chat,
 				// rather than the rename
@@ -331,7 +332,7 @@ public abstract class ChatManager {
 				text = new TextComponent(color + "[" + item.getAmount() + "x " + itemName + color + "]");
 			}
 
-			text.setHoverEvent(new HoverEvent(Action.SHOW_ITEM, new TextComponent[] { new TextComponent(nbt) }));
+			text.setHoverEvent(new HoverEvent(Action.SHOW_ITEM, new TextComponent[]{new TextComponent(nbt)}));
 			return text;
 
 		} catch (ReflectionFailedException e) {
@@ -347,7 +348,7 @@ public abstract class ChatManager {
 	 *
 	 * @param player Player to get main hand item of
 	 * @return ItemStack of player's main hand, with a quantity of all items of the
-	 *         same kind in the player's inventory
+	 * same kind in the player's inventory
 	 * @see ChatManager#getDisplayStackOffHand(Player)
 	 * @see ChatManager#getArmourText(Player)
 	 */
@@ -374,7 +375,7 @@ public abstract class ChatManager {
 	 *
 	 * @param player Player to obtain armor from
 	 * @return Returns {@code null} if the player is not wearing armor. Otherwise
-	 *         returns a TextComponent of all worn items
+	 * returns a TextComponent of all worn items
 	 * @see ChatManager#getItemText(ItemStack)
 	 * @see ChatManager#getDisplayStackMainHand(Player)
 	 * @see ChatManager#getDisplayStackOffHand(Player)
@@ -405,7 +406,7 @@ public abstract class ChatManager {
 	 *
 	 * @param player Player to get off-hand item of
 	 * @return ItemStack of player's off-hand, with a quantity of all items of the
-	 *         same kind in the player's inventory
+	 * same kind in the player's inventory
 	 * @see ChatManager#getDisplayStackMainHand(Player)
 	 * @see ChatManager#getArmourText(Player)
 	 */
@@ -431,7 +432,7 @@ public abstract class ChatManager {
 	 *
 	 * @param player Player to return TextComponent of
 	 * @return TextComponent of player's name with hover-overs and on-click
-	 *         functions.
+	 * functions.
 	 */
 	private static TextComponent getPlayerName(Player player) {
 		TextComponent name = new TextComponent(player.getDisplayName());
@@ -441,7 +442,7 @@ public abstract class ChatManager {
 		// Playtime
 		int secondsPlayed = player.getStatistic(Statistic.PLAY_ONE_MINUTE) / 60;
 		hover.addExtra(Strings.C_DEFAULT + "Playtime: " + Strings.C_ACCENT
-				+ buildTime(Integer.toUnsignedLong(secondsPlayed), false) + "\n");
+			+ buildTime(Integer.toUnsignedLong(secondsPlayed), false) + "\n");
 
 		// Times disconnected, & Average Session Length
 		int timesDisconnected = player.getStatistic(Statistic.LEAVE_GAME);
@@ -450,18 +451,18 @@ public abstract class ChatManager {
 			hover.addExtra(Strings.C_POSITIVE + "First time on Fyre! Welcome them!" + "\n");
 		} else {
 			hover.addExtra(Strings.C_DEFAULT + "Average Session: " + Strings.C_ACCENT
-					+ buildTime(Integer.toUnsignedLong(secondsPlayed / timesDisconnected), false) + "\n");
+				+ buildTime(Integer.toUnsignedLong(secondsPlayed / timesDisconnected), false) + "\n");
 			hover.addExtra(Strings.C_DEFAULT + "Times Disconnected: " + Strings.C_ACCENT + timesDisconnected + "\n");
 		}
 
 		// Cake slices eaten
 		hover.addExtra(Strings.C_DEFAULT + "Cake Slices Eaten: " + Strings.C_ACCENT
-				+ player.getStatistic(Statistic.CAKE_SLICES_EATEN));
+			+ player.getStatistic(Statistic.CAKE_SLICES_EATEN));
 
 		hover.addExtra("\n" + Strings.C_MUTED + "Click to private message");
-		name.setHoverEvent(new HoverEvent(Action.SHOW_TEXT, new TextComponent[] { hover }));
+		name.setHoverEvent(new HoverEvent(Action.SHOW_TEXT, new TextComponent[]{hover}));
 		name.setClickEvent(new ClickEvent(net.md_5.bungee.api.chat.ClickEvent.Action.SUGGEST_COMMAND,
-				"/msg " + player.getName() + " "));
+			"/msg " + player.getName() + " "));
 		return name;
 	}
 
@@ -472,7 +473,7 @@ public abstract class ChatManager {
 	 * @param seconds     Time in seconds
 	 * @param showSeconds if true, print seconds when hours are not displayed
 	 * @return Textual representation of time in english (E.g. 2 hours and 35
-	 *         minutes)
+	 * minutes)
 	 */
 	private static String buildTime(long seconds, boolean showSeconds) {
 		long minutes = seconds / 60;

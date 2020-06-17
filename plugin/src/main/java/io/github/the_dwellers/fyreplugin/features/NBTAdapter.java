@@ -1,18 +1,17 @@
 package io.github.the_dwellers.fyreplugin.features;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.UUID;
-
-import org.bukkit.entity.Entity;
-import org.bukkit.inventory.ItemStack;
-
+import io.github.the_dwellers.fyreplugin.Feature;
 import io.github.the_dwellers.fyreplugin.FyrePlugin;
 import io.github.the_dwellers.fyreplugin.Reflected;
 import io.github.the_dwellers.fyreplugin.configuration.SupportedVersions;
 import io.github.the_dwellers.fyreplugin.exceptions.ReflectionFailedException;
-import io.github.the_dwellers.fyreplugin.Feature;
 import io.github.the_dwellers.fyreplugin.util.MinecraftVersion;
+import org.bukkit.entity.Entity;
+import org.bukkit.inventory.ItemStack;
+
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.UUID;
 
 /**
  * Adapter for general NBT interactions with Minecraft.
@@ -22,153 +21,15 @@ import io.github.the_dwellers.fyreplugin.util.MinecraftVersion;
 public class NBTAdapter extends Feature {
 
 	public static MinecraftVersion minVersion = SupportedVersions.MC1132;
-
-	protected boolean enabled = false;
 	protected static String name = "NBT Features";
 	private static NBTAdapter instance;
+	protected boolean enabled = false;
 
 	public static NBTAdapter getInstance() {
 		if (instance == null) {
 			instance = new NBTAdapter();
 		}
 		return instance;
-	}
-
-	@Override
-	public MinecraftVersion getMinecraftVersion() {
-		return minVersion;
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return enabled;
-	}
-
-	@Override
-	public boolean setup(FyrePlugin plugin) {
-		if (Reflected.getClass("ItemStack") == null) {
-			if (!Reflected.cacheClass(Reflected.nmsClass+"ItemStack")) {
-				plugin.getLogger().warning("Unable to Cache ItemStack");
-				return false;
-			}
-		}
-
-		if (Reflected.getClass("NBTTagCompound") == null) {
-			if (!Reflected.cacheClass(Reflected.nmsClass+"NBTTagCompound")) {
-				plugin.getLogger().warning("Unable to Cache NBTTagCompound");
-				return false;
-			}
-		}
-
-		if (Reflected.getMethod("NBTTagCompound#toString") == null) {
-			if (!Reflected.cacheClassMethod("NBTTagCompound#toString")) {;
-				plugin.getLogger().warning("Unable to Cache NBTTagCompound#toString");
-				return false;
-			}
-		}
-
-		if (Reflected.getMethod("ItemStack#save") == null) {
-			// Save Item to NBT
-			if (!Reflected.cacheClassMethod("ItemStack#save", Reflected.getClass("NBTTagCompound"))) {
-				plugin.getLogger().warning("Unable to Cache ItemStack#save");
-				return false;
-			}
-		}
-
-		if (Reflected.getMethod("ItemStack#load") == null) {
-			// Load item From NBT (Requires 1.13)
-			if (!Reflected.cacheMethod("a", "ItemStack#load", Reflected.getClass("ItemStack"), Reflected.getClass("NBTTagCompound"))) {
-				plugin.getLogger().warning("Unable to Cache ItemStack#a");
-				return false;
-			}
-		}
-
-		if (Reflected.getClass("MojangsonParser") == null) {
-			if (!Reflected.cacheClass(Reflected.nmsClass+"MojangsonParser")) {
-				plugin.getLogger().warning("Unable to Cache MojangsonParser");
-				return false;
-			}
-		}
-		if (Reflected.getMethod("MojangsonParser#parse") == null) {
-			if (!Reflected.cacheClassMethod("MojangsonParser#parse", String.class)) {;
-				plugin.getLogger().warning("Unable to Cache MojangsonParser#parse");
-			return false;
-			}
-		}
-
-		if (Reflected.getClass("Entity") == null) {
-			if (!Reflected.cacheClass(Reflected.nmsClass+"Entity")) {
-				plugin.getLogger().warning("Unable to Cache Entity");
-				return false;
-			}
-		}
-		if (Reflected.getMethod("Entity#getUniqueID") == null) {
-			if (!Reflected.cacheClassMethod("Entity#getUniqueID")) {;
-				plugin.getLogger().warning("Unable to Cache Entity#getUniqueID");
-				return false;
-			}
-		}
-
-		if (Reflected.getMethod("Entity#save") == null) {
-			if (!Reflected.cacheClassMethod("Entity#save",Reflected.getClass("NBTTagCompound"))) {
-				plugin.getLogger().warning("Unable to Cache Entity#save");
-				return false;
-			}
-		}
-		if (Reflected.getMethod("Entity#load") == null) {
-			if (!Reflected.cacheMethod("f", "Entity#load", Reflected.getClass("Entity"), Reflected.getClass("NBTTagCompound"))) {
-				plugin.getLogger().warning("Unable to Cache Entity#load");
-				return false;
-			}
-		}
-
-		if (Reflected.getMethod("Entity#setUUID") == null) {
-			if (!Reflected.cacheMethod("a", "Entity#setUUID", Reflected.getClass("Entity"), UUID.class)) {
-				plugin.getLogger().warning("Unable to Cache Entity#setUUID");
-				return false;
-			}
-		}
-
-		if (Reflected.getClass("CraftItemStack") == null) {
-			if (!Reflected.cacheClass(Reflected.obcClass+"inventory.CraftItemStack")) {
-				plugin.getLogger().warning("Unable to Cache CraftItemStack");
-				return false;
-			}
-		}
-		if (Reflected.getMethod("CraftItemStack#asBukkitCopy") == null) {
-			if (!Reflected.cacheClassMethod("CraftItemStack#asBukkitCopy", Reflected.getClass("ItemStack") )) {
-				plugin.getLogger().warning("Unable to Cache CraftItemStack#asBukkitCopy");
-				return false;
-			}
-		}
-
-		if (Reflected.getMethod("CraftItemStack#asNMSCopy") == null) {
-			if (!Reflected.cacheMethod("CraftItemStack#asNMSCopy", Reflected.getClass("CraftItemStack"), ItemStack.class)) {
-				plugin.getLogger().warning("Unable to Cache CraftItemStack#asNMSCopy");
-				return false;
-			}
-		}
-
-		if (Reflected.getClass("CraftEntity") == null) {
-			if (!Reflected.cacheClass(Reflected.obcClass+"entity.CraftEntity")) {
-				plugin.getLogger().warning("Unable to Cache CraftEntity");
-				return false;
-			}
-		}
-		if (Reflected.getMethod("CraftEntity#getHandle") == null) {
-			if (!Reflected.cacheClassMethod("CraftEntity#getHandle")) {
-				plugin.getLogger().warning("Unable to Cache CraftEntity#getHandle");
-				return false;
-			}
-		}
-
-		enabled = true;
-		return true;
-	}
-
-	@Override
-	public String getName() {
-		return name;
 	}
 
 	/**
@@ -234,7 +95,7 @@ public class NBTAdapter extends Feature {
 	 *
 	 * @param nbt NBT tag to convert to an ItemStack
 	 * @return Returns ItemStack of the provided NBT. {@code null} if decoding
-	 *         errors occur;
+	 * errors occur;
 	 * @throws ReflectionFailedException thrown when any exception is encountered
 	 *                                   during reflection
 	 */
@@ -384,5 +245,142 @@ public class NBTAdapter extends Feature {
 		} catch (LinkageError | IllegalAccessException | InvocationTargetException e) {
 			throw new ReflectionFailedException(e);
 		}
+	}
+
+	@Override
+	public MinecraftVersion getMinecraftVersion() {
+		return minVersion;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	@Override
+	public boolean setup(FyrePlugin plugin) {
+		if (Reflected.getClass("ItemStack") == null) {
+			if (!Reflected.cacheClass(Reflected.nmsClass + "ItemStack")) {
+				plugin.getLogger().warning("Unable to Cache ItemStack");
+				return false;
+			}
+		}
+
+		if (Reflected.getClass("NBTTagCompound") == null) {
+			if (!Reflected.cacheClass(Reflected.nmsClass + "NBTTagCompound")) {
+				plugin.getLogger().warning("Unable to Cache NBTTagCompound");
+				return false;
+			}
+		}
+
+		if (Reflected.getMethod("NBTTagCompound#toString") == null) {
+			if (!Reflected.cacheClassMethod("NBTTagCompound#toString")) {
+				plugin.getLogger().warning("Unable to Cache NBTTagCompound#toString");
+				return false;
+			}
+		}
+
+		if (Reflected.getMethod("ItemStack#save") == null) {
+			// Save Item to NBT
+			if (!Reflected.cacheClassMethod("ItemStack#save", Reflected.getClass("NBTTagCompound"))) {
+				plugin.getLogger().warning("Unable to Cache ItemStack#save");
+				return false;
+			}
+		}
+
+		if (Reflected.getMethod("ItemStack#load") == null) {
+			// Load item From NBT (Requires 1.13)
+			if (!Reflected.cacheMethod("a", "ItemStack#load", Reflected.getClass("ItemStack"), Reflected.getClass("NBTTagCompound"))) {
+				plugin.getLogger().warning("Unable to Cache ItemStack#a");
+				return false;
+			}
+		}
+
+		if (Reflected.getClass("MojangsonParser") == null) {
+			if (!Reflected.cacheClass(Reflected.nmsClass + "MojangsonParser")) {
+				plugin.getLogger().warning("Unable to Cache MojangsonParser");
+				return false;
+			}
+		}
+		if (Reflected.getMethod("MojangsonParser#parse") == null) {
+			if (!Reflected.cacheClassMethod("MojangsonParser#parse", String.class)) {
+				plugin.getLogger().warning("Unable to Cache MojangsonParser#parse");
+				return false;
+			}
+		}
+
+		if (Reflected.getClass("Entity") == null) {
+			if (!Reflected.cacheClass(Reflected.nmsClass + "Entity")) {
+				plugin.getLogger().warning("Unable to Cache Entity");
+				return false;
+			}
+		}
+		if (Reflected.getMethod("Entity#getUniqueID") == null) {
+			if (!Reflected.cacheClassMethod("Entity#getUniqueID")) {
+				plugin.getLogger().warning("Unable to Cache Entity#getUniqueID");
+				return false;
+			}
+		}
+
+		if (Reflected.getMethod("Entity#save") == null) {
+			if (!Reflected.cacheClassMethod("Entity#save", Reflected.getClass("NBTTagCompound"))) {
+				plugin.getLogger().warning("Unable to Cache Entity#save");
+				return false;
+			}
+		}
+		if (Reflected.getMethod("Entity#load") == null) {
+			if (!Reflected.cacheMethod("f", "Entity#load", Reflected.getClass("Entity"), Reflected.getClass("NBTTagCompound"))) {
+				plugin.getLogger().warning("Unable to Cache Entity#load");
+				return false;
+			}
+		}
+
+		if (Reflected.getMethod("Entity#setUUID") == null) {
+			if (!Reflected.cacheMethod("a", "Entity#setUUID", Reflected.getClass("Entity"), UUID.class)) {
+				plugin.getLogger().warning("Unable to Cache Entity#setUUID");
+				return false;
+			}
+		}
+
+		if (Reflected.getClass("CraftItemStack") == null) {
+			if (!Reflected.cacheClass(Reflected.obcClass + "inventory.CraftItemStack")) {
+				plugin.getLogger().warning("Unable to Cache CraftItemStack");
+				return false;
+			}
+		}
+		if (Reflected.getMethod("CraftItemStack#asBukkitCopy") == null) {
+			if (!Reflected.cacheClassMethod("CraftItemStack#asBukkitCopy", Reflected.getClass("ItemStack"))) {
+				plugin.getLogger().warning("Unable to Cache CraftItemStack#asBukkitCopy");
+				return false;
+			}
+		}
+
+		if (Reflected.getMethod("CraftItemStack#asNMSCopy") == null) {
+			if (!Reflected.cacheMethod("CraftItemStack#asNMSCopy", Reflected.getClass("CraftItemStack"), ItemStack.class)) {
+				plugin.getLogger().warning("Unable to Cache CraftItemStack#asNMSCopy");
+				return false;
+			}
+		}
+
+		if (Reflected.getClass("CraftEntity") == null) {
+			if (!Reflected.cacheClass(Reflected.obcClass + "entity.CraftEntity")) {
+				plugin.getLogger().warning("Unable to Cache CraftEntity");
+				return false;
+			}
+		}
+		if (Reflected.getMethod("CraftEntity#getHandle") == null) {
+			if (!Reflected.cacheClassMethod("CraftEntity#getHandle")) {
+				plugin.getLogger().warning("Unable to Cache CraftEntity#getHandle");
+				return false;
+			}
+		}
+
+		enabled = true;
+		return true;
+	}
+
+	@Override
+	public String getName() {
+		return name;
 	}
 }

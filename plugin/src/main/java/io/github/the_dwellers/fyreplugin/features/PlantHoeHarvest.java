@@ -1,11 +1,12 @@
 package io.github.the_dwellers.fyreplugin.features;
 
-import java.util.Collection;
-
+import io.github.the_dwellers.fyreplugin.Feature;
+import io.github.the_dwellers.fyreplugin.FyrePlugin;
+import io.github.the_dwellers.fyreplugin.configuration.SupportedVersions;
+import io.github.the_dwellers.fyreplugin.util.MinecraftVersion;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.data.Ageable;
-import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -15,10 +16,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import io.github.the_dwellers.fyreplugin.FyrePlugin;
-import io.github.the_dwellers.fyreplugin.configuration.SupportedVersions;
-import io.github.the_dwellers.fyreplugin.Feature;
-import io.github.the_dwellers.fyreplugin.util.MinecraftVersion;
+import java.util.Collection;
 
 /**
  * Harvest plants by right-clicking with a hoe!
@@ -28,10 +26,9 @@ import io.github.the_dwellers.fyreplugin.util.MinecraftVersion;
 public class PlantHoeHarvest extends Feature implements Listener {
 
 	public static MinecraftVersion minVersion = SupportedVersions.MC1144;
-
-	protected boolean enabled = false;
 	protected static String name = "Hoe Harvest";
 	private static PlantHoeHarvest instance;
+	protected boolean enabled = false;
 
 	public static PlantHoeHarvest getInstance() {
 		if (instance == null) {
@@ -68,7 +65,7 @@ public class PlantHoeHarvest extends Feature implements Listener {
 		Material blockMaterial = block.getType();
 
 		if (blockMaterial == Material.WHEAT || blockMaterial == Material.BEETROOTS || blockMaterial == Material.CARROTS
-				|| blockMaterial == Material.POTATOES) {
+			|| blockMaterial == Material.POTATOES) {
 
 			Ageable Blockdata = (Ageable) block.getBlockData();
 			if (Blockdata.getAge() != Blockdata.getMaximumAge()) {
@@ -84,7 +81,7 @@ public class PlantHoeHarvest extends Feature implements Listener {
 
 			// Main Hand
 			if (rightMat == Material.WOODEN_HOE || rightMat == Material.STONE_HOE || rightMat == Material.IRON_HOE
-					|| rightMat == Material.GOLDEN_HOE || rightMat == Material.DIAMOND_HOE) {
+				|| rightMat == Material.GOLDEN_HOE || rightMat == Material.DIAMOND_HOE) {
 
 				Damageable itemMeta = (Damageable) right.getItemMeta();
 				itemMeta.setDamage(itemMeta.getDamage() + 1);
@@ -93,7 +90,7 @@ public class PlantHoeHarvest extends Feature implements Listener {
 				// ? Why do items not naturally break?
 				if (itemMeta.getDamage() > right.getType().getMaxDurability()) {
 					if (ClientBreakItem.getInstance().isEnabled()) {
-						ClientBreakItem.breakEquipment((LivingEntity) player, EquipmentSlot.HAND);
+						ClientBreakItem.breakEquipment(player, EquipmentSlot.HAND);
 					} else {
 						player.getEquipment().getItemInMainHand().subtract();
 					}
@@ -104,14 +101,14 @@ public class PlantHoeHarvest extends Feature implements Listener {
 
 				// Off Hand
 			} else if (leftMat == Material.WOODEN_HOE || leftMat == Material.STONE_HOE || leftMat == Material.IRON_HOE
-					|| leftMat == Material.GOLDEN_HOE || leftMat == Material.DIAMOND_HOE) {
+				|| leftMat == Material.GOLDEN_HOE || leftMat == Material.DIAMOND_HOE) {
 
 				Damageable itemMeta = (Damageable) left.getItemMeta();
 				itemMeta.setDamage(itemMeta.getDamage() + 1);
 
 				if (itemMeta.getDamage() > left.getType().getMaxDurability()) {
 					if (ClientBreakItem.getInstance().isEnabled()) {
-						ClientBreakItem.breakEquipment((LivingEntity) player, EquipmentSlot.HAND);
+						ClientBreakItem.breakEquipment(player, EquipmentSlot.HAND);
 					} else {
 						player.getEquipment().getItemInMainHand().subtract();
 					}

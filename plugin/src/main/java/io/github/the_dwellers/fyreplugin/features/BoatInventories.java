@@ -1,11 +1,10 @@
 package io.github.the_dwellers.fyreplugin.features;
 
+import io.github.the_dwellers.fyreplugin.Feature;
 import io.github.the_dwellers.fyreplugin.FyrePlugin;
 import io.github.the_dwellers.fyreplugin.features.tagdata.TagInventory;
-import io.github.the_dwellers.fyreplugin.Feature;
 import io.github.the_dwellers.fyreplugin.features.tagdata.TagInventoryFeature;
 import io.github.the_dwellers.fyreplugin.util.MinecraftVersion;
-
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
@@ -26,10 +25,9 @@ import org.bukkit.inventory.ItemStack;
 public class BoatInventories extends Feature implements Listener {
 
 	public static MinecraftVersion minVersion = TagInventoryFeature.minVersion;
-
-	protected boolean enabled = false;
 	protected static String name = "Chest Boats";
 	private static BoatInventories featureInstance;
+	protected boolean enabled = false;
 
 	public static BoatInventories getInstance() {
 		if (featureInstance == null) {

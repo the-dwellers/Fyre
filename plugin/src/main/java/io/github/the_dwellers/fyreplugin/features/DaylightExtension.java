@@ -1,19 +1,17 @@
 package io.github.the_dwellers.fyreplugin.features;
 
-import java.util.List;
-import java.util.Random;
-
 import com.destroystokyo.paper.event.server.ServerTickEndEvent;
-
+import io.github.the_dwellers.fyreplugin.Feature;
+import io.github.the_dwellers.fyreplugin.FyrePlugin;
+import io.github.the_dwellers.fyreplugin.configuration.SupportedVersions;
+import io.github.the_dwellers.fyreplugin.util.MinecraftVersion;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
-import io.github.the_dwellers.fyreplugin.FyrePlugin;
-import io.github.the_dwellers.fyreplugin.Feature;
-import io.github.the_dwellers.fyreplugin.configuration.SupportedVersions;
-import io.github.the_dwellers.fyreplugin.util.MinecraftVersion;
+import java.util.List;
+import java.util.Random;
 
 /**
  * Prolong daylight by randomly delaying day advancement.
@@ -23,10 +21,10 @@ import io.github.the_dwellers.fyreplugin.util.MinecraftVersion;
 public class DaylightExtension extends Feature implements Listener {
 
 	public static MinecraftVersion minVersion = SupportedVersions.MIN;
-
-	protected boolean enabled = false;
 	protected static String name = "Daylight Extension";
 	private static DaylightExtension featureInstance;
+	protected boolean enabled = false;
+	private Random rand;
 
 	public static DaylightExtension getInstance() {
 		if (featureInstance == null) {
@@ -58,8 +56,6 @@ public class DaylightExtension extends Feature implements Listener {
 		// enabled = true;
 		// return isEnabled();
 	}
-
-	private Random rand;
 
 	@EventHandler()
 	public void onTickEndEvent(ServerTickEndEvent event) {

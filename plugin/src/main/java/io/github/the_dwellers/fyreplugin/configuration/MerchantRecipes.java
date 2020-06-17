@@ -1,10 +1,9 @@
 package io.github.the_dwellers.fyreplugin.configuration;
 
+import io.github.the_dwellers.fyreplugin.configuration.Items.CraftingBook;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.MerchantRecipe;
-
-import io.github.the_dwellers.fyreplugin.configuration.Items.CraftingBook;
 
 import java.util.ArrayList;
 
@@ -262,9 +261,9 @@ public abstract class MerchantRecipes {
 			ArrayList<ItemStack> ingredients = new ArrayList<ItemStack>();
 			ingredients.add(new ItemStack(Material.BIRCH_LOG));
 
-			SELL_LOG_BIRCH .setIngredients(ingredients);
+			SELL_LOG_BIRCH.setIngredients(ingredients);
 		}
-		return SELL_LOG_BIRCH ;
+		return SELL_LOG_BIRCH;
 	}
 
 	public static MerchantRecipe sellJungleLog() {
