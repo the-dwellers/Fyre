@@ -12,7 +12,7 @@ if [[ ! -d "server/plugins" ]]; then
 	mkdir "server/plugins"
 fi
 
-./gradlew jar --warning-mode all
+./gradlew shadowJar --warning-mode all
 if [[ $? -ne 0 ]]; then
 	echo ERROR: Gradle build finished with non-zero exit code
 	exit 1
@@ -22,7 +22,7 @@ if [[ -a "server/plugins/FyrePlugin.jar" ]]; then
 	rm -f "server/plugins/FyrePlugin.jar"
 fi
 
-cp "build/libs/FyrePlugin-0-1.0-SNAPSHOT.jar" "server/plugins/FyrePlugin.jar"
+cp "build/libs/FyrePlugin-0-1.0-SNAPSHOT-all.jar" "server/plugins/FyrePlugin.jar"
 
 cd "server"
 

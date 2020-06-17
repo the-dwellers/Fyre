@@ -12,7 +12,7 @@ IF NOT EXIST "server\plugins" (
 	mkdir "server\plugins"
 )
 
-call .\gradlew.bat jar --warning-mode all
+call .\gradlew.bat shadowJar --warning-mode all
 IF %errorlevel% NEQ 0 (
 	echo ERROR: Gradle build finished with non-zero exit code
 	EXIT 1
@@ -22,7 +22,7 @@ IF EXIST "server\plugins\FyrePlugin.jar" (
 	del "server\plugins\FyrePlugin.jar"
 )
 
-echo F|xcopy "build\libs\FyrePlugin-0.1.0-SNAPSHOT.jar" "server\plugins\FyrePlugin.jar" /Q
+echo F|xcopy "build\libs\FyrePlugin-0.1.0-SNAPSHOT-all.jar" "server\plugins\FyrePlugin.jar" /Q
 
 cd "server"
 
