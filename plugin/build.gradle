@@ -15,8 +15,6 @@ repositories {
 	jcenter()
 	maven { url 'https://papermc.io/repo/repository/maven-public/' }
 	maven { url 'https://oss.sonatype.org/content/groups/public/' }
-	maven { url 'https://jitpack.io' }
-	maven { url 'https://repo.dmulloy2.net/nexus/repository/public/' }
 }
 
 dependencies {
@@ -42,8 +40,5 @@ processResources {
 }
 
 compileKotlin {
-	kotlinOptions {
-		freeCompilerArgs = ["-Xjsr305=strict"]
-		jvmTarget = "13"
-	}
+	kotlinOptions.jvmTarget = "13"
 }
