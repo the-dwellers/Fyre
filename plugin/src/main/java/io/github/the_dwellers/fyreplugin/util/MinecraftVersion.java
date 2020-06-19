@@ -3,12 +3,12 @@ package io.github.the_dwellers.fyreplugin.util;
 public class MinecraftVersion implements Comparable<MinecraftVersion> {
 	private final int major;
 	private final int minor;
-	private final int build;
+	private final int patch;
 
-	public MinecraftVersion(int major, int minor, int build) {
+	public MinecraftVersion(int major, int minor, int patch) {
 		this.major = major;
 		this.minor = minor;
-		this.build = build;
+		this.patch = patch;
 	}
 
 	public MinecraftVersion(String version) {
@@ -19,9 +19,9 @@ public class MinecraftVersion implements Comparable<MinecraftVersion> {
 		this.major = Integer.parseInt(split[0]);
 		this.minor = Integer.parseInt(split[1]);
 		if (split.length == 3)
-			this.build = Integer.parseInt(split[2]);
+			this.patch = Integer.parseInt(split[2]);
 		else
-			this.build = 0;
+			this.patch = 0;
 	}
 
 	@Override
@@ -30,8 +30,8 @@ public class MinecraftVersion implements Comparable<MinecraftVersion> {
 
 		sb.append(major).append(".").append(minor);
 
-		if (minor == 0 || build > 0)
-			sb.append(".").append(build);
+		if (minor == 0 || patch > 0)
+			sb.append(".").append(patch);
 
 		return sb.toString();
 	}
@@ -48,9 +48,9 @@ public class MinecraftVersion implements Comparable<MinecraftVersion> {
 		else if (this.minor < o.minor)
 			return -1;
 
-		if (this.build > o.build)
+		if (this.patch > o.patch)
 			return 1;
-		else if (this.build < o.build)
+		else if (this.patch < o.patch)
 			return -1;
 
 		return 0;
