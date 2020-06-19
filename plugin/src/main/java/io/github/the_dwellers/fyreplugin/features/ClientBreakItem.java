@@ -14,6 +14,78 @@ import java.lang.reflect.InvocationTargetException;
  * Break a tool, including breaking effects.
  */
 public class ClientBreakItem extends AbstractFeature {
+
+	public MinecraftVersion getMinecraftVersion() {
+		return SupportedVersions.MC1144;
+	}
+
+	public String getName() {
+		return "Client Break Item";
+	}
+
+	public boolean setup() {
+		if (isEnabled()) {
+			// Enable-gate
+			return isEnabled();
+		}
+
+		if (Reflected.getClass("EnumItemSlot") == null) {
+			if (!Reflected.cacheClass(Reflected.nmsClass + "EnumItemSlot")) {
+				plugin.getLogger().warning("Unable to Cache EnumItemSlot");
+				return false;
+			}
+		}
+
+		if (Reflected.getMethod("EnumItemSlot#fromName") == null) {
+			if (!Reflected.cacheMethod("EnumItemSlot#fromName", Reflected.getClass("EnumItemSlot"), String.class)) {
+				plugin.getLogger().warning("Unable to Cache EnumItemSlot#fromName");
+				return false;
+			}
+		}
+
+		if (Reflected.getClass("CraftEntity") == null) {
+			if (!Reflected.cacheClass(Reflected.obcClass + "entity.CraftEntity")) {
+				plugin.getLogger().warning("Unable to Cache CraftEntity");
+				return false;
+			}
+		}
+
+		if (Reflected.getClass("CraftLivingEntity") == null) {
+			if (!Reflected.cacheClass(Reflected.obcClass + "entity.CraftLivingEntity")) {
+				plugin.getLogger().warning("Unable to Cache CraftLivingEntity");
+				return false;
+			}
+		}
+		if (Reflected.getClass("EntityLiving") == null) {
+			if (!Reflected.cacheClass(Reflected.nmsClass + "EntityLiving")) {
+				plugin.getLogger().warning("Unable to Cache EntityLiving");
+				return false;
+			}
+		}
+		if (Reflected.getMethod("CraftEntity#getHandle") == null) {
+			if (!Reflected.cacheMethod("CraftEntity#getHandle", Reflected.getClass("CraftEntity"))) {
+				plugin.getLogger().warning("Unable to Cache raftEntity#getHandle");
+				return false;
+			}
+		}
+
+		if (Reflected.getMethod("EntityLiving#broadcastItemBreak") == null) {
+			if (plugin.mcVersion.compareTo(SupportedVersions.MC1144) < 1) {
+				Reflected.cacheMethod("c", "EntityLiving#broadcastItemBreak", Reflected.getClass("EntityLiving"), Reflected.getClass("EnumItemSlot"));
+			} else if (plugin.mcVersion.compareTo(SupportedVersions.MC1152) < 1) {
+				Reflected.cacheMethod("EntityLiving#broadcastItemBreak", Reflected.getClass("EntityLiving"), Reflected.getClass("EnumItemSlot"));
+			}
+
+			if (Reflected.getMethod("EntityLiving#broadcastItemBreak") == null) {
+				plugin.getLogger().warning("Unable to Cache EntityLiving#broadcastItemBreak");
+				return false;
+			}
+		}
+
+		enabled = true;
+		return isEnabled();
+	}
+
 	/**
 	 * Play the effect of an entity's item breaking.
 	 * <p>
@@ -111,82 +183,6 @@ public class ClientBreakItem extends AbstractFeature {
 				entity.getEquipment().getItemInMainHand().setAmount(entity.getEquipment().getItemInMainHand().getAmount() - 1);
 				break;
 		}
-	}
-
-	@Override
-	public MinecraftVersion getMinecraftVersion() {
-		return SupportedVersions.MC1144;
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return enabled;
-	}
-
-	@Override
-	public String getName() {
-		return "Client Break Item";
-	}
-
-	@Override
-	public boolean setup() {
-		if (!enabled) {
-			if (Reflected.getClass("EnumItemSlot") == null) {
-				if (!Reflected.cacheClass(Reflected.nmsClass + "EnumItemSlot")) {
-					plugin.getLogger().warning("Unable to Cache EnumItemSlot");
-					return false;
-				}
-			}
-
-			if (Reflected.getMethod("EnumItemSlot#fromName") == null) {
-				if (!Reflected.cacheMethod("EnumItemSlot#fromName", Reflected.getClass("EnumItemSlot"), String.class)) {
-					plugin.getLogger().warning("Unable to Cache EnumItemSlot#fromName");
-					return false;
-				}
-			}
-
-			if (Reflected.getClass("CraftEntity") == null) {
-				if (!Reflected.cacheClass(Reflected.obcClass + "entity.CraftEntity")) {
-					plugin.getLogger().warning("Unable to Cache CraftEntity");
-					return false;
-				}
-			}
-
-			if (Reflected.getClass("CraftLivingEntity") == null) {
-				if (!Reflected.cacheClass(Reflected.obcClass + "entity.CraftLivingEntity")) {
-					plugin.getLogger().warning("Unable to Cache CraftLivingEntity");
-					return false;
-				}
-			}
-			if (Reflected.getClass("EntityLiving") == null) {
-				if (!Reflected.cacheClass(Reflected.nmsClass + "EntityLiving")) {
-					plugin.getLogger().warning("Unable to Cache EntityLiving");
-					return false;
-				}
-			}
-			if (Reflected.getMethod("CraftEntity#getHandle") == null) {
-				if (!Reflected.cacheMethod("CraftEntity#getHandle", Reflected.getClass("CraftEntity"))) {
-					plugin.getLogger().warning("Unable to Cache raftEntity#getHandle");
-					return false;
-				}
-			}
-
-			if (Reflected.getMethod("EntityLiving#broadcastItemBreak") == null) {
-				if (plugin.mcVersion.compareTo(SupportedVersions.MC1144) < 1) {
-					Reflected.cacheMethod("c", "EntityLiving#broadcastItemBreak", Reflected.getClass("EntityLiving"), Reflected.getClass("EnumItemSlot"));
-				} else if (plugin.mcVersion.compareTo(SupportedVersions.MC1152) < 1) {
-					Reflected.cacheMethod("EntityLiving#broadcastItemBreak", Reflected.getClass("EntityLiving"), Reflected.getClass("EnumItemSlot"));
-				}
-
-				if (Reflected.getMethod("EntityLiving#broadcastItemBreak") == null) {
-					plugin.getLogger().warning("Unable to Cache EntityLiving#broadcastItemBreak");
-					return false;
-				}
-			}
-
-			enabled = true;
-		}
-		return enabled;
 	}
 
 }

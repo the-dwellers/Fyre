@@ -10,34 +10,36 @@ import org.bukkit.event.Listener;
 import org.spigotmc.event.entity.EntityDismountEvent;
 
 /**
- * Miscellaneous Entity AI fixes. <p>
+ * Miscellaneous Entity AI fixes.
  *
  * @see EntityAttributes
  * @see Mobs
  */
 public class AIFixes extends AbstractFeature implements Listener {
-	@Override
+
 	public MinecraftVersion getMinecraftVersion() {
 		return SupportedVersions.MIN;
 	}
 
-	@Override
-	public boolean isEnabled() {
-		return enabled;
-	}
-
-	@Override
 	public String getName() {
 		return "AI Fixes";
 	}
 
-	@Override
 	public boolean setup() {
+		if (isEnabled()) {
+			// Enable-gate
+			return isEnabled();
+		}
+
 		plugin.getServer().getPluginManager().registerEvents(this, plugin);
 		enabled = true;
-		return enabled;
+		return isEnabled();
 	}
 
+	/**
+	 * Disable horse AI when dismounted and not wearing a saddle.
+	 * @param event {@link EntityDismountEvent}
+	 */
 	@EventHandler()
 	public void onDismount(EntityDismountEvent event) {
 		if (!(event.getDismounted() instanceof AbstractHorse) || event.getEntity().getType() != EntityType.PLAYER) {

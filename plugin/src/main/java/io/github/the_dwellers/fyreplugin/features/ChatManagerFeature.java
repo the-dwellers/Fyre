@@ -24,35 +24,33 @@ import javax.inject.Inject;
  * Functions dedicated to chat manipulation and formatting.
  */
 public class ChatManagerFeature extends AbstractFeature implements Listener {
+
 	@Inject
 	private NBTAdapter nbtAdapter;
 
-	@Override
 	public MinecraftVersion getMinecraftVersion() {
 		return nbtAdapter.getMinecraftVersion();
 	}
 
-	@Override
-	public boolean isEnabled() {
-		return enabled;
-	}
-
-	@Override
 	public String getName() {
 		return "Chat Manager";
 	}
 
-	@Override
 	public boolean setup() {
-		if (!nbtAdapter.isEnabled()) {
-			return false;
-		} else {
+		if (isEnabled()) {
+			// Enable-gate
+			return isEnabled();
+		}
+
+		if (nbtAdapter.isEnabled()) {
 			plugin.getServer().getPluginManager().registerEvents(this, plugin);
 			plugin.getCommand("armor").setExecutor(new ArmorCommand());
 			plugin.getCommand("item").setExecutor(new ItemCommand());
 			enabled = true;
+		} else {
+			plugin.getLogger().warning(getName() + " disabled as "+ nbtAdapter.getName() + " is not loaded");
 		}
-		return enabled;
+		return isEnabled();
 	}
 
 	/**
@@ -67,6 +65,10 @@ public class ChatManagerFeature extends AbstractFeature implements Listener {
 		ChatManager.sendPlayerMessage(event.getPlayer(), event.getMessage());
 	}
 
+	/**
+	 * Hide name of invisible killers
+	 * @param event {@link PlayerDeathEvent}
+	 */
 	@EventHandler()
 	public void onPlayerDeath(PlayerDeathEvent event) {
 		if (!(event.getEntity().getLastDamageCause() instanceof EntityDamageByEntityEvent)) {
@@ -81,6 +83,10 @@ public class ChatManagerFeature extends AbstractFeature implements Listener {
 		}
 	}
 
+	/**
+	 * Display join message
+	 * @param event {@link PlayerJoinEvent}
+	 */
 	@EventHandler()
 	public void onPlayerJoin(PlayerJoinEvent event) {
 		// Custom join message
@@ -88,8 +94,12 @@ public class ChatManagerFeature extends AbstractFeature implements Listener {
 		ChatManager.sendPlayerJoin(event.getPlayer());
 	}
 
+	/**
+	 * Display quit message
+	 * @param event {@link PlayerQuitEvent}
+	 */
 	@EventHandler()
-	public void onPlayerJoin(PlayerQuitEvent event) {
+	public void onPlayerQuit(PlayerQuitEvent event) {
 		// Custom quit message
 		event.setQuitMessage("");
 		ChatManager.sendPlayerLeave(event.getPlayer());

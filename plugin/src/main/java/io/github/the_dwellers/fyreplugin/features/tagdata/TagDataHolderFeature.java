@@ -11,30 +11,33 @@ import javax.inject.Inject;
  * <hr>
  * Represents any {@link Entity} that may have external data serialized to their
  * 'Tag' nbt value.
+ * @see TagDataHolder
  */
 public class TagDataHolderFeature extends AbstractFeature {
+
 	@Inject
 	private NBTAdapter nbtAdapter;
 
-	@Override
 	public MinecraftVersion getMinecraftVersion() {
 		return nbtAdapter.getMinecraftVersion();
 	}
 
-	@Override
-	public boolean isEnabled() {
-		return enabled;
-	}
-
-	@Override
-	public boolean setup() {
-		enabled = nbtAdapter.isEnabled();
-		return enabled;
-	}
-
-	@Override
 	public String getName() {
 		return "NBT TagDataHolder";
+	}
+
+	public boolean setup() {
+		if (isEnabled()) {
+			// Enable-gate
+			return isEnabled();
+		}
+
+		if (nbtAdapter.isEnabled()) {
+			enabled = true;
+		} else {
+			plugin.getLogger().warning(getName() + " disabled as "+ nbtAdapter.getName() + " is not loaded");
+		}
+		return isEnabled();
 	}
 
 }

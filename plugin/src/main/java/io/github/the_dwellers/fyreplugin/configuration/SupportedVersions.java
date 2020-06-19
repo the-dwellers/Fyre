@@ -29,7 +29,8 @@ public abstract class SupportedVersions {
 	public static final MinecraftVersion MC1132 = new MinecraftVersion("1.13.2");
 
 	/**
-	 * Minimum supported MC version, refuse to load if lower than this version.
+	 * Minimum supported MC version, refuse to load if lower than this version.<p>
+	 * (Used for API-only functions)
 	 */
 	public static final MinecraftVersion MIN = MC1132;
 }

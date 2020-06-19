@@ -24,26 +24,33 @@ import java.util.Collection;
  * Will play correct item breaking effects if {@link ClientBreakItem} is enabled.
  */
 public class PlantHoeHarvest extends AbstractFeature implements Listener {
+
 	@Inject
 	private ClientBreakItem clientBreakItem;
 
-	@Override
 	public MinecraftVersion getMinecraftVersion() {
 		return SupportedVersions.MC1144;
 	}
 
-	@Override
-	public boolean isEnabled() {
-		return enabled;
+	public String getName() {
+		return "Hoe Harvest";
 	}
 
-	@Override
 	public boolean setup() {
+		if (isEnabled()) {
+			// Enable-gate
+			return isEnabled();
+		}
+
 		plugin.getServer().getPluginManager().registerEvents(this, plugin);
 		enabled = true;
-		return true;
+		return isEnabled();
 	}
 
+	/**
+	 * Harvest plants by using right-click with a hoe
+	 * @param event
+	 */
 	@EventHandler()
 	public void onCropClick(PlayerInteractEvent event) {
 		Player player = event.getPlayer();
@@ -122,9 +129,5 @@ public class PlantHoeHarvest extends AbstractFeature implements Listener {
 		}
 	}
 
-	@Override
-	public String getName() {
-		return "Hoe Harvest";
-	}
 
 }

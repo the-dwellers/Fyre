@@ -22,7 +22,6 @@ import java.util.ArrayList;
  */
 public abstract class ChatManager {
 
-
 	/**
 	 * Send a message to all online players.
 	 * <p>
@@ -521,6 +520,13 @@ public abstract class ChatManager {
 		sendMessage(replaceValue("%1", Strings.LEAVE_MESSAGE, getPlayerName(player)));
 	}
 
+	/**
+	 * Replace a string value within a string using a {@link TextComponent}.
+	 * @param value String sequence to replace
+	 * @param message Message to replace in
+	 * @param replacement Text to replace value with
+	 * @return
+	 */
 	private static TextComponent replaceValue(String value, String message, TextComponent replacement) {
 		String[] sections = message.split(" ");
 		TextComponent newMessage = new TextComponent();
@@ -534,6 +540,5 @@ public abstract class ChatManager {
 		}
 		return newMessage;
 	}
-
 
 }

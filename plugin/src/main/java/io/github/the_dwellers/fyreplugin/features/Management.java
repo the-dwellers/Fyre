@@ -28,6 +28,29 @@ import java.text.DecimalFormat;
  * Management utilities for staff and players.
  */
 public class Management extends AbstractFeature implements Listener {
+
+	public MinecraftVersion getMinecraftVersion() {
+		return SupportedVersions.MIN;
+	}
+
+	public String getName() {
+		return "Management";
+	}
+
+	public boolean setup() {
+		if (isEnabled()) {
+			// Enable-gate
+			return isEnabled();
+		}
+
+		plugin.getCommand("status").setExecutor(new StatusCommand());
+		plugin.getCommand("plugins").setExecutor(new PluginsCommand());
+		plugin.getCommand("list").setExecutor(new ListCommand());
+		plugin.getServer().getPluginManager().registerEvents(this, plugin);
+		enabled = true;
+		return isEnabled();
+	}
+
 	/**
 	 * Events related to heuristics and logs to assist administration.
 	 * <p>
@@ -35,6 +58,7 @@ public class Management extends AbstractFeature implements Listener {
 	 * <ul>
 	 * <li>Printing of IP address of connecting users</li>
 	 * </ul>
+	 * @param event {@link PlayerLoginEvent}
 	 */
 	@EventHandler()
 	public static void onConnect(PlayerLoginEvent event) {
@@ -42,7 +66,13 @@ public class Management extends AbstractFeature implements Listener {
 				"'" + event.getPlayer().getName() + "' is connecting from " + event.getAddress().toString());
 	}
 
-	private static TextComponent getPlugins(CommandSender sender, boolean longForm) {
+	/**
+	 * Get a TextComponent that displays the currently loaded plugins.
+	 * @param sender Requester of the command. Player senders will receive hover-over components.
+	 * @param longForm Detailed version of the plugin list. Spans multiple lines.
+	 * @return A TextComponent suitable for displaying loaded plugins.
+	 */
+	public static TextComponent getPlugins(CommandSender sender, boolean longForm) {
 		boolean isPlayer = sender instanceof Player;
 		Plugin[] plugins = sender.getServer().getPluginManager().getPlugins();
 		int enabled = 0;
@@ -67,6 +97,11 @@ public class Management extends AbstractFeature implements Listener {
 		return pluginText;
 	}
 
+	/**
+	 * Construct a long-form list of plugins.
+	 * @param plugins Plugins to create long-form list of
+	 * @return A multiple line-spanning component of plugins and their versions.
+	 */
 	private static TextComponent pluginLongForm(Plugin[] plugins) {
 		TextComponent text = new TextComponent();
 		for (int i = 0; i < plugins.length; i++) {
@@ -81,6 +116,11 @@ public class Management extends AbstractFeature implements Listener {
 		return text;
 	}
 
+	/**
+	 * Construct a long-form list of players
+	 * @param players Players to create a long-form list of
+	 * @return A multiple line-spanning component of all players
+	 */
 	private static TextComponent playerLongForm(Player[] players) {
 
 		if (players.length == 0) {
@@ -101,6 +141,12 @@ public class Management extends AbstractFeature implements Listener {
 		return longFormText;
 	}
 
+	/**
+	 * Get a text component that displays the currently online players.
+	 * @param src Requester of the command. Player senders will receive hover-over components.
+	 * @param longForm A list of all players online.
+	 * @return A TextComponent suitable for displaying online players.
+	 */
 	public static TextComponent getPlayers(CommandSender src, boolean longForm) {
 		boolean isPlayer = src instanceof Player;
 
@@ -136,30 +182,6 @@ public class Management extends AbstractFeature implements Listener {
 		return text;
 	}
 
-	@Override
-	public MinecraftVersion getMinecraftVersion() {
-		return SupportedVersions.MIN;
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return enabled;
-	}
-
-	@Override
-	public String getName() {
-		return "Management";
-	}
-
-	@Override
-	public boolean setup() {
-		plugin.getCommand("status").setExecutor(new StatusCommand());
-		plugin.getCommand("plugins").setExecutor(new PluginsCommand());
-		plugin.getCommand("list").setExecutor(new ListCommand());
-		plugin.getServer().getPluginManager().registerEvents(this, plugin);
-		enabled = true;
-		return isEnabled();
-	}
 
 	/**
 	 * View server status information, such as ram usage, plugins, players, tps, etc
@@ -320,7 +342,7 @@ public class Management extends AbstractFeature implements Listener {
 			TextComponent memoryText = new TextComponent(Strings.OUT_PREFIX + Strings.C_DEFAULT);
 
 			// Note that freeMemory() is the memory inside the JVM that is ready for new
-			// objects In the case of the server, we are only concerned with the amount of
+			// objects. In the case of the server, we are only concerned with the amount of
 			// memory the process has reserved, and the maximum amount we can reserve.
 			// We divide the values by 0x100000 to return the amount of memory used in MB
 
@@ -420,7 +442,8 @@ public class Management extends AbstractFeature implements Listener {
 	 * Event to be executed when a command is attempted to be ran by a player.
 	 * <p>
 	 * This is currently present to catch all calls to {@code bukkit:plugins} and
-	 * convert them to {@code fyre:plugins}
+	 * convert them to {@code fyre:plugins}<p>
+	 * ! Bug: Does not redirect console commands
 	 */
 	public class PlayerPreProcessorCommand implements Listener {
 		@Inject

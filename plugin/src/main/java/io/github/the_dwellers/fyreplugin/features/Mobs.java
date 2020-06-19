@@ -2,7 +2,7 @@ package io.github.the_dwellers.fyreplugin.features;
 
 import io.github.the_dwellers.fyreplugin.core.AbstractFeature;
 import io.github.the_dwellers.fyreplugin.configuration.ItemCollections;
-import io.github.the_dwellers.fyreplugin.configuration.ItemCollections.ToolMaterial;
+import io.github.the_dwellers.fyreplugin.configuration.ItemCollections.EquipmentMaterial;
 import io.github.the_dwellers.fyreplugin.configuration.Items;
 import io.github.the_dwellers.fyreplugin.configuration.SupportedVersions;
 import io.github.the_dwellers.fyreplugin.core.MinecraftVersion;
@@ -30,28 +30,30 @@ import org.bukkit.potion.PotionEffectType;
  * @see EntityAttributes
  */
 public class Mobs extends AbstractFeature implements Listener {
-	@Override
+
 	public MinecraftVersion getMinecraftVersion() {
 		return SupportedVersions.MIN;
 	}
 
-	@Override
-	public boolean isEnabled() {
-		return enabled;
-	}
-
-	@Override
-	public boolean setup() {
-		plugin.getServer().getPluginManager().registerEvents(this, plugin);
-		enabled = true;
-		return enabled;
-	}
-
-	@Override
 	public String getName() {
 		return "Mob Tweaks";
 	}
 
+	public boolean setup() {
+		if (isEnabled()) {
+			// Enable-gate
+			return isEnabled();
+		}
+
+		plugin.getServer().getPluginManager().registerEvents(this, plugin);
+		enabled = true;
+		return isEnabled();
+	}
+
+	/**
+	 * Apply equipment and difficulty levels to spawned mobs
+	 * @param event {@link CreatureSpawnEvent}
+	 */
 	@EventHandler()
 	public void onCreatureSpawned(CreatureSpawnEvent event) {
 		// event.getEntity().addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, 100000, 1));
@@ -106,11 +108,11 @@ public class Mobs extends AbstractFeature implements Listener {
 				switch (difficulty) {
 					case Weak:
 						entity.getEquipment().setItemInMainHand(ItemCollections.randomlyBreak(
-								ItemCollections.getTool(ToolMaterial.Wood, ItemCollections.getRandomTool(false))));
+								ItemCollections.getTool(EquipmentMaterial.Wood, ItemCollections.getRandomTool(false))));
 						break;
 					case Medium:
 						entity.getEquipment().setItemInMainHand(ItemCollections.randomlyBreak(
-								ItemCollections.getTool(ToolMaterial.Stone, ItemCollections.getRandomTool(false))));
+								ItemCollections.getTool(EquipmentMaterial.Stone, ItemCollections.getRandomTool(false))));
 						rand = RandomUtil.integer(2);
 						if (rand == 1) {
 							entity.getEquipment()
@@ -128,7 +130,7 @@ public class Mobs extends AbstractFeature implements Listener {
 						break;
 					case Strong:
 						entity.getEquipment().setItemInMainHand(ItemCollections.randomlyBreak(
-								ItemCollections.getTool(ToolMaterial.Stone, ItemCollections.getRandomTool(true))));
+								ItemCollections.getTool(EquipmentMaterial.Stone, ItemCollections.getRandomTool(true))));
 						rand = RandomUtil.integer(2);
 						if (rand == 1) {
 							entity.getEquipment()
@@ -154,7 +156,7 @@ public class Mobs extends AbstractFeature implements Listener {
 						break;
 					case VeryStrong:
 						entity.getEquipment().setItemInMainHand(ItemCollections.randomlyBreak(
-								ItemCollections.getTool(ToolMaterial.Stone, ItemCollections.getRandomTool(true))));
+								ItemCollections.getTool(EquipmentMaterial.Stone, ItemCollections.getRandomTool(true))));
 						rand = RandomUtil.integer(2);
 						if (rand == 1) {
 							entity.getEquipment()

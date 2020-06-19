@@ -17,6 +17,26 @@ import org.bukkit.event.block.BlockBreakEvent;
  * Manage and reward advancements based on server events and player statistics,
  */
 public class Advancements extends AbstractFeature implements Listener {
+
+	public MinecraftVersion getMinecraftVersion() {
+		return SupportedVersions.MIN;
+	}
+
+	public String getName() {
+		return "Advancements";
+	}
+
+	public boolean setup() {
+		if (isEnabled()) {
+			// Enable-gate
+			return isEnabled();
+		}
+
+		plugin.getServer().getPluginManager().registerEvents(this, plugin);
+		enabled = true;
+		return isEnabled();
+	}
+
 	/**
 	 * Awards the provided player any advancements they are entitled to. This only
 	 * applies to plugin-controlled advancements related to breaking blocks.
@@ -108,28 +128,10 @@ public class Advancements extends AbstractFeature implements Listener {
 		}
 	}
 
-	@Override
-	public MinecraftVersion getMinecraftVersion() {
-		return SupportedVersions.MIN;
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return enabled;
-	}
-
-	@Override
-	public String getName() {
-		return "Advancements";
-	}
-
-	@Override
-	public boolean setup() {
-		plugin.getServer().getPluginManager().registerEvents(this, plugin);
-		enabled = true;
-		return enabled;
-	}
-
+	/**
+	 * Update block-break advancements
+	 * @param event {@link BlockBreakEvent}
+	 */
 	@EventHandler()
 	public void onBlockBreak(BlockBreakEvent event) {
 		Advancements.updateBlockBreakAdvancement(event.getPlayer(), event.getBlock().getType());

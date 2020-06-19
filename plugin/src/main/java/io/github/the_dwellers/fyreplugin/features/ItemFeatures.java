@@ -23,9 +23,38 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 
 /**
- * Features and logic required by custom items.
+ * Features and logic required by custom items. <p> This is specific to item
+ * reworks and effects, mechanics and tweaks to existing items will be done in
+ * separate features, such as {@link PlantHoeHarvest}
  */
 public class ItemFeatures extends AbstractFeature implements Listener {
+
+	public MinecraftVersion getMinecraftVersion() {
+		return SupportedVersions.MIN;
+	}
+
+	public String getName() {
+		return "Item Features";
+	}
+
+	public boolean setup() {
+		if (isEnabled()) {
+			// Enable-gate
+			return isEnabled();
+		}
+
+		plugin.getServer().getPluginManager().registerEvents(this, plugin);
+		plugin.getCommand("money").setExecutor(new MoneyCommand());
+		enabled = true;
+		return isEnabled();
+	}
+
+	/**
+	 * Prevent crop trample if entity is wearing leather boots <p>
+	 * Note: does not fire for player entities.
+	 * @param event {@link EntityInteractEvent}
+	 * @see ItemFeatures#onPlayerCropTrample(PlayerInteractEvent)
+	 */
 	@EventHandler()
 	public static void onEntityCropTrample(EntityInteractEvent event) {
 		// ? Why does EntityInteractEvent not fire for players?
@@ -38,6 +67,11 @@ public class ItemFeatures extends AbstractFeature implements Listener {
 		}
 	}
 
+	/**
+	 * Prevent crop trample if player is wearing leather boots
+	 * @param event {@link PlayerInteractEvent}
+	 * @see ItemFeatures#onEntityCropTrample(EntityInteractEvent)
+	 */
 	@EventHandler()
 	public static void onPlayerCropTrample(PlayerInteractEvent event) {
 		Block block = event.getClickedBlock();
@@ -47,6 +81,11 @@ public class ItemFeatures extends AbstractFeature implements Listener {
 		}
 	}
 
+	/**
+	 * Cancel crop trample event if leather boots are worn by the entity
+	 * @param event CropTrample event
+	 * @param entity Entity to check for leather boots
+	 */
 	public static void preventCropTrample(Cancellable event, LivingEntity entity) {
 		ItemStack boots = entity.getEquipment().getBoots();
 		if (boots == null) {
@@ -56,29 +95,10 @@ public class ItemFeatures extends AbstractFeature implements Listener {
 		}
 	}
 
-	@Override
-	public MinecraftVersion getMinecraftVersion() {
-		return SupportedVersions.MIN;
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return enabled;
-	}
-
-	@Override
-	public String getName() {
-		return "Item Features";
-	}
-
-	@Override
-	public boolean setup() {
-		plugin.getServer().getPluginManager().registerEvents(this, plugin);
-		plugin.getCommand("money").setExecutor(new MoneyCommand());
-		enabled = true;
-		return isEnabled();
-	}
-
+	/**
+	 * Knowledge book sound effects
+	 * @param event {@link PlayerInteractEvent}
+	 */
 	@EventHandler()
 	public void onKnowledgeBook(PlayerInteractEvent event) {
 		Player player = event.getPlayer();
@@ -88,6 +108,9 @@ public class ItemFeatures extends AbstractFeature implements Listener {
 		}
 	}
 
+	/**
+	 * Debug command: Give money to player
+	 */
 	public class MoneyCommand extends AbstractCommand {
 		@Override
 		public String getPermission() {

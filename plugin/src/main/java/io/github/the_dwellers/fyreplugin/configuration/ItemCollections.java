@@ -10,7 +10,12 @@ import org.bukkit.inventory.meta.ItemMeta;
  */
 public abstract class ItemCollections {
 
-	public static ItemStack getTool(ToolMaterial material, Tool tool) {
+	/**
+	 * Retrieve a Fyre-copy of a specific tool of a specific material. Includes swords.
+	 * @param material Tool material type. (e.g, Wooden, Golden, etc)
+	 * @param tool Tool type. (Axe, Pickaxe, etc)
+	 */
+	public static ItemStack getTool(EquipmentMaterial material, Tool tool) {
 		switch (material) {
 			case Stone:
 				switch (tool) {
@@ -47,6 +52,13 @@ public abstract class ItemCollections {
 		}
 	}
 
+	/**
+	 * Get a random tool type. Normal distribution is 20% (including swords.)
+	 * <p> If swords are preferred, sword drop chance increases to 60%, with
+	 * only 10% chance for other tools.
+	 * @param preferSword Increase chances for sword to be selected.
+	 * @return Random Tool type.
+	 */
 	public static Tool getRandomTool(boolean preferSword) {
 		int rand = RandomUtil.integer(10);
 
@@ -87,6 +99,11 @@ public abstract class ItemCollections {
 		}
 	}
 
+	/**
+	 * Randomly damage the given {@link ItemStack} between 20% - 80%
+	 * @param item Itemstack to damage.
+	 * @return Damaged Itemstack
+	 */
 	public static ItemStack randomlyBreak(ItemStack item) {
 		if (item.getItemMeta() instanceof Damageable) {
 			// More complex than it has to be, who designed this api?
@@ -98,11 +115,28 @@ public abstract class ItemCollections {
 		return item;
 	}
 
+	/**
+	 * Material-based minecraft tools:
+	 * <ul>
+	 * <li>Sword</li>
+	 * <li>Axe</li>
+	 * <li>Pickaxe</li>
+	 * <li>Hoe</li>
+	 * <li>Shovel</li>
+	 */
 	public enum Tool {
 		Sword, Axe, Pickaxe, Hoe, Shovel
 	}
 
-	public enum ToolMaterial {
+	/**
+	 * Materials {@link Tool}s can be made from:
+	 * <li>Wood</li>
+	 * <li>Stone</li>
+	 * <li>Iron</li>
+	 * <li>Gold</li>
+	 * <li>Diamond</li>
+	 */
+	public enum EquipmentMaterial {
 		Wood, Stone, Iron, Gold, Diamond
 	}
 

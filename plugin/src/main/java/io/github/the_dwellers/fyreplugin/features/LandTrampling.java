@@ -18,28 +18,30 @@ import org.bukkit.event.player.PlayerMoveEvent;
  * Trample grass into dirt.
  */
 public class LandTrampling extends AbstractFeature implements Listener {
-	@Override
+
 	public MinecraftVersion getMinecraftVersion() {
 		return SupportedVersions.MIN;
 	}
 
-	@Override
-	public boolean isEnabled() {
-		return enabled;
-	}
-
-	@Override
 	public String getName() {
 		return "Land Trampling";
 	}
 
-	@Override
 	public boolean setup() {
+		if (isEnabled()) {
+			// Enable-gate
+			return isEnabled();
+		}
+
 		plugin.getServer().getPluginManager().registerEvents(this, plugin);
 		enabled = true;
 		return isEnabled();
 	}
 
+	/**
+	 * Player tramples grass into course dirt
+	 * @param event {@link PlayerMoveEvent}
+	 */
 	@EventHandler()
 	public void onPlayerMove(PlayerMoveEvent event) {
 
@@ -58,7 +60,8 @@ public class LandTrampling extends AbstractFeature implements Listener {
 				int r = RandomUtil.integer(100);
 
 				if (r <= 5) {
-					// 5% Chance
+					// Todo: Populate with configuration
+					// 5% Chance to trample
 					block.setType(Material.COARSE_DIRT);
 				}
 			}
@@ -75,6 +78,7 @@ public class LandTrampling extends AbstractFeature implements Listener {
 					int r = RandomUtil.integer(100);
 
 					if (r <= 10) {
+						// Todo: Populate with configuration
 						// 10% Chance
 						block.setType(Material.COARSE_DIRT);
 					}

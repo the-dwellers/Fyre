@@ -6,11 +6,8 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 
 /**
- * Provides functions integrated into Net.Minecraft.Server via reflection Note:
- * due to the nature of reflection, this class is Minecraft version-dependent!
- * <p>
- *
- * @version Minecraft 1.15.2
+ * Provides reflection helpers for {@code net.minecraft.server} and {@code org.bukkit.craftbukkit}.
+ * Reflection calls are cached.
  */
 public abstract class Reflected {
 	private static final String packageVersion = Bukkit.getServer().getClass().getPackage().getName().replace(".", ",")

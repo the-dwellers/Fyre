@@ -19,15 +19,11 @@ public abstract class AbstractFeature {
 	protected boolean enabled = false;
 
 	/**
-	 * Setup and start the feature. It is assumed that the version has already been
-	 * checked and is compatible. Any errors encountered will output to the log, and
-	 * disable the feature.
-	 *
-	 * @return True if registration succeeded without errors.
+	 * @return The minimum version of minecraft this feature will work on. It is assumed that any higher version is compatible.
 	 */
-	public abstract boolean setup();
+	public abstract MinecraftVersion getMinecraftVersion();
 
-	/**
+		/**
 	 * Is the feature setup and ready for use?
 	 *
 	 * @return True if feature is enabled.
@@ -36,7 +32,18 @@ public abstract class AbstractFeature {
 		return enabled;
 	}
 
+	/**
+	 * @return The display name of the feature.
+	 */
 	public abstract String getName();
 
-	public abstract MinecraftVersion getMinecraftVersion();
+	/**
+	 * Setup and start the feature. It is assumed that the version has already been
+	 * checked and is compatible. Any errors encountered will output to the log, and
+	 * disable the feature.
+	 *
+	 * @return True if registration succeeded without errors.
+	 */
+	public abstract boolean setup();
+
 }

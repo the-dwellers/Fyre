@@ -24,34 +24,38 @@ import javax.inject.Inject;
  * can open at once and data is saved correctly.
  */
 public class BoatInventories extends AbstractFeature implements Listener {
+
 	@Inject
 	private TagInventoryFeature tagInventoryFeature;
 
-	@Override
 	public MinecraftVersion getMinecraftVersion() {
 		return tagInventoryFeature.getMinecraftVersion();
 	}
 
-	@Override
-	public boolean isEnabled() {
-		return enabled;
-	}
-
-	@Override
 	public String getName() {
 		return "Chest Boats";
 	}
 
-	@Override
 	public boolean setup() {
+		if (isEnabled()) {
+			// Enable-gate
+			return isEnabled();
+		}
+
 		if (tagInventoryFeature.isEnabled()) {
 			plugin.getServer().getPluginManager().registerEvents(this, plugin);
 			enabled = true;
+		} else {
+			plugin.getLogger().warning(getName() + " disabled as "+ tagInventoryFeature.getName() + " is not loaded");
 		}
-		return enabled;
+		return isEnabled();
 	}
 
-	@EventHandler
+	/**
+	 * Open boat inventory with shift-rightclick
+	 * @param event {@link PlayerInteractEntityEvent}
+	 */
+	@EventHandler()
 	public void onPlayerInteractEntityEvent(PlayerInteractEntityEvent event) {
 		if (!(event.getPlayer().isSneaking() && event.getHand() == EquipmentSlot.HAND)) {
 			return;
@@ -75,6 +79,10 @@ public class BoatInventories extends AbstractFeature implements Listener {
 		}
 	}
 
+	/**
+	 * Call inventory close handler when a boat inventory is closed
+	 * @param event {@link InventoryClosedEvent}
+	 */
 	@EventHandler()
 	public void onInventoryClosed(InventoryCloseEvent event) {
 		if (event.getInventory().getHolder() != null && event.getInventory().getHolder().getClass() != TagInventory.class) {
@@ -87,6 +95,10 @@ public class BoatInventories extends AbstractFeature implements Listener {
 		}
 	}
 
+	/**
+	 * Forcefully close inventory and drop items when boat is destroyed.
+	 * @param event {@link VehicleDestroyEvent}
+	 */
 	@EventHandler()
 	public void onVehicleDestroy(VehicleDestroyEvent event) {
 		Vehicle vehicle = event.getVehicle();

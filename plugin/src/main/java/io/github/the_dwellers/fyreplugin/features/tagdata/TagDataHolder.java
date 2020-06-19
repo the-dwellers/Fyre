@@ -10,6 +10,7 @@ import java.util.Base64;
 /**
  * Represents any {@link Entity} that may have external data serialized to their
  * 'Tag' nbt value.
+ * @see TagInventory
  */
 public abstract class TagDataHolder {
 

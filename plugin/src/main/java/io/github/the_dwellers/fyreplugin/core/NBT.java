@@ -1,14 +1,13 @@
 package io.github.the_dwellers.fyreplugin.core;
 
-// haha, need to import just for comment references, nice!
-
 import io.github.the_dwellers.fyreplugin.features.tagdata.TagDataHolder;
+import io.github.the_dwellers.fyreplugin.features.NBTAdapter;
 
 /**
  * Functions pertaining to manipulating NBT in a {@link String} format.
  * <p>
- * This does not include reading or writing NBT to or from entitys, for that
- * please see the {@link Reflected} class.
+ * This does not include reading or writing NBT to or from entity's, for that
+ * please see the {@link NBTAdapter} class.
  * <p>
  * For data that will be stored inside an Entity's {@code Tags} tag, take a look
  * at {@link TagDataHolder}

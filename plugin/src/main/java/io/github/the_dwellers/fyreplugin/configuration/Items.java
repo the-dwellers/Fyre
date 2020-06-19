@@ -28,11 +28,27 @@ import java.util.UUID;
  */
 public abstract class Items {
 
+	/**
+	 * Recipe prefix text
+	 */
 	public static String PREFIX_RECIPE = ChatColor.LIGHT_PURPLE + "Recipe: ";
+
+	/**
+	 * Special item text
+	 */
 	public static String PREFIX_SPECIAL = "" + ChatColor.GOLD;
+
+	/**
+	 * Common item text
+	 */
 	public static String PREFIX_COMMON = "" + ChatColor.RESET;
+
+	/**
+	 * Common lore text
+	 */
 	public static String PREFIX_LORE_COMMON = PREFIX_COMMON + ChatColor.GRAY;
 
+	// ~~~~~~~~ Item Instance Caching ~~~~~~~~ //
 	private static ItemStack SILVER_COIN;
 	private static ItemStack ERROR_ITEM;
 
@@ -75,6 +91,8 @@ public abstract class Items {
 	private static ItemStack ARMOR_DIAMOND_BOOTS;
 
 	private static ItemStack SHIELD;
+
+	// ~~~~~~~~~~~~~ Item Methods ~~~~~~~~~~~~ //
 
 	public static ItemStack getLeatherHelmet() {
 		if (ARMOR_LEATHER_HELMET == null) {
@@ -502,6 +520,12 @@ public abstract class Items {
 		return SPLINTERS.clone();
 	}
 
+
+	/**
+	 * Get a crafting recipe tome of the specified type.
+	 * @param book {@link CraftingBook} book to get.
+	 * @return ItemStack of the requested recipe
+	 */
 	public static ItemStack craftingBook(CraftingBook book) {
 		switch (book) {
 			case CraftingTable:
@@ -524,6 +548,11 @@ public abstract class Items {
 		}
 	}
 
+	/**
+	 * Generate a crafting book of the specified type. Does not cache requests.
+	 * @param book {@link CraftingBook} to generate.
+	 * @return Generated crafting book
+	 */
 	@SuppressWarnings("deprecation")
 	private static ItemStack generateCraftingBook(CraftingBook book) {
 		ItemStack knowledgeBook = new ItemStack(Material.KNOWLEDGE_BOOK);
@@ -606,6 +635,14 @@ public abstract class Items {
 		return knowledgeBook;
 	}
 
+	/**
+	 * Crafting books that unlock crafting recipes:
+	 * <ul>
+	 * <li> Crafting Table</li>
+	 * <li> Wooden Tools <ul><li>Wooden Axe</li><li>Wooden Shovel</li><li>Wooden Pickaxe</li></ul></li>
+	 * <li> Wooden Sword</li>
+	 * </ul>
+	 */
 	public enum CraftingBook {
 		CraftingTable, WoodenTools, WoodenSword
 	}

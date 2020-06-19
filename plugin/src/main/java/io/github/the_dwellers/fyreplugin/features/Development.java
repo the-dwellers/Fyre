@@ -12,22 +12,25 @@ import org.bukkit.event.Listener;
  * Development module for random testing.
  */
 public class Development extends AbstractFeature implements Listener {
-	@Override
-	public boolean setup() {
-		plugin.getLogger().warning("Development mode is enabled");
-		plugin.getCommand("debug").setExecutor(new DebugCommand());
-		enabled = true;
-		return true;
+
+	public MinecraftVersion getMinecraftVersion() {
+		return SupportedVersions.MIN;
 	}
 
-	@Override
 	public String getName() {
 		return "Development";
 	}
 
-	@Override
-	public MinecraftVersion getMinecraftVersion() {
-		return SupportedVersions.MIN;
+	public boolean setup() {
+		if (isEnabled()) {
+			// Enable-gate
+			return isEnabled();
+		}
+
+		plugin.getLogger().warning("Development mode is enabled");
+		plugin.getCommand("debug").setExecutor(new DebugCommand());
+		enabled = true;
+		return isEnabled();
 	}
 
 	public class DebugCommand extends AbstractCommand {

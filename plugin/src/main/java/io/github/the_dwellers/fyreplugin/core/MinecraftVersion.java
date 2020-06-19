@@ -1,5 +1,8 @@
 package io.github.the_dwellers.fyreplugin.core;
 
+/**
+ * Represents a non-snapshot version of minecraft in the format major.minor.patch (e.g 1.13.2)
+ */
 public class MinecraftVersion implements Comparable<MinecraftVersion> {
 	private final int major;
 	private final int minor;

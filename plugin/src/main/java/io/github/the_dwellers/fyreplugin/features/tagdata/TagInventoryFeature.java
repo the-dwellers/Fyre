@@ -10,31 +10,33 @@ import javax.inject.Inject;
  * <hr>
  * Represents an entity that contains an inventory defined within their 'Tags'
  * nbt Tag.
+ * @see TagInventory
  */
 public class TagInventoryFeature extends AbstractFeature {
+
 	@Inject
 	private TagDataHolderFeature tagDataHolderFeature;
 
-	@Override
 	public MinecraftVersion getMinecraftVersion() {
 		return tagDataHolderFeature.getMinecraftVersion();
 	}
 
-	@Override
-	public boolean isEnabled() {
-		return enabled;
-	}
-
-	@Override
-	public boolean setup() {
-		if (tagDataHolderFeature.isEnabled()) {
-			enabled = true;
-		}
-		return enabled;
-	}
-
-	@Override
 	public String getName() {
 		return "NBT TagInventory";
 	}
+
+	public boolean setup() {
+		if (isEnabled()) {
+			// Enable-gate
+			return isEnabled();
+		}
+
+		if (tagDataHolderFeature.isEnabled()) {
+			enabled = true;
+		} else {
+			plugin.getLogger().warning(getName() + " disabled as "+ tagDataHolderFeature.getName() + " is not loaded");
+		}
+		return isEnabled();
+	}
+
 }

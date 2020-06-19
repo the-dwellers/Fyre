@@ -19,6 +19,7 @@ import java.util.List;
 /**
  * Represents an entity that contains an inventory defined within their 'Tags'
  * nbt Tag.
+ * @see TagDataholder
  */
 public class TagInventory extends TagDataHolder implements InventoryHolder {
 
@@ -128,6 +129,9 @@ public class TagInventory extends TagDataHolder implements InventoryHolder {
 		serialize();
 	}
 
+	/**
+	 * Forcefully close inventory for all current viewers
+	 */
 	public void forceCloseInventory() {
 		List<HumanEntity> viewers = inventory.getViewers();
 

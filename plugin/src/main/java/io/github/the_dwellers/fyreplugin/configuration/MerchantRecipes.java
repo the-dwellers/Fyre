@@ -8,20 +8,18 @@ import org.bukkit.inventory.MerchantRecipe;
 import java.util.ArrayList;
 
 /**
- * MerchantRecipes
+ * Recipes sold by merchants.
  */
 public abstract class MerchantRecipes {
 
+	// ~~~~~~~~~~~~~~ Buy Tools ~~~~~~~~~~~~~~ //
 	private static MerchantRecipe BUY_WOOD_AXE;
 	private static MerchantRecipe BUY_WOOD_SPADE;
 	private static MerchantRecipe BUY_WOOD_SWORD;
 	private static MerchantRecipe BUY_WOOD_PICKAXE;
 
+	// ~~~~~~~~~~~~ Sell Resources ~~~~~~~~~~~ //
 	private static MerchantRecipe SELL_SPLINTERS;
-
-	private static MerchantRecipe LEARN_CRAFTING_TABLE;
-	private static MerchantRecipe LEARN_WOODEN_TOOLS;
-	private static MerchantRecipe LEARN_WOODEN_SWORD;
 
 	private static MerchantRecipe SELL_COAL;
 
@@ -39,6 +37,12 @@ public abstract class MerchantRecipes {
 	private static MerchantRecipe BUY_LOG_ACACIA;
 	private static MerchantRecipe BUY_LOG_OAK_DARK;
 
+	// ~~~~~~~~~ Buy Crafting Recipes ~~~~~~~~ //
+	private static MerchantRecipe LEARN_CRAFTING_TABLE;
+	private static MerchantRecipe LEARN_WOODEN_TOOLS;
+	private static MerchantRecipe LEARN_WOODEN_SWORD;
+
+	// ~~~~~~~~~~~~~~ Buy Armour ~~~~~~~~~~~~~ //
 	private static MerchantRecipe BUY_LEATHER_HELMET;
 	private static MerchantRecipe BUY_LEATHER_CHESTPLATE;
 	private static MerchantRecipe BUY_LEATHER_LEGGINGS;
@@ -54,6 +58,9 @@ public abstract class MerchantRecipes {
 	private static MerchantRecipe BUY_IRON_LEGGINGS;
 	private static MerchantRecipe BUY_IRON_BOOTS;
 
+	// ====================================================== //
+	// ====================== Functions ===================== //
+	// ====================================================== //
 	public static MerchantRecipe sellCoal() {
 		if (SELL_COAL == null) {
 			SELL_COAL = new MerchantRecipe(silver(3), 90);
