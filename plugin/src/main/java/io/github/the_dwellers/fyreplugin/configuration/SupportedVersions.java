@@ -1,6 +1,6 @@
 package io.github.the_dwellers.fyreplugin.configuration;
 
-import io.github.the_dwellers.fyreplugin.util.MinecraftVersion;
+import io.github.the_dwellers.fyreplugin.core.MinecraftVersion;
 
 /**
  * Versions supported by Fyre. <p>

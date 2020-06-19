@@ -1,6 +1,6 @@
-package io.github.the_dwellers.fyreplugin;
+package io.github.the_dwellers.fyreplugin.core;
 
-import io.github.the_dwellers.fyreplugin.util.MinecraftVersion;
+import io.github.the_dwellers.fyreplugin.FyrePlugin;
 
 import javax.inject.Inject;
 

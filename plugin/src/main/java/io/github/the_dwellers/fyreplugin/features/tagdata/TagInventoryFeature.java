@@ -1,7 +1,7 @@
 package io.github.the_dwellers.fyreplugin.features.tagdata;
 
-import io.github.the_dwellers.fyreplugin.AbstractFeature;
-import io.github.the_dwellers.fyreplugin.util.MinecraftVersion;
+import io.github.the_dwellers.fyreplugin.core.AbstractFeature;
+import io.github.the_dwellers.fyreplugin.core.MinecraftVersion;
 
 import javax.inject.Inject;
 

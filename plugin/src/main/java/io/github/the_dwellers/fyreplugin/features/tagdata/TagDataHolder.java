@@ -1,6 +1,6 @@
 package io.github.the_dwellers.fyreplugin.features.tagdata;
 
-import io.github.the_dwellers.fyreplugin.NBT;
+import io.github.the_dwellers.fyreplugin.core.NBT;
 import io.github.the_dwellers.fyreplugin.exceptions.ReflectionFailedException;
 import io.github.the_dwellers.fyreplugin.features.NBTAdapter;
 import org.bukkit.entity.Entity;

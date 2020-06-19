@@ -1,8 +1,8 @@
 package io.github.the_dwellers.fyreplugin.features;
 
-import io.github.the_dwellers.fyreplugin.AbstractFeature;
+import io.github.the_dwellers.fyreplugin.core.AbstractFeature;
 import io.github.the_dwellers.fyreplugin.configuration.SupportedVersions;
-import io.github.the_dwellers.fyreplugin.util.MinecraftVersion;
+import io.github.the_dwellers.fyreplugin.core.MinecraftVersion;
 import io.github.the_dwellers.fyreplugin.util.RandomUtil;
 import org.bukkit.Material;
 import org.bukkit.block.Block;

@@ -4,10 +4,11 @@ import ch.jalu.injector.Injector;
 import ch.jalu.injector.InjectorBuilder;
 import io.github.the_dwellers.fyreplugin.configuration.Strings;
 import io.github.the_dwellers.fyreplugin.configuration.SupportedVersions;
+import io.github.the_dwellers.fyreplugin.core.AbstractFeature;
 import io.github.the_dwellers.fyreplugin.features.*;
 import io.github.the_dwellers.fyreplugin.features.tagdata.TagDataHolderFeature;
 import io.github.the_dwellers.fyreplugin.features.tagdata.TagInventoryFeature;
-import io.github.the_dwellers.fyreplugin.util.MinecraftVersion;
+import io.github.the_dwellers.fyreplugin.core.MinecraftVersion;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 

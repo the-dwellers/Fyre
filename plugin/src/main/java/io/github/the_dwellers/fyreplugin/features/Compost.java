@@ -1,9 +1,9 @@
 package io.github.the_dwellers.fyreplugin.features;
 
-import io.github.the_dwellers.fyreplugin.AbstractFeature;
-import io.github.the_dwellers.fyreplugin.Reflected;
+import io.github.the_dwellers.fyreplugin.core.AbstractFeature;
+import io.github.the_dwellers.fyreplugin.core.Reflected;
 import io.github.the_dwellers.fyreplugin.configuration.SupportedVersions;
-import io.github.the_dwellers.fyreplugin.util.MinecraftVersion;
+import io.github.the_dwellers.fyreplugin.core.MinecraftVersion;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;

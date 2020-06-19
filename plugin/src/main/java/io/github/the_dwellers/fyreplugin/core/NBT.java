@@ -1,4 +1,4 @@
-package io.github.the_dwellers.fyreplugin;
+package io.github.the_dwellers.fyreplugin.core;
 
 // haha, need to import just for comment references, nice!
 

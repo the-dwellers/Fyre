@@ -1,11 +1,11 @@
 package io.github.the_dwellers.fyreplugin.features;
 
-import io.github.the_dwellers.fyreplugin.AbstractFeature;
+import io.github.the_dwellers.fyreplugin.core.AbstractFeature;
 import io.github.the_dwellers.fyreplugin.FyrePlugin;
-import io.github.the_dwellers.fyreplugin.commands.AbstractCommand;
+import io.github.the_dwellers.fyreplugin.core.AbstractCommand;
 import io.github.the_dwellers.fyreplugin.configuration.Strings;
 import io.github.the_dwellers.fyreplugin.configuration.SupportedVersions;
-import io.github.the_dwellers.fyreplugin.util.MinecraftVersion;
+import io.github.the_dwellers.fyreplugin.core.MinecraftVersion;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.ChatColor;

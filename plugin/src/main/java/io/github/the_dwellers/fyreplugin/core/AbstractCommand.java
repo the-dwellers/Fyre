@@ -1,4 +1,4 @@
-package io.github.the_dwellers.fyreplugin.commands;
+package io.github.the_dwellers.fyreplugin.core;
 
 import io.github.the_dwellers.fyreplugin.configuration.Strings;
 import org.bukkit.command.Command;

@@ -1,4 +1,4 @@
-package io.github.the_dwellers.fyreplugin;
+package io.github.the_dwellers.fyreplugin.core;
 
 import org.bukkit.Bukkit;
 

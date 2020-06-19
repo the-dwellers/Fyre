@@ -1,11 +1,11 @@
 package io.github.the_dwellers.fyreplugin.features;
 
-import io.github.the_dwellers.fyreplugin.AbstractFeature;
+import io.github.the_dwellers.fyreplugin.core.AbstractFeature;
 import io.github.the_dwellers.fyreplugin.configuration.ItemCollections;
 import io.github.the_dwellers.fyreplugin.configuration.ItemCollections.ToolMaterial;
 import io.github.the_dwellers.fyreplugin.configuration.Items;
 import io.github.the_dwellers.fyreplugin.configuration.SupportedVersions;
-import io.github.the_dwellers.fyreplugin.util.MinecraftVersion;
+import io.github.the_dwellers.fyreplugin.core.MinecraftVersion;
 import io.github.the_dwellers.fyreplugin.util.RandomUtil;
 import org.bukkit.Location;
 import org.bukkit.attribute.Attribute;

@@ -1,4 +1,4 @@
-package io.github.the_dwellers.fyreplugin.util;
+package io.github.the_dwellers.fyreplugin.core;
 
 public class MinecraftVersion implements Comparable<MinecraftVersion> {
 	private final int major;
