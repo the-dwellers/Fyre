@@ -9,6 +9,8 @@ import io.github.the_dwellers.fyreplugin.features.*;
 import io.github.the_dwellers.fyreplugin.features.tagdata.TagDataHolderFeature;
 import io.github.the_dwellers.fyreplugin.features.tagdata.TagInventoryFeature;
 import io.github.the_dwellers.fyreplugin.core.MinecraftVersion;
+import io.github.the_dwellers.fyreplugin.model.PluginConfig;
+import io.github.the_dwellers.fyreplugin.provider.PluginConfigProvider;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -54,6 +56,7 @@ public class FyrePlugin extends JavaPlugin {
 	};
 	public MinecraftVersion mcVersion;
 	private Injector injector;
+	private PluginConfig config;
 
 	public FyrePlugin() {
 	}
@@ -126,10 +129,20 @@ public class FyrePlugin extends JavaPlugin {
 	}
 
 	private void initialize() {
+		if (!getDataFolder().exists()) {
+			boolean created = getDataFolder().mkdirs();
+			if (!created)
+				log.warning(Strings.LOG_PREFIX + "Plugin data folder wasn't created!");
+		}
+
 		injector = new InjectorBuilder()
 				.addDefaultHandlers("io.github.the_dwellers.fyreplugin")
 				.create();
 
 		injector.register(FyrePlugin.class, this);
+
+		injector.registerProvider(PluginConfig.class, PluginConfigProvider.class);
+
+		config = injector.getSingleton(PluginConfig.class);
 	}
 }
