@@ -62,7 +62,7 @@ public class Mobs extends AbstractFeature implements Listener {
 				Entity entity = event.getEntity();
 				if (event.getEntityType() == EntityType.ZOMBIE || event.getEntityType() == EntityType.SKELETON) {
 					// 1% chance to spawn a boss for skeleton and zombies
-					if (RandomUtil.integer(100) == 1) {
+					if (RandomUtil.integer(100) <= plugin.config.getRandomBossChance()) {
 						setupBoss((Monster) entity, BossType.Random);
 						((Monster) entity)
 								.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, 999999, 1, false, false));
@@ -81,11 +81,11 @@ public class Mobs extends AbstractFeature implements Listener {
 	 * @return Difficulty of a mob spawned at the provided depth.
 	 */
 	private MobDifficulty getDifficulty(int yPos) {
-		if (yPos < 21) {
+		if (yPos < plugin.config.getVeryStrongMobDepth()) {
 			return MobDifficulty.VeryStrong;
-		} else if (yPos < 40) {
+		} else if (yPos < plugin.config.getStrongMobDepth()) {
 			return MobDifficulty.Strong;
-		} else if (yPos < 60) {
+		} else if (yPos < plugin.config.getMediumMobDepth()) {
 			return MobDifficulty.Medium;
 		} else {
 			return MobDifficulty.Weak;

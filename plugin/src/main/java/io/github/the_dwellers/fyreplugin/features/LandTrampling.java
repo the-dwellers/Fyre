@@ -59,9 +59,7 @@ public class LandTrampling extends AbstractFeature implements Listener {
 			if (block.getType() == Material.GRASS_BLOCK) {
 				int r = RandomUtil.integer(100);
 
-				if (r <= 5) {
-					// Todo: Populate with configuration
-					// 5% Chance to trample
+				if (r <= plugin.config.getDirtTrampleWalkChance()) {
 					block.setType(Material.COARSE_DIRT);
 				}
 			}
@@ -77,7 +75,7 @@ public class LandTrampling extends AbstractFeature implements Listener {
 				if (block.getType() == Material.GRASS_BLOCK) {
 					int r = RandomUtil.integer(100);
 
-					if (r <= 10) {
+					if (r <= plugin.config.getDirtTrampleRideChance()) {
 						// Todo: Populate with configuration
 						// 10% Chance
 						block.setType(Material.COARSE_DIRT);

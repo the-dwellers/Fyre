@@ -501,6 +501,7 @@ public abstract class Items {
 	public static ItemStack getSplinters() {
 		// ? Potential issue with UUID set by attributes preventing proper usage with datapacks
 		// TODO: Need to look more into this, unsure which specific component prevents usage with nbt-string defined items
+		// * Item UUID attributes will change in MC 1.16, will wait until then.
 		if (SPLINTERS == null) {
 			SPLINTERS = new ItemStack(Material.STICK, 1);
 			ItemMeta meta = SPLINTERS.getItemMeta();

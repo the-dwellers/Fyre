@@ -61,7 +61,7 @@ public class EntityAttributes extends AbstractFeature implements Listener {
 		player.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(10);
 
 		// player.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(0.13);
-		// Default walkspeed is 0.2 with setWalkSpeed()
+		// Default walk-speed is 0.2 with setWalkSpeed()
 		player.setWalkSpeed(0.226f);
 	}
 
@@ -161,7 +161,6 @@ public class EntityAttributes extends AbstractFeature implements Listener {
 					break;
 			}
 
-			// TODO: Add one-shot health threshold to config
 			if (player.getHealth() != 1) {
 				if (player.getHealth() < config.getOneHitProtectionThreshold() && event.getFinalDamage() >= player.getHealth()) {
 					// One-shot protection
