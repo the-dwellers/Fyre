@@ -1,9 +1,9 @@
 package io.github.the_dwellers.fyreplugin.features.tagdata;
 
-import io.github.the_dwellers.fyreplugin.Feature;
-import io.github.the_dwellers.fyreplugin.FyrePlugin;
-import io.github.the_dwellers.fyreplugin.features.NBTAdapter;
+import io.github.the_dwellers.fyreplugin.AbstractFeature;
 import io.github.the_dwellers.fyreplugin.util.MinecraftVersion;
+
+import javax.inject.Inject;
 
 /**
  * Feature wrapper for {@link TagInventory}
@@ -11,23 +11,13 @@ import io.github.the_dwellers.fyreplugin.util.MinecraftVersion;
  * Represents an entity that contains an inventory defined within their 'Tags'
  * nbt Tag.
  */
-public class TagInventoryFeature extends Feature {
-
-	public static MinecraftVersion minVersion = TagDataHolderFeature.minVersion;
-	protected static String name = "NBT TagInventory";
-	private static TagInventoryFeature instance;
-	protected boolean enabled = false;
-
-	public static TagInventoryFeature getInstance() {
-		if (instance == null) {
-			instance = new TagInventoryFeature();
-		}
-		return instance;
-	}
+public class TagInventoryFeature extends AbstractFeature {
+	@Inject
+	private TagDataHolderFeature tagDataHolderFeature;
 
 	@Override
 	public MinecraftVersion getMinecraftVersion() {
-		return minVersion;
+		return tagDataHolderFeature.getMinecraftVersion();
 	}
 
 	@Override
@@ -36,8 +26,8 @@ public class TagInventoryFeature extends Feature {
 	}
 
 	@Override
-	public boolean setup(FyrePlugin plugin) {
-		if (NBTAdapter.getInstance().isEnabled() && TagDataHolderFeature.getInstance().isEnabled()) {
+	public boolean setup() {
+		if (tagDataHolderFeature.isEnabled()) {
 			enabled = true;
 		}
 		return enabled;
@@ -45,6 +35,6 @@ public class TagInventoryFeature extends Feature {
 
 	@Override
 	public String getName() {
-		return name;
+		return "NBT TagInventory";
 	}
 }

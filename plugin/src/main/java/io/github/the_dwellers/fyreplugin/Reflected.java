@@ -14,7 +14,7 @@ import java.util.HashMap;
  */
 public abstract class Reflected {
 	private static final String packageVersion = Bukkit.getServer().getClass().getPackage().getName().replace(".", ",")
-		.split(",")[3] + ".";
+			.split(",")[3] + ".";
 	private static final HashMap<String, Class<?>> classCache = new HashMap<String, Class<?>>();
 	private static final HashMap<String, Method> methodCache = new HashMap<String, Method>();
 	public static String nmsClass = "net.minecraft.server." + packageVersion;

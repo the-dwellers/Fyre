@@ -1,6 +1,5 @@
 package io.github.the_dwellers.fyreplugin.commands;
 
-import io.github.the_dwellers.fyreplugin.FyrePlugin;
 import io.github.the_dwellers.fyreplugin.configuration.Strings;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -10,8 +9,6 @@ import org.bukkit.command.CommandSender;
  * Provides common functionality to Fyre's commands
  */
 public abstract class AbstractCommand implements CommandExecutor {
-	protected FyrePlugin plugin = FyrePlugin.getInstance();
-
 	public abstract String getPermission();
 
 	@Override

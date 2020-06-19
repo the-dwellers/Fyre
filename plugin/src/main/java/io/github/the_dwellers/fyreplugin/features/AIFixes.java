@@ -1,7 +1,6 @@
 package io.github.the_dwellers.fyreplugin.features;
 
-import io.github.the_dwellers.fyreplugin.Feature;
-import io.github.the_dwellers.fyreplugin.FyrePlugin;
+import io.github.the_dwellers.fyreplugin.AbstractFeature;
 import io.github.the_dwellers.fyreplugin.configuration.SupportedVersions;
 import io.github.the_dwellers.fyreplugin.util.MinecraftVersion;
 import org.bukkit.entity.AbstractHorse;
@@ -16,23 +15,10 @@ import org.spigotmc.event.entity.EntityDismountEvent;
  * @see EntityAttributes
  * @see Mobs
  */
-public class AIFixes extends Feature implements Listener {
-
-	public static MinecraftVersion minVersion = SupportedVersions.MIN;
-	protected static String name = "AI Fixes";
-	private static AIFixes featureInstance;
-	protected boolean enabled = false;
-
-	public static AIFixes getInstance() {
-		if (featureInstance == null) {
-			featureInstance = new AIFixes();
-		}
-		return featureInstance;
-	}
-
+public class AIFixes extends AbstractFeature implements Listener {
 	@Override
 	public MinecraftVersion getMinecraftVersion() {
-		return minVersion;
+		return SupportedVersions.MIN;
 	}
 
 	@Override
@@ -42,11 +28,11 @@ public class AIFixes extends Feature implements Listener {
 
 	@Override
 	public String getName() {
-		return name;
+		return "AI Fixes";
 	}
 
 	@Override
-	public boolean setup(FyrePlugin plugin) {
+	public boolean setup() {
 		plugin.getServer().getPluginManager().registerEvents(this, plugin);
 		enabled = true;
 		return enabled;

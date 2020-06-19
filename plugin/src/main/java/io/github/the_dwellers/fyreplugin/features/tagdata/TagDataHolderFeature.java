@@ -1,9 +1,10 @@
 package io.github.the_dwellers.fyreplugin.features.tagdata;
 
-import io.github.the_dwellers.fyreplugin.Feature;
-import io.github.the_dwellers.fyreplugin.FyrePlugin;
+import io.github.the_dwellers.fyreplugin.AbstractFeature;
 import io.github.the_dwellers.fyreplugin.features.NBTAdapter;
 import io.github.the_dwellers.fyreplugin.util.MinecraftVersion;
+
+import javax.inject.Inject;
 
 /**
  * Feature wrapper for {@link TagDataHolder}
@@ -11,23 +12,13 @@ import io.github.the_dwellers.fyreplugin.util.MinecraftVersion;
  * Represents any {@link Entity} that may have external data serialized to their
  * 'Tag' nbt value.
  */
-public class TagDataHolderFeature extends Feature {
-
-	public static MinecraftVersion minVersion = NBTAdapter.minVersion;
-	protected static String name = "NBT TagDataHolder";
-	private static TagDataHolderFeature instance;
-	protected boolean enabled = false;
-
-	public static TagDataHolderFeature getInstance() {
-		if (instance == null) {
-			instance = new TagDataHolderFeature();
-		}
-		return instance;
-	}
+public class TagDataHolderFeature extends AbstractFeature {
+	@Inject
+	private NBTAdapter nbtAdapter;
 
 	@Override
 	public MinecraftVersion getMinecraftVersion() {
-		return minVersion;
+		return nbtAdapter.getMinecraftVersion();
 	}
 
 	@Override
@@ -36,14 +27,14 @@ public class TagDataHolderFeature extends Feature {
 	}
 
 	@Override
-	public boolean setup(FyrePlugin plugin) {
-		enabled = NBTAdapter.getInstance().isEnabled();
+	public boolean setup() {
+		enabled = nbtAdapter.isEnabled();
 		return enabled;
 	}
 
 	@Override
 	public String getName() {
-		return name;
+		return "NBT TagDataHolder";
 	}
 
 }

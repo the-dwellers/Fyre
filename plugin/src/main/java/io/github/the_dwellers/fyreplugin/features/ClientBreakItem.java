@@ -1,7 +1,6 @@
 package io.github.the_dwellers.fyreplugin.features;
 
-import io.github.the_dwellers.fyreplugin.Feature;
-import io.github.the_dwellers.fyreplugin.FyrePlugin;
+import io.github.the_dwellers.fyreplugin.AbstractFeature;
 import io.github.the_dwellers.fyreplugin.Reflected;
 import io.github.the_dwellers.fyreplugin.configuration.SupportedVersions;
 import io.github.the_dwellers.fyreplugin.exceptions.ReflectionFailedException;
@@ -14,20 +13,7 @@ import java.lang.reflect.InvocationTargetException;
 /**
  * Break a tool, including breaking effects.
  */
-public class ClientBreakItem extends Feature {
-
-	public static MinecraftVersion minVersion = SupportedVersions.MC1144;
-	protected static String name = "Client Break Item";
-	private static ClientBreakItem instance;
-	protected boolean enabled = false;
-
-	public static ClientBreakItem getInstance() {
-		if (instance == null) {
-			instance = new ClientBreakItem();
-		}
-		return instance;
-	}
-
+public class ClientBreakItem extends AbstractFeature {
 	/**
 	 * Play the effect of an entity's item breaking.
 	 * <p>
@@ -74,10 +60,10 @@ public class ClientBreakItem extends Feature {
 			}
 
 			Object nmsEnum = Reflected.getMethod("EnumItemSlot#fromName")
-				.invoke(Reflected.getClass(Reflected.nmsClass + "EnumItemSlot"), slotName);
+					.invoke(Reflected.getClass(Reflected.nmsClass + "EnumItemSlot"), slotName);
 
 			Object nmsEntity = Reflected.getMethod("CraftEntity#getHandle")
-				.invoke(Reflected.getClass(Reflected.obcClass + "entity.CraftLivingEntity").cast(entity));
+					.invoke(Reflected.getClass(Reflected.obcClass + "entity.CraftLivingEntity").cast(entity));
 
 			Object nmsLivingEntity = Reflected.getClass(Reflected.nmsClass + "EntityLiving").cast(nmsEntity);
 
@@ -129,7 +115,7 @@ public class ClientBreakItem extends Feature {
 
 	@Override
 	public MinecraftVersion getMinecraftVersion() {
-		return minVersion;
+		return SupportedVersions.MC1144;
 	}
 
 	@Override
@@ -139,11 +125,11 @@ public class ClientBreakItem extends Feature {
 
 	@Override
 	public String getName() {
-		return name;
+		return "Client Break Item";
 	}
 
 	@Override
-	public boolean setup(FyrePlugin plugin) {
+	public boolean setup() {
 		if (!enabled) {
 			if (Reflected.getClass("EnumItemSlot") == null) {
 				if (!Reflected.cacheClass(Reflected.nmsClass + "EnumItemSlot")) {

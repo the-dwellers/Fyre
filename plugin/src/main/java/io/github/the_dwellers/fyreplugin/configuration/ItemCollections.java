@@ -92,7 +92,7 @@ public abstract class ItemCollections {
 			// More complex than it has to be, who designed this api?
 			Damageable toolMeta = (Damageable) item.getItemMeta();
 			toolMeta.setDamage(RandomUtil.integer(Math.round(item.getType().getMaxDurability() * 0.2f),
-				Math.round(item.getType().getMaxDurability() * 0.8f)));
+					Math.round(item.getType().getMaxDurability() * 0.8f)));
 			item.setItemMeta((ItemMeta) toolMeta);
 		}
 		return item;

@@ -1,7 +1,6 @@
 package io.github.the_dwellers.fyreplugin.features;
 
-import io.github.the_dwellers.fyreplugin.Feature;
-import io.github.the_dwellers.fyreplugin.FyrePlugin;
+import io.github.the_dwellers.fyreplugin.AbstractFeature;
 import io.github.the_dwellers.fyreplugin.configuration.SupportedVersions;
 import io.github.the_dwellers.fyreplugin.util.MinecraftVersion;
 import org.bukkit.Material;
@@ -16,6 +15,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import javax.inject.Inject;
 import java.util.Collection;
 
 /**
@@ -23,23 +23,13 @@ import java.util.Collection;
  * <p>
  * Will play correct item breaking effects if {@link ClientBreakItem} is enabled.
  */
-public class PlantHoeHarvest extends Feature implements Listener {
-
-	public static MinecraftVersion minVersion = SupportedVersions.MC1144;
-	protected static String name = "Hoe Harvest";
-	private static PlantHoeHarvest instance;
-	protected boolean enabled = false;
-
-	public static PlantHoeHarvest getInstance() {
-		if (instance == null) {
-			instance = new PlantHoeHarvest();
-		}
-		return instance;
-	}
+public class PlantHoeHarvest extends AbstractFeature implements Listener {
+	@Inject
+	private ClientBreakItem clientBreakItem;
 
 	@Override
 	public MinecraftVersion getMinecraftVersion() {
-		return minVersion;
+		return SupportedVersions.MC1144;
 	}
 
 	@Override
@@ -48,7 +38,7 @@ public class PlantHoeHarvest extends Feature implements Listener {
 	}
 
 	@Override
-	public boolean setup(FyrePlugin plugin) {
+	public boolean setup() {
 		plugin.getServer().getPluginManager().registerEvents(this, plugin);
 		enabled = true;
 		return true;
@@ -65,7 +55,7 @@ public class PlantHoeHarvest extends Feature implements Listener {
 		Material blockMaterial = block.getType();
 
 		if (blockMaterial == Material.WHEAT || blockMaterial == Material.BEETROOTS || blockMaterial == Material.CARROTS
-			|| blockMaterial == Material.POTATOES) {
+				|| blockMaterial == Material.POTATOES) {
 
 			Ageable Blockdata = (Ageable) block.getBlockData();
 			if (Blockdata.getAge() != Blockdata.getMaximumAge()) {
@@ -81,7 +71,7 @@ public class PlantHoeHarvest extends Feature implements Listener {
 
 			// Main Hand
 			if (rightMat == Material.WOODEN_HOE || rightMat == Material.STONE_HOE || rightMat == Material.IRON_HOE
-				|| rightMat == Material.GOLDEN_HOE || rightMat == Material.DIAMOND_HOE) {
+					|| rightMat == Material.GOLDEN_HOE || rightMat == Material.DIAMOND_HOE) {
 
 				Damageable itemMeta = (Damageable) right.getItemMeta();
 				itemMeta.setDamage(itemMeta.getDamage() + 1);
@@ -89,7 +79,7 @@ public class PlantHoeHarvest extends Feature implements Listener {
 				// ? Why is there no api method to break items?
 				// ? Why do items not naturally break?
 				if (itemMeta.getDamage() > right.getType().getMaxDurability()) {
-					if (ClientBreakItem.getInstance().isEnabled()) {
+					if (clientBreakItem.isEnabled()) {
 						ClientBreakItem.breakEquipment(player, EquipmentSlot.HAND);
 					} else {
 						player.getEquipment().getItemInMainHand().subtract();
@@ -101,13 +91,13 @@ public class PlantHoeHarvest extends Feature implements Listener {
 
 				// Off Hand
 			} else if (leftMat == Material.WOODEN_HOE || leftMat == Material.STONE_HOE || leftMat == Material.IRON_HOE
-				|| leftMat == Material.GOLDEN_HOE || leftMat == Material.DIAMOND_HOE) {
+					|| leftMat == Material.GOLDEN_HOE || leftMat == Material.DIAMOND_HOE) {
 
 				Damageable itemMeta = (Damageable) left.getItemMeta();
 				itemMeta.setDamage(itemMeta.getDamage() + 1);
 
 				if (itemMeta.getDamage() > left.getType().getMaxDurability()) {
-					if (ClientBreakItem.getInstance().isEnabled()) {
+					if (clientBreakItem.isEnabled()) {
 						ClientBreakItem.breakEquipment(player, EquipmentSlot.HAND);
 					} else {
 						player.getEquipment().getItemInMainHand().subtract();
@@ -134,7 +124,7 @@ public class PlantHoeHarvest extends Feature implements Listener {
 
 	@Override
 	public String getName() {
-		return name;
+		return "Hoe Harvest";
 	}
 
 }

@@ -1,6 +1,6 @@
 package io.github.the_dwellers.fyreplugin.features;
 
-import io.github.the_dwellers.fyreplugin.Feature;
+import io.github.the_dwellers.fyreplugin.AbstractFeature;
 import io.github.the_dwellers.fyreplugin.FyrePlugin;
 import io.github.the_dwellers.fyreplugin.commands.AbstractCommand;
 import io.github.the_dwellers.fyreplugin.configuration.Strings;
@@ -20,26 +20,14 @@ import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.plugin.Plugin;
 
+import javax.inject.Inject;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 
 /**
  * Management utilities for staff and players.
  */
-public class Management extends Feature implements Listener {
-
-	public static MinecraftVersion minVersion = SupportedVersions.MIN;
-	protected static String name = "Management";
-	private static Management featureInstance;
-	protected boolean enabled = false;
-
-	public static Management getInstance() {
-		if (featureInstance == null) {
-			featureInstance = new Management();
-		}
-		return featureInstance;
-	}
-
+public class Management extends AbstractFeature implements Listener {
 	/**
 	 * Events related to heuristics and logs to assist administration.
 	 * <p>
@@ -51,7 +39,7 @@ public class Management extends Feature implements Listener {
 	@EventHandler()
 	public static void onConnect(PlayerLoginEvent event) {
 		ChatManager.sendStaffMessage(
-			"'" + event.getPlayer().getName() + "' is connecting from " + event.getAddress().toString());
+				"'" + event.getPlayer().getName() + "' is connecting from " + event.getAddress().toString());
 	}
 
 	private static TextComponent getPlugins(CommandSender sender, boolean longForm) {
@@ -71,10 +59,10 @@ public class Management extends Feature implements Listener {
 		}
 
 		TextComponent pluginText = new TextComponent(Strings.OUT_PREFIX + "In total, there are " + Strings.C_ACCENT
-			+ enabled + Strings.C_DEFAULT + " enabled plugins");
+				+ enabled + Strings.C_DEFAULT + " enabled plugins");
 		if (isPlayer) {
 			pluginText.setHoverEvent(
-				new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TextComponent[]{pluginLongForm(plugins)}));
+					new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TextComponent[]{pluginLongForm(plugins)}));
 		}
 		return pluginText;
 	}
@@ -85,7 +73,7 @@ public class Management extends Feature implements Listener {
 			Plugin plugin = plugins[i];
 			ChatColor color = plugin.isEnabled() ? ChatColor.DARK_GREEN : ChatColor.RED;
 			text.addExtra("" + color + plugin.getDescription().getName() + Strings.C_DEFAULT + " v"
-				+ Strings.C_ACCENT + plugin.getDescription().getVersion());
+					+ Strings.C_ACCENT + plugin.getDescription().getVersion());
 			if (i < plugins.length - 1) {
 				text.addExtra("\n");
 			}
@@ -117,7 +105,7 @@ public class Management extends Feature implements Listener {
 		boolean isPlayer = src instanceof Player;
 
 		Player[] players = src.getServer().getOnlinePlayers()
-			.toArray(new Player[src.getServer().getOnlinePlayers().size()]);
+				.toArray(new Player[src.getServer().getOnlinePlayers().size()]);
 		if (players.length == 0) {
 			// No players online
 			return new TextComponent(Strings.OUT_PREFIX + "There are no players online");
@@ -132,10 +120,10 @@ public class Management extends Feature implements Listener {
 		if (players.length == 1) {
 			// English single
 			text.addExtra(Strings.OUT_PREFIX + "There is " + Strings.C_ACCENT + players.length + Strings.C_DEFAULT
-				+ " player online");
+					+ " player online");
 		} else {
 			text.addExtra(Strings.OUT_PREFIX + "There is " + Strings.C_ACCENT + players.length + Strings.C_DEFAULT
-				+ " players online");
+					+ " players online");
 
 		}
 
@@ -144,13 +132,13 @@ public class Management extends Feature implements Listener {
 		}
 
 		text.setHoverEvent(
-			new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TextComponent[]{playerLongForm(players)}));
+				new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TextComponent[]{playerLongForm(players)}));
 		return text;
 	}
 
 	@Override
 	public MinecraftVersion getMinecraftVersion() {
-		return minVersion;
+		return SupportedVersions.MIN;
 	}
 
 	@Override
@@ -160,11 +148,11 @@ public class Management extends Feature implements Listener {
 
 	@Override
 	public String getName() {
-		return name;
+		return "Management";
 	}
 
 	@Override
-	public boolean setup(FyrePlugin plugin) {
+	public boolean setup() {
 		plugin.getCommand("status").setExecutor(new StatusCommand());
 		plugin.getCommand("plugins").setExecutor(new PluginsCommand());
 		plugin.getCommand("list").setExecutor(new ListCommand());
@@ -177,7 +165,8 @@ public class Management extends Feature implements Listener {
 	 * View server status information, such as ram usage, plugins, players, tps, etc
 	 */
 	public class StatusCommand extends AbstractCommand {
-		private final FyrePlugin plugin = FyrePlugin.getInstance();
+		@Inject
+		private FyrePlugin plugin;
 
 		@Override
 		public String getPermission() {
@@ -187,7 +176,7 @@ public class Management extends Feature implements Listener {
 		@Override
 		public boolean execute(CommandSender sender, Command command, String label, String[] args) {
 			Player[] players = plugin.getServer().getOnlinePlayers()
-				.toArray(new Player[plugin.getServer().getOnlinePlayers().size()]);
+					.toArray(new Player[plugin.getServer().getOnlinePlayers().size()]);
 			boolean isPlayer = sender instanceof Player;
 			TextComponent responseText = new TextComponent();
 			DecimalFormat decimalFormat = new DecimalFormat("0.00");
@@ -223,7 +212,7 @@ public class Management extends Feature implements Listener {
 						latencyText.addExtra("" + ChatColor.YELLOW + playerLatency + "ms");
 					}
 					latencyText.setHoverEvent(
-						new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TextComponent[]{hoverText}));
+							new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TextComponent[]{hoverText}));
 
 				} else {
 					latencyText.addExtra("Average Ping: ");
@@ -250,19 +239,19 @@ public class Management extends Feature implements Listener {
 			}
 
 			TextComponent chunkText = new TextComponent(
-				"\n" + Strings.OUT_PREFIX + "Loaded Chunks: " + Strings.C_ACCENT + loadedChunks);
+					"\n" + Strings.OUT_PREFIX + "Loaded Chunks: " + Strings.C_ACCENT + loadedChunks);
 
 			if (isPlayer) {
 				// Add hover for player
 				TextComponent chunkHoverText = new TextComponent(
-					Strings.C_DEFAULT + "Chunks per player: " + Strings.C_ACCENT + loadedChunks / players.length);
+						Strings.C_DEFAULT + "Chunks per player: " + Strings.C_ACCENT + loadedChunks / players.length);
 				chunkText.setHoverEvent(
-					new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TextComponent[]{chunkHoverText}));
+						new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TextComponent[]{chunkHoverText}));
 			} else {
 				// Caller is console
 				if (players.length != 0) {
 					chunkText.addExtra("\n" + Strings.OUT_PREFIX + "Chunks per player: " + Strings.C_ACCENT
-						+ loadedChunks / players.length);
+							+ loadedChunks / players.length);
 				}
 			}
 			responseText.addExtra(chunkText);
@@ -296,12 +285,12 @@ public class Management extends Feature implements Listener {
 			}
 
 			TextComponent tpsText = new TextComponent(
-				Strings.OUT_PREFIX + "Ticks Per Second: " + tpsColors[0] + decimalFormat.format(tps[0]));
+					Strings.OUT_PREFIX + "Ticks Per Second: " + tpsColors[0] + decimalFormat.format(tps[0]));
 
 			if (isPlayer) {
 				TextComponent hoverText = new TextComponent("" + tpsColors[0] + decimalFormat.format(tps[0]) + " "
-					+ tpsColors[1] + decimalFormat.format(tps[1]) + " " + tpsColors[2]
-					+ decimalFormat.format(tps[2]) + "\n");
+						+ tpsColors[1] + decimalFormat.format(tps[1]) + " " + tpsColors[2]
+						+ decimalFormat.format(tps[2]) + "\n");
 				switch (tpsColors[3]) {
 					case DARK_GREEN:
 						hoverText.addExtra(tpsColors[3] + "TPS is perfect");
@@ -322,7 +311,7 @@ public class Management extends Feature implements Listener {
 				tpsText.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TextComponent[]{hoverText}));
 			} else {
 				tpsText.addExtra(" " + tpsColors[1] + decimalFormat.format(tps[1]) + " " + tpsColors[2]
-					+ decimalFormat.format(tps[2]));
+						+ decimalFormat.format(tps[2]));
 			}
 			responseText.addExtra("\n");
 			responseText.addExtra(tpsText);
@@ -360,21 +349,21 @@ public class Management extends Feature implements Listener {
 					memoryColor = ChatColor.DARK_GREEN;
 				}
 				memoryText.addExtra("Using " + memoryColor + usedMemory + "MB / " + maxMemory + "MB ("
-					+ decimalFormat.format((((double) usedMemory / (double) maxMemory) * 100)) + "%)"
-					+ Strings.C_DEFAULT + " of memory");
+						+ decimalFormat.format((((double) usedMemory / (double) maxMemory) * 100)) + "%)"
+						+ Strings.C_DEFAULT + " of memory");
 			}
 
 			if (isPlayer) {
 				TextComponent memoryHover = new TextComponent(Strings.C_DEFAULT + "Max Memory: " + Strings.C_ACCENT
-					+ maxMemory + Strings.C_DEFAULT + "\nAllocated Memory: " + Strings.C_ACCENT
-					+ (Runtime.getRuntime().totalMemory() / 0x100000) + Strings.C_DEFAULT + "\nUsed Memory: "
-					+ Strings.C_ACCENT + usedMemory + Strings.C_DEFAULT + "\nUnused Memory: " + Strings.C_ACCENT
-					+ (Runtime.getRuntime().freeMemory() / 0x100000) + Strings.C_DEFAULT + "\nFree Memory: "
-					+ Strings.C_ACCENT + (maxMemory - usedMemory) + Strings.C_MUTED
-					+ "\nAll values in Megabytes (MB)");
+						+ maxMemory + Strings.C_DEFAULT + "\nAllocated Memory: " + Strings.C_ACCENT
+						+ (Runtime.getRuntime().totalMemory() / 0x100000) + Strings.C_DEFAULT + "\nUsed Memory: "
+						+ Strings.C_ACCENT + usedMemory + Strings.C_DEFAULT + "\nUnused Memory: " + Strings.C_ACCENT
+						+ (Runtime.getRuntime().freeMemory() / 0x100000) + Strings.C_DEFAULT + "\nFree Memory: "
+						+ Strings.C_ACCENT + (maxMemory - usedMemory) + Strings.C_MUTED
+						+ "\nAll values in Megabytes (MB)");
 
 				memoryText.setHoverEvent(
-					new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TextComponent[]{memoryHover}));
+						new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TextComponent[]{memoryHover}));
 			}
 
 			responseText.addExtra("\n");
@@ -434,8 +423,8 @@ public class Management extends Feature implements Listener {
 	 * convert them to {@code fyre:plugins}
 	 */
 	public class PlayerPreProcessorCommand implements Listener {
-
-		private final FyrePlugin plugin = FyrePlugin.getInstance();
+		@Inject
+		private FyrePlugin plugin;
 
 		@EventHandler(priority = EventPriority.HIGH)
 		public void onPlayerCommand(PlayerCommandPreprocessEvent event) {

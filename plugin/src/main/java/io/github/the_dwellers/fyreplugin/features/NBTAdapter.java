@@ -1,7 +1,6 @@
 package io.github.the_dwellers.fyreplugin.features;
 
-import io.github.the_dwellers.fyreplugin.Feature;
-import io.github.the_dwellers.fyreplugin.FyrePlugin;
+import io.github.the_dwellers.fyreplugin.AbstractFeature;
 import io.github.the_dwellers.fyreplugin.Reflected;
 import io.github.the_dwellers.fyreplugin.configuration.SupportedVersions;
 import io.github.the_dwellers.fyreplugin.exceptions.ReflectionFailedException;
@@ -18,20 +17,7 @@ import java.util.UUID;
  * <p>
  * This is the most likely part to break during version changes!
  */
-public class NBTAdapter extends Feature {
-
-	public static MinecraftVersion minVersion = SupportedVersions.MC1132;
-	protected static String name = "NBT Features";
-	private static NBTAdapter instance;
-	protected boolean enabled = false;
-
-	public static NBTAdapter getInstance() {
-		if (instance == null) {
-			instance = new NBTAdapter();
-		}
-		return instance;
-	}
-
+public class NBTAdapter extends AbstractFeature {
 	/**
 	 * Serialize the provided {@link ItemStack} into an nbt string.
 	 * <p>
@@ -249,7 +235,7 @@ public class NBTAdapter extends Feature {
 
 	@Override
 	public MinecraftVersion getMinecraftVersion() {
-		return minVersion;
+		return SupportedVersions.MC1132;
 	}
 
 	@Override
@@ -258,7 +244,7 @@ public class NBTAdapter extends Feature {
 	}
 
 	@Override
-	public boolean setup(FyrePlugin plugin) {
+	public boolean setup() {
 		if (Reflected.getClass("ItemStack") == null) {
 			if (!Reflected.cacheClass(Reflected.nmsClass + "ItemStack")) {
 				plugin.getLogger().warning("Unable to Cache ItemStack");
@@ -381,6 +367,6 @@ public class NBTAdapter extends Feature {
 
 	@Override
 	public String getName() {
-		return name;
+		return "NBT Features";
 	}
 }

@@ -1,7 +1,6 @@
 package io.github.the_dwellers.fyreplugin.features;
 
-import io.github.the_dwellers.fyreplugin.Feature;
-import io.github.the_dwellers.fyreplugin.FyrePlugin;
+import io.github.the_dwellers.fyreplugin.AbstractFeature;
 import io.github.the_dwellers.fyreplugin.features.tagdata.TagInventory;
 import io.github.the_dwellers.fyreplugin.features.tagdata.TagInventoryFeature;
 import io.github.the_dwellers.fyreplugin.util.MinecraftVersion;
@@ -18,27 +17,19 @@ import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
+import javax.inject.Inject;
+
 /**
  * Allow boats to open as chests on sneak right-click, ensures only one player
  * can open at once and data is saved correctly.
  */
-public class BoatInventories extends Feature implements Listener {
-
-	public static MinecraftVersion minVersion = TagInventoryFeature.minVersion;
-	protected static String name = "Chest Boats";
-	private static BoatInventories featureInstance;
-	protected boolean enabled = false;
-
-	public static BoatInventories getInstance() {
-		if (featureInstance == null) {
-			featureInstance = new BoatInventories();
-		}
-		return featureInstance;
-	}
+public class BoatInventories extends AbstractFeature implements Listener {
+	@Inject
+	private TagInventoryFeature tagInventoryFeature;
 
 	@Override
 	public MinecraftVersion getMinecraftVersion() {
-		return minVersion;
+		return tagInventoryFeature.getMinecraftVersion();
 	}
 
 	@Override
@@ -48,12 +39,12 @@ public class BoatInventories extends Feature implements Listener {
 
 	@Override
 	public String getName() {
-		return name;
+		return "Chest Boats";
 	}
 
 	@Override
-	public boolean setup(FyrePlugin plugin) {
-		if (TagInventoryFeature.getInstance().isEnabled()) {
+	public boolean setup() {
+		if (tagInventoryFeature.isEnabled()) {
 			plugin.getServer().getPluginManager().registerEvents(this, plugin);
 			enabled = true;
 		}

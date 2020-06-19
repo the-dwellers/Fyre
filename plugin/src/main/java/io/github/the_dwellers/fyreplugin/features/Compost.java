@@ -1,7 +1,6 @@
 package io.github.the_dwellers.fyreplugin.features;
 
-import io.github.the_dwellers.fyreplugin.Feature;
-import io.github.the_dwellers.fyreplugin.FyrePlugin;
+import io.github.the_dwellers.fyreplugin.AbstractFeature;
 import io.github.the_dwellers.fyreplugin.Reflected;
 import io.github.the_dwellers.fyreplugin.configuration.SupportedVersions;
 import io.github.the_dwellers.fyreplugin.util.MinecraftVersion;
@@ -13,23 +12,10 @@ import java.lang.reflect.Method;
 /**
  * Add additional items to the composter.
  */
-public class Compost extends Feature {
-
-	public static MinecraftVersion minVersion = SupportedVersions.MC1144;
-	protected static String name = "Extended Compost";
-	private static Compost instance;
-	protected boolean enabled = false;
-
-	public static Compost getInstance() {
-		if (instance == null) {
-			instance = new Compost();
-		}
-		return instance;
-	}
-
+public class Compost extends AbstractFeature {
 	@Override
 	public MinecraftVersion getMinecraftVersion() {
-		return minVersion;
+		return SupportedVersions.MC1144;
 	}
 
 	@Override
@@ -39,11 +25,11 @@ public class Compost extends Feature {
 
 	@Override
 	public String getName() {
-		return name;
+		return "Extended Compost";
 	}
 
 	@Override
-	public boolean setup(FyrePlugin plugin) {
+	public boolean setup() {
 
 		if (Reflected.getClass("Items") == null) {
 			if (!Reflected.cacheClass(Reflected.nmsClass + "Items")) {
@@ -82,9 +68,9 @@ public class Compost extends Feature {
 
 			// Execute the add method using the ROTTEN_FLESH item
 			a.invoke(Reflected.getClass("BlockComposter"), 0.5F,
-				itemsRottenFleshField.get(Reflected.getClass("Items")));
+					itemsRottenFleshField.get(Reflected.getClass("Items")));
 		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchFieldException
-			| SecurityException e) {
+				| SecurityException e) {
 			plugin.getLogger().warning("Unable to Add Items To Composter: " + e.getMessage());
 			return false;
 		}

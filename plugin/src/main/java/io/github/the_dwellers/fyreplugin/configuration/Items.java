@@ -84,9 +84,9 @@ public abstract class Items {
 			Multimap<Attribute, AttributeModifier> modifiers = HashMultimap.create();
 
 			modifiers.put(Attribute.GENERIC_MAX_HEALTH, new AttributeModifier(UUID.randomUUID(),
-				"generic.max_health", 2, Operation.ADD_NUMBER, EquipmentSlot.HEAD));
+					"generic.max_health", 2, Operation.ADD_NUMBER, EquipmentSlot.HEAD));
 			modifiers.put(Attribute.GENERIC_ARMOR, new AttributeModifier(UUID.randomUUID(),
-				"generic.generic_armor", 1, Operation.ADD_NUMBER, EquipmentSlot.HEAD));
+					"generic.generic_armor", 1, Operation.ADD_NUMBER, EquipmentSlot.HEAD));
 
 			meta.setAttributeModifiers(modifiers);
 			ARMOR_LEATHER_HELMET.setItemMeta(meta);
@@ -102,9 +102,9 @@ public abstract class Items {
 			Multimap<Attribute, AttributeModifier> modifiers = HashMultimap.create();
 
 			modifiers.put(Attribute.GENERIC_MAX_HEALTH, new AttributeModifier(UUID.randomUUID(),
-				"generic.max_health", 4, Operation.ADD_NUMBER, EquipmentSlot.CHEST));
+					"generic.max_health", 4, Operation.ADD_NUMBER, EquipmentSlot.CHEST));
 			modifiers.put(Attribute.GENERIC_ARMOR, new AttributeModifier(UUID.randomUUID(),
-				"generic.generic_armor", 3, Operation.ADD_NUMBER, EquipmentSlot.CHEST));
+					"generic.generic_armor", 3, Operation.ADD_NUMBER, EquipmentSlot.CHEST));
 
 			meta.setAttributeModifiers(modifiers);
 			ARMOR_LEATHER_CHESTPLATE.setItemMeta(meta);
@@ -120,9 +120,9 @@ public abstract class Items {
 			Multimap<Attribute, AttributeModifier> modifiers = HashMultimap.create();
 
 			modifiers.put(Attribute.GENERIC_MAX_HEALTH, new AttributeModifier(UUID.randomUUID(),
-				"generic.max_health", 2, Operation.ADD_NUMBER, EquipmentSlot.LEGS));
+					"generic.max_health", 2, Operation.ADD_NUMBER, EquipmentSlot.LEGS));
 			modifiers.put(Attribute.GENERIC_ARMOR, new AttributeModifier(UUID.randomUUID(),
-				"generic.generic_armor", 2, Operation.ADD_NUMBER, EquipmentSlot.LEGS));
+					"generic.generic_armor", 2, Operation.ADD_NUMBER, EquipmentSlot.LEGS));
 
 			meta.setAttributeModifiers(modifiers);
 			ARMOR_LEATHER_LEGGINGS.setItemMeta(meta);
@@ -139,9 +139,9 @@ public abstract class Items {
 			Multimap<Attribute, AttributeModifier> modifiers = HashMultimap.create();
 
 			modifiers.put(Attribute.GENERIC_MAX_HEALTH, new AttributeModifier(UUID.randomUUID(),
-				"generic.max_health", 2, Operation.ADD_NUMBER, EquipmentSlot.FEET));
+					"generic.max_health", 2, Operation.ADD_NUMBER, EquipmentSlot.FEET));
 			modifiers.put(Attribute.GENERIC_ARMOR, new AttributeModifier(UUID.randomUUID(),
-				"generic.generic_armor", 1, Operation.ADD_NUMBER, EquipmentSlot.FEET));
+					"generic.generic_armor", 1, Operation.ADD_NUMBER, EquipmentSlot.FEET));
 
 			meta.setAttributeModifiers(modifiers);
 			ARMOR_LEATHER_BOOTS.setItemMeta(meta);
@@ -157,9 +157,9 @@ public abstract class Items {
 			Multimap<Attribute, AttributeModifier> modifiers = HashMultimap.create();
 
 			modifiers.put(Attribute.GENERIC_MAX_HEALTH, new AttributeModifier(UUID.randomUUID(),
-				"generic.max_health", 4, Operation.ADD_NUMBER, EquipmentSlot.HEAD));
+					"generic.max_health", 4, Operation.ADD_NUMBER, EquipmentSlot.HEAD));
 			modifiers.put(Attribute.GENERIC_ARMOR, new AttributeModifier(UUID.randomUUID(),
-				"generic.generic_armor", 3, Operation.ADD_NUMBER, EquipmentSlot.HEAD));
+					"generic.generic_armor", 3, Operation.ADD_NUMBER, EquipmentSlot.HEAD));
 
 			meta.setAttributeModifiers(modifiers);
 			ARMOR_CHAINMAIL_HELMET.setItemMeta(meta);
@@ -175,9 +175,9 @@ public abstract class Items {
 			Multimap<Attribute, AttributeModifier> modifiers = HashMultimap.create();
 
 			modifiers.put(Attribute.GENERIC_MAX_HEALTH, new AttributeModifier(UUID.randomUUID(),
-				"generic.max_health", 4, Operation.ADD_NUMBER, EquipmentSlot.CHEST));
+					"generic.max_health", 4, Operation.ADD_NUMBER, EquipmentSlot.CHEST));
 			modifiers.put(Attribute.GENERIC_ARMOR, new AttributeModifier(UUID.randomUUID(),
-				"generic.generic_armor", 5, Operation.ADD_NUMBER, EquipmentSlot.CHEST));
+					"generic.generic_armor", 5, Operation.ADD_NUMBER, EquipmentSlot.CHEST));
 
 			meta.setAttributeModifiers(modifiers);
 			ARMOR_CHAINMAIL_CHESTPLATE.setItemMeta(meta);
@@ -193,9 +193,9 @@ public abstract class Items {
 			Multimap<Attribute, AttributeModifier> modifiers = HashMultimap.create();
 
 			modifiers.put(Attribute.GENERIC_MAX_HEALTH, new AttributeModifier(UUID.randomUUID(),
-				"generic.max_health", 4, Operation.ADD_NUMBER, EquipmentSlot.LEGS));
+					"generic.max_health", 4, Operation.ADD_NUMBER, EquipmentSlot.LEGS));
 			modifiers.put(Attribute.GENERIC_ARMOR, new AttributeModifier(UUID.randomUUID(),
-				"generic.generic_armor", 4, Operation.ADD_NUMBER, EquipmentSlot.LEGS));
+					"generic.generic_armor", 4, Operation.ADD_NUMBER, EquipmentSlot.LEGS));
 
 			meta.setAttributeModifiers(modifiers);
 			ARMOR_CHAINMAIL_LEGGINGS.setItemMeta(meta);
@@ -211,9 +211,9 @@ public abstract class Items {
 			Multimap<Attribute, AttributeModifier> modifiers = HashMultimap.create();
 
 			modifiers.put(Attribute.GENERIC_MAX_HEALTH, new AttributeModifier(UUID.randomUUID(), "generic.max_health",
-				2, Operation.ADD_NUMBER, EquipmentSlot.FEET));
+					2, Operation.ADD_NUMBER, EquipmentSlot.FEET));
 			modifiers.put(Attribute.GENERIC_ARMOR, new AttributeModifier(UUID.randomUUID(), "generic.generic_armor", 2,
-				Operation.ADD_NUMBER, EquipmentSlot.FEET));
+					Operation.ADD_NUMBER, EquipmentSlot.FEET));
 
 			meta.setAttributeModifiers(modifiers);
 			ARMOR_CHAINMAIL_BOOTS.setItemMeta(meta);
@@ -229,11 +229,11 @@ public abstract class Items {
 			Multimap<Attribute, AttributeModifier> modifiers = HashMultimap.create();
 
 			modifiers.put(Attribute.GENERIC_MAX_HEALTH, new AttributeModifier(UUID.randomUUID(), "generic.max_health",
-				4, Operation.ADD_NUMBER, EquipmentSlot.HEAD));
+					4, Operation.ADD_NUMBER, EquipmentSlot.HEAD));
 			modifiers.put(Attribute.GENERIC_ARMOR, new AttributeModifier(UUID.randomUUID(), "generic.generic_armor", 3,
-				Operation.ADD_NUMBER, EquipmentSlot.HEAD));
+					Operation.ADD_NUMBER, EquipmentSlot.HEAD));
 			modifiers.put(Attribute.GENERIC_MOVEMENT_SPEED, new AttributeModifier(UUID.randomUUID(),
-				"generic.movement_speed", -0.01, Operation.MULTIPLY_SCALAR_1, EquipmentSlot.HEAD));
+					"generic.movement_speed", -0.01, Operation.MULTIPLY_SCALAR_1, EquipmentSlot.HEAD));
 
 			meta.setAttributeModifiers(modifiers);
 			ARMOR_IRON_HELMET.setItemMeta(meta);
@@ -249,11 +249,11 @@ public abstract class Items {
 			Multimap<Attribute, AttributeModifier> modifiers = HashMultimap.create();
 
 			modifiers.put(Attribute.GENERIC_MAX_HEALTH, new AttributeModifier(UUID.randomUUID(), "generic.max_health",
-				6, Operation.ADD_NUMBER, EquipmentSlot.CHEST));
+					6, Operation.ADD_NUMBER, EquipmentSlot.CHEST));
 			modifiers.put(Attribute.GENERIC_ARMOR, new AttributeModifier(UUID.randomUUID(), "generic.generic_armor", 6,
-				Operation.ADD_NUMBER, EquipmentSlot.CHEST));
+					Operation.ADD_NUMBER, EquipmentSlot.CHEST));
 			modifiers.put(Attribute.GENERIC_MOVEMENT_SPEED, new AttributeModifier(UUID.randomUUID(), "generic.movement_speed", -0.03,
-				Operation.MULTIPLY_SCALAR_1, EquipmentSlot.CHEST));
+					Operation.MULTIPLY_SCALAR_1, EquipmentSlot.CHEST));
 
 			meta.setAttributeModifiers(modifiers);
 			ARMOR_IRON_CHESTPLATE.setItemMeta(meta);
@@ -269,11 +269,11 @@ public abstract class Items {
 			Multimap<Attribute, AttributeModifier> modifiers = HashMultimap.create();
 
 			modifiers.put(Attribute.GENERIC_MAX_HEALTH, new AttributeModifier(UUID.randomUUID(),
-				"generic.max_health", 6, Operation.ADD_NUMBER, EquipmentSlot.LEGS));
+					"generic.max_health", 6, Operation.ADD_NUMBER, EquipmentSlot.LEGS));
 			modifiers.put(Attribute.GENERIC_ARMOR, new AttributeModifier(UUID.randomUUID(),
-				"generic.generic_armor", 4, Operation.ADD_NUMBER, EquipmentSlot.LEGS));
+					"generic.generic_armor", 4, Operation.ADD_NUMBER, EquipmentSlot.LEGS));
 			modifiers.put(Attribute.GENERIC_MOVEMENT_SPEED, new AttributeModifier(UUID.randomUUID(),
-				"generic.movement_speed", -0.03, Operation.MULTIPLY_SCALAR_1, EquipmentSlot.LEGS));
+					"generic.movement_speed", -0.03, Operation.MULTIPLY_SCALAR_1, EquipmentSlot.LEGS));
 
 			meta.setAttributeModifiers(modifiers);
 			ARMOR_IRON_LEGGINGS.setItemMeta(meta);
@@ -289,11 +289,11 @@ public abstract class Items {
 			Multimap<Attribute, AttributeModifier> modifiers = HashMultimap.create();
 
 			modifiers.put(Attribute.GENERIC_MAX_HEALTH, new AttributeModifier(UUID.randomUUID(), "generic.max_health",
-				4, Operation.ADD_NUMBER, EquipmentSlot.FEET));
+					4, Operation.ADD_NUMBER, EquipmentSlot.FEET));
 			modifiers.put(Attribute.GENERIC_ARMOR, new AttributeModifier(UUID.randomUUID(), "generic.generic_armor", 3,
-				Operation.ADD_NUMBER, EquipmentSlot.FEET));
+					Operation.ADD_NUMBER, EquipmentSlot.FEET));
 			modifiers.put(Attribute.GENERIC_MOVEMENT_SPEED, new AttributeModifier(UUID.randomUUID(),
-				"generic.movement_speed", -0.01, Operation.MULTIPLY_SCALAR_1, EquipmentSlot.FEET));
+					"generic.movement_speed", -0.01, Operation.MULTIPLY_SCALAR_1, EquipmentSlot.FEET));
 
 			meta.setAttributeModifiers(modifiers);
 			ARMOR_IRON_BOOTS.setItemMeta(meta);
@@ -309,11 +309,11 @@ public abstract class Items {
 			Multimap<Attribute, AttributeModifier> modifiers = HashMultimap.create();
 
 			modifiers.put(Attribute.GENERIC_MAX_HEALTH, new AttributeModifier(UUID.randomUUID(), "generic.max_health",
-				6, Operation.ADD_NUMBER, EquipmentSlot.HEAD));
+					6, Operation.ADD_NUMBER, EquipmentSlot.HEAD));
 			modifiers.put(Attribute.GENERIC_ARMOR, new AttributeModifier(UUID.randomUUID(), "generic.generic_armor", 4,
-				Operation.ADD_NUMBER, EquipmentSlot.HEAD));
+					Operation.ADD_NUMBER, EquipmentSlot.HEAD));
 			modifiers.put(Attribute.GENERIC_MOVEMENT_SPEED, new AttributeModifier(UUID.randomUUID(),
-				"generic.movement_speed", -0.02, Operation.MULTIPLY_SCALAR_1, EquipmentSlot.HEAD));
+					"generic.movement_speed", -0.02, Operation.MULTIPLY_SCALAR_1, EquipmentSlot.HEAD));
 
 			meta.setAttributeModifiers(modifiers);
 			ARMOR_DIAMOND_HELMET.setItemMeta(meta);
@@ -329,11 +329,11 @@ public abstract class Items {
 			Multimap<Attribute, AttributeModifier> modifiers = HashMultimap.create();
 
 			modifiers.put(Attribute.GENERIC_MAX_HEALTH, new AttributeModifier(UUID.randomUUID(), "generic.max_health",
-				10, Operation.ADD_NUMBER, EquipmentSlot.CHEST));
+					10, Operation.ADD_NUMBER, EquipmentSlot.CHEST));
 			modifiers.put(Attribute.GENERIC_ARMOR, new AttributeModifier(UUID.randomUUID(), "generic.generic_armor", 7,
-				Operation.ADD_NUMBER, EquipmentSlot.CHEST));
+					Operation.ADD_NUMBER, EquipmentSlot.CHEST));
 			modifiers.put(Attribute.GENERIC_MOVEMENT_SPEED, new AttributeModifier(UUID.randomUUID(),
-				"generic.movement_speed", -0.06, Operation.MULTIPLY_SCALAR_1, EquipmentSlot.CHEST));
+					"generic.movement_speed", -0.06, Operation.MULTIPLY_SCALAR_1, EquipmentSlot.CHEST));
 
 			meta.setAttributeModifiers(modifiers);
 			ARMOR_DIAMOND_CHESTPLATE.setItemMeta(meta);
@@ -349,11 +349,11 @@ public abstract class Items {
 			Multimap<Attribute, AttributeModifier> modifiers = HashMultimap.create();
 
 			modifiers.put(Attribute.GENERIC_MAX_HEALTH, new AttributeModifier(UUID.randomUUID(),
-				"generic.max_health", 8, Operation.ADD_NUMBER, EquipmentSlot.LEGS));
+					"generic.max_health", 8, Operation.ADD_NUMBER, EquipmentSlot.LEGS));
 			modifiers.put(Attribute.GENERIC_ARMOR, new AttributeModifier(UUID.randomUUID(),
-				"generic.generic_armor", 5, Operation.ADD_NUMBER, EquipmentSlot.LEGS));
+					"generic.generic_armor", 5, Operation.ADD_NUMBER, EquipmentSlot.LEGS));
 			modifiers.put(Attribute.GENERIC_MOVEMENT_SPEED, new AttributeModifier(UUID.randomUUID(),
-				"generic.movement_speed", -0.06, Operation.MULTIPLY_SCALAR_1, EquipmentSlot.LEGS));
+					"generic.movement_speed", -0.06, Operation.MULTIPLY_SCALAR_1, EquipmentSlot.LEGS));
 
 			meta.setAttributeModifiers(modifiers);
 			ARMOR_DIAMOND_LEGGINGS.setItemMeta(meta);
@@ -369,11 +369,11 @@ public abstract class Items {
 			Multimap<Attribute, AttributeModifier> modifiers = HashMultimap.create();
 
 			modifiers.put(Attribute.GENERIC_MAX_HEALTH, new AttributeModifier(UUID.randomUUID(), "generic.max_health",
-				6, Operation.ADD_NUMBER, EquipmentSlot.FEET));
+					6, Operation.ADD_NUMBER, EquipmentSlot.FEET));
 			modifiers.put(Attribute.GENERIC_ARMOR, new AttributeModifier(UUID.randomUUID(), "generic.generic_armor", 4,
-				Operation.ADD_NUMBER, EquipmentSlot.FEET));
+					Operation.ADD_NUMBER, EquipmentSlot.FEET));
 			modifiers.put(Attribute.GENERIC_MOVEMENT_SPEED, new AttributeModifier(UUID.randomUUID(),
-				"generic.movement_speed", -0.02, Operation.MULTIPLY_SCALAR_1, EquipmentSlot.FEET));
+					"generic.movement_speed", -0.02, Operation.MULTIPLY_SCALAR_1, EquipmentSlot.FEET));
 
 			meta.setAttributeModifiers(modifiers);
 			ARMOR_DIAMOND_BOOTS.setItemMeta(meta);
@@ -494,7 +494,7 @@ public abstract class Items {
 
 			Multimap<Attribute, AttributeModifier> modifiers = HashMultimap.create();
 			modifiers.put(Attribute.GENERIC_ATTACK_DAMAGE, new AttributeModifier(UUID.randomUUID(),
-				"generic.attackDamage", 2, Operation.ADD_NUMBER, EquipmentSlot.HAND));
+					"generic.attackDamage", 2, Operation.ADD_NUMBER, EquipmentSlot.HAND));
 			meta.setAttributeModifiers(modifiers);
 			SPLINTERS.setItemMeta(meta);
 		}
@@ -597,7 +597,7 @@ public abstract class Items {
 				itemMeta.setDisplayName(PREFIX_COMMON + "Green Broken Book");
 				ArrayList<String> loreDefault = new ArrayList<String>();
 				loreDefault.add(
-					ChatColor.RESET + "" + ChatColor.GRAY + "This strange green book dissolves when you use it...");
+						ChatColor.RESET + "" + ChatColor.GRAY + "This strange green book dissolves when you use it...");
 				itemMeta.setLore(loreDefault);
 				break;
 		}

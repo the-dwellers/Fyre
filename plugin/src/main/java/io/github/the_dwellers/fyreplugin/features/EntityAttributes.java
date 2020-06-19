@@ -1,7 +1,6 @@
 package io.github.the_dwellers.fyreplugin.features;
 
-import io.github.the_dwellers.fyreplugin.Feature;
-import io.github.the_dwellers.fyreplugin.FyrePlugin;
+import io.github.the_dwellers.fyreplugin.AbstractFeature;
 import io.github.the_dwellers.fyreplugin.configuration.SupportedVersions;
 import io.github.the_dwellers.fyreplugin.util.MinecraftVersion;
 import org.bukkit.Material;
@@ -26,20 +25,7 @@ import org.spigotmc.event.player.PlayerSpawnLocationEvent;
  *
  * @see Mobs
  */
-public class EntityAttributes extends Feature implements Listener {
-
-	public static MinecraftVersion minVersion = SupportedVersions.MIN;
-	protected static String name = "Entity Attributes";
-	private static EntityAttributes featureInstance;
-	protected boolean enabled = false;
-
-	public static EntityAttributes getInstance() {
-		if (featureInstance == null) {
-			featureInstance = new EntityAttributes();
-		}
-		return featureInstance;
-	}
-
+public class EntityAttributes extends AbstractFeature implements Listener {
 	/**
 	 * Update player attributes.
 	 *
@@ -76,18 +62,18 @@ public class EntityAttributes extends Feature implements Listener {
 
 	public static void applyOverworldHostile(Attributable entity) {
 		entity.getAttribute(Attribute.GENERIC_MAX_HEALTH)
-			.addModifier(new AttributeModifier("Fyre Spawn Health 1.5", 0.5, Operation.MULTIPLY_SCALAR_1));
+				.addModifier(new AttributeModifier("Fyre Spawn Health 1.5", 0.5, Operation.MULTIPLY_SCALAR_1));
 	}
 
 	public static void applyNetherHostile(Attributable entity) {
 		entity.getAttribute(Attribute.GENERIC_MAX_HEALTH)
-			.addModifier(new AttributeModifier("Fyre Spawn Health 2", 1, Operation.MULTIPLY_SCALAR_1));
+				.addModifier(new AttributeModifier("Fyre Spawn Health 2", 1, Operation.MULTIPLY_SCALAR_1));
 
 	}
 
 	@Override
 	public MinecraftVersion getMinecraftVersion() {
-		return minVersion;
+		return SupportedVersions.MIN;
 	}
 
 	@Override
@@ -97,11 +83,11 @@ public class EntityAttributes extends Feature implements Listener {
 
 	@Override
 	public String getName() {
-		return name;
+		return "Entity Attributes";
 	}
 
 	@Override
-	public boolean setup(FyrePlugin plugin) {
+	public boolean setup() {
 		plugin.getServer().getPluginManager().registerEvents(this, plugin);
 		enabled = true;
 		return isEnabled();

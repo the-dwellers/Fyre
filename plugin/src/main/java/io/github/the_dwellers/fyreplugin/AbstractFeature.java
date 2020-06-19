@@ -2,6 +2,8 @@ package io.github.the_dwellers.fyreplugin;
 
 import io.github.the_dwellers.fyreplugin.util.MinecraftVersion;
 
+import javax.inject.Inject;
+
 /**
  * Represents a feature provided by the FyrePlugin. Features include event
  * handlers, net.minecraft.server hooks, and commands. They have a minimum
@@ -10,29 +12,20 @@ import io.github.the_dwellers.fyreplugin.util.MinecraftVersion;
  *
  * @see MinecraftVersion
  */
-public class Feature {
+public abstract class AbstractFeature {
+	@Inject
+	protected FyrePlugin plugin;
 
 	protected boolean enabled = false;
-
-	public static Feature getInstance() {
-		return null;
-	}
-
-	public MinecraftVersion getMinecraftVersion() {
-		return new MinecraftVersion("0.0.0");
-	}
 
 	/**
 	 * Setup and start the feature. It is assumed that the version has already been
 	 * checked and is compatible. Any errors encountered will output to the log, and
 	 * disable the feature.
 	 *
-	 * @param plugin FyrePlugin to handle registrations.
 	 * @return True if registration succeeded without errors.
 	 */
-	public boolean setup(FyrePlugin plugin) {
-		return false;
-	}
+	public abstract boolean setup();
 
 	/**
 	 * Is the feature setup and ready for use?
@@ -43,7 +36,7 @@ public class Feature {
 		return enabled;
 	}
 
-	public String getName() {
-		return null;
-	}
+	public abstract String getName();
+
+	public abstract MinecraftVersion getMinecraftVersion();
 }

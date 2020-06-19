@@ -1,7 +1,6 @@
 package io.github.the_dwellers.fyreplugin.features;
 
-import io.github.the_dwellers.fyreplugin.Feature;
-import io.github.the_dwellers.fyreplugin.FyrePlugin;
+import io.github.the_dwellers.fyreplugin.AbstractFeature;
 import io.github.the_dwellers.fyreplugin.configuration.SupportedVersions;
 import io.github.the_dwellers.fyreplugin.util.MinecraftVersion;
 import io.github.the_dwellers.fyreplugin.util.RandomUtil;
@@ -18,23 +17,10 @@ import org.bukkit.event.player.PlayerMoveEvent;
 /**
  * Trample grass into dirt.
  */
-public class LandTrampling extends Feature implements Listener {
-
-	public static MinecraftVersion minVersion = SupportedVersions.MIN;
-	protected static String name = "Land Trampling";
-	private static LandTrampling featureInstance;
-	protected boolean enabled = false;
-
-	public static LandTrampling getInstance() {
-		if (featureInstance == null) {
-			featureInstance = new LandTrampling();
-		}
-		return featureInstance;
-	}
-
+public class LandTrampling extends AbstractFeature implements Listener {
 	@Override
 	public MinecraftVersion getMinecraftVersion() {
-		return minVersion;
+		return SupportedVersions.MIN;
 	}
 
 	@Override
@@ -44,11 +30,11 @@ public class LandTrampling extends Feature implements Listener {
 
 	@Override
 	public String getName() {
-		return name;
+		return "Land Trampling";
 	}
 
 	@Override
-	public boolean setup(FyrePlugin plugin) {
+	public boolean setup() {
 		plugin.getServer().getPluginManager().registerEvents(this, plugin);
 		enabled = true;
 		return isEnabled();

@@ -1,7 +1,6 @@
 package io.github.the_dwellers.fyreplugin.features;
 
-import io.github.the_dwellers.fyreplugin.Feature;
-import io.github.the_dwellers.fyreplugin.FyrePlugin;
+import io.github.the_dwellers.fyreplugin.AbstractFeature;
 import io.github.the_dwellers.fyreplugin.commands.AbstractCommand;
 import io.github.the_dwellers.fyreplugin.configuration.Strings;
 import io.github.the_dwellers.fyreplugin.util.MinecraftVersion;
@@ -19,26 +18,18 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.potion.PotionEffectType;
 
+import javax.inject.Inject;
+
 /**
  * Functions dedicated to chat manipulation and formatting.
  */
-public class ChatManagerFeature extends Feature implements Listener {
-
-	public static MinecraftVersion minVersion = NBTAdapter.minVersion;
-	protected static String name = "Chat Manager";
-	private static ChatManagerFeature featureInstance;
-	protected boolean enabled = false;
-
-	public static ChatManagerFeature getInstance() {
-		if (featureInstance == null) {
-			featureInstance = new ChatManagerFeature();
-		}
-		return featureInstance;
-	}
+public class ChatManagerFeature extends AbstractFeature implements Listener {
+	@Inject
+	private NBTAdapter nbtAdapter;
 
 	@Override
 	public MinecraftVersion getMinecraftVersion() {
-		return minVersion;
+		return nbtAdapter.getMinecraftVersion();
 	}
 
 	@Override
@@ -48,12 +39,12 @@ public class ChatManagerFeature extends Feature implements Listener {
 
 	@Override
 	public String getName() {
-		return name;
+		return "Chat Manager";
 	}
 
 	@Override
-	public boolean setup(FyrePlugin plugin) {
-		if (!NBTAdapter.getInstance().isEnabled()) {
+	public boolean setup() {
+		if (!nbtAdapter.isEnabled()) {
 			return false;
 		} else {
 			plugin.getServer().getPluginManager().registerEvents(this, plugin);

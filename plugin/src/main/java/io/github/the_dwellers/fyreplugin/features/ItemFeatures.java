@@ -1,7 +1,6 @@
 package io.github.the_dwellers.fyreplugin.features;
 
-import io.github.the_dwellers.fyreplugin.Feature;
-import io.github.the_dwellers.fyreplugin.FyrePlugin;
+import io.github.the_dwellers.fyreplugin.AbstractFeature;
 import io.github.the_dwellers.fyreplugin.commands.AbstractCommand;
 import io.github.the_dwellers.fyreplugin.configuration.Items;
 import io.github.the_dwellers.fyreplugin.configuration.SupportedVersions;
@@ -26,20 +25,7 @@ import org.bukkit.inventory.ItemStack;
 /**
  * Features and logic required by custom items.
  */
-public class ItemFeatures extends Feature implements Listener {
-
-	public static MinecraftVersion minVersion = SupportedVersions.MIN;
-	protected static String name = "Item Features";
-	private static ItemFeatures featureInstance;
-	protected boolean enabled = false;
-
-	public static ItemFeatures getInstance() {
-		if (featureInstance == null) {
-			featureInstance = new ItemFeatures();
-		}
-		return featureInstance;
-	}
-
+public class ItemFeatures extends AbstractFeature implements Listener {
 	@EventHandler()
 	public static void onEntityCropTrample(EntityInteractEvent event) {
 		// ? Why does EntityInteractEvent not fire for players?
@@ -72,7 +58,7 @@ public class ItemFeatures extends Feature implements Listener {
 
 	@Override
 	public MinecraftVersion getMinecraftVersion() {
-		return minVersion;
+		return SupportedVersions.MIN;
 	}
 
 	@Override
@@ -82,11 +68,11 @@ public class ItemFeatures extends Feature implements Listener {
 
 	@Override
 	public String getName() {
-		return name;
+		return "Item Features";
 	}
 
 	@Override
-	public boolean setup(FyrePlugin plugin) {
+	public boolean setup() {
 		plugin.getServer().getPluginManager().registerEvents(this, plugin);
 		plugin.getCommand("money").setExecutor(new MoneyCommand());
 		enabled = true;
@@ -98,7 +84,7 @@ public class ItemFeatures extends Feature implements Listener {
 		Player player = event.getPlayer();
 		if (player.getInventory().getItemInMainHand().getType() == Material.KNOWLEDGE_BOOK) {
 			event.getPlayer().playSound(event.getPlayer().getLocation(), Sound.ENTITY_ENDER_EYE_DEATH,
-				SoundCategory.MASTER, 1, 1);
+					SoundCategory.MASTER, 1, 1);
 		}
 	}
 

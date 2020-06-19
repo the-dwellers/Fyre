@@ -1,7 +1,6 @@
 package io.github.the_dwellers.fyreplugin.features;
 
-import io.github.the_dwellers.fyreplugin.Feature;
-import io.github.the_dwellers.fyreplugin.FyrePlugin;
+import io.github.the_dwellers.fyreplugin.AbstractFeature;
 import io.github.the_dwellers.fyreplugin.configuration.SupportedVersions;
 import io.github.the_dwellers.fyreplugin.util.MinecraftVersion;
 import org.bukkit.Material;
@@ -17,20 +16,7 @@ import org.bukkit.event.block.BlockBreakEvent;
 /**
  * Manage and reward advancements based on server events and player statistics,
  */
-public class Advancements extends Feature implements Listener {
-
-	public static MinecraftVersion minVersion = SupportedVersions.MIN;
-	protected static String name = "Advancements";
-	private static Advancements instance;
-	protected boolean enabled = false;
-
-	public static Advancements getInstance() {
-		if (instance == null) {
-			instance = new Advancements();
-		}
-		return instance;
-	}
-
+public class Advancements extends AbstractFeature implements Listener {
 	/**
 	 * Awards the provided player any advancements they are entitled to. This only
 	 * applies to plugin-controlled advancements related to breaking blocks.
@@ -118,13 +104,13 @@ public class Advancements extends Feature implements Listener {
 			// ? If anyone knows a shorter way to convert to an array while
 			// ? conserving type, please message me - WYVERN
 			progress.awardCriteria(
-				progress.getRemainingCriteria().toArray(new String[progress.getRemainingCriteria().size()])[0]);
+					progress.getRemainingCriteria().toArray(new String[progress.getRemainingCriteria().size()])[0]);
 		}
 	}
 
 	@Override
 	public MinecraftVersion getMinecraftVersion() {
-		return minVersion;
+		return SupportedVersions.MIN;
 	}
 
 	@Override
@@ -134,11 +120,11 @@ public class Advancements extends Feature implements Listener {
 
 	@Override
 	public String getName() {
-		return name;
+		return "Advancements";
 	}
 
 	@Override
-	public boolean setup(FyrePlugin plugin) {
+	public boolean setup() {
 		plugin.getServer().getPluginManager().registerEvents(this, plugin);
 		enabled = true;
 		return enabled;

@@ -1,7 +1,6 @@
 package io.github.the_dwellers.fyreplugin.features;
 
-import io.github.the_dwellers.fyreplugin.Feature;
-import io.github.the_dwellers.fyreplugin.FyrePlugin;
+import io.github.the_dwellers.fyreplugin.AbstractFeature;
 import io.github.the_dwellers.fyreplugin.Reflected;
 import io.github.the_dwellers.fyreplugin.commands.AbstractCommand;
 import io.github.the_dwellers.fyreplugin.configuration.MerchantRecipes;
@@ -22,6 +21,7 @@ import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.inventory.Merchant;
 import org.bukkit.inventory.MerchantRecipe;
 
+import javax.inject.Inject;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -30,20 +30,12 @@ import java.util.ArrayList;
 /**
  * Merchants that interact with the player to sell items.
  */
-public class Merchants extends Feature implements Listener {
-
-	public static MinecraftVersion minVersion = SupportedVersions.MC1144;
-	protected static String name = "Merchants";
-	private static Merchants instance;
+public class Merchants extends AbstractFeature implements Listener {
 	private static boolean merchantShowXP;
-	protected boolean enabled = false;
-
-	public static Merchants getInstance() {
-		if (instance == null) {
-			instance = new Merchants();
-		}
-		return instance;
-	}
+	@Inject
+	private Development development;
+	@Inject
+	private ItemFeatures itemFeatures;
 
 	public static void showMerchantUI(Player player, Profession profession, Type type) {
 		Merchant merchant = Bukkit.getServer().createMerchant(getName(profession));
@@ -229,7 +221,7 @@ public class Merchants extends Feature implements Listener {
 	 *                                   during reflection
 	 */
 	public static void showTraderUI(Player player, Merchant merchant, int level, int xp)
-		throws ReflectionFailedException {
+			throws ReflectionFailedException {
 		try {
 			Class<?> bukkitCraftMerchantCustom = Reflected.getClass("CraftMerchantCustom");
 			Class<?> bukkitCraftMinecraftMerchant = Reflected.getClass("MinecraftMerchant");
@@ -283,7 +275,7 @@ public class Merchants extends Feature implements Listener {
 
 	@Override
 	public MinecraftVersion getMinecraftVersion() {
-		return minVersion;
+		return SupportedVersions.MC1144;
 	}
 
 	@Override
@@ -293,12 +285,12 @@ public class Merchants extends Feature implements Listener {
 
 	@Override
 	public String getName() {
-		return name;
+		return "Merchants";
 	}
 
 	@Override
-	public boolean setup(FyrePlugin plugin) {
-		if (!ItemFeatures.getInstance().isEnabled()) {
+	public boolean setup() {
+		if (!itemFeatures.isEnabled()) {
 			return false;
 		}
 
@@ -398,9 +390,9 @@ public class Merchants extends Feature implements Listener {
 			merchantShowXP = true;
 		} catch (NoSuchFieldException e) {
 			plugin.getLogger().warning("Server jar is not patched with merchant fixes. XP and level bars will be disabled on traders.");
-			if (Development.getInstance().isEnabled()) {
+			if (development.isEnabled()) {
 				plugin.getLogger().warning("Unable to find experience and regularVillager fields on " + Reflected.obcClass
-					+ "inventory.CraftMerchantCustom$MinecraftMerchant");
+						+ "inventory.CraftMerchantCustom$MinecraftMerchant");
 			}
 			merchantShowXP = false;
 		}
@@ -442,7 +434,7 @@ public class Merchants extends Feature implements Listener {
 					return true;
 				}
 				Villager villager = (Villager) player.getLocation().getWorld().spawnEntity(player.getEyeLocation(),
-					EntityType.VILLAGER);
+						EntityType.VILLAGER);
 				villager.setProfession(Profession.valueOf(args[0]));
 			}
 			return true;
