@@ -1,7 +1,6 @@
 package io.github.the_dwellers.fyreplugin.features;
 
 import io.github.the_dwellers.fyreplugin.core.AbstractFeature;
-import io.github.the_dwellers.fyreplugin.FyrePlugin;
 import io.github.the_dwellers.fyreplugin.core.AbstractCommand;
 import io.github.the_dwellers.fyreplugin.configuration.Strings;
 import io.github.the_dwellers.fyreplugin.configuration.SupportedVersions;
@@ -20,7 +19,6 @@ import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.plugin.Plugin;
 
-import javax.inject.Inject;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 
@@ -135,7 +133,7 @@ public class Management extends AbstractFeature implements Listener {
 			longFormText.addExtra(player.getDisplayName());
 
 			if (i + 1 != players.length) {
-				longFormText.addExtra(Strings.C_DEFAULT);
+				longFormText.addExtra(Strings.C_DEFAULT + ", ");
 			}
 		}
 		return longFormText;

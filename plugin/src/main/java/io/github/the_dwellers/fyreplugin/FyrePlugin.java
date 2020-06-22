@@ -18,8 +18,6 @@ import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.util.logging.Logger;
 
-import javax.inject.Inject;
-
 /**
  * The Fyre Plugin is a helper plugin to implement features such as server
  * administration tools, merchant functionality, and a few other features.
