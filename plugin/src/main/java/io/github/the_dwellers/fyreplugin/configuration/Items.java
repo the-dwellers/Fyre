@@ -511,16 +511,15 @@ public abstract class Items {
 			lore.add(ChatColor.RESET + "" + ChatColor.GRAY + "A Bundle of rough sharp sticks");
 			meta.setLore(lore);
 
-			Multimap<Attribute, AttributeModifier> modifiers = HashMultimap.create();
-			modifiers.put(Attribute.GENERIC_ATTACK_DAMAGE, new AttributeModifier(UUID.randomUUID(),
-					"generic.attackDamage", 2, Operation.ADD_NUMBER, EquipmentSlot.HAND));
-			meta.setAttributeModifiers(modifiers);
+			// Multimap<Attribute, AttributeModifier> modifiers = HashMultimap.create();
+			// modifiers.put(Attribute.GENERIC_ATTACK_DAMAGE, new AttributeModifier(UUID.randomUUID(),
+			//      "generic.attackDamage", 2, Operation.ADD_NUMBER, EquipmentSlot.HAND));
+			// meta.setAttributeModifiers(modifiers);
 			SPLINTERS.setItemMeta(meta);
 		}
 
 		return SPLINTERS.clone();
 	}
-
 
 	/**
 	 * Get a crafting recipe tome of the specified type.
