@@ -187,8 +187,6 @@ public class Management extends AbstractFeature implements Listener {
 	 * View server status information, such as ram usage, plugins, players, tps, etc
 	 */
 	public class StatusCommand extends AbstractCommand {
-		@Inject
-		private FyrePlugin plugin;
 
 		@Override
 		public String getPermission() {
@@ -446,8 +444,6 @@ public class Management extends AbstractFeature implements Listener {
 	 * ! Bug: Does not redirect console commands
 	 */
 	public class PlayerPreProcessorCommand implements Listener {
-		@Inject
-		private FyrePlugin plugin;
 
 		@EventHandler(priority = EventPriority.HIGH)
 		public void onPlayerCommand(PlayerCommandPreprocessEvent event) {
