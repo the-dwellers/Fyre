@@ -73,6 +73,7 @@ public class BoatInventories extends AbstractFeature implements Listener {
 			// * Remember: Open TagInventorys need to be closed with
 			// TagInventory#closeInventory()
 			// * before they can be opened again.
+			event.getPlayer().sendActionBar("Boat is already opened by " + bInventory.getViewers().get(0).getName());
 			return;
 		} else {
 			event.getPlayer().openInventory(inventory);

@@ -140,4 +140,8 @@ public class TagInventory extends TagDataHolder implements InventoryHolder {
 			it.next().closeInventory();
 		}
 	}
+
+	public List<HumanEntity> getViewers() {
+		return inventory.getViewers();
+	}
 }
