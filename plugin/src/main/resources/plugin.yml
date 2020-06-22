@@ -33,9 +33,6 @@ commands:
   status:
     description: Show server's technical status
     usage: /status
-  trader:
-    description: Spawn a trader
-    usage: /trade <trader>
 
 permissions:
   fyre.armor.use:

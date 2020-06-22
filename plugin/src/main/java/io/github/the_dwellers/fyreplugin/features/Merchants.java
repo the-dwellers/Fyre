@@ -2,14 +2,11 @@ package io.github.the_dwellers.fyreplugin.features;
 
 import io.github.the_dwellers.fyreplugin.core.AbstractFeature;
 import io.github.the_dwellers.fyreplugin.core.Reflected;
-import io.github.the_dwellers.fyreplugin.core.AbstractCommand;
 import io.github.the_dwellers.fyreplugin.configuration.MerchantRecipes;
 import io.github.the_dwellers.fyreplugin.configuration.SupportedVersions;
 import io.github.the_dwellers.fyreplugin.exceptions.ReflectionFailedException;
 import io.github.the_dwellers.fyreplugin.core.MinecraftVersion;
 import org.bukkit.Bukkit;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandSender;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Villager;
@@ -163,7 +160,6 @@ public class Merchants extends AbstractFeature implements Listener {
 		}
 
 		plugin.getServer().getPluginManager().registerEvents(this, plugin);
-		plugin.getCommand("list").setExecutor(new TraderCommand());
 
 		enabled = true;
 		return isEnabled();
@@ -460,28 +456,4 @@ public class Merchants extends AbstractFeature implements Listener {
 		showMerchantUI(event.getPlayer(), villager.getProfession(), villager.getVillagerType());
 	}
 
-	/**
-	 * Simple command for testing
-	 */
-	public class TraderCommand extends AbstractCommand {
-		@Override
-		public String getPermission() {
-			return "fyre.trader.use";
-		}
-
-		@Override
-		public boolean execute(CommandSender sender, Command command, String label, String[] args) {
-			if (sender instanceof Player) {
-				Player player = (Player) sender;
-				if (args.length != 1) {
-					player.sendMessage("No arg 1");
-					return true;
-				}
-				Villager villager = (Villager) player.getLocation().getWorld().spawnEntity(player.getEyeLocation(),
-						EntityType.VILLAGER);
-				villager.setProfession(Profession.valueOf(args[0]));
-			}
-			return true;
-		}
-	}
 }
