@@ -55,11 +55,11 @@ public class FyrePlugin extends JavaPlugin {
 			PlantHoeHarvest.class, // Right-click to harvest crops
 			Compost.class, // Compost extra items
 			Mobs.class, // Mob tweaks, including equipment
+			SpikyCactus.class, // Damage player when punching cactuses
 	};
 	public MinecraftVersion mcVersion;
 	private Injector injector;
 
-	@Inject
 	public PluginConfig config;
 
 	public FyrePlugin() {
