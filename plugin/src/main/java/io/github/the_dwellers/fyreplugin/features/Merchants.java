@@ -157,10 +157,8 @@ public class Merchants extends AbstractFeature implements Listener {
 		} catch (NoSuchFieldException e) {
 			plugin.getLogger().warning(
 					"Server jar is not patched with merchant fixes. XP and level bars will be disabled on traders.");
-			if (development.isEnabled()) {
-				plugin.getLogger().warning("Unable to find experience and regularVillager fields on "
-						+ Reflected.obcClass + "inventory.CraftMerchantCustom$MinecraftMerchant");
-			}
+				development.devWarning("Unable to find experience and regularVillager fields on "
+				+ Reflected.obcClass + "inventory.CraftMerchantCustom$MinecraftMerchant");
 			merchantShowXP = false;
 		}
 

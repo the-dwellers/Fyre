@@ -37,8 +37,8 @@ public class FyrePlugin extends JavaPlugin {
 	// No other way to do this? Complains about Type safety, but 'Class<?
 	// extends AbstractFeature>[]' turns into 'Cannot create a generic array of
 	// Class<? extends AbstractFeature>'
-	public static Class<? extends AbstractFeature>[] features = new Class[]{
-			Development.class, // Development Features
+	public static Class<? extends AbstractFeature>[] features = new Class[] {
+			Development.class, // Development Features (must be enabled first)
 			NBTAdapter.class, // NBT functions such as saving, loading, generating chat text, etc...
 			TagDataHolderFeature.class, // Store arbitrary data in entity nbt
 			TagInventoryFeature.class, // Store inventories in entity tags
@@ -71,8 +71,6 @@ public class FyrePlugin extends JavaPlugin {
 
 		initialize();
 
-		log.info(Strings.LOG_PREFIX + "Loading Experimental Feature Branch...");
-
 		// Version string format is normally `git-Paper-1618 (MC: 1.12.2)`
 		// We want `1.12.2`
 		String versionString = Bukkit.getVersion().substring(Bukkit.getVersion().indexOf("(") + 5,
@@ -103,33 +101,33 @@ public class FyrePlugin extends JavaPlugin {
 					if (!result) {
 						log.warning(Strings.LOG_PREFIX + "Failed to load " + feature.getName());
 					} else {
-						if (injector.getSingleton(Development.class).isEnabled()) {
-							log.info(Strings.LOG_PREFIX + "Loaded " + feature.getName());
-						}
+						// Dev messages only work when the class is enabled, they fail silently
+						// otherwise.
+						injector.getSingleton(Development.class).devMsg("Loaded " + feature.getName());
 					}
-
 				} else {
 					log.warning(Strings.LOG_PREFIX + "Skipped " + feature.getName() + ", requires MC v"
 							+ feature.getMinecraftVersion().toString());
 				}
 			} catch (NullPointerException e) {
-				log.severe(Strings.LOG_PREFIX + "Malformed Feature :" + featureClass.getName());
+				log.severe(Strings.LOG_PREFIX + "Failed to instantiate Feature :" + featureClass.getName());
 				if (injector.getSingleton(Development.class).isEnabled()) {
 					e.printStackTrace();
 				}
-			} catch (NoClassDefFoundError e) {
-				log.info(Strings.LOG_PREFIX + "Skipped " + featureClass.getName() + ", unknown API");
-				if (injector.getSingleton(Development.class).isEnabled()) {
-					e.printStackTrace();
-				}
+			} catch (Exception e) {
+				// Unsure on the full list of exceptions possible from using
+				// injector-instantiated singletons, they need to update their docs!
+				log.severe(Strings.LOG_PREFIX + "Unknown severe error with feature : " + featureClass.getName()
+						+ " please report this error!");
+				e.printStackTrace();
 			}
 		}
 
 		// Time taken to load
 		DecimalFormat decimalFormat = new DecimalFormat("0.00");
 		decimalFormat.setRoundingMode(RoundingMode.DOWN);
-		log.info(Strings.LOG_PREFIX + "Fyre Loaded in " + decimalFormat.format((System.currentTimeMillis() - tStart) / 1000.0) + "s");
-
+		log.info(Strings.LOG_PREFIX + "Fyre Loaded in "
+				+ decimalFormat.format((System.currentTimeMillis() - tStart) / 1000.0) + "s");
 	}
 
 	private void initialize() {
@@ -139,9 +137,7 @@ public class FyrePlugin extends JavaPlugin {
 				log.warning(Strings.LOG_PREFIX + "Plugin data folder wasn't created!");
 		}
 
-		injector = new InjectorBuilder()
-				.addDefaultHandlers("io.github.the_dwellers.fyreplugin")
-				.create();
+		injector = new InjectorBuilder().addDefaultHandlers("io.github.the_dwellers.fyreplugin").create();
 
 		injector.register(FyrePlugin.class, this);
 

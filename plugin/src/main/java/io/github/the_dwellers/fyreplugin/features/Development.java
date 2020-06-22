@@ -4,6 +4,7 @@ import io.github.the_dwellers.fyreplugin.core.AbstractFeature;
 import io.github.the_dwellers.fyreplugin.core.AbstractCommand;
 import io.github.the_dwellers.fyreplugin.configuration.SupportedVersions;
 import io.github.the_dwellers.fyreplugin.core.MinecraftVersion;
+
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.event.Listener;
@@ -27,10 +28,31 @@ public class Development extends AbstractFeature implements Listener {
 			return isEnabled();
 		}
 
-		plugin.getLogger().warning("Development mode is enabled");
+		plugin.getLogger().warning("Development mode is enabled [D]");
 		plugin.getCommand("debug").setExecutor(new DebugCommand());
 		enabled = true;
 		return isEnabled();
+	}
+
+
+	/**
+	 * Print out a warning message only if the Development feature is enabled.
+	 * @param msg Message
+	 */
+	public void devWarning(String msg) {
+		if (enabled) {
+			plugin.getLogger().warning("[D] "+ msg);
+		}
+	}
+
+	/**
+	 * Print out a warning message only if the Development feature is enabled.
+	 * @param msg Message
+	 */
+	public void devMsg(String msg) {
+		if (enabled) {
+			plugin.getLogger().info("[D] "+ msg);
+		}
 	}
 
 	public class DebugCommand extends AbstractCommand {
@@ -41,7 +63,6 @@ public class Development extends AbstractFeature implements Listener {
 
 		@Override
 		public boolean execute(CommandSender sender, Command command, String label, String[] args) {
-			// ? For Development use only. Do not push changes!
 			sender.sendMessage("Feature " + getName() + " requires Minecraft " + getMinecraftVersion());
 			sender.sendMessage("This server is on IP: " + plugin.getServer().getIp());
 			return true;
