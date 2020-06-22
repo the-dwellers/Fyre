@@ -28,13 +28,13 @@ import java.util.logging.Logger;
  * @version 0.1
  * @see https://github.com/the-dwellers/Fyre
  */
-@SuppressWarnings("unchecked")
 public class FyrePlugin extends JavaPlugin {
 
 	private static final Logger log = Logger.getLogger("Minecraft");
 	// No other way to do this? Complains about Type safety, but 'Class<?
 	// extends AbstractFeature>[]' turns into 'Cannot create a generic array of
 	// Class<? extends AbstractFeature>'
+	@SuppressWarnings("unchecked")
 	public static Class<? extends AbstractFeature>[] features = new Class[] {
 			Development.class, // Development Features (must be enabled first)
 			NBTAdapter.class, // NBT functions such as saving, loading, generating chat text, etc...
