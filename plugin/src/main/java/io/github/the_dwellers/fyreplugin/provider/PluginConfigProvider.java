@@ -18,7 +18,7 @@ public class PluginConfigProvider implements Provider<PluginConfig> {
 		ObjectMapper mapper = new ObjectMapper();
 
 		File configFile = new File(plugin.getDataFolder(), "config.json");
-
+		// Todo: warn if values do not exist in current config
 		if (!configFile.exists()) {
 			try {
 				mapper.writerWithDefaultPrettyPrinter().writeValue(configFile, new PluginConfig());

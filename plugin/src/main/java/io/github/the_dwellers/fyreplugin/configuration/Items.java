@@ -64,11 +64,27 @@ public abstract class Items {
 	private static ItemStack STONE_PICKAXE;
 	private static ItemStack STONE_HOE;
 
+	private static ItemStack IRON_AXE;
+	private static ItemStack IRON_SHOVEL;
+	private static ItemStack IRON_SWORD;
+	private static ItemStack IRON_PICKAXE;
+	private static ItemStack IRON_HOE;
+
+	private static ItemStack DIAMOND_AXE;
+	private static ItemStack DIAMOND_SHOVEL;
+	private static ItemStack DIAMOND_SWORD;
+	private static ItemStack DIAMOND_PICKAXE;
+	private static ItemStack DIAMOND_HOE;
+
 	private static ItemStack SPLINTERS;
 
 	private static ItemStack TOME_CRAFTING_TABLE;
 	private static ItemStack TOME_WOODEN_TOOLS;
+	private static ItemStack TOME_STONE_TOOLS;
+	private static ItemStack TOME_IRON_TOOLS;
 	private static ItemStack TOME_WOODEN_SWORD;
+	private static ItemStack TOME_STONE_SWORD;
+	private static ItemStack TOME_IRON_SWORD;
 
 	private static ItemStack ARMOR_LEATHER_HELMET;
 	private static ItemStack ARMOR_LEATHER_CHESTPLATE;
@@ -498,6 +514,78 @@ public abstract class Items {
 		return STONE_HOE.clone();
 	}
 
+
+	public static ItemStack getIronSword() {
+		if (IRON_SWORD == null) {
+			IRON_SWORD = new ItemStack(Material.IRON_SWORD, 1);
+		}
+		return IRON_SWORD.clone();
+	}
+
+	public static ItemStack getDiamondSword() {
+		if (DIAMOND_SWORD == null) {
+			DIAMOND_SWORD = new ItemStack(Material.DIAMOND_SWORD, 1);
+		}
+		return DIAMOND_SWORD.clone();
+	}
+
+	public static ItemStack getIronShovel() {
+		if (IRON_AXE == null) {
+			IRON_AXE = new ItemStack(Material.IRON_SHOVEL, 1);
+		}
+		return IRON_AXE.clone();
+	}
+
+	public static ItemStack getIronPickaxe() {
+		if (IRON_SHOVEL == null) {
+			IRON_SHOVEL = new ItemStack(Material.IRON_PICKAXE, 1);
+		}
+		return IRON_SHOVEL.clone();
+	}
+
+	public static ItemStack getIronAxe() {
+		if (IRON_PICKAXE == null) {
+			IRON_PICKAXE = new ItemStack(Material.IRON_AXE, 1);
+		}
+		return IRON_PICKAXE.clone();
+	}
+
+	public static ItemStack getIronHoe() {
+		if (IRON_HOE == null) {
+			IRON_HOE = new ItemStack(Material.IRON_HOE, 1);
+		}
+		return IRON_HOE.clone();
+	}
+
+	public static ItemStack getDiamondShovel() {
+		if (DIAMOND_AXE == null) {
+			DIAMOND_AXE = new ItemStack(Material.DIAMOND_SHOVEL, 1);
+		}
+		return DIAMOND_AXE.clone();
+	}
+
+	public static ItemStack getDiamondPickaxe() {
+		if (DIAMOND_SHOVEL == null) {
+			DIAMOND_SHOVEL = new ItemStack(Material.DIAMOND_PICKAXE, 1);
+		}
+		return DIAMOND_SHOVEL.clone();
+	}
+
+	public static ItemStack getDiamondAxe() {
+		if (DIAMOND_PICKAXE == null) {
+			DIAMOND_PICKAXE = new ItemStack(Material.DIAMOND_AXE, 1);
+		}
+		return DIAMOND_PICKAXE.clone();
+	}
+
+	public static ItemStack getDiamondHoe() {
+		if (DIAMOND_HOE == null) {
+			DIAMOND_HOE = new ItemStack(Material.DIAMOND_HOE, 1);
+		}
+		return DIAMOND_HOE.clone();
+	}
+
+
 	public static ItemStack getSplinters() {
 		// ? Potential issue with UUID set by attributes preventing proper usage with datapacks
 		// TODO: Need to look more into this, unsure which specific component prevents usage with nbt-string defined items
@@ -521,6 +609,19 @@ public abstract class Items {
 		return SPLINTERS.clone();
 	}
 
+
+	/**
+	 * Crafting books that unlock crafting recipes:
+	 * <ul>
+	 * <li> Crafting Table</li>
+	 * <li> Wooden Tools <ul><li>Wooden Axe</li><li>Wooden Shovel</li><li>Wooden Pickaxe</li></ul></li>
+	 * <li> Wooden Sword</li>
+	 * </ul>
+	 */
+	public enum CraftingBook {
+		CraftingTable, WoodenTools, WoodenSword, StoneTools, StoneSword, IronTools, IronSword,
+	}
+
 	/**
 	 * Get a crafting recipe tome of the specified type.
 	 * @param book {@link CraftingBook} book to get.
@@ -538,11 +639,31 @@ public abstract class Items {
 					TOME_WOODEN_TOOLS = generateCraftingBook(CraftingBook.WoodenTools);
 				}
 				return TOME_WOODEN_TOOLS.clone();
+			case StoneTools:
+				if (TOME_STONE_TOOLS == null) {
+					TOME_STONE_TOOLS = generateCraftingBook(CraftingBook.StoneTools);
+				}
+				return TOME_STONE_TOOLS.clone();
+			case IronTools:
+				if (TOME_IRON_TOOLS == null) {
+					TOME_IRON_TOOLS = generateCraftingBook(CraftingBook.IronTools);
+				}
+				return TOME_IRON_TOOLS.clone();
 			case WoodenSword:
 				if (TOME_WOODEN_SWORD == null) {
 					TOME_WOODEN_SWORD = generateCraftingBook(CraftingBook.WoodenSword);
 				}
 				return TOME_WOODEN_SWORD.clone();
+			case StoneSword:
+				if (TOME_STONE_SWORD == null) {
+					TOME_STONE_SWORD = generateCraftingBook(CraftingBook.StoneSword);
+				}
+			return TOME_STONE_SWORD.clone();
+			case IronSword:
+				if (TOME_IRON_SWORD == null) {
+					TOME_IRON_SWORD = generateCraftingBook(CraftingBook.IronSword);
+				}
+				return TOME_IRON_SWORD.clone();
 			default:
 				return generateCraftingBook(book);
 		}
@@ -582,7 +703,6 @@ public abstract class Items {
 				itemMeta.addRecipe(new NamespacedKey("minecraft", "crafting_table"));
 				break;
 			case WoodenTools:
-
 				itemMeta.setDisplayName(PREFIX_RECIPE + "Wooden Tools");
 
 				ArrayList<String> loreWoodenTools = new ArrayList<String>();
@@ -622,29 +742,23 @@ public abstract class Items {
 
 				itemMeta.addRecipe(new NamespacedKey("minecraft", "wooden_sword"));
 				break;
+			// TODO: construct learning tomes
+			case IronSword:
+			case IronTools:
+			case StoneSword:
+			case StoneTools:
 			default:
 				itemMeta.setDisplayName(PREFIX_COMMON + "Green Broken Book");
 				ArrayList<String> loreDefault = new ArrayList<String>();
-				loreDefault.add(
-						ChatColor.RESET + "" + ChatColor.GRAY + "This strange green book dissolves when you use it...");
+				loreDefault.add(PREFIX_LORE_COMMON + "This strange green book");
+				loreDefault.add(PREFIX_LORE_COMMON + "dissolves when you use it...");
 				itemMeta.setLore(loreDefault);
+				itemMeta.addRecipe(new NamespacedKey("minecraft", "campfire"));
 				break;
 		}
 
 		knowledgeBook.setItemMeta(itemMeta);
 		return knowledgeBook;
-	}
-
-	/**
-	 * Crafting books that unlock crafting recipes:
-	 * <ul>
-	 * <li> Crafting Table</li>
-	 * <li> Wooden Tools <ul><li>Wooden Axe</li><li>Wooden Shovel</li><li>Wooden Pickaxe</li></ul></li>
-	 * <li> Wooden Sword</li>
-	 * </ul>
-	 */
-	public enum CraftingBook {
-		CraftingTable, WoodenTools, WoodenSword
 	}
 
 }

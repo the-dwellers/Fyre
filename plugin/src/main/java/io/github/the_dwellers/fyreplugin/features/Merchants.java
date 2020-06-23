@@ -154,8 +154,8 @@ public class Merchants extends AbstractFeature implements Listener {
 		} catch (NoSuchFieldException e) {
 			plugin.getLogger().warning(
 					"Server jar is not patched with merchant fixes. XP and level bars will be disabled on traders.");
-				development.devWarning("Unable to find experience and regularVillager fields on "
-				+ Reflected.obcClass + "inventory.CraftMerchantCustom$MinecraftMerchant");
+			development.devWarning("Unable to find experience and regularVillager fields on " + Reflected.obcClass
+					+ "inventory.CraftMerchantCustom$MinecraftMerchant");
 			merchantShowXP = false;
 		}
 
@@ -176,7 +176,7 @@ public class Merchants extends AbstractFeature implements Listener {
 		Merchant merchant = Bukkit.getServer().createMerchant(getName(profession));
 
 		// TODO: Replace with player's levels
-		int level = 1;
+		int level = 10;
 		int xp = 0;
 
 		merchant.setRecipes(get(profession, level, type));
@@ -246,12 +246,31 @@ public class Merchants extends AbstractFeature implements Listener {
 		switch (profession) {
 			case TOOLSMITH:
 				switch (level) {
-					case 1:
-						// Toolsmith level 1
-						recipes.add(MerchantRecipes.buyWoodAxe());
-						recipes.add(MerchantRecipes.buyWoodSpade());
-						recipes.add(MerchantRecipes.buyWoodPickaxe());
+					case 10:
+						recipes.add(MerchantRecipes.buyDiamondPickaxe());
+					case 9:
+						recipes.add(MerchantRecipes.buyDiamondAxe());
+					case 8:
+						recipes.add(MerchantRecipes.buyDiamondSpade());
+					case 7:
+					case 6:
+						recipes.add(MerchantRecipes.learnIronTools());
+					case 5:
+						recipes.add(MerchantRecipes.buyIronAxe());
+						recipes.add(MerchantRecipes.buyIronSpade());
+						recipes.add(MerchantRecipes.buyIronPickaxe());
+					case 4:
+						recipes.add(MerchantRecipes.learnStoneTools());
+					case 3:
+						recipes.add(MerchantRecipes.buyStoneAxe());
+						recipes.add(MerchantRecipes.buyStoneSpade());
+						recipes.add(MerchantRecipes.buyStonePickaxe());
+					case 2:
 						recipes.add(MerchantRecipes.learnWoodenTools());
+					case 1:
+						recipes.add(MerchantRecipes.buyWoodSpade());
+						recipes.add(MerchantRecipes.buyWoodAxe());
+						recipes.add(MerchantRecipes.buyWoodPickaxe());
 						break;
 					default:
 						break;
@@ -279,15 +298,16 @@ public class Merchants extends AbstractFeature implements Listener {
 								recipes.add(MerchantRecipes.buyAcaciaLog());
 								break;
 							case TAIGA:
+							case SNOW:
 								// Taiga Mason level 2
 								recipes.add(MerchantRecipes.buySpruceLog());
 								break;
 							case DESERT:
-							case SNOW:
 								break;
 							default:
 								break;
 						}
+					case 1:
 					default:
 						// Mason level 1
 						switch (type) {
@@ -308,11 +328,11 @@ public class Merchants extends AbstractFeature implements Listener {
 								recipes.add(MerchantRecipes.sellAcaciaLog());
 								break;
 							case TAIGA:
+							case SNOW:
 								// Taiga Mason level 1
 								recipes.add(MerchantRecipes.sellSpruceLog());
 								break;
 							case DESERT:
-							case SNOW:
 								break;
 							default:
 								break;
@@ -327,9 +347,9 @@ public class Merchants extends AbstractFeature implements Listener {
 						recipes.add(MerchantRecipes.learnWoodenSword());
 						break;
 					default:
-						// Weaponsmith level 1
 						break;
 				}
+				break;
 			case NONE:
 				// Profession-less villager
 				recipes.add(MerchantRecipes.sellSplinters());
@@ -337,21 +357,22 @@ public class Merchants extends AbstractFeature implements Listener {
 				break;
 			case ARMORER:
 				// Armorer level 1
-				recipes.add(MerchantRecipes.sellCoal());
-				recipes.add(MerchantRecipes.buyLeatherHelmet());
-				recipes.add(MerchantRecipes.buyLeatherChestPlate());
-				recipes.add(MerchantRecipes.buyLeatherLeggings());
-				recipes.add(MerchantRecipes.buyLeatherBoots());
+
+				recipes.add(MerchantRecipes.buyIronHelmet());
+				recipes.add(MerchantRecipes.buyIronChestPlate());
+				recipes.add(MerchantRecipes.buyIronLeggings());
+				recipes.add(MerchantRecipes.buyIronBoots());
 
 				recipes.add(MerchantRecipes.buyChainmailHelmet());
 				recipes.add(MerchantRecipes.buyChainmailChestPlate());
 				recipes.add(MerchantRecipes.buyChainmailLeggings());
 				recipes.add(MerchantRecipes.buyChainmailBoots());
 
-				recipes.add(MerchantRecipes.buyIronHelmet());
-				recipes.add(MerchantRecipes.buyIronChestPlate());
-				recipes.add(MerchantRecipes.buyIronLeggings());
-				recipes.add(MerchantRecipes.buyIronBoots());
+				recipes.add(MerchantRecipes.sellCoal());
+				recipes.add(MerchantRecipes.buyLeatherHelmet());
+				recipes.add(MerchantRecipes.buyLeatherChestPlate());
+				recipes.add(MerchantRecipes.buyLeatherLeggings());
+				recipes.add(MerchantRecipes.buyLeatherBoots());
 
 				break;
 			default:
@@ -442,6 +463,7 @@ public class Merchants extends AbstractFeature implements Listener {
 
 	/**
 	 * Open virtual trader UI to player.
+	 *
 	 * @param event {@link PlayerInteractEntityEvent}
 	 */
 	@EventHandler()
