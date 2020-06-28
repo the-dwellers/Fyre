@@ -4,8 +4,8 @@ Traders:
 	✔ Trader Names @WYVERN @done(20-02-05 22:35)
 
 Config:
-	☐ Config Generation
-	☐ Config Reading
+	✔ Config Generation @done(20-06-22 22:08)
+	✔ Config Reading @done(20-06-22 22:08)
 	☐ Config Reload
 	☐ Read Strings from Config
 	☐ Database for Player Heuristics
@@ -14,3 +14,16 @@ Mechanics:
 	✘ Enchant water bottles to bottle o' enchanting @cancelled(20-02-05 22:35)
 	✔ Harvest crops with hoe @done(20-02-05 22:35)
 	☐ Fishing in swamps give slimeballs
+	☐ nighttime buff on mobs
+	☐ double spawn at night?
+	☐ backpacks?
+	☐ Fall through glasss
+	☐ random spawning when no spawnpoint is set
+	✔ damage when punching cactus @done(20-06-22 22:06)
+	Custom enchantments:
+	Potion overhaul:
+
+Discussion:
+	☐ Backpacks
+	☐ Pet Features (Store / ride)
+	☐ Panda/Polar Bear Features
