@@ -103,19 +103,30 @@ public class NBTAdapter extends AbstractFeature {
 			}
 		}
 		if (Reflected.getMethod("Entity#load") == null) {
-			if (!Reflected.cacheMethod("f", "Entity#load", Reflected.getClass("Entity"), Reflected.getClass("NBTTagCompound"))) {
+			if (plugin.mcVersion.compareTo(SupportedVersions.MC1152) < 1) {
+				Reflected.cacheMethod("f", "Entity#load", Reflected.getClass("Entity"), Reflected.getClass("NBTTagCompound"));
+
+			} else {
+				Reflected.cacheMethod("load", "Entity#load", Reflected.getClass("Entity"), Reflected.getClass("NBTTagCompound"));
+			}
+
+			if (Reflected.getMethod("Entity#load") == null) {
 				plugin.getLogger().warning("Unable to Cache Entity#load");
 				return false;
 			}
 		}
-
 		if (Reflected.getMethod("Entity#setUUID") == null) {
-			if (!Reflected.cacheMethod("a", "Entity#setUUID", Reflected.getClass("Entity"), UUID.class)) {
+			if (plugin.mcVersion.compareTo(SupportedVersions.MC1152) < 1) {
+				Reflected.cacheMethod("a", "Entity#setUUID", Reflected.getClass("Entity"), UUID.class);
+			} else {
+				Reflected.cacheMethod("a_", "Entity#setUUID", Reflected.getClass("Entity"), UUID.class);
+			}
+
+			if (Reflected.getMethod("Entity#setUUID") == null) {
 				plugin.getLogger().warning("Unable to Cache Entity#setUUID");
 				return false;
 			}
 		}
-
 		if (Reflected.getClass("CraftItemStack") == null) {
 			if (!Reflected.cacheClass(Reflected.obcClass + "inventory.CraftItemStack")) {
 				plugin.getLogger().warning("Unable to Cache CraftItemStack");

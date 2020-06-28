@@ -72,7 +72,7 @@ public class ClientBreakItem extends AbstractFeature {
 		if (Reflected.getMethod("EntityLiving#broadcastItemBreak") == null) {
 			if (plugin.mcVersion.compareTo(SupportedVersions.MC1144) < 1) {
 				Reflected.cacheMethod("c", "EntityLiving#broadcastItemBreak", Reflected.getClass("EntityLiving"), Reflected.getClass("EnumItemSlot"));
-			} else if (plugin.mcVersion.compareTo(SupportedVersions.MC1152) < 1) {
+			} else {
 				Reflected.cacheMethod("EntityLiving#broadcastItemBreak", Reflected.getClass("EntityLiving"), Reflected.getClass("EnumItemSlot"));
 			}
 

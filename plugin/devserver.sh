@@ -50,7 +50,7 @@ cp -r "../../datapack/." "world/datapacks"
 if [[ ! -a "server.jar" ]]; then
 	echo Downloading PaperMC...
 
-	curl -o "server.jar" "https://papermc.io/api/v1/paper/1.15.2/latest/download"
+	curl -o "server.jar" "https://papermc.io/api/v1/paper/1.16.1/latest/download"
 
 	echo PaperMC downloaded
 fi
