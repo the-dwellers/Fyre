@@ -42,6 +42,8 @@ public class LandTrampling extends AbstractFeature implements Listener {
 	 * Player tramples grass into course dirt
 	 * @param event {@link PlayerMoveEvent}
 	 */
+	// * isOnGround() is marked as deprecated, but has no replacements.
+	@SuppressWarnings("deprecation")
 	@EventHandler()
 	public void onPlayerMove(PlayerMoveEvent event) {
 
