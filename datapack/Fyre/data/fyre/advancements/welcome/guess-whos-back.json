@@ -5,7 +5,7 @@
 			"item": "minecraft:crafting_table"
 		},
 		"title": "Guess who's back",
-		"description": "§rCraft a crafting table",
+		"description": "§7Craft a crafting table",
 		"frame": "task",
 		"show_toast": true,
 		"announce_to_chat": false,

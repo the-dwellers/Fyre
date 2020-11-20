@@ -5,7 +5,7 @@
 			"item": "minecraft:campfire"
 		},
 		"title": "Warm and Fed",
-		"description": "§rCreate a campfire to cook some food",
+		"description": "§7Create a campfire to cook some food",
 		"frame": "task",
 		"show_toast": true,
 		"announce_to_chat": false,

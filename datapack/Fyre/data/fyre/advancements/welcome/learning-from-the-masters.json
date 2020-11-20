@@ -5,7 +5,7 @@
 			"item": "minecraft:knowledge_book"
 		},
 		"title": "Learning from the Masters",
-		"description": "§rBuy a crafting recipe",
+		"description": "§7Buy a crafting recipe",
 		"frame": "goal",
 		"show_toast": true,
 		"announce_to_chat": false,

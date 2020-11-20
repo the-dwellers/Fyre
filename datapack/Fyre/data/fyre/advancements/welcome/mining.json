@@ -5,7 +5,7 @@
 			"item": "minecraft:wooden_pickaxe"
 		},
 		"title": "Mining",
-		"description": "§rObtain a pickaxe. Good for digging",
+		"description": "§7Obtain a pickaxe. Good for digging",
 		"frame": "challenge",
 		"show_toast": true,
 		"announce_to_chat": false,

@@ -4,7 +4,7 @@
 			"item": "minecraft:grass_block"
 		},
 		"title": "Welcome to Fyre",
-		"description": "§rIf you think this is vanilla, you're quite wrong.",
+		"description": "§7If you think this is vanilla, you're quite wrong.",
 		"frame": "task",
 		"show_toast": false,
 		"announce_to_chat": true,

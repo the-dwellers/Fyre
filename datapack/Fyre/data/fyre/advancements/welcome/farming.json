@@ -5,7 +5,7 @@
 			"item": "minecraft:wooden_hoe"
 		},
 		"title": "Farming",
-		"description": "§rObtain a hoe. Local till the end",
+		"description": "§7Obtain a hoe. Local till the end",
 		"frame": "challenge",
 		"show_toast": true,
 		"announce_to_chat": false,

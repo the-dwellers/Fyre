@@ -5,7 +5,7 @@
 			"item": "minecraft:oak_log"
 		},
 		"title": "Back to Basics",
-		"description": "§rGet an axe from a lumberjack, and chop down a tree!",
+		"description": "§7Get an axe from a lumberjack, and chop down a tree!",
 		"frame": "goal",
 		"show_toast": true,
 		"announce_to_chat": false,

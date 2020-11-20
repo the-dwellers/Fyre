@@ -5,7 +5,7 @@
 			"item": "minecraft:oak_planks"
 		},
 		"title": "Stripping",
-		"description": "§rCut down a stripped log to get planks",
+		"description": "§7Cut down a stripped log to get planks",
 		"frame": "task",
 		"show_toast": true,
 		"announce_to_chat": false,

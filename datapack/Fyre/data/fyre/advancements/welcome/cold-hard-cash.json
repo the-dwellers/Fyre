@@ -5,7 +5,7 @@
 			"item": "minecraft:iron_nugget"
 		},
 		"title": "Cold Hard Cash",
-		"description": "§rTrade at a vendor for some currency",
+		"description": "§7Trade at a vendor for some currency",
 		"frame": "task",
 		"show_toast": true,
 		"announce_to_chat": false,
