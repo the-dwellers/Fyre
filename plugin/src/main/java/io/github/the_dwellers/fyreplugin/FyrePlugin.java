@@ -43,7 +43,7 @@ public class FyrePlugin extends JavaPlugin {
 			BoatInventories.class, // Open boats like chests
 			Advancements.class, // Advancement Progression
 			AIFixes.class, // AI Bugfixes and improvements
-			ChatManagerFeature.class, // Chat formatting
+			// ChatManagerFeature.class, // Chat formatting
 			ClientBreakItem.class, // Client tool break (Why is this not in the api‽)
 			EntityAttributes.class, // Entity Value changes
 			ItemFeatures.class, // Functionality relating to items
@@ -85,7 +85,7 @@ public class FyrePlugin extends JavaPlugin {
 		}
 
 		log.info(Strings.LOG_PREFIX + "Setting up for " + mcVersion.toString());
-		if (mcVersion.compareTo(SupportedVersions.MC1161) != 0) {
+		if (mcVersion.compareTo(SupportedVersions.MC1164) != 0) {
 			log.warning(
 					Strings.LOG_PREFIX + "Loading for unsupported minecraft version! Some features may be disabled!");
 		}

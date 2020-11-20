@@ -18,7 +18,9 @@ import java.util.ArrayList;
 // import net.milkbowl.vault.chat.Chat;
 
 /**
- * Functions dedicated to chat manipulation and formatting.
+ * Functions dedicated to chat manipulation and formatting. <i>Note: 1.16
+ * changed how chat colours are inherited and broke current implementation. This
+ * may be scrapped in the future.</i>
  */
 public abstract class ChatManager {
 
