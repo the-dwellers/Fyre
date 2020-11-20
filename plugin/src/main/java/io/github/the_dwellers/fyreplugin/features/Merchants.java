@@ -350,11 +350,6 @@ public class Merchants extends AbstractFeature implements Listener {
 						break;
 				}
 				break;
-			case NONE:
-				// Profession-less villager
-				recipes.add(MerchantRecipes.sellSplinters());
-				recipes.add(MerchantRecipes.learnCraftingTable());
-				break;
 			case ARMORER:
 				// Armorer level 1
 
@@ -373,9 +368,11 @@ public class Merchants extends AbstractFeature implements Listener {
 				recipes.add(MerchantRecipes.buyLeatherChestPlate());
 				recipes.add(MerchantRecipes.buyLeatherLeggings());
 				recipes.add(MerchantRecipes.buyLeatherBoots());
-
 				break;
 			default:
+				// Profession-less villager
+				recipes.add(MerchantRecipes.sellSplinters());
+				recipes.add(MerchantRecipes.learnCraftingTable());
 				break;
 		}
 		return recipes;
