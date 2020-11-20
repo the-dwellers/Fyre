@@ -41,7 +41,7 @@ public abstract class Items {
 	/**
 	 * Common item text
 	 */
-	public static String PREFIX_COMMON = "" + ChatColor.RESET;
+	public static String PREFIX_COMMON = "" + ChatColor.WHITE;
 
 	/**
 	 * Common lore text
@@ -596,7 +596,7 @@ public abstract class Items {
 			meta.setDisplayName(PREFIX_COMMON + "Sharp Splinters");
 
 			ArrayList<String> lore = new ArrayList<String>();
-			lore.add(ChatColor.RESET + "" + ChatColor.GRAY + "A Bundle of rough sharp sticks");
+			lore.add(ChatColor.GRAY + "A Bundle of rough sharp sticks");
 			meta.setLore(lore);
 
 			// Multimap<Attribute, AttributeModifier> modifiers = HashMultimap.create();
