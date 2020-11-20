@@ -343,10 +343,10 @@ public class Merchants extends AbstractFeature implements Listener {
 				switch (level) {
 					case 1:
 						// Weaponsmith level 2
-						recipes.add(MerchantRecipes.buyWoodSword());
 						recipes.add(MerchantRecipes.learnWoodenSword());
 						break;
 					default:
+						recipes.add(MerchantRecipes.buyWoodSword());
 						break;
 				}
 				break;
