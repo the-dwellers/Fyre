@@ -99,4 +99,13 @@ public abstract class Strings {
 	 */
 	public static final String CHAT_STAFF_MSG = ChatColor.GRAY + "> ";
 
+	/**
+	 * Bloodmoon Rises
+	 */
+	public static final String EVENT_BLOODMOON_START = ChatColor.RED + "The Blood Moon Rises";
+
+	/**
+	 * Bloodmoon Ends
+	 */
+	public static final String EVENT_BLOODMOON_END = ChatColor.RED + "The Blood Moon Recedes";
 }

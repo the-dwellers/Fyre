@@ -99,7 +99,7 @@ public class Mobs extends AbstractFeature implements Listener {
 	 * @param entity     Entity to setup.
 	 * @param difficulty Difficulty to equip mob for.
 	 */
-	private void setupMobEquipment(Monster entity, MobDifficulty difficulty) {
+	public void setupMobEquipment(Monster entity, MobDifficulty difficulty) {
 		// Java is a good language and has no bugs whatsoever
 		int rand;
 		switch (entity.getType()) {
