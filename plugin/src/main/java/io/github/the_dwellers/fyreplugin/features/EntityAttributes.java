@@ -5,6 +5,8 @@ import io.github.the_dwellers.fyreplugin.configuration.SupportedVersions;
 import io.github.the_dwellers.fyreplugin.core.MinecraftVersion;
 import io.github.the_dwellers.fyreplugin.model.PluginConfig;
 
+import java.util.Random;
+
 import javax.inject.Inject;
 
 import org.bukkit.Material;
@@ -138,7 +140,8 @@ public class EntityAttributes extends AbstractFeature implements Listener {
 
 		if (event.getEntity() instanceof Spider) {
 			Block block = event.getEntity().getLocation().getBlock();
-			if (block.getType() == Material.AIR) {
+			boolean chance = (new Random()).nextInt(4) == 0;
+			if (chance && block.getType() == Material.AIR) {
 				block.setType(Material.COBWEB);
 			}
 			return;
