@@ -52,6 +52,7 @@ public class FyrePlugin extends JavaPlugin {
 			Merchants.class, // Trade with NPCs and unlock levels
 			PlantHoeHarvest.class, // Right-click to harvest crops
 			Compost.class, // Compost extra items
+			RainLevel.class, // Custom Rain Level
 			BloodMoon.class, // Blood moon event
 			Mobs.class, // Mob tweaks, including equipment
 			SpikyCactus.class, // Damage player when punching cactuses

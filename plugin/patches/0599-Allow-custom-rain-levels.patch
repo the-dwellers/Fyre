@@ -1,0 +1,51 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: WYVERN2742 <35181365+WYVERN2742@users.noreply.github.com>
+Date: Fri, 27 Nov 2020 21:11:56 +0000
+Subject: [PATCH] Allow custom rain levels
+
+
+diff --git a/src/main/java/net/minecraft/server/EntityPlayer.java b/src/main/java/net/minecraft/server/EntityPlayer.java
+index 976c44c8eeecc513fa11de55b80317550f621407..2f2a48b4188901ae6e573870cf2eec6ced7172f8 100644
+--- a/src/main/java/net/minecraft/server/EntityPlayer.java
++++ b/src/main/java/net/minecraft/server/EntityPlayer.java
+@@ -2013,6 +2013,12 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
+         return this.weather;
+     }
+ 
++    public void setPlayerRainLevel(float rainLevel) {
++        this.pluginRainMaxLevel = rainLevel;
++        setPlayerWeather(WeatherType.DOWNFALL, true);
++        setRainLevel = true;
++    }
++
+     public void setPlayerWeather(WeatherType type, boolean plugin) {
+         if (!plugin && this.weather != null) {
+             return;
+@@ -2031,6 +2037,8 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
+ 
+     private float pluginRainPosition;
+     private float pluginRainPositionPrevious;
++    private boolean setRainLevel;
++    private float pluginRainMaxLevel;
+ 
+     public void updateWeather(float oldRain, float newRain, float oldThunder, float newThunder) {
+         if (this.weather == null) {
+@@ -2064,11 +2072,17 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
+             pluginRainPosition -= 0.01;
+         }
+ 
+-        pluginRainPosition = MathHelper.a(pluginRainPosition, 0.0F, 1.0F);
++        if (setRainLevel == true) {
++            pluginRainPosition = MathHelper.a(pluginRainPosition, 0.0F, pluginRainMaxLevel);
++        } else {
++            pluginRainPosition = MathHelper.a(pluginRainPosition, 0.0F, 1.0F);
++        }
+     }
+ 
+     public void resetPlayerWeather() {
+         this.weather = null;
++        pluginRainMaxLevel = 1.0F;
++        setRainLevel = false;
+         this.setPlayerWeather(this.world.getWorldData().hasStorm() ? WeatherType.DOWNFALL : WeatherType.CLEAR, false);
+     }
+ 
