@@ -44,6 +44,11 @@ public abstract class Items {
 	public static String PREFIX_COMMON = "" + ChatColor.WHITE;
 
 	/**
+	 * Uncommon item text
+	 */
+	public static String PREFIX_UNCOMMON = "" + ChatColor.AQUA;
+
+	/**
 	 * Common lore text
 	 */
 	public static String PREFIX_LORE_COMMON = PREFIX_COMMON + ChatColor.GRAY;
@@ -107,6 +112,9 @@ public abstract class Items {
 	private static ItemStack ARMOR_DIAMOND_BOOTS;
 
 	private static ItemStack SHIELD;
+
+	private static ItemStack ARROW_ENDER;
+	private static ItemStack ARROW_PIONEER;
 
 	// ~~~~~~~~~~~~~ Item Methods ~~~~~~~~~~~~ //
 
@@ -609,6 +617,39 @@ public abstract class Items {
 		return SPLINTERS.clone();
 	}
 
+	public static ItemStack getEnderArrow() {
+		if (ARROW_ENDER == null) {
+			ARROW_ENDER = new ItemStack(Material.ARROW, 1);
+			ItemMeta meta = ARROW_ENDER.getItemMeta();
+			meta.setDisplayName(PREFIX_UNCOMMON + "Ender Arrow");
+
+			ArrayList<String> lore = new ArrayList<String>();
+			lore.add(ChatColor.GRAY + "An arrow infused with an Ender Perl");
+			meta.setLore(lore);
+
+			ARROW_ENDER.setItemMeta(meta);
+			ARROW_ENDER.ensureServerConversions();
+		}
+
+		return ARROW_ENDER.clone();
+	}
+
+	public static ItemStack getSaddledArrow() {
+		if (ARROW_PIONEER == null) {
+			ARROW_PIONEER = new ItemStack(Material.ARROW, 1);
+			ItemMeta meta = ARROW_PIONEER.getItemMeta();
+			meta.setDisplayName(PREFIX_UNCOMMON + "Pioneer Arrow");
+
+			ArrayList<String> lore = new ArrayList<String>();
+			lore.add(ChatColor.GRAY + "The pioneers used to ride these babies for miles");
+			meta.setLore(lore);
+
+			ARROW_PIONEER.setItemMeta(meta);
+			ARROW_PIONEER.ensureServerConversions();
+		}
+
+		return ARROW_PIONEER.clone();
+	}
 
 	/**
 	 * Crafting books that unlock crafting recipes:
