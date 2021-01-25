@@ -1,7 +1,5 @@
 package io.github.the_dwellers.fyreplugin.features;
 
-import io.github.the_dwellers.fyreplugin.core.AbstractFeature;
-
 import javax.inject.Inject;
 
 import org.bukkit.World;
@@ -13,10 +11,12 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import io.github.the_dwellers.fyreplugin.configuration.Strings;
 import io.github.the_dwellers.fyreplugin.configuration.SupportedVersions;
+import io.github.the_dwellers.fyreplugin.core.AbstractFeature;
 import io.github.the_dwellers.fyreplugin.core.MinecraftVersion;
 import io.papermc.paper.world.MoonPhase;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -67,13 +67,14 @@ public class BloodMoon extends AbstractFeature implements Listener {
 			// TODO Auto-generated method stub
 			boolean curMoon = bloodMoon;
 			bloodMoon = !world.isDayTime() && (world.getMoonPhase() == MoonPhase.FULL_MOON);
-			// bloodMoon = !world.isDayTime();
 
 			if (curMoon != bloodMoon) {
 				if (bloodMoon) {
 					plugin.getServer().broadcast(new TextComponent(Strings.EVENT_BLOODMOON_START));
+					world.setStorm(true);
 				} else {
 					plugin.getServer().broadcast(new TextComponent(Strings.EVENT_BLOODMOON_END));
+					world.setStorm(false);
 				}
 			}
 		}
@@ -106,6 +107,18 @@ public class BloodMoon extends AbstractFeature implements Listener {
 					mobs.setupMobEquipment(moonspawn, Mobs.MobDifficulty.Strong);
 				}
 			}
+		}
+	}
+
+	/**
+	 * Display to connecting players that a blood moon is in effect.
+	 * @param event {@link PlayerJoinEvent}
+	 */
+	@EventHandler()
+	public void onPlayerJoined(PlayerJoinEvent event) {
+		// Announce to new players when a blood moon is in progress
+		if (isBloodMoon()) {
+			event.getPlayer().sendMessage(new TextComponent(Strings.EVENT_BLOODMOON_START));
 		}
 	}
 }
