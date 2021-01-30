@@ -14,25 +14,56 @@ import java.util.ArrayList;
 public abstract class MerchantRecipes {
 
 	// ~~~~~~~~~~~~~~ Buy Tools ~~~~~~~~~~~~~~ //
-	private static MerchantRecipe BUY_WOOD_AXE;
-	private static MerchantRecipe BUY_WOOD_SPADE;
-	private static MerchantRecipe BUY_WOOD_SWORD;
-	private static MerchantRecipe BUY_WOOD_PICKAXE;
+	// Spades
+	private static MerchantRecipe BUY_SPADE_WOOD;
+	private static MerchantRecipe BUY_SPADE_STONE;
+	private static MerchantRecipe BUY_SPADE_IRON;
+	private static MerchantRecipe BUY_SPADE_DIAMOND;
 
-	private static MerchantRecipe BUY_STONE_AXE;
-	private static MerchantRecipe BUY_STONE_SPADE;
-	private static MerchantRecipe BUY_STONE_SWORD;
-	private static MerchantRecipe BUY_STONE_PICKAXE;
+	// Axes
+	private static MerchantRecipe BUY_AXE_WOOD;
+	private static MerchantRecipe BUY_AXE_STONE;
+	private static MerchantRecipe BUY_AXE_IRON;
+	private static MerchantRecipe BUY_AXE_DIAMOND;
 
-	private static MerchantRecipe BUY_IRON_AXE;
-	private static MerchantRecipe BUY_IRON_SPADE;
-	private static MerchantRecipe BUY_IRON_SWORD;
-	private static MerchantRecipe BUY_IRON_PICKAXE;
+	// Hoes
+	private static MerchantRecipe BUY_HOE_WOOD;
+	private static MerchantRecipe BUY_HOE_STONE;
+	private static MerchantRecipe BUY_HOE_IRON;
+	private static MerchantRecipe BUY_HOE_DIAMOND;
 
-	private static MerchantRecipe BUY_DIAMOND_AXE;
-	private static MerchantRecipe BUY_DIAMOND_SPADE;
-	private static MerchantRecipe BUY_DIAMOND_SWORD;
-	private static MerchantRecipe BUY_DIAMOND_PICKAXE;
+	// Pickaxes
+	private static MerchantRecipe BUY_PICKAXE_WOOD;
+	private static MerchantRecipe BUY_PICKAXE_STONE;
+	private static MerchantRecipe BUY_PICKAXE_IRON;
+	private static MerchantRecipe BUY_PICKAXE_DIAMOND;
+
+	// Swords
+	private static MerchantRecipe BUY_SWORD_WOOD;
+	private static MerchantRecipe BUY_SWORD_STONE;
+	private static MerchantRecipe BUY_SWORD_IRON;
+	private static MerchantRecipe BUY_SWORD_DIAMOND;
+
+	// ~~~~~~~~~~~~~~ Buy Armour ~~~~~~~~~~~~~ //
+	// Helmets
+	private static MerchantRecipe BUY_HELMET_LEATHER;
+	private static MerchantRecipe BUY_HELMET_CHAINMAIL;
+	private static MerchantRecipe BUY_HELMET_IRON;
+
+	// Chestplates
+	private static MerchantRecipe BUY_CHESTPLATE_LEATHER;
+	private static MerchantRecipe BUY_CHESTPLATE_CHAINMAIL;
+	private static MerchantRecipe BUY_CHESTPLATE_IRON;
+
+	// Leggings
+	private static MerchantRecipe BUY_LEGGINGS_LEATHER;
+	private static MerchantRecipe BUY_LEGGINGS_CHAINMAIL;
+	private static MerchantRecipe BUY_LEGGINGS_IRON;
+
+	// Boots
+	private static MerchantRecipe BUY_BOOTS_LEATHER;
+	private static MerchantRecipe BUY_BOOTS_CHAINMAIL;
+	private static MerchantRecipe BUY_BOOTS_IRON;
 
 	// ~~~~~~~~~~~~ Sell Resources ~~~~~~~~~~~ //
 	private static MerchantRecipe SELL_SPLINTERS;
@@ -55,225 +86,426 @@ public abstract class MerchantRecipes {
 
 	// ~~~~~~~~~ Buy Crafting Recipes ~~~~~~~~ //
 	private static MerchantRecipe LEARN_CRAFTING_TABLE;
-	private static MerchantRecipe LEARN_WOODEN_TOOLS;
-	private static MerchantRecipe LEARN_STONE_TOOLS;
-	private static MerchantRecipe LEARN_IRON_TOOLS;
-	private static MerchantRecipe LEARN_WOODEN_SWORD;
-	private static MerchantRecipe LEARN_STONE_SWORD;
-	private static MerchantRecipe LEARN_IRON_SWORD;
 
-	// ~~~~~~~~~~~~~~ Buy Armour ~~~~~~~~~~~~~ //
-	private static MerchantRecipe BUY_LEATHER_HELMET;
-	private static MerchantRecipe BUY_LEATHER_CHESTPLATE;
-	private static MerchantRecipe BUY_LEATHER_LEGGINGS;
-	private static MerchantRecipe BUY_LEATHER_BOOTS;
+	private static MerchantRecipe LEARN_PICKAXE_WOODEN;
+	private static MerchantRecipe LEARN_PICKAXE_STONE;
+	private static MerchantRecipe LEARN_PICKAXE_IRON;
 
-	private static MerchantRecipe BUY_CHAINMAIL_HELMET;
-	private static MerchantRecipe BUY_CHAINMAIL_CHESTPLATE;
-	private static MerchantRecipe BUY_CHAINMAIL_LEGGINGS;
-	private static MerchantRecipe BUY_CHAINMAIL_BOOTS;
+	private static MerchantRecipe LEARN_TOOLS_WOODEN;
+	private static MerchantRecipe LEARN_TOOLS_STONE;
+	private static MerchantRecipe LEARN_TOOLS_IRON;
 
-	private static MerchantRecipe BUY_IRON_HELMET;
-	private static MerchantRecipe BUY_IRON_CHESTPLATE;
-	private static MerchantRecipe BUY_IRON_LEGGINGS;
-	private static MerchantRecipe BUY_IRON_BOOTS;
+	private static MerchantRecipe LEARN_SWORD_WOODEN;
+	private static MerchantRecipe LEARN_SWORD_STONE;
+	private static MerchantRecipe LEARN_SWORD_IRON;
+
+	private static MerchantRecipe LEARN_ARMOR_HAT_BOOTS_LEATHER;
+	private static MerchantRecipe LEARN_ARMOR_HAT_BOOTS_CHAINMAIL;
+	private static MerchantRecipe LEARN_ARMOR_HAT_BOOTS_IRON;
+
+	private static MerchantRecipe LEARN_ARMOR_CHEST_LEGS_LEATHER;
+	private static MerchantRecipe LEARN_ARMOR_CHEST_LEGS_CHAINMAIL;
+	private static MerchantRecipe LEARN_ARMOR_CHEST_LEGS_IRON;
 
 	// ====================================================== //
 	// ====================== Functions ===================== //
 	// ====================================================== //
 
-	public static MerchantRecipe buyWoodAxe() {
-		if (BUY_WOOD_AXE == null) {
-			BUY_WOOD_AXE = new MerchantRecipe(Items.getWoodAxe(), 90);
-
-			ArrayList<ItemStack> ingredients = new ArrayList<ItemStack>();
-			ingredients.add(silver(10));
-
-			BUY_WOOD_AXE.setIngredients(ingredients);
-		}
-		return BUY_WOOD_AXE;
-	}
-
+	// ~~~~~~~~~~~~~~ Buy Tools ~~~~~~~~~~~~~~ //
+	// -------- Spades -------- //
 	public static MerchantRecipe buyWoodSpade() {
-		if (BUY_WOOD_SPADE == null) {
-			BUY_WOOD_SPADE = new MerchantRecipe(Items.getWoodShovel(), 90);
+		if (BUY_SPADE_WOOD == null) {
+			BUY_SPADE_WOOD = new MerchantRecipe(Items.getWoodShovel(), 90);
 
 			ArrayList<ItemStack> ingredients = new ArrayList<ItemStack>();
 			ingredients.add(silver(5));
 
-			BUY_WOOD_SPADE.setIngredients(ingredients);
+			BUY_SPADE_WOOD.setIngredients(ingredients);
 		}
-		return BUY_WOOD_SPADE;
-	}
-
-	public static MerchantRecipe buyWoodSword() {
-		if (BUY_WOOD_SWORD == null) {
-			BUY_WOOD_SWORD = new MerchantRecipe(Items.getWoodSword(), 90);
-
-			ArrayList<ItemStack> ingredients = new ArrayList<ItemStack>();
-			ingredients.add(silver(10));
-
-			BUY_WOOD_SWORD.setIngredients(ingredients);
-		}
-		return BUY_WOOD_SWORD;
-	}
-
-	public static MerchantRecipe buyWoodPickaxe() {
-		if (BUY_WOOD_PICKAXE == null) {
-			BUY_WOOD_PICKAXE = new MerchantRecipe(Items.getWoodPickaxe(), 90);
-
-			ArrayList<ItemStack> ingredients = new ArrayList<ItemStack>();
-			ingredients.add(silver(10));
-
-			BUY_WOOD_PICKAXE.setIngredients(ingredients);
-		}
-		return BUY_WOOD_PICKAXE;
-	}
-
-
-	public static MerchantRecipe buyStoneAxe() {
-		if (BUY_STONE_AXE == null) {
-			BUY_STONE_AXE = new MerchantRecipe(Items.getStoneAxe(), 90);
-
-			ArrayList<ItemStack> ingredients = new ArrayList<ItemStack>();
-			ingredients.add(silver(10));
-
-			BUY_STONE_AXE.setIngredients(ingredients);
-		}
-		return BUY_STONE_AXE;
+		return BUY_SPADE_WOOD;
 	}
 
 	public static MerchantRecipe buyStoneSpade() {
-		if (BUY_STONE_SPADE == null) {
-			BUY_STONE_SPADE = new MerchantRecipe(Items.getStoneShovel(), 90);
-
-			ArrayList<ItemStack> ingredients = new ArrayList<ItemStack>();
-			ingredients.add(silver(5));
-
-			BUY_STONE_SPADE.setIngredients(ingredients);
-		}
-		return BUY_STONE_SPADE;
-	}
-
-	public static MerchantRecipe buyStoneSword() {
-		if (BUY_STONE_SWORD == null) {
-			BUY_STONE_SWORD = new MerchantRecipe(Items.getStoneSword(), 90);
+		if (BUY_SPADE_STONE == null) {
+			BUY_SPADE_STONE = new MerchantRecipe(Items.getStoneShovel(), 90);
 
 			ArrayList<ItemStack> ingredients = new ArrayList<ItemStack>();
 			ingredients.add(silver(10));
 
-			BUY_STONE_SWORD.setIngredients(ingredients);
+			BUY_SPADE_STONE.setIngredients(ingredients);
 		}
-		return BUY_STONE_SWORD;
-	}
-
-	public static MerchantRecipe buyStonePickaxe() {
-		if (BUY_STONE_PICKAXE == null) {
-			BUY_STONE_PICKAXE = new MerchantRecipe(Items.getStonePickaxe(), 90);
-
-			ArrayList<ItemStack> ingredients = new ArrayList<ItemStack>();
-			ingredients.add(silver(10));
-
-			BUY_STONE_PICKAXE.setIngredients(ingredients);
-		}
-		return BUY_STONE_PICKAXE;
-	}
-
-	public static MerchantRecipe buyIronAxe() {
-		if (BUY_IRON_AXE == null) {
-			BUY_IRON_AXE = new MerchantRecipe(Items.getIronAxe(), 90);
-
-			ArrayList<ItemStack> ingredients = new ArrayList<ItemStack>();
-			ingredients.add(silver(10));
-
-			BUY_IRON_AXE.setIngredients(ingredients);
-		}
-		return BUY_IRON_AXE;
+		return BUY_SPADE_STONE;
 	}
 
 	public static MerchantRecipe buyIronSpade() {
-		if (BUY_IRON_SPADE == null) {
-			BUY_IRON_SPADE = new MerchantRecipe(Items.getIronShovel(), 90);
+		if (BUY_SPADE_IRON == null) {
+			BUY_SPADE_IRON = new MerchantRecipe(Items.getIronShovel(), 90);
 
 			ArrayList<ItemStack> ingredients = new ArrayList<ItemStack>();
-			ingredients.add(silver(5));
+			ingredients.add(silver(20));
 
-			BUY_IRON_SPADE.setIngredients(ingredients);
+			BUY_SPADE_IRON.setIngredients(ingredients);
 		}
-		return BUY_IRON_SPADE;
-	}
-
-	public static MerchantRecipe buyIronSword() {
-		if (BUY_IRON_SWORD == null) {
-			BUY_IRON_SWORD = new MerchantRecipe(Items.getIronSword(), 90);
-
-			ArrayList<ItemStack> ingredients = new ArrayList<ItemStack>();
-			ingredients.add(silver(10));
-
-			BUY_IRON_SWORD.setIngredients(ingredients);
-		}
-		return BUY_IRON_SWORD;
-	}
-
-	public static MerchantRecipe buyIronPickaxe() {
-		if (BUY_IRON_PICKAXE == null) {
-			BUY_IRON_PICKAXE = new MerchantRecipe(Items.getIronPickaxe(), 90);
-
-			ArrayList<ItemStack> ingredients = new ArrayList<ItemStack>();
-			ingredients.add(silver(10));
-
-			BUY_IRON_PICKAXE.setIngredients(ingredients);
-		}
-		return BUY_IRON_PICKAXE;
-	}
-
-
-	public static MerchantRecipe buyDiamondAxe() {
-		if (BUY_DIAMOND_AXE == null) {
-			BUY_DIAMOND_AXE = new MerchantRecipe(Items.getDiamondAxe(), 90);
-
-			ArrayList<ItemStack> ingredients = new ArrayList<ItemStack>();
-			ingredients.add(silver(10));
-
-			BUY_DIAMOND_AXE.setIngredients(ingredients);
-		}
-		return BUY_DIAMOND_AXE;
+		return BUY_SPADE_IRON;
 	}
 
 	public static MerchantRecipe buyDiamondSpade() {
-		if (BUY_DIAMOND_SPADE == null) {
-			BUY_DIAMOND_SPADE = new MerchantRecipe(Items.getDiamondShovel(), 90);
+		if (BUY_SPADE_DIAMOND == null) {
+			BUY_SPADE_DIAMOND = new MerchantRecipe(Items.getDiamondShovel(), 90);
 
 			ArrayList<ItemStack> ingredients = new ArrayList<ItemStack>();
-			ingredients.add(silver(5));
+			ingredients.add(silver(40));
 
-			BUY_DIAMOND_SPADE.setIngredients(ingredients);
+			BUY_SPADE_DIAMOND.setIngredients(ingredients);
 		}
-		return BUY_DIAMOND_SPADE;
+		return BUY_SPADE_DIAMOND;
 	}
 
-	public static MerchantRecipe buyDiamondSword() {
-		if (BUY_DIAMOND_SWORD == null) {
-			BUY_DIAMOND_SWORD = new MerchantRecipe(Items.getDiamondSword(), 90);
+	// --------- Axes --------- //
+	public static MerchantRecipe buyWoodAxe() {
+		if (BUY_AXE_WOOD == null) {
+			BUY_AXE_WOOD = new MerchantRecipe(Items.getWoodAxe(), 90);
 
 			ArrayList<ItemStack> ingredients = new ArrayList<ItemStack>();
 			ingredients.add(silver(10));
 
-			BUY_DIAMOND_SWORD.setIngredients(ingredients);
+			BUY_AXE_WOOD.setIngredients(ingredients);
 		}
-		return BUY_DIAMOND_SWORD;
+		return BUY_AXE_WOOD;
+	}
+
+	public static MerchantRecipe buyStoneAxe() {
+		if (BUY_AXE_STONE == null) {
+			BUY_AXE_STONE = new MerchantRecipe(Items.getStoneAxe(), 90);
+
+			ArrayList<ItemStack> ingredients = new ArrayList<ItemStack>();
+			ingredients.add(silver(20));
+
+			BUY_AXE_STONE.setIngredients(ingredients);
+		}
+		return BUY_AXE_STONE;
+	}
+
+	public static MerchantRecipe buyIronAxe() {
+		if (BUY_AXE_IRON == null) {
+			BUY_AXE_IRON = new MerchantRecipe(Items.getIronAxe(), 90);
+
+			ArrayList<ItemStack> ingredients = new ArrayList<ItemStack>();
+			ingredients.add(silver(40));
+
+			BUY_AXE_IRON.setIngredients(ingredients);
+		}
+		return BUY_AXE_IRON;
+	}
+
+	public static MerchantRecipe buyDiamondAxe() {
+		if (BUY_AXE_DIAMOND == null) {
+			BUY_AXE_DIAMOND = new MerchantRecipe(Items.getDiamondAxe(), 90);
+
+			ArrayList<ItemStack> ingredients = new ArrayList<ItemStack>();
+			ingredients.add(silver(80));
+
+			BUY_AXE_DIAMOND.setIngredients(ingredients);
+		}
+		return BUY_AXE_DIAMOND;
+	}
+
+	// --------- Hoes --------- //
+	public static MerchantRecipe buyWoodHoe() {
+		if (BUY_HOE_WOOD == null) {
+			BUY_HOE_WOOD = new MerchantRecipe(Items.getWoodHoe(), 90);
+
+			ArrayList<ItemStack> ingredients = new ArrayList<ItemStack>();
+			ingredients.add(silver(10));
+
+			BUY_HOE_WOOD.setIngredients(ingredients);
+		}
+		return BUY_HOE_WOOD;
+	}
+
+	public static MerchantRecipe buyStoneHoe() {
+		if (BUY_HOE_STONE == null) {
+			BUY_HOE_STONE = new MerchantRecipe(Items.getStoneHoe(), 90);
+
+			ArrayList<ItemStack> ingredients = new ArrayList<ItemStack>();
+			ingredients.add(silver(20));
+
+			BUY_HOE_STONE.setIngredients(ingredients);
+		}
+		return BUY_HOE_STONE;
+	}
+
+	public static MerchantRecipe buyIronHoe() {
+		if (BUY_HOE_IRON == null) {
+			BUY_HOE_IRON = new MerchantRecipe(Items.getIronHoe(), 90);
+
+			ArrayList<ItemStack> ingredients = new ArrayList<ItemStack>();
+			ingredients.add(silver(40));
+
+			BUY_HOE_IRON.setIngredients(ingredients);
+		}
+		return BUY_HOE_IRON;
+	}
+
+	public static MerchantRecipe buyDiamondHoe() {
+		if (BUY_HOE_DIAMOND == null) {
+			BUY_HOE_DIAMOND = new MerchantRecipe(Items.getDiamondHoe(), 90);
+
+			ArrayList<ItemStack> ingredients = new ArrayList<ItemStack>();
+			ingredients.add(silver(80));
+
+			BUY_HOE_DIAMOND.setIngredients(ingredients);
+		}
+		return BUY_HOE_DIAMOND;
+	}
+
+	// ------- Pickaxes ------- //
+
+	public static MerchantRecipe buyWoodPickaxe() {
+		if (BUY_PICKAXE_WOOD == null) {
+			BUY_PICKAXE_WOOD = new MerchantRecipe(Items.getWoodPickaxe(), 90);
+
+			ArrayList<ItemStack> ingredients = new ArrayList<ItemStack>();
+			ingredients.add(silver(10));
+
+			BUY_PICKAXE_WOOD.setIngredients(ingredients);
+		}
+		return BUY_PICKAXE_WOOD;
+	}
+
+	public static MerchantRecipe buyStonePickaxe() {
+		if (BUY_PICKAXE_STONE == null) {
+			BUY_PICKAXE_STONE = new MerchantRecipe(Items.getStonePickaxe(), 90);
+
+			ArrayList<ItemStack> ingredients = new ArrayList<ItemStack>();
+			ingredients.add(silver(20));
+
+			BUY_PICKAXE_STONE.setIngredients(ingredients);
+		}
+		return BUY_PICKAXE_STONE;
+	}
+
+	public static MerchantRecipe buyIronPickaxe() {
+		if (BUY_PICKAXE_IRON == null) {
+			BUY_PICKAXE_IRON = new MerchantRecipe(Items.getIronPickaxe(), 90);
+
+			ArrayList<ItemStack> ingredients = new ArrayList<ItemStack>();
+			ingredients.add(silver(45));
+
+			BUY_PICKAXE_IRON.setIngredients(ingredients);
+		}
+		return BUY_PICKAXE_IRON;
 	}
 
 	public static MerchantRecipe buyDiamondPickaxe() {
-		if (BUY_DIAMOND_PICKAXE == null) {
-			BUY_DIAMOND_PICKAXE = new MerchantRecipe(Items.getDiamondPickaxe(), 90);
+		if (BUY_PICKAXE_DIAMOND == null) {
+			BUY_PICKAXE_DIAMOND = new MerchantRecipe(Items.getDiamondPickaxe(), 90);
+
+			ArrayList<ItemStack> ingredients = new ArrayList<ItemStack>();
+			ingredients.add(silver(90));
+
+			BUY_PICKAXE_DIAMOND.setIngredients(ingredients);
+		}
+		return BUY_PICKAXE_DIAMOND;
+	}
+
+	// -------- Swords -------- //
+	public static MerchantRecipe buyWoodSword() {
+		if (BUY_SWORD_WOOD == null) {
+			BUY_SWORD_WOOD = new MerchantRecipe(Items.getWoodSword(), 90);
 
 			ArrayList<ItemStack> ingredients = new ArrayList<ItemStack>();
 			ingredients.add(silver(10));
 
-			BUY_DIAMOND_PICKAXE.setIngredients(ingredients);
+			BUY_SWORD_WOOD.setIngredients(ingredients);
 		}
-		return BUY_DIAMOND_PICKAXE;
+		return BUY_SWORD_WOOD;
+	}
+
+	public static MerchantRecipe buyStoneSword() {
+		if (BUY_SWORD_STONE == null) {
+			BUY_SWORD_STONE = new MerchantRecipe(Items.getStoneSword(), 90);
+
+			ArrayList<ItemStack> ingredients = new ArrayList<ItemStack>();
+			ingredients.add(silver(20));
+
+			BUY_SWORD_STONE.setIngredients(ingredients);
+		}
+		return BUY_SWORD_STONE;
+	}
+
+	public static MerchantRecipe buyIronSword() {
+		if (BUY_SWORD_IRON == null) {
+			BUY_SWORD_IRON = new MerchantRecipe(Items.getIronSword(), 90);
+
+			ArrayList<ItemStack> ingredients = new ArrayList<ItemStack>();
+			ingredients.add(silver(40));
+
+			BUY_SWORD_IRON.setIngredients(ingredients);
+		}
+		return BUY_SWORD_IRON;
+	}
+
+	public static MerchantRecipe buyDiamondSword() {
+		if (BUY_SWORD_DIAMOND == null) {
+			BUY_SWORD_DIAMOND = new MerchantRecipe(Items.getDiamondSword(), 90);
+
+			ArrayList<ItemStack> ingredients = new ArrayList<ItemStack>();
+			ingredients.add(silver(80));
+
+			BUY_SWORD_DIAMOND.setIngredients(ingredients);
+		}
+		return BUY_SWORD_DIAMOND;
+	}
+
+	// ~~~~~~~~~~~~~~ Buy Armour ~~~~~~~~~~~~~ //
+
+	// Helmets
+	public static MerchantRecipe buyLeatherHelmet() {
+		if (BUY_HELMET_LEATHER == null) {
+			BUY_HELMET_LEATHER = new MerchantRecipe(Items.getLeatherHelmet(), 90);
+
+			ArrayList<ItemStack> ingredients = new ArrayList<ItemStack>();
+			ingredients.add(silver(10));
+
+			BUY_HELMET_LEATHER.setIngredients(ingredients);
+		}
+		return BUY_HELMET_LEATHER;
+	}
+
+	public static MerchantRecipe buyChainmailHelmet() {
+		if (BUY_HELMET_CHAINMAIL == null) {
+			BUY_HELMET_CHAINMAIL = new MerchantRecipe(Items.getChainmailHelmet(), 90);
+
+			ArrayList<ItemStack> ingredients = new ArrayList<ItemStack>();
+			ingredients.add(silver(20));
+
+			BUY_HELMET_CHAINMAIL.setIngredients(ingredients);
+		}
+		return BUY_HELMET_CHAINMAIL;
+	}
+
+	public static MerchantRecipe buyIronHelmet() {
+		if (BUY_HELMET_IRON == null) {
+			BUY_HELMET_IRON = new MerchantRecipe(Items.getIronHelmet(), 90);
+
+			ArrayList<ItemStack> ingredients = new ArrayList<ItemStack>();
+			ingredients.add(silver(40));
+
+			BUY_HELMET_IRON.setIngredients(ingredients);
+		}
+		return BUY_HELMET_IRON;
+	}
+
+	// Chestplates
+	public static MerchantRecipe buyLeatherChestPlate() {
+		if (BUY_CHESTPLATE_LEATHER == null) {
+			BUY_CHESTPLATE_LEATHER = new MerchantRecipe(Items.getLeatherChestplate(), 90);
+
+			ArrayList<ItemStack> ingredients = new ArrayList<ItemStack>();
+			ingredients.add(silver(15));
+
+			BUY_CHESTPLATE_LEATHER.setIngredients(ingredients);
+		}
+		return BUY_CHESTPLATE_LEATHER;
+	}
+
+	public static MerchantRecipe buyChainmailChestPlate() {
+		if (BUY_CHESTPLATE_CHAINMAIL == null) {
+			BUY_CHESTPLATE_CHAINMAIL = new MerchantRecipe(Items.getChainmailChestplate(), 90);
+
+			ArrayList<ItemStack> ingredients = new ArrayList<ItemStack>();
+			ingredients.add(silver(30));
+
+			BUY_CHESTPLATE_CHAINMAIL.setIngredients(ingredients);
+		}
+		return BUY_CHESTPLATE_CHAINMAIL;
+	}
+
+	public static MerchantRecipe buyIronChestPlate() {
+		if (BUY_CHESTPLATE_IRON == null) {
+			BUY_CHESTPLATE_IRON = new MerchantRecipe(Items.getIronChestplate(), 90);
+
+			ArrayList<ItemStack> ingredients = new ArrayList<ItemStack>();
+			ingredients.add(silver(60));
+
+			BUY_CHESTPLATE_IRON.setIngredients(ingredients);
+		}
+		return BUY_CHESTPLATE_IRON;
+	}
+
+	// Leggings
+	public static MerchantRecipe buyLeatherLeggings() {
+		if (BUY_LEGGINGS_LEATHER == null) {
+			BUY_LEGGINGS_LEATHER = new MerchantRecipe(Items.getLeatherLeggings(), 90);
+
+			ArrayList<ItemStack> ingredients = new ArrayList<ItemStack>();
+			ingredients.add(silver(15));
+
+			BUY_LEGGINGS_LEATHER.setIngredients(ingredients);
+		}
+		return BUY_LEGGINGS_LEATHER;
+	}
+
+	public static MerchantRecipe buyChainmailLeggings() {
+		if (BUY_LEGGINGS_CHAINMAIL == null) {
+			BUY_LEGGINGS_CHAINMAIL = new MerchantRecipe(Items.getChainmailLeggings(), 90);
+
+			ArrayList<ItemStack> ingredients = new ArrayList<ItemStack>();
+			ingredients.add(silver(30));
+
+			BUY_LEGGINGS_CHAINMAIL.setIngredients(ingredients);
+		}
+		return BUY_LEGGINGS_CHAINMAIL;
+	}
+
+	public static MerchantRecipe buyIronLeggings() {
+		if (BUY_LEGGINGS_IRON == null) {
+			BUY_LEGGINGS_IRON = new MerchantRecipe(Items.getIronLeggings(), 90);
+
+			ArrayList<ItemStack> ingredients = new ArrayList<ItemStack>();
+			ingredients.add(silver(60));
+
+			BUY_LEGGINGS_IRON.setIngredients(ingredients);
+		}
+		return BUY_LEGGINGS_IRON;
+	}
+
+	// Boots
+	public static MerchantRecipe buyLeatherBoots() {
+		if (BUY_BOOTS_LEATHER == null) {
+			BUY_BOOTS_LEATHER = new MerchantRecipe(Items.getLeatherBoots(), 90);
+
+			ArrayList<ItemStack> ingredients = new ArrayList<ItemStack>();
+			ingredients.add(silver(10));
+
+			BUY_BOOTS_LEATHER.setIngredients(ingredients);
+		}
+		return BUY_BOOTS_LEATHER;
+	}
+
+	public static MerchantRecipe buyChainmailBoots() {
+		if (BUY_BOOTS_CHAINMAIL == null) {
+			BUY_BOOTS_CHAINMAIL = new MerchantRecipe(Items.getChainmailBoots(), 90);
+
+			ArrayList<ItemStack> ingredients = new ArrayList<ItemStack>();
+			ingredients.add(silver(20));
+
+			BUY_BOOTS_CHAINMAIL.setIngredients(ingredients);
+		}
+		return BUY_BOOTS_CHAINMAIL;
+	}
+
+	public static MerchantRecipe buyIronBoots() {
+		if (BUY_BOOTS_IRON == null) {
+			BUY_BOOTS_IRON = new MerchantRecipe(Items.getIronBoots(), 90);
+
+			ArrayList<ItemStack> ingredients = new ArrayList<ItemStack>();
+			ingredients.add(silver(40));
+
+			BUY_BOOTS_IRON.setIngredients(ingredients);
+		}
+		return BUY_BOOTS_IRON;
 	}
 
 	public static MerchantRecipe sellCoal() {
@@ -286,150 +518,6 @@ public abstract class MerchantRecipes {
 			SELL_COAL.setIngredients(ingredients);
 		}
 		return SELL_COAL;
-	}
-
-	public static MerchantRecipe buyLeatherHelmet() {
-		if (BUY_LEATHER_HELMET == null) {
-			BUY_LEATHER_HELMET = new MerchantRecipe(Items.getLeatherHelmet(), 90);
-
-			ArrayList<ItemStack> ingredients = new ArrayList<ItemStack>();
-			ingredients.add(silver(15));
-
-			BUY_LEATHER_HELMET.setIngredients(ingredients);
-		}
-		return BUY_LEATHER_HELMET;
-	}
-
-	public static MerchantRecipe buyLeatherChestPlate() {
-		if (BUY_LEATHER_CHESTPLATE == null) {
-			BUY_LEATHER_CHESTPLATE = new MerchantRecipe(Items.getLeatherChestplate(), 90);
-
-			ArrayList<ItemStack> ingredients = new ArrayList<ItemStack>();
-			ingredients.add(silver(40));
-
-			BUY_LEATHER_CHESTPLATE.setIngredients(ingredients);
-		}
-		return BUY_LEATHER_CHESTPLATE;
-	}
-
-	public static MerchantRecipe buyLeatherLeggings() {
-		if (BUY_LEATHER_LEGGINGS == null) {
-			BUY_LEATHER_LEGGINGS = new MerchantRecipe(Items.getLeatherLeggings(), 90);
-
-			ArrayList<ItemStack> ingredients = new ArrayList<ItemStack>();
-			ingredients.add(silver(25));
-
-			BUY_LEATHER_LEGGINGS.setIngredients(ingredients);
-		}
-		return BUY_LEATHER_LEGGINGS;
-	}
-
-	public static MerchantRecipe buyLeatherBoots() {
-		if (BUY_LEATHER_BOOTS == null) {
-			BUY_LEATHER_BOOTS = new MerchantRecipe(Items.getLeatherBoots(), 90);
-
-			ArrayList<ItemStack> ingredients = new ArrayList<ItemStack>();
-			ingredients.add(silver(15));
-
-			BUY_LEATHER_BOOTS.setIngredients(ingredients);
-		}
-		return BUY_LEATHER_BOOTS;
-	}
-
-	public static MerchantRecipe buyChainmailHelmet() {
-		if (BUY_CHAINMAIL_HELMET == null) {
-			BUY_CHAINMAIL_HELMET = new MerchantRecipe(Items.getChainmailHelmet(), 90);
-
-			ArrayList<ItemStack> ingredients = new ArrayList<ItemStack>();
-			ingredients.add(silver(15));
-
-			BUY_CHAINMAIL_HELMET.setIngredients(ingredients);
-		}
-		return BUY_CHAINMAIL_HELMET;
-	}
-
-	public static MerchantRecipe buyChainmailChestPlate() {
-		if (BUY_CHAINMAIL_CHESTPLATE == null) {
-			BUY_CHAINMAIL_CHESTPLATE = new MerchantRecipe(Items.getChainmailChestplate(), 90);
-
-			ArrayList<ItemStack> ingredients = new ArrayList<ItemStack>();
-			ingredients.add(silver(40));
-
-			BUY_CHAINMAIL_CHESTPLATE.setIngredients(ingredients);
-		}
-		return BUY_CHAINMAIL_CHESTPLATE;
-	}
-
-	public static MerchantRecipe buyChainmailLeggings() {
-		if (BUY_CHAINMAIL_LEGGINGS == null) {
-			BUY_CHAINMAIL_LEGGINGS = new MerchantRecipe(Items.getChainmailLeggings(), 90);
-
-			ArrayList<ItemStack> ingredients = new ArrayList<ItemStack>();
-			ingredients.add(silver(25));
-
-			BUY_CHAINMAIL_LEGGINGS.setIngredients(ingredients);
-		}
-		return BUY_CHAINMAIL_LEGGINGS;
-	}
-
-	public static MerchantRecipe buyChainmailBoots() {
-		if (BUY_CHAINMAIL_BOOTS == null) {
-			BUY_CHAINMAIL_BOOTS = new MerchantRecipe(Items.getChainmailBoots(), 90);
-
-			ArrayList<ItemStack> ingredients = new ArrayList<ItemStack>();
-			ingredients.add(silver(15));
-
-			BUY_CHAINMAIL_BOOTS.setIngredients(ingredients);
-		}
-		return BUY_CHAINMAIL_BOOTS;
-	}
-
-	public static MerchantRecipe buyIronHelmet() {
-		if (BUY_IRON_HELMET == null) {
-			BUY_IRON_HELMET = new MerchantRecipe(Items.getIronHelmet(), 90);
-
-			ArrayList<ItemStack> ingredients = new ArrayList<ItemStack>();
-			ingredients.add(silver(15));
-
-			BUY_IRON_HELMET.setIngredients(ingredients);
-		}
-		return BUY_IRON_HELMET;
-	}
-
-	public static MerchantRecipe buyIronChestPlate() {
-		if (BUY_IRON_CHESTPLATE == null) {
-			BUY_IRON_CHESTPLATE = new MerchantRecipe(Items.getIronChestplate(), 90);
-
-			ArrayList<ItemStack> ingredients = new ArrayList<ItemStack>();
-			ingredients.add(silver(40));
-
-			BUY_IRON_CHESTPLATE.setIngredients(ingredients);
-		}
-		return BUY_IRON_CHESTPLATE;
-	}
-
-	public static MerchantRecipe buyIronLeggings() {
-		if (BUY_IRON_LEGGINGS == null) {
-			BUY_IRON_LEGGINGS = new MerchantRecipe(Items.getIronLeggings(), 90);
-
-			ArrayList<ItemStack> ingredients = new ArrayList<ItemStack>();
-			ingredients.add(silver(25));
-
-			BUY_IRON_LEGGINGS.setIngredients(ingredients);
-		}
-		return BUY_IRON_LEGGINGS;
-	}
-
-	public static MerchantRecipe buyIronBoots() {
-		if (BUY_IRON_BOOTS == null) {
-			BUY_IRON_BOOTS = new MerchantRecipe(Items.getIronBoots(), 90);
-
-			ArrayList<ItemStack> ingredients = new ArrayList<ItemStack>();
-			ingredients.add(silver(15));
-
-			BUY_IRON_BOOTS.setIngredients(ingredients);
-		}
-		return BUY_IRON_BOOTS;
 	}
 
 	public static MerchantRecipe sellOakLog() {
@@ -589,6 +677,8 @@ public abstract class MerchantRecipes {
 		return SELL_SPLINTERS;
 	}
 
+	// ~~~~~~~~~ Buy Crafting Recipes ~~~~~~~~ //
+
 	public static MerchantRecipe learnCraftingTable() {
 		if (LEARN_CRAFTING_TABLE == null) {
 			LEARN_CRAFTING_TABLE = new MerchantRecipe(Items.craftingBook(CraftingBook.CraftingTable), 1);
@@ -599,44 +689,154 @@ public abstract class MerchantRecipes {
 		return LEARN_CRAFTING_TABLE;
 	}
 
-	public static MerchantRecipe learnWoodenTools() {
-		if (LEARN_WOODEN_TOOLS == null) {
-			LEARN_WOODEN_TOOLS = new MerchantRecipe(Items.craftingBook(CraftingBook.ToolsWooden), 1);
+	public static MerchantRecipe learnWoodenPickaxe() {
+		if (LEARN_PICKAXE_WOODEN == null) {
+			LEARN_PICKAXE_WOODEN = new MerchantRecipe(Items.craftingBook(CraftingBook.PickaxeWooden), 1);
+			ArrayList<ItemStack> ingredients = new ArrayList<ItemStack>();
+			ingredients.add(silver(20));
+			LEARN_PICKAXE_WOODEN.setIngredients(ingredients);
+		}
+		return LEARN_PICKAXE_WOODEN;
+	}
+
+	public static MerchantRecipe learnStonePickaxe() {
+		if (LEARN_PICKAXE_STONE == null) {
+			LEARN_PICKAXE_STONE = new MerchantRecipe(Items.craftingBook(CraftingBook.PickaxeStone), 1);
 			ArrayList<ItemStack> ingredients = new ArrayList<ItemStack>();
 			ingredients.add(silver(40));
-			LEARN_WOODEN_TOOLS.setIngredients(ingredients);
+			LEARN_PICKAXE_STONE.setIngredients(ingredients);
 		}
-		return LEARN_WOODEN_TOOLS;
+		return LEARN_PICKAXE_STONE;
+	}
+
+	public static MerchantRecipe learnIronPickaxe() {
+		if (LEARN_PICKAXE_IRON == null) {
+			LEARN_PICKAXE_IRON = new MerchantRecipe(Items.craftingBook(CraftingBook.PickaxeIron), 1);
+			ArrayList<ItemStack> ingredients = new ArrayList<ItemStack>();
+			ingredients.add(silver(90));
+			LEARN_PICKAXE_IRON.setIngredients(ingredients);
+		}
+		return LEARN_PICKAXE_IRON;
+	}
+
+	public static MerchantRecipe learnWoodenTools() {
+		if (LEARN_TOOLS_WOODEN == null) {
+			LEARN_TOOLS_WOODEN = new MerchantRecipe(Items.craftingBook(CraftingBook.ToolsWooden), 1);
+			ArrayList<ItemStack> ingredients = new ArrayList<ItemStack>();
+			ingredients.add(silver(40));
+			LEARN_TOOLS_WOODEN.setIngredients(ingredients);
+		}
+		return LEARN_TOOLS_WOODEN;
 	}
 
 	public static MerchantRecipe learnStoneTools() {
-		if (LEARN_STONE_TOOLS == null) {
-			LEARN_STONE_TOOLS = new MerchantRecipe(Items.craftingBook(CraftingBook.ToolsStone), 1);
+		if (LEARN_TOOLS_STONE == null) {
+			LEARN_TOOLS_STONE = new MerchantRecipe(Items.craftingBook(CraftingBook.ToolsStone), 1);
 			ArrayList<ItemStack> ingredients = new ArrayList<ItemStack>();
-			ingredients.add(silver(40));
-			LEARN_STONE_TOOLS.setIngredients(ingredients);
+			ingredients.add(silver(80));
+			LEARN_TOOLS_STONE.setIngredients(ingredients);
 		}
-		return LEARN_STONE_TOOLS;
+		return LEARN_TOOLS_STONE;
 	}
 
 	public static MerchantRecipe learnIronTools() {
-		if (LEARN_IRON_TOOLS == null) {
-			LEARN_IRON_TOOLS = new MerchantRecipe(Items.craftingBook(CraftingBook.ToolsIron), 1);
+		if (LEARN_TOOLS_IRON == null) {
+			LEARN_TOOLS_IRON = new MerchantRecipe(Items.craftingBook(CraftingBook.ToolsIron), 1);
 			ArrayList<ItemStack> ingredients = new ArrayList<ItemStack>();
-			ingredients.add(silver(40));
-			LEARN_IRON_TOOLS.setIngredients(ingredients);
+			ingredients.add(silver(160));
+			LEARN_TOOLS_IRON.setIngredients(ingredients);
 		}
-		return LEARN_IRON_TOOLS;
+		return LEARN_TOOLS_IRON;
 	}
 
 	public static MerchantRecipe learnWoodenSword() {
-		if (LEARN_WOODEN_SWORD == null) {
-			LEARN_WOODEN_SWORD = new MerchantRecipe(Items.craftingBook(CraftingBook.SwordWooden), 1);
+		if (LEARN_SWORD_WOODEN == null) {
+			LEARN_SWORD_WOODEN = new MerchantRecipe(Items.craftingBook(CraftingBook.SwordWooden), 1);
 			ArrayList<ItemStack> ingredients = new ArrayList<ItemStack>();
 			ingredients.add(silver(20));
-			LEARN_WOODEN_SWORD.setIngredients(ingredients);
+			LEARN_SWORD_WOODEN.setIngredients(ingredients);
 		}
-		return LEARN_WOODEN_SWORD;
+		return LEARN_SWORD_WOODEN;
+	}
+
+	public static MerchantRecipe learnStoneSword() {
+		if (LEARN_SWORD_STONE == null) {
+			LEARN_SWORD_STONE = new MerchantRecipe(Items.craftingBook(CraftingBook.SwordStone), 1);
+			ArrayList<ItemStack> ingredients = new ArrayList<ItemStack>();
+			ingredients.add(silver(40));
+			LEARN_SWORD_STONE.setIngredients(ingredients);
+		}
+		return LEARN_SWORD_STONE;
+	}
+
+	public static MerchantRecipe learnIronSword() {
+		if (LEARN_SWORD_IRON == null) {
+			LEARN_SWORD_IRON = new MerchantRecipe(Items.craftingBook(CraftingBook.SwordIron), 1);
+			ArrayList<ItemStack> ingredients = new ArrayList<ItemStack>();
+			ingredients.add(silver(80));
+			LEARN_SWORD_IRON.setIngredients(ingredients);
+		}
+		return LEARN_SWORD_IRON;
+	}
+
+	public static MerchantRecipe learnArmorAdvancedLeather() {
+		if (LEARN_ARMOR_HAT_BOOTS_LEATHER == null) {
+			LEARN_ARMOR_HAT_BOOTS_LEATHER = new MerchantRecipe(Items.craftingBook(CraftingBook.CraftingTable), 1);
+			ArrayList<ItemStack> ingredients = new ArrayList<ItemStack>();
+			ingredients.add(silver(60));
+			LEARN_ARMOR_HAT_BOOTS_LEATHER.setIngredients(ingredients);
+		}
+		return LEARN_ARMOR_HAT_BOOTS_LEATHER;
+	}
+
+	public static MerchantRecipe learnArmorAdvancedChainmail() {
+		if (LEARN_ARMOR_HAT_BOOTS_CHAINMAIL == null) {
+			LEARN_ARMOR_HAT_BOOTS_CHAINMAIL = new MerchantRecipe(Items.craftingBook(CraftingBook.CraftingTable), 1);
+			ArrayList<ItemStack> ingredients = new ArrayList<ItemStack>();
+			ingredients.add(silver(120));
+			LEARN_ARMOR_HAT_BOOTS_CHAINMAIL.setIngredients(ingredients);
+		}
+		return LEARN_ARMOR_HAT_BOOTS_CHAINMAIL;
+	}
+
+	public static MerchantRecipe learnArmorAdvancedIron() {
+		if (LEARN_ARMOR_HAT_BOOTS_IRON == null) {
+			LEARN_ARMOR_HAT_BOOTS_IRON = new MerchantRecipe(Items.craftingBook(CraftingBook.CraftingTable), 1);
+			ArrayList<ItemStack> ingredients = new ArrayList<ItemStack>();
+			ingredients.add(silver(240));
+			LEARN_ARMOR_HAT_BOOTS_IRON.setIngredients(ingredients);
+		}
+		return LEARN_ARMOR_HAT_BOOTS_IRON;
+	}
+
+	public static MerchantRecipe learnArmorSimpleLeather() {
+		if (LEARN_ARMOR_CHEST_LEGS_LEATHER == null) {
+			LEARN_ARMOR_CHEST_LEGS_LEATHER = new MerchantRecipe(Items.craftingBook(CraftingBook.CraftingTable), 1);
+			ArrayList<ItemStack> ingredients = new ArrayList<ItemStack>();
+			ingredients.add(silver(40));
+			LEARN_ARMOR_CHEST_LEGS_LEATHER.setIngredients(ingredients);
+		}
+		return LEARN_ARMOR_CHEST_LEGS_LEATHER;
+	}
+
+	public static MerchantRecipe learnArmorSimpleChainmail() {
+		if (LEARN_ARMOR_CHEST_LEGS_CHAINMAIL == null) {
+			LEARN_ARMOR_CHEST_LEGS_CHAINMAIL = new MerchantRecipe(Items.craftingBook(CraftingBook.CraftingTable), 1);
+			ArrayList<ItemStack> ingredients = new ArrayList<ItemStack>();
+			ingredients.add(silver(80));
+			LEARN_ARMOR_CHEST_LEGS_CHAINMAIL.setIngredients(ingredients);
+		}
+		return LEARN_ARMOR_CHEST_LEGS_CHAINMAIL;
+	}
+
+	public static MerchantRecipe learnArmorSimpleIron() {
+		if (LEARN_ARMOR_CHEST_LEGS_IRON == null) {
+			LEARN_ARMOR_CHEST_LEGS_IRON = new MerchantRecipe(Items.craftingBook(CraftingBook.CraftingTable), 1);
+			ArrayList<ItemStack> ingredients = new ArrayList<ItemStack>();
+			ingredients.add(silver(160));
+			LEARN_ARMOR_CHEST_LEGS_IRON.setIngredients(ingredients);
+		}
+		return LEARN_ARMOR_CHEST_LEGS_IRON;
 	}
 
 	private static ItemStack silver(int amount) {
