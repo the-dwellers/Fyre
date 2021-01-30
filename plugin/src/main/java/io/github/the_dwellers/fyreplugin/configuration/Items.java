@@ -141,6 +141,7 @@ public abstract class Items {
 	private static ItemStack ERROR_ITEM;
 	private static ItemStack SPLINTERS;
 	private static ItemStack SILVER_COIN;
+	private static ItemStack GOLD_COIN;
 
 	// ~~~~~~~~~~~~~ Item Methods ~~~~~~~~~~~~ //
 	public static ItemStack getLeatherHelmet() {
@@ -457,6 +458,17 @@ public abstract class Items {
 			SILVER_COIN.setItemMeta(meta);
 		}
 		return SILVER_COIN.clone();
+	}
+
+	public static ItemStack getGoldCoin() {
+		if (GOLD_COIN == null) {
+			GOLD_COIN = new ItemStack(Material.GOLD_NUGGET, 1);
+			ItemMeta meta = GOLD_COIN.getItemMeta();
+			meta.setLore(Arrays.asList(PREFIX_LORE_COMMON + "Worth 64 Silver Coins."));
+			meta.setDisplayName(PREFIX_SPECIAL + "Gold Coin");
+			GOLD_COIN.setItemMeta(meta);
+		}
+		return GOLD_COIN.clone();
 	}
 
 	public static ItemStack getErrorItem() {

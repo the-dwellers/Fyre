@@ -202,6 +202,10 @@ public class ItemFeatures extends AbstractFeature implements Listener {
 				ItemStack silver = Items.getSilverCoin();
 				silver.setAmount(64);
 				player.getInventory().addItem(silver);
+
+				ItemStack gold = Items.getGoldCoin();
+				gold.setAmount(64);
+				player.getInventory().addItem(gold);
 			}
 			return true;
 		}
