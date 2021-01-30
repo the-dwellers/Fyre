@@ -57,59 +57,60 @@ public abstract class Items {
 	private static ItemStack SILVER_COIN;
 	private static ItemStack ERROR_ITEM;
 
-	private static ItemStack WOOD_AXE;
-	private static ItemStack WOOD_SHOVEL;
-	private static ItemStack WOOD_SWORD;
-	private static ItemStack WOOD_PICKAXE;
-	private static ItemStack WOOD_HOE;
+	private static ItemStack AXE_WOOD;
+	private static ItemStack AXE_STONE;
+	private static ItemStack AXE_IRON;
+	private static ItemStack AXE_DIAMOND;
 
-	private static ItemStack STONE_AXE;
-	private static ItemStack STONE_SHOVEL;
-	private static ItemStack STONE_SWORD;
-	private static ItemStack STONE_PICKAXE;
-	private static ItemStack STONE_HOE;
+	private static ItemStack SHOVEL_WOOD;
+	private static ItemStack SHOVEL_STONE;
+	private static ItemStack SHOVEL_IRON;
+	private static ItemStack SHOVEL_DIAMOND;
 
-	private static ItemStack IRON_AXE;
-	private static ItemStack IRON_SHOVEL;
-	private static ItemStack IRON_SWORD;
-	private static ItemStack IRON_PICKAXE;
-	private static ItemStack IRON_HOE;
+	private static ItemStack SWORD_WOOD;
+	private static ItemStack SWORD_STONE;
+	private static ItemStack SWORD_IRON;
+	private static ItemStack SWORD_DIAMOND;
 
-	private static ItemStack DIAMOND_AXE;
-	private static ItemStack DIAMOND_SHOVEL;
-	private static ItemStack DIAMOND_SWORD;
-	private static ItemStack DIAMOND_PICKAXE;
-	private static ItemStack DIAMOND_HOE;
+	private static ItemStack PICKAXE_WOOD;
+	private static ItemStack PICKAXE_STONE;
+	private static ItemStack PICKAXE_IRON;
+	private static ItemStack PICKAXE_DIAMOND;
+
+	private static ItemStack HOE_WOOD;
+	private static ItemStack HOE_STONE;
+	private static ItemStack HOE_IRON;
+	private static ItemStack HOE_DIAMOND;
 
 	private static ItemStack SPLINTERS;
 
 	private static ItemStack TOME_CRAFTING_TABLE;
-	private static ItemStack TOME_WOODEN_TOOLS;
-	private static ItemStack TOME_STONE_TOOLS;
-	private static ItemStack TOME_IRON_TOOLS;
-	private static ItemStack TOME_WOODEN_SWORD;
-	private static ItemStack TOME_STONE_SWORD;
-	private static ItemStack TOME_IRON_SWORD;
+	private static ItemStack TOME_TOOLS_WOODEN;
+	private static ItemStack TOME_TOOLS_STONE;
+	private static ItemStack TOME_TOOLS_IRON;
+	private static ItemStack TOME_SWORD_WOODEN;
+	private static ItemStack TOME_SWORD_STONE;
+	private static ItemStack TOME_SWORD_IRON;
 
-	private static ItemStack ARMOR_LEATHER_HELMET;
-	private static ItemStack ARMOR_LEATHER_CHESTPLATE;
-	private static ItemStack ARMOR_LEATHER_LEGGINGS;
-	private static ItemStack ARMOR_LEATHER_BOOTS;
+	private static ItemStack ARMOR_HELMET_LEATHER;
+	private static ItemStack ARMOR_HELMET_CHAINMAIL;
+	private static ItemStack ARMOR_HELMET_IRON;
+	private static ItemStack ARMOR_HELMET_DIAMOND;
 
-	private static ItemStack ARMOR_CHAINMAIL_HELMET;
-	private static ItemStack ARMOR_CHAINMAIL_CHESTPLATE;
-	private static ItemStack ARMOR_CHAINMAIL_LEGGINGS;
-	private static ItemStack ARMOR_CHAINMAIL_BOOTS;
+	private static ItemStack ARMOR_CHESTPLATE_LEATHER;
+	private static ItemStack ARMOR_CHESTPLATE_CHAINMAIL;
+	private static ItemStack ARMOR_CHESTPLATE_IRON;
+	private static ItemStack ARMOR_CHESTPLATE_DIAMOND;
 
-	private static ItemStack ARMOR_IRON_HELMET;
-	private static ItemStack ARMOR_IRON_CHESTPLATE;
-	private static ItemStack ARMOR_IRON_LEGGINGS;
-	private static ItemStack ARMOR_IRON_BOOTS;
+	private static ItemStack ARMOR_LEGGINGS_LEATHER;
+	private static ItemStack ARMOR_LEGGINGS_CHAINMAIL;
+	private static ItemStack ARMOR_LEGGINGS_IRON;
+	private static ItemStack ARMOR_LEGGINGS_DIAMOND;
 
-	private static ItemStack ARMOR_DIAMOND_HELMET;
-	private static ItemStack ARMOR_DIAMOND_CHESTPLATE;
-	private static ItemStack ARMOR_DIAMOND_LEGGINGS;
-	private static ItemStack ARMOR_DIAMOND_BOOTS;
+	private static ItemStack ARMOR_BOOTS_LEATHER;
+	private static ItemStack ARMOR_BOOTS_CHAINMAIL;
+	private static ItemStack ARMOR_BOOTS_IRON;
+	private static ItemStack ARMOR_BOOTS_DIAMOND;
 
 	private static ItemStack SHIELD;
 
@@ -119,9 +120,9 @@ public abstract class Items {
 	// ~~~~~~~~~~~~~ Item Methods ~~~~~~~~~~~~ //
 
 	public static ItemStack getLeatherHelmet() {
-		if (ARMOR_LEATHER_HELMET == null) {
-			ARMOR_LEATHER_HELMET = new ItemStack(Material.LEATHER_HELMET, 1);
-			ItemMeta meta = ARMOR_LEATHER_HELMET.getItemMeta();
+		if (ARMOR_HELMET_LEATHER == null) {
+			ARMOR_HELMET_LEATHER = new ItemStack(Material.LEATHER_HELMET, 1);
+			ItemMeta meta = ARMOR_HELMET_LEATHER.getItemMeta();
 
 			Multimap<Attribute, AttributeModifier> modifiers = HashMultimap.create();
 
@@ -131,15 +132,15 @@ public abstract class Items {
 					"generic.generic_armor", 1, Operation.ADD_NUMBER, EquipmentSlot.HEAD));
 
 			meta.setAttributeModifiers(modifiers);
-			ARMOR_LEATHER_HELMET.setItemMeta(meta);
+			ARMOR_HELMET_LEATHER.setItemMeta(meta);
 		}
-		return ARMOR_LEATHER_HELMET.clone();
+		return ARMOR_HELMET_LEATHER.clone();
 	}
 
 	public static ItemStack getLeatherChestplate() {
-		if (ARMOR_LEATHER_CHESTPLATE == null) {
-			ARMOR_LEATHER_CHESTPLATE = new ItemStack(Material.LEATHER_CHESTPLATE, 1);
-			ItemMeta meta = ARMOR_LEATHER_CHESTPLATE.getItemMeta();
+		if (ARMOR_CHESTPLATE_LEATHER == null) {
+			ARMOR_CHESTPLATE_LEATHER = new ItemStack(Material.LEATHER_CHESTPLATE, 1);
+			ItemMeta meta = ARMOR_CHESTPLATE_LEATHER.getItemMeta();
 
 			Multimap<Attribute, AttributeModifier> modifiers = HashMultimap.create();
 
@@ -149,15 +150,15 @@ public abstract class Items {
 					"generic.generic_armor", 3, Operation.ADD_NUMBER, EquipmentSlot.CHEST));
 
 			meta.setAttributeModifiers(modifiers);
-			ARMOR_LEATHER_CHESTPLATE.setItemMeta(meta);
+			ARMOR_CHESTPLATE_LEATHER.setItemMeta(meta);
 		}
-		return ARMOR_LEATHER_CHESTPLATE.clone();
+		return ARMOR_CHESTPLATE_LEATHER.clone();
 	}
 
 	public static ItemStack getLeatherLeggings() {
-		if (ARMOR_LEATHER_LEGGINGS == null) {
-			ARMOR_LEATHER_LEGGINGS = new ItemStack(Material.LEATHER_LEGGINGS, 1);
-			ItemMeta meta = ARMOR_LEATHER_LEGGINGS.getItemMeta();
+		if (ARMOR_LEGGINGS_LEATHER == null) {
+			ARMOR_LEGGINGS_LEATHER = new ItemStack(Material.LEATHER_LEGGINGS, 1);
+			ItemMeta meta = ARMOR_LEGGINGS_LEATHER.getItemMeta();
 
 			Multimap<Attribute, AttributeModifier> modifiers = HashMultimap.create();
 
@@ -167,15 +168,15 @@ public abstract class Items {
 					"generic.generic_armor", 2, Operation.ADD_NUMBER, EquipmentSlot.LEGS));
 
 			meta.setAttributeModifiers(modifiers);
-			ARMOR_LEATHER_LEGGINGS.setItemMeta(meta);
+			ARMOR_LEGGINGS_LEATHER.setItemMeta(meta);
 		}
-		return ARMOR_LEATHER_LEGGINGS.clone();
+		return ARMOR_LEGGINGS_LEATHER.clone();
 	}
 
 	public static ItemStack getLeatherBoots() {
-		if (ARMOR_LEATHER_BOOTS == null) {
-			ARMOR_LEATHER_BOOTS = new ItemStack(Material.LEATHER_BOOTS, 1);
-			ItemMeta meta = ARMOR_LEATHER_BOOTS.getItemMeta();
+		if (ARMOR_BOOTS_LEATHER == null) {
+			ARMOR_BOOTS_LEATHER = new ItemStack(Material.LEATHER_BOOTS, 1);
+			ItemMeta meta = ARMOR_BOOTS_LEATHER.getItemMeta();
 			meta.setLore(Arrays.asList(PREFIX_LORE_COMMON + "Cannot Trample Crops"));
 
 			Multimap<Attribute, AttributeModifier> modifiers = HashMultimap.create();
@@ -186,15 +187,15 @@ public abstract class Items {
 					"generic.generic_armor", 1, Operation.ADD_NUMBER, EquipmentSlot.FEET));
 
 			meta.setAttributeModifiers(modifiers);
-			ARMOR_LEATHER_BOOTS.setItemMeta(meta);
+			ARMOR_BOOTS_LEATHER.setItemMeta(meta);
 		}
-		return ARMOR_LEATHER_BOOTS.clone();
+		return ARMOR_BOOTS_LEATHER.clone();
 	}
 
 	public static ItemStack getChainmailHelmet() {
-		if (ARMOR_CHAINMAIL_HELMET == null) {
-			ARMOR_CHAINMAIL_HELMET = new ItemStack(Material.CHAINMAIL_HELMET, 1);
-			ItemMeta meta = ARMOR_CHAINMAIL_HELMET.getItemMeta();
+		if (ARMOR_HELMET_CHAINMAIL == null) {
+			ARMOR_HELMET_CHAINMAIL = new ItemStack(Material.CHAINMAIL_HELMET, 1);
+			ItemMeta meta = ARMOR_HELMET_CHAINMAIL.getItemMeta();
 
 			Multimap<Attribute, AttributeModifier> modifiers = HashMultimap.create();
 
@@ -204,15 +205,15 @@ public abstract class Items {
 					"generic.generic_armor", 3, Operation.ADD_NUMBER, EquipmentSlot.HEAD));
 
 			meta.setAttributeModifiers(modifiers);
-			ARMOR_CHAINMAIL_HELMET.setItemMeta(meta);
+			ARMOR_HELMET_CHAINMAIL.setItemMeta(meta);
 		}
-		return ARMOR_CHAINMAIL_HELMET.clone();
+		return ARMOR_HELMET_CHAINMAIL.clone();
 	}
 
 	public static ItemStack getChainmailChestplate() {
-		if (ARMOR_CHAINMAIL_CHESTPLATE == null) {
-			ARMOR_CHAINMAIL_CHESTPLATE = new ItemStack(Material.CHAINMAIL_CHESTPLATE, 1);
-			ItemMeta meta = ARMOR_CHAINMAIL_CHESTPLATE.getItemMeta();
+		if (ARMOR_CHESTPLATE_CHAINMAIL == null) {
+			ARMOR_CHESTPLATE_CHAINMAIL = new ItemStack(Material.CHAINMAIL_CHESTPLATE, 1);
+			ItemMeta meta = ARMOR_CHESTPLATE_CHAINMAIL.getItemMeta();
 
 			Multimap<Attribute, AttributeModifier> modifiers = HashMultimap.create();
 
@@ -222,15 +223,15 @@ public abstract class Items {
 					"generic.generic_armor", 5, Operation.ADD_NUMBER, EquipmentSlot.CHEST));
 
 			meta.setAttributeModifiers(modifiers);
-			ARMOR_CHAINMAIL_CHESTPLATE.setItemMeta(meta);
+			ARMOR_CHESTPLATE_CHAINMAIL.setItemMeta(meta);
 		}
-		return ARMOR_CHAINMAIL_CHESTPLATE.clone();
+		return ARMOR_CHESTPLATE_CHAINMAIL.clone();
 	}
 
 	public static ItemStack getChainmailLeggings() {
-		if (ARMOR_CHAINMAIL_LEGGINGS == null) {
-			ARMOR_CHAINMAIL_LEGGINGS = new ItemStack(Material.CHAINMAIL_LEGGINGS, 1);
-			ItemMeta meta = ARMOR_CHAINMAIL_LEGGINGS.getItemMeta();
+		if (ARMOR_LEGGINGS_CHAINMAIL == null) {
+			ARMOR_LEGGINGS_CHAINMAIL = new ItemStack(Material.CHAINMAIL_LEGGINGS, 1);
+			ItemMeta meta = ARMOR_LEGGINGS_CHAINMAIL.getItemMeta();
 
 			Multimap<Attribute, AttributeModifier> modifiers = HashMultimap.create();
 
@@ -240,15 +241,15 @@ public abstract class Items {
 					"generic.generic_armor", 4, Operation.ADD_NUMBER, EquipmentSlot.LEGS));
 
 			meta.setAttributeModifiers(modifiers);
-			ARMOR_CHAINMAIL_LEGGINGS.setItemMeta(meta);
+			ARMOR_LEGGINGS_CHAINMAIL.setItemMeta(meta);
 		}
-		return ARMOR_CHAINMAIL_LEGGINGS.clone();
+		return ARMOR_LEGGINGS_CHAINMAIL.clone();
 	}
 
 	public static ItemStack getChainmailBoots() {
-		if (ARMOR_CHAINMAIL_BOOTS == null) {
-			ARMOR_CHAINMAIL_BOOTS = new ItemStack(Material.CHAINMAIL_BOOTS, 1);
-			ItemMeta meta = ARMOR_CHAINMAIL_BOOTS.getItemMeta();
+		if (ARMOR_BOOTS_CHAINMAIL == null) {
+			ARMOR_BOOTS_CHAINMAIL = new ItemStack(Material.CHAINMAIL_BOOTS, 1);
+			ItemMeta meta = ARMOR_BOOTS_CHAINMAIL.getItemMeta();
 
 			Multimap<Attribute, AttributeModifier> modifiers = HashMultimap.create();
 
@@ -258,15 +259,15 @@ public abstract class Items {
 					Operation.ADD_NUMBER, EquipmentSlot.FEET));
 
 			meta.setAttributeModifiers(modifiers);
-			ARMOR_CHAINMAIL_BOOTS.setItemMeta(meta);
+			ARMOR_BOOTS_CHAINMAIL.setItemMeta(meta);
 		}
-		return ARMOR_CHAINMAIL_BOOTS.clone();
+		return ARMOR_BOOTS_CHAINMAIL.clone();
 	}
 
 	public static ItemStack getIronHelmet() {
-		if (ARMOR_IRON_HELMET == null) {
-			ARMOR_IRON_HELMET = new ItemStack(Material.IRON_HELMET, 1);
-			ItemMeta meta = ARMOR_IRON_HELMET.getItemMeta();
+		if (ARMOR_HELMET_IRON == null) {
+			ARMOR_HELMET_IRON = new ItemStack(Material.IRON_HELMET, 1);
+			ItemMeta meta = ARMOR_HELMET_IRON.getItemMeta();
 
 			Multimap<Attribute, AttributeModifier> modifiers = HashMultimap.create();
 
@@ -278,15 +279,15 @@ public abstract class Items {
 					"generic.movement_speed", -0.01, Operation.MULTIPLY_SCALAR_1, EquipmentSlot.HEAD));
 
 			meta.setAttributeModifiers(modifiers);
-			ARMOR_IRON_HELMET.setItemMeta(meta);
+			ARMOR_HELMET_IRON.setItemMeta(meta);
 		}
-		return ARMOR_IRON_HELMET.clone();
+		return ARMOR_HELMET_IRON.clone();
 	}
 
 	public static ItemStack getIronChestplate() {
-		if (ARMOR_IRON_CHESTPLATE == null) {
-			ARMOR_IRON_CHESTPLATE = new ItemStack(Material.IRON_CHESTPLATE, 1);
-			ItemMeta meta = ARMOR_IRON_CHESTPLATE.getItemMeta();
+		if (ARMOR_CHESTPLATE_IRON == null) {
+			ARMOR_CHESTPLATE_IRON = new ItemStack(Material.IRON_CHESTPLATE, 1);
+			ItemMeta meta = ARMOR_CHESTPLATE_IRON.getItemMeta();
 
 			Multimap<Attribute, AttributeModifier> modifiers = HashMultimap.create();
 
@@ -298,15 +299,15 @@ public abstract class Items {
 					Operation.MULTIPLY_SCALAR_1, EquipmentSlot.CHEST));
 
 			meta.setAttributeModifiers(modifiers);
-			ARMOR_IRON_CHESTPLATE.setItemMeta(meta);
+			ARMOR_CHESTPLATE_IRON.setItemMeta(meta);
 		}
-		return ARMOR_IRON_CHESTPLATE.clone();
+		return ARMOR_CHESTPLATE_IRON.clone();
 	}
 
 	public static ItemStack getIronLeggings() {
-		if (ARMOR_IRON_LEGGINGS == null) {
-			ARMOR_IRON_LEGGINGS = new ItemStack(Material.IRON_LEGGINGS, 1);
-			ItemMeta meta = ARMOR_IRON_LEGGINGS.getItemMeta();
+		if (ARMOR_LEGGINGS_IRON == null) {
+			ARMOR_LEGGINGS_IRON = new ItemStack(Material.IRON_LEGGINGS, 1);
+			ItemMeta meta = ARMOR_LEGGINGS_IRON.getItemMeta();
 
 			Multimap<Attribute, AttributeModifier> modifiers = HashMultimap.create();
 
@@ -318,15 +319,15 @@ public abstract class Items {
 					"generic.movement_speed", -0.03, Operation.MULTIPLY_SCALAR_1, EquipmentSlot.LEGS));
 
 			meta.setAttributeModifiers(modifiers);
-			ARMOR_IRON_LEGGINGS.setItemMeta(meta);
+			ARMOR_LEGGINGS_IRON.setItemMeta(meta);
 		}
-		return ARMOR_IRON_LEGGINGS.clone();
+		return ARMOR_LEGGINGS_IRON.clone();
 	}
 
 	public static ItemStack getIronBoots() {
-		if (ARMOR_IRON_BOOTS == null) {
-			ARMOR_IRON_BOOTS = new ItemStack(Material.IRON_BOOTS, 1);
-			ItemMeta meta = ARMOR_IRON_BOOTS.getItemMeta();
+		if (ARMOR_BOOTS_IRON == null) {
+			ARMOR_BOOTS_IRON = new ItemStack(Material.IRON_BOOTS, 1);
+			ItemMeta meta = ARMOR_BOOTS_IRON.getItemMeta();
 
 			Multimap<Attribute, AttributeModifier> modifiers = HashMultimap.create();
 
@@ -338,15 +339,15 @@ public abstract class Items {
 					"generic.movement_speed", -0.01, Operation.MULTIPLY_SCALAR_1, EquipmentSlot.FEET));
 
 			meta.setAttributeModifiers(modifiers);
-			ARMOR_IRON_BOOTS.setItemMeta(meta);
+			ARMOR_BOOTS_IRON.setItemMeta(meta);
 		}
-		return ARMOR_IRON_BOOTS.clone();
+		return ARMOR_BOOTS_IRON.clone();
 	}
 
 	public static ItemStack getDiamondHelmet() {
-		if (ARMOR_DIAMOND_HELMET == null) {
-			ARMOR_DIAMOND_HELMET = new ItemStack(Material.DIAMOND_HELMET, 1);
-			ItemMeta meta = ARMOR_DIAMOND_HELMET.getItemMeta();
+		if (ARMOR_HELMET_DIAMOND == null) {
+			ARMOR_HELMET_DIAMOND = new ItemStack(Material.DIAMOND_HELMET, 1);
+			ItemMeta meta = ARMOR_HELMET_DIAMOND.getItemMeta();
 
 			Multimap<Attribute, AttributeModifier> modifiers = HashMultimap.create();
 
@@ -358,15 +359,15 @@ public abstract class Items {
 					"generic.movement_speed", -0.02, Operation.MULTIPLY_SCALAR_1, EquipmentSlot.HEAD));
 
 			meta.setAttributeModifiers(modifiers);
-			ARMOR_DIAMOND_HELMET.setItemMeta(meta);
+			ARMOR_HELMET_DIAMOND.setItemMeta(meta);
 		}
-		return ARMOR_DIAMOND_HELMET.clone();
+		return ARMOR_HELMET_DIAMOND.clone();
 	}
 
 	public static ItemStack getDiamondChestplate() {
-		if (ARMOR_DIAMOND_CHESTPLATE == null) {
-			ARMOR_DIAMOND_CHESTPLATE = new ItemStack(Material.DIAMOND_CHESTPLATE, 1);
-			ItemMeta meta = ARMOR_DIAMOND_CHESTPLATE.getItemMeta();
+		if (ARMOR_CHESTPLATE_DIAMOND == null) {
+			ARMOR_CHESTPLATE_DIAMOND = new ItemStack(Material.DIAMOND_CHESTPLATE, 1);
+			ItemMeta meta = ARMOR_CHESTPLATE_DIAMOND.getItemMeta();
 
 			Multimap<Attribute, AttributeModifier> modifiers = HashMultimap.create();
 
@@ -378,15 +379,15 @@ public abstract class Items {
 					"generic.movement_speed", -0.06, Operation.MULTIPLY_SCALAR_1, EquipmentSlot.CHEST));
 
 			meta.setAttributeModifiers(modifiers);
-			ARMOR_DIAMOND_CHESTPLATE.setItemMeta(meta);
+			ARMOR_CHESTPLATE_DIAMOND.setItemMeta(meta);
 		}
-		return ARMOR_DIAMOND_CHESTPLATE.clone();
+		return ARMOR_CHESTPLATE_DIAMOND.clone();
 	}
 
 	public static ItemStack getDiamondLeggings() {
-		if (ARMOR_DIAMOND_LEGGINGS == null) {
-			ARMOR_DIAMOND_LEGGINGS = new ItemStack(Material.DIAMOND_LEGGINGS, 1);
-			ItemMeta meta = ARMOR_DIAMOND_LEGGINGS.getItemMeta();
+		if (ARMOR_LEGGINGS_DIAMOND == null) {
+			ARMOR_LEGGINGS_DIAMOND = new ItemStack(Material.DIAMOND_LEGGINGS, 1);
+			ItemMeta meta = ARMOR_LEGGINGS_DIAMOND.getItemMeta();
 
 			Multimap<Attribute, AttributeModifier> modifiers = HashMultimap.create();
 
@@ -398,15 +399,15 @@ public abstract class Items {
 					"generic.movement_speed", -0.06, Operation.MULTIPLY_SCALAR_1, EquipmentSlot.LEGS));
 
 			meta.setAttributeModifiers(modifiers);
-			ARMOR_DIAMOND_LEGGINGS.setItemMeta(meta);
+			ARMOR_LEGGINGS_DIAMOND.setItemMeta(meta);
 		}
-		return ARMOR_DIAMOND_LEGGINGS.clone();
+		return ARMOR_LEGGINGS_DIAMOND.clone();
 	}
 
 	public static ItemStack getDiamondBoots() {
-		if (ARMOR_DIAMOND_BOOTS == null) {
-			ARMOR_DIAMOND_BOOTS = new ItemStack(Material.DIAMOND_BOOTS, 1);
-			ItemMeta meta = ARMOR_DIAMOND_BOOTS.getItemMeta();
+		if (ARMOR_BOOTS_DIAMOND == null) {
+			ARMOR_BOOTS_DIAMOND = new ItemStack(Material.DIAMOND_BOOTS, 1);
+			ItemMeta meta = ARMOR_BOOTS_DIAMOND.getItemMeta();
 
 			Multimap<Attribute, AttributeModifier> modifiers = HashMultimap.create();
 
@@ -418,9 +419,9 @@ public abstract class Items {
 					"generic.movement_speed", -0.02, Operation.MULTIPLY_SCALAR_1, EquipmentSlot.FEET));
 
 			meta.setAttributeModifiers(modifiers);
-			ARMOR_DIAMOND_BOOTS.setItemMeta(meta);
+			ARMOR_BOOTS_DIAMOND.setItemMeta(meta);
 		}
-		return ARMOR_DIAMOND_BOOTS.clone();
+		return ARMOR_BOOTS_DIAMOND.clone();
 	}
 
 	public static ItemStack getSilverCoin() {
@@ -453,144 +454,144 @@ public abstract class Items {
 	}
 
 	public static ItemStack getWoodSword() {
-		if (WOOD_SWORD == null) {
-			WOOD_SWORD = new ItemStack(Material.WOODEN_SWORD, 1);
+		if (SWORD_WOOD == null) {
+			SWORD_WOOD = new ItemStack(Material.WOODEN_SWORD, 1);
 		}
-		return WOOD_SWORD.clone();
+		return SWORD_WOOD.clone();
 	}
 
 	public static ItemStack getWoodAxe() {
-		if (WOOD_AXE == null) {
-			WOOD_AXE = new ItemStack(Material.WOODEN_AXE, 1);
+		if (AXE_WOOD == null) {
+			AXE_WOOD = new ItemStack(Material.WOODEN_AXE, 1);
 		}
-		return WOOD_AXE.clone();
+		return AXE_WOOD.clone();
 	}
 
 	public static ItemStack getWoodShovel() {
-		if (WOOD_SHOVEL == null) {
-			WOOD_SHOVEL = new ItemStack(Material.WOODEN_SHOVEL, 1);
+		if (SHOVEL_WOOD == null) {
+			SHOVEL_WOOD = new ItemStack(Material.WOODEN_SHOVEL, 1);
 		}
-		return WOOD_SHOVEL.clone();
+		return SHOVEL_WOOD.clone();
 	}
 
 	public static ItemStack getWoodPickaxe() {
-		if (WOOD_PICKAXE == null) {
-			WOOD_PICKAXE = new ItemStack(Material.WOODEN_PICKAXE, 1);
+		if (PICKAXE_WOOD == null) {
+			PICKAXE_WOOD = new ItemStack(Material.WOODEN_PICKAXE, 1);
 		}
-		return WOOD_PICKAXE.clone();
+		return PICKAXE_WOOD.clone();
 	}
 
 	public static ItemStack getWoodHoe() {
-		if (WOOD_HOE == null) {
-			WOOD_HOE = new ItemStack(Material.WOODEN_HOE, 1);
+		if (HOE_WOOD == null) {
+			HOE_WOOD = new ItemStack(Material.WOODEN_HOE, 1);
 		}
-		return WOOD_HOE.clone();
+		return HOE_WOOD.clone();
 	}
 
 	public static ItemStack getStoneSword() {
-		if (STONE_SWORD == null) {
-			STONE_SWORD = new ItemStack(Material.STONE_SWORD, 1);
+		if (SWORD_STONE == null) {
+			SWORD_STONE = new ItemStack(Material.STONE_SWORD, 1);
 		}
-		return STONE_SWORD.clone();
+		return SWORD_STONE.clone();
 	}
 
 	public static ItemStack getStoneShovel() {
-		if (STONE_AXE == null) {
-			STONE_AXE = new ItemStack(Material.STONE_SHOVEL, 1);
+		if (AXE_STONE == null) {
+			AXE_STONE = new ItemStack(Material.STONE_SHOVEL, 1);
 		}
-		return STONE_AXE.clone();
+		return AXE_STONE.clone();
 	}
 
 	public static ItemStack getStonePickaxe() {
-		if (STONE_SHOVEL == null) {
-			STONE_SHOVEL = new ItemStack(Material.STONE_PICKAXE, 1);
+		if (SHOVEL_STONE == null) {
+			SHOVEL_STONE = new ItemStack(Material.STONE_PICKAXE, 1);
 		}
-		return STONE_SHOVEL.clone();
+		return SHOVEL_STONE.clone();
 	}
 
 	public static ItemStack getStoneAxe() {
-		if (STONE_PICKAXE == null) {
-			STONE_PICKAXE = new ItemStack(Material.STONE_AXE, 1);
+		if (PICKAXE_STONE == null) {
+			PICKAXE_STONE = new ItemStack(Material.STONE_AXE, 1);
 		}
-		return STONE_PICKAXE.clone();
+		return PICKAXE_STONE.clone();
 	}
 
 	public static ItemStack getStoneHoe() {
-		if (STONE_HOE == null) {
-			STONE_HOE = new ItemStack(Material.STONE_HOE, 1);
+		if (HOE_STONE == null) {
+			HOE_STONE = new ItemStack(Material.STONE_HOE, 1);
 		}
-		return STONE_HOE.clone();
+		return HOE_STONE.clone();
 	}
 
 
 	public static ItemStack getIronSword() {
-		if (IRON_SWORD == null) {
-			IRON_SWORD = new ItemStack(Material.IRON_SWORD, 1);
+		if (SWORD_IRON == null) {
+			SWORD_IRON = new ItemStack(Material.IRON_SWORD, 1);
 		}
-		return IRON_SWORD.clone();
+		return SWORD_IRON.clone();
 	}
 
 	public static ItemStack getDiamondSword() {
-		if (DIAMOND_SWORD == null) {
-			DIAMOND_SWORD = new ItemStack(Material.DIAMOND_SWORD, 1);
+		if (SWORD_DIAMOND == null) {
+			SWORD_DIAMOND = new ItemStack(Material.DIAMOND_SWORD, 1);
 		}
-		return DIAMOND_SWORD.clone();
+		return SWORD_DIAMOND.clone();
 	}
 
 	public static ItemStack getIronShovel() {
-		if (IRON_AXE == null) {
-			IRON_AXE = new ItemStack(Material.IRON_SHOVEL, 1);
+		if (AXE_IRON == null) {
+			AXE_IRON = new ItemStack(Material.IRON_SHOVEL, 1);
 		}
-		return IRON_AXE.clone();
+		return AXE_IRON.clone();
 	}
 
 	public static ItemStack getIronPickaxe() {
-		if (IRON_SHOVEL == null) {
-			IRON_SHOVEL = new ItemStack(Material.IRON_PICKAXE, 1);
+		if (SHOVEL_IRON == null) {
+			SHOVEL_IRON = new ItemStack(Material.IRON_PICKAXE, 1);
 		}
-		return IRON_SHOVEL.clone();
+		return SHOVEL_IRON.clone();
 	}
 
 	public static ItemStack getIronAxe() {
-		if (IRON_PICKAXE == null) {
-			IRON_PICKAXE = new ItemStack(Material.IRON_AXE, 1);
+		if (PICKAXE_IRON == null) {
+			PICKAXE_IRON = new ItemStack(Material.IRON_AXE, 1);
 		}
-		return IRON_PICKAXE.clone();
+		return PICKAXE_IRON.clone();
 	}
 
 	public static ItemStack getIronHoe() {
-		if (IRON_HOE == null) {
-			IRON_HOE = new ItemStack(Material.IRON_HOE, 1);
+		if (HOE_IRON == null) {
+			HOE_IRON = new ItemStack(Material.IRON_HOE, 1);
 		}
-		return IRON_HOE.clone();
+		return HOE_IRON.clone();
 	}
 
 	public static ItemStack getDiamondShovel() {
-		if (DIAMOND_AXE == null) {
-			DIAMOND_AXE = new ItemStack(Material.DIAMOND_SHOVEL, 1);
+		if (AXE_DIAMOND == null) {
+			AXE_DIAMOND = new ItemStack(Material.DIAMOND_SHOVEL, 1);
 		}
-		return DIAMOND_AXE.clone();
+		return AXE_DIAMOND.clone();
 	}
 
 	public static ItemStack getDiamondPickaxe() {
-		if (DIAMOND_SHOVEL == null) {
-			DIAMOND_SHOVEL = new ItemStack(Material.DIAMOND_PICKAXE, 1);
+		if (SHOVEL_DIAMOND == null) {
+			SHOVEL_DIAMOND = new ItemStack(Material.DIAMOND_PICKAXE, 1);
 		}
-		return DIAMOND_SHOVEL.clone();
+		return SHOVEL_DIAMOND.clone();
 	}
 
 	public static ItemStack getDiamondAxe() {
-		if (DIAMOND_PICKAXE == null) {
-			DIAMOND_PICKAXE = new ItemStack(Material.DIAMOND_AXE, 1);
+		if (PICKAXE_DIAMOND == null) {
+			PICKAXE_DIAMOND = new ItemStack(Material.DIAMOND_AXE, 1);
 		}
-		return DIAMOND_PICKAXE.clone();
+		return PICKAXE_DIAMOND.clone();
 	}
 
 	public static ItemStack getDiamondHoe() {
-		if (DIAMOND_HOE == null) {
-			DIAMOND_HOE = new ItemStack(Material.DIAMOND_HOE, 1);
+		if (HOE_DIAMOND == null) {
+			HOE_DIAMOND = new ItemStack(Material.DIAMOND_HOE, 1);
 		}
-		return DIAMOND_HOE.clone();
+		return HOE_DIAMOND.clone();
 	}
 
 
@@ -676,35 +677,35 @@ public abstract class Items {
 				}
 				return TOME_CRAFTING_TABLE.clone();
 			case WoodenTools:
-				if (TOME_WOODEN_TOOLS == null) {
-					TOME_WOODEN_TOOLS = generateCraftingBook(CraftingBook.WoodenTools);
+				if (TOME_TOOLS_WOODEN == null) {
+					TOME_TOOLS_WOODEN = generateCraftingBook(CraftingBook.WoodenTools);
 				}
-				return TOME_WOODEN_TOOLS.clone();
+				return TOME_TOOLS_WOODEN.clone();
 			case StoneTools:
-				if (TOME_STONE_TOOLS == null) {
-					TOME_STONE_TOOLS = generateCraftingBook(CraftingBook.StoneTools);
+				if (TOME_TOOLS_STONE == null) {
+					TOME_TOOLS_STONE = generateCraftingBook(CraftingBook.StoneTools);
 				}
-				return TOME_STONE_TOOLS.clone();
+				return TOME_TOOLS_STONE.clone();
 			case IronTools:
-				if (TOME_IRON_TOOLS == null) {
-					TOME_IRON_TOOLS = generateCraftingBook(CraftingBook.IronTools);
+				if (TOME_TOOLS_IRON == null) {
+					TOME_TOOLS_IRON = generateCraftingBook(CraftingBook.IronTools);
 				}
-				return TOME_IRON_TOOLS.clone();
+				return TOME_TOOLS_IRON.clone();
 			case WoodenSword:
-				if (TOME_WOODEN_SWORD == null) {
-					TOME_WOODEN_SWORD = generateCraftingBook(CraftingBook.WoodenSword);
+				if (TOME_SWORD_WOODEN == null) {
+					TOME_SWORD_WOODEN = generateCraftingBook(CraftingBook.WoodenSword);
 				}
-				return TOME_WOODEN_SWORD.clone();
+				return TOME_SWORD_WOODEN.clone();
 			case StoneSword:
-				if (TOME_STONE_SWORD == null) {
-					TOME_STONE_SWORD = generateCraftingBook(CraftingBook.StoneSword);
+				if (TOME_SWORD_STONE == null) {
+					TOME_SWORD_STONE = generateCraftingBook(CraftingBook.StoneSword);
 				}
-			return TOME_STONE_SWORD.clone();
+			return TOME_SWORD_STONE.clone();
 			case IronSword:
-				if (TOME_IRON_SWORD == null) {
-					TOME_IRON_SWORD = generateCraftingBook(CraftingBook.IronSword);
+				if (TOME_SWORD_IRON == null) {
+					TOME_SWORD_IRON = generateCraftingBook(CraftingBook.IronSword);
 				}
-				return TOME_IRON_SWORD.clone();
+				return TOME_SWORD_IRON.clone();
 			default:
 				return generateCraftingBook(book);
 		}
