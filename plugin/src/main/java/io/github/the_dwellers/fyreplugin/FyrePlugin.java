@@ -87,7 +87,7 @@ public class FyrePlugin extends JavaPlugin {
 		}
 
 		log.info(Strings.LOG_PREFIX + "Setting up for " + mcVersion.toString());
-		if (mcVersion.compareTo(SupportedVersions.MC1164) != 0) {
+		if (mcVersion.compareTo(SupportedVersions.MC1165) != 0) {
 			log.warning(
 					Strings.LOG_PREFIX + "Loading for unsupported minecraft version! Some features may be disabled!");
 		}

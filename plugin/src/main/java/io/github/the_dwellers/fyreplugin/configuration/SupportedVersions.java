@@ -9,6 +9,10 @@ import io.github.the_dwellers.fyreplugin.core.MinecraftVersion;
  */
 public abstract class SupportedVersions {
 	/**
+	 * Minecraft 1.16.5
+	 */
+	public static final MinecraftVersion MC1165 = new MinecraftVersion("1.16.5");
+	/**
 	 * Minecraft 1.16.4
 	 */
 	public static final MinecraftVersion MC1164 = new MinecraftVersion("1.16.4");
