@@ -131,7 +131,7 @@ public class RainLevel extends AbstractFeature {
 			Object nmsEntity = getHandle.invoke(bukkitCraftHumanEntity.cast(player));
 
 			// net.minecraft.server.EntityPlayer nmsPlayer = (net.minecraft.server.EntityPlayer) nmsEntity;
-	        Object nmsPlayer = nmsEntityPlayer.cast(nmsEntity);
+			Object nmsPlayer = nmsEntityPlayer.cast(nmsEntity);
 
 			// nmsEntityHuman.setPlayerRainLevel(rainLevel);
 			setPlayerRainLevel.invoke(nmsPlayer, rainLevel);
@@ -178,7 +178,7 @@ public class RainLevel extends AbstractFeature {
 			Object nmsEntity = getHandle.invoke(bukkitCraftHumanEntity.cast(player));
 
 			// net.minecraft.server.EntityPlayer nmsPlayer = (net.minecraft.server.EntityPlayer) nmsEntity;
-	        Object nmsPlayer = nmsEntityPlayer.cast(nmsEntity);
+			Object nmsPlayer = nmsEntityPlayer.cast(nmsEntity);
 
 			// nmsEntityHuman.setPlayerRainLevel(rainLevel);
 			setPlayerThunderLevel.invoke(nmsPlayer, thunderLevel);
