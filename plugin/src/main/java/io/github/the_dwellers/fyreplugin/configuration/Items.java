@@ -24,7 +24,7 @@ import java.util.UUID;
  * inside the application. This includes items such as Currency or other unique
  * materials. This class uses lazy instantiation.
  * <p>
- * * Note: Remember to {@code .clone()} any returned static
+ * * Note: Remember to {@code .clone()} any static before returning.
  */
 public abstract class Items {
 
