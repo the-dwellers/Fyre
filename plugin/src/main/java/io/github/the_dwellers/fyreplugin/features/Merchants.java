@@ -247,6 +247,7 @@ public class Merchants extends AbstractFeature implements Listener {
 			case TOOLSMITH:
 				switch (level) {
 					case 10:
+						recipes.add(MerchantRecipes.buyDiamondHoe());
 						recipes.add(MerchantRecipes.buyDiamondPickaxe());
 					case 9:
 						recipes.add(MerchantRecipes.buyDiamondAxe());
@@ -255,22 +256,28 @@ public class Merchants extends AbstractFeature implements Listener {
 					case 7:
 					case 6:
 						recipes.add(MerchantRecipes.learnIronTools());
-					case 5:
+						recipes.add(MerchantRecipes.learnIronPickaxe());
+						case 5:
 						recipes.add(MerchantRecipes.buyIronAxe());
 						recipes.add(MerchantRecipes.buyIronSpade());
 						recipes.add(MerchantRecipes.buyIronPickaxe());
+						recipes.add(MerchantRecipes.buyIronHoe());
 					case 4:
 						recipes.add(MerchantRecipes.learnStoneTools());
+						recipes.add(MerchantRecipes.learnStonePickaxe());
 					case 3:
 						recipes.add(MerchantRecipes.buyStoneAxe());
 						recipes.add(MerchantRecipes.buyStoneSpade());
 						recipes.add(MerchantRecipes.buyStonePickaxe());
+						recipes.add(MerchantRecipes.buyStoneHoe());
 					case 2:
 						recipes.add(MerchantRecipes.learnWoodenTools());
+						recipes.add(MerchantRecipes.learnWoodenPickaxe());
 					case 1:
-						recipes.add(MerchantRecipes.buyWoodSpade());
 						recipes.add(MerchantRecipes.buyWoodAxe());
+						recipes.add(MerchantRecipes.buyWoodSpade());
 						recipes.add(MerchantRecipes.buyWoodPickaxe());
+						recipes.add(MerchantRecipes.buyWoodHoe());
 						break;
 					default:
 						break;
@@ -341,34 +348,65 @@ public class Merchants extends AbstractFeature implements Listener {
 				break;
 			case WEAPONSMITH:
 				switch (level) {
-					case 1:
-						// Weaponsmith level 2
+					case 10:
+						recipes.add(MerchantRecipes.buyDiamondSword());
+					case 9:
+					case 8:
+					case 7:
+					case 6:
+						recipes.add(MerchantRecipes.learnIronSword());
+					case 5:
+						recipes.add(MerchantRecipes.buyIronSword());
+					case 4:
+						recipes.add(MerchantRecipes.learnStoneSword());
+					case 3:
+						recipes.add(MerchantRecipes.buyStoneSword());
+					case 2:
 						recipes.add(MerchantRecipes.learnWoodenSword());
-						break;
-					default:
+					case 1:
 						recipes.add(MerchantRecipes.buyWoodSword());
+					default:
 						break;
 				}
 				break;
 			case ARMORER:
-				// Armorer level 1
-
-				recipes.add(MerchantRecipes.buyIronHelmet());
-				recipes.add(MerchantRecipes.buyIronChestPlate());
-				recipes.add(MerchantRecipes.buyIronLeggings());
-				recipes.add(MerchantRecipes.buyIronBoots());
-
-				recipes.add(MerchantRecipes.buyChainmailHelmet());
-				recipes.add(MerchantRecipes.buyChainmailChestPlate());
-				recipes.add(MerchantRecipes.buyChainmailLeggings());
-				recipes.add(MerchantRecipes.buyChainmailBoots());
-
-				recipes.add(MerchantRecipes.sellCoal());
-				recipes.add(MerchantRecipes.buyLeatherHelmet());
-				recipes.add(MerchantRecipes.buyLeatherChestPlate());
-				recipes.add(MerchantRecipes.buyLeatherLeggings());
-				recipes.add(MerchantRecipes.buyLeatherBoots());
-				break;
+			switch (level) {
+				case 10:
+					// recipes.add(MerchantRecipes.buyDiamondChestplate());
+					// recipes.add(MerchantRecipes.buyDiamondLeggings());
+				case 9:
+					// recipes.add(MerchantRecipes.buyDiamondHelmet());
+					// recipes.add(MerchantRecipes.buyDiamondBoots());
+				case 8:
+					recipes.add(MerchantRecipes.learnArmorAdvancedIron());
+				case 7:
+					recipes.add(MerchantRecipes.buyIronChestPlate());
+					recipes.add(MerchantRecipes.buyIronLeggings());
+					recipes.add(MerchantRecipes.learnArmorSimpleIron());
+				case 6:
+					recipes.add(MerchantRecipes.buyIronHelmet());
+					recipes.add(MerchantRecipes.buyIronBoots());
+				case 5:
+					recipes.add(MerchantRecipes.learnArmorAdvancedChainmail());
+					recipes.add(MerchantRecipes.learnArmorSimpleChainmail());
+				case 4:
+					recipes.add(MerchantRecipes.buyChainmailHelmet());
+					recipes.add(MerchantRecipes.buyChainmailChestPlate());
+					recipes.add(MerchantRecipes.buyChainmailLeggings());
+					recipes.add(MerchantRecipes.buyChainmailBoots());
+				case 3:
+					recipes.add(MerchantRecipes.learnArmorAdvancedLeather());
+				case 2:
+					recipes.add(MerchantRecipes.learnArmorSimpleLeather());
+					recipes.add(MerchantRecipes.buyLeatherChestPlate());
+					recipes.add(MerchantRecipes.buyLeatherLeggings());
+				case 1:
+					recipes.add(MerchantRecipes.buyLeatherHelmet());
+					recipes.add(MerchantRecipes.buyLeatherBoots());
+				default:
+					break;
+			}
+			break;
 			default:
 				// Profession-less villager
 				recipes.add(MerchantRecipes.sellSplinters());
