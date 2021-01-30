@@ -32,7 +32,7 @@ public class BloodMoon extends AbstractFeature implements Listener {
 	private Mobs mobs;
 
 	public MinecraftVersion getMinecraftVersion() {
-		return SupportedVersions.MC1164;
+		return SupportedVersions.MIN;
 	}
 
 	public String getName() {
@@ -63,9 +63,8 @@ public class BloodMoon extends AbstractFeature implements Listener {
 		@Override
 		public void run() {
 			World world = plugin.getServer().getWorlds().get(0);
-
-			// TODO Auto-generated method stub
 			boolean curMoon = bloodMoon;
+
 			bloodMoon = !world.isDayTime() && (world.getMoonPhase() == MoonPhase.FULL_MOON);
 
 			if (curMoon != bloodMoon) {
