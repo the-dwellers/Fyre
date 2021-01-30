@@ -601,7 +601,7 @@ public abstract class MerchantRecipes {
 
 	public static MerchantRecipe learnWoodenTools() {
 		if (LEARN_WOODEN_TOOLS == null) {
-			LEARN_WOODEN_TOOLS = new MerchantRecipe(Items.craftingBook(CraftingBook.WoodenTools), 1);
+			LEARN_WOODEN_TOOLS = new MerchantRecipe(Items.craftingBook(CraftingBook.ToolsWooden), 1);
 			ArrayList<ItemStack> ingredients = new ArrayList<ItemStack>();
 			ingredients.add(silver(40));
 			LEARN_WOODEN_TOOLS.setIngredients(ingredients);
@@ -611,7 +611,7 @@ public abstract class MerchantRecipes {
 
 	public static MerchantRecipe learnStoneTools() {
 		if (LEARN_STONE_TOOLS == null) {
-			LEARN_STONE_TOOLS = new MerchantRecipe(Items.craftingBook(CraftingBook.StoneTools), 1);
+			LEARN_STONE_TOOLS = new MerchantRecipe(Items.craftingBook(CraftingBook.ToolsStone), 1);
 			ArrayList<ItemStack> ingredients = new ArrayList<ItemStack>();
 			ingredients.add(silver(40));
 			LEARN_STONE_TOOLS.setIngredients(ingredients);
@@ -621,7 +621,7 @@ public abstract class MerchantRecipes {
 
 	public static MerchantRecipe learnIronTools() {
 		if (LEARN_IRON_TOOLS == null) {
-			LEARN_IRON_TOOLS = new MerchantRecipe(Items.craftingBook(CraftingBook.IronTools), 1);
+			LEARN_IRON_TOOLS = new MerchantRecipe(Items.craftingBook(CraftingBook.ToolsIron), 1);
 			ArrayList<ItemStack> ingredients = new ArrayList<ItemStack>();
 			ingredients.add(silver(40));
 			LEARN_IRON_TOOLS.setIngredients(ingredients);
@@ -631,7 +631,7 @@ public abstract class MerchantRecipes {
 
 	public static MerchantRecipe learnWoodenSword() {
 		if (LEARN_WOODEN_SWORD == null) {
-			LEARN_WOODEN_SWORD = new MerchantRecipe(Items.craftingBook(CraftingBook.WoodenSword), 1);
+			LEARN_WOODEN_SWORD = new MerchantRecipe(Items.craftingBook(CraftingBook.SwordWooden), 1);
 			ArrayList<ItemStack> ingredients = new ArrayList<ItemStack>();
 			ingredients.add(silver(20));
 			LEARN_WOODEN_SWORD.setIngredients(ingredients);
