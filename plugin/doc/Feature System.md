@@ -74,24 +74,25 @@ Graph of features and dependencies as of 14-June-2020
 
 ![Feature Dependency Graph](./img/feature-dependencies.drawio.png)
 
-| Feature              | Minimum Dependency   | Description                                                         | Comment                                                  |
-| -------------------- | -------------------- | ------------------------------------------------------------------- | -------------------------------------------------------- |
-| Development          | Any                  | Development features (not included in release)                      |                                                          |
-| NBTAdapter           | MC 1.13.2            | NBT functions such as saving, loading, generating chat text, etc... | Heavy integration with `net.minecraft.server`            |
-| TagDataHolderFeature | NBTAdapter           | Store arbitrary data in entity nbt                                  |                                                          |
-| TagInventoryFeature  | TagDataHolderFeature | Store inventories in entity tags                                    |                                                          |
-| BoatInventories      | TagInventoryFeature  | Open boats like chests                                              |                                                          |
-| Advancements         | Any                  | Advancement Progression                                             |                                                          |
-| AIFixes              | Any                  | AI Bugfixes and improvements                                        |                                                          |
-| ChatManagerFeature   | NBTAdapter           | Chat formatting                                                     |                                                          |
-| ClientBreakItem      | MC 1.14.4            | Client tool break                                                   | Why is this not in the api‽                              |
-| DaylightExtension    | Any                  | Daylight Extending                                                  | Broken; issues with days advancing                       |
-| EntityAttributes     | Any                  | Entity Value changes                                                |                                                          |
-| ItemFeatures         | Any                  | Functionality relating to items                                     |                                                          |
-| LandTrampling        | Any                  | Trample grass and crops into dirt                                   |                                                          |
-| Management           | Any                  | Server management utilities                                         |                                                          |
-| Merchants            | MC 1.14.4            | Trade with NPCs and unlock levels                                   |                                                          |
-| PlantHoeHarvest      | MC 1.14.4            | Right-click to harvest crops                                        | Soft depend on ClientBreakItem to provide visual effects |
-| Compost              | MC 1.14.4            | Compost extra items                                                 |                                                          |
+| Feature              | Minimum Dependency   | Description                                                         | Comment                                                      |
+| -------------------- | -------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------ |
+| Development          | Any                  | Development features (not included in release)                      |                                                              |
+| NBTAdapter           | MC 1.13.2            | NBT functions such as saving, loading, generating chat text, etc... | Heavy integration with `net.minecraft.server`                |
+| TagDataHolderFeature | NBTAdapter           | Store arbitrary data in entity nbt                                  |                                                              |
+| TagInventoryFeature  | TagDataHolderFeature | Store inventories in entity tags                                    |                                                              |
+| BoatInventories      | TagInventoryFeature  | Open boats like chests                                              |                                                              |
+| Advancements         | Any                  | Advancement Progression                                             |                                                              |
+| AIFixes              | Any                  | AI Bugfixes and improvements                                        |                                                              |
+| ChatManagerFeature   | NBTAdapter           | Chat formatting                                                     |                                                              |
+| ClientBreakItem      | MC 1.14.4            | Client tool break                                                   | Why is this not in the api‽                                  |
+| BloodMoon            | Any                  | Blood moon event with harder and more mobs                          |                                                              |
+| EntityAttributes     | Any                  | Entity Value changes                                                |                                                              |
+| ItemFeatures         | Any                  | Functionality relating to items                                     |                                                              |
+| LandTrampling        | Any                  | Trample grass and crops into dirt                                   |                                                              |
+| Management           | Any                  | Server management utilities                                         |                                                              |
+| Merchants            | MC 1.14.4            | Trade with NPCs and unlock levels                                   |                                                              |
+| PlantHoeHarvest      | MC 1.14.4            | Right-click to harvest crops                                        | Soft depend on ClientBreakItem to provide visual effects     |
+| Compost              | MC 1.14.4            | Compost extra items                                                 |                                                              |
+| Rainlevel            | MC 1.16.5            | Set rainLevel to custom values                                      | Requires server patch. Large levels cause severe client lag. |
 
-*(Any represents any version supported by Fyre. The current smallest supported version is MC 1.13.2)*
+*('Any' represents any version supported by Fyre. The current smallest supported version is MC 1.13.2)*
