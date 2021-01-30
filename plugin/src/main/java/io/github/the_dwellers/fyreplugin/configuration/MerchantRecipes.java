@@ -13,6 +13,10 @@ import java.util.ArrayList;
  */
 public abstract class MerchantRecipes {
 
+	// ~~~~~~~~~~~~ Coin Exchange ~~~~~~~~~~~~ //
+	private static MerchantRecipe EXCHANGE_SILVER_GOLD;
+	private static MerchantRecipe EXCHANGE_GOLD_SILVER;
+
 	// ~~~~~~~~~~~~~~ Buy Tools ~~~~~~~~~~~~~~ //
 	// Spades
 	private static MerchantRecipe BUY_SPADE_WOOD;
@@ -110,6 +114,35 @@ public abstract class MerchantRecipes {
 	// ====================================================== //
 	// ====================== Functions ===================== //
 	// ====================================================== //
+
+	// ~~~~~~~~~~~~ Coin Exchange ~~~~~~~~~~~~ //
+
+
+	public static MerchantRecipe exchangeSilverGold() {
+
+		if (EXCHANGE_SILVER_GOLD == null) {
+			EXCHANGE_SILVER_GOLD = new MerchantRecipe(silver(64), 90);
+
+			ArrayList<ItemStack> ingredients = new ArrayList<ItemStack>();
+			ingredients.add(gold(1));
+
+			EXCHANGE_SILVER_GOLD.setIngredients(ingredients);
+		}
+		return EXCHANGE_SILVER_GOLD;
+	}
+
+	public static MerchantRecipe exchangeGoldSilver() {
+
+		if (EXCHANGE_GOLD_SILVER == null) {
+			EXCHANGE_GOLD_SILVER = new MerchantRecipe(gold(1), 90);
+
+			ArrayList<ItemStack> ingredients = new ArrayList<ItemStack>();
+			ingredients.add(silver(64));
+
+			EXCHANGE_GOLD_SILVER.setIngredients(ingredients);
+		}
+		return EXCHANGE_GOLD_SILVER;
+	}
 
 	// ~~~~~~~~~~~~~~ Buy Tools ~~~~~~~~~~~~~~ //
 	// -------- Spades -------- //
@@ -609,7 +642,7 @@ public abstract class MerchantRecipes {
 
 	public static MerchantRecipe learnArmorAdvancedLeather() {
 		if (LEARN_ARMOR_HAT_BOOTS_LEATHER == null) {
-			LEARN_ARMOR_HAT_BOOTS_LEATHER = new MerchantRecipe(Items.craftingBook(CraftingBook.CraftingTable), 1);
+			LEARN_ARMOR_HAT_BOOTS_LEATHER = new MerchantRecipe(Items.craftingBook(CraftingBook.ArmorChestLegsLeather), 1);
 			setPrice(LEARN_ARMOR_HAT_BOOTS_LEATHER, 60);
 		}
 		return LEARN_ARMOR_HAT_BOOTS_LEATHER;
@@ -617,7 +650,7 @@ public abstract class MerchantRecipes {
 
 	public static MerchantRecipe learnArmorAdvancedChainmail() {
 		if (LEARN_ARMOR_HAT_BOOTS_CHAINMAIL == null) {
-			LEARN_ARMOR_HAT_BOOTS_CHAINMAIL = new MerchantRecipe(Items.craftingBook(CraftingBook.CraftingTable), 1);
+			LEARN_ARMOR_HAT_BOOTS_CHAINMAIL = new MerchantRecipe(Items.craftingBook(CraftingBook.ArmorChestLegsChainmail), 1);
 			setPrice(LEARN_ARMOR_HAT_BOOTS_CHAINMAIL, 120);
 		}
 		return LEARN_ARMOR_HAT_BOOTS_CHAINMAIL;
@@ -625,7 +658,7 @@ public abstract class MerchantRecipes {
 
 	public static MerchantRecipe learnArmorAdvancedIron() {
 		if (LEARN_ARMOR_HAT_BOOTS_IRON == null) {
-			LEARN_ARMOR_HAT_BOOTS_IRON = new MerchantRecipe(Items.craftingBook(CraftingBook.CraftingTable), 1);
+			LEARN_ARMOR_HAT_BOOTS_IRON = new MerchantRecipe(Items.craftingBook(CraftingBook.ArmorChestLegsIron), 1);
 			setPrice(LEARN_ARMOR_HAT_BOOTS_IRON, 240);
 		}
 		return LEARN_ARMOR_HAT_BOOTS_IRON;
@@ -633,7 +666,7 @@ public abstract class MerchantRecipes {
 
 	public static MerchantRecipe learnArmorSimpleLeather() {
 		if (LEARN_ARMOR_CHEST_LEGS_LEATHER == null) {
-			LEARN_ARMOR_CHEST_LEGS_LEATHER = new MerchantRecipe(Items.craftingBook(CraftingBook.CraftingTable), 1);
+			LEARN_ARMOR_CHEST_LEGS_LEATHER = new MerchantRecipe(Items.craftingBook(CraftingBook.ArmorHatBootsLeather), 1);
 			setPrice(LEARN_ARMOR_CHEST_LEGS_LEATHER, 40);
 		}
 		return LEARN_ARMOR_CHEST_LEGS_LEATHER;
@@ -641,7 +674,7 @@ public abstract class MerchantRecipes {
 
 	public static MerchantRecipe learnArmorSimpleChainmail() {
 		if (LEARN_ARMOR_CHEST_LEGS_CHAINMAIL == null) {
-			LEARN_ARMOR_CHEST_LEGS_CHAINMAIL = new MerchantRecipe(Items.craftingBook(CraftingBook.CraftingTable), 1);
+			LEARN_ARMOR_CHEST_LEGS_CHAINMAIL = new MerchantRecipe(Items.craftingBook(CraftingBook.ArmorHatBootsChainmail), 1);
 			setPrice(LEARN_ARMOR_CHEST_LEGS_CHAINMAIL, 80);
 		}
 		return LEARN_ARMOR_CHEST_LEGS_CHAINMAIL;
@@ -649,7 +682,7 @@ public abstract class MerchantRecipes {
 
 	public static MerchantRecipe learnArmorSimpleIron() {
 		if (LEARN_ARMOR_CHEST_LEGS_IRON == null) {
-			LEARN_ARMOR_CHEST_LEGS_IRON = new MerchantRecipe(Items.craftingBook(CraftingBook.CraftingTable), 1);
+			LEARN_ARMOR_CHEST_LEGS_IRON = new MerchantRecipe(Items.craftingBook(CraftingBook.ArmorHatBootsIron), 1);
 			setPrice(LEARN_ARMOR_CHEST_LEGS_IRON, 160);
 		}
 		return LEARN_ARMOR_CHEST_LEGS_IRON;

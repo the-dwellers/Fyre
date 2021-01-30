@@ -413,6 +413,10 @@ public class Merchants extends AbstractFeature implements Listener {
 				recipes.add(MerchantRecipes.learnCraftingTable());
 				break;
 		}
+
+		recipes.add(MerchantRecipes.exchangeSilverGold());
+		recipes.add(MerchantRecipes.exchangeGoldSilver());
+
 		return recipes;
 	}
 
