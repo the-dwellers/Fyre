@@ -28,14 +28,11 @@ public class PluginConfigProvider implements Provider<PluginConfig> {
 			}
 		}
 
-		PluginConfig config;
 		try {
-			config = mapper.readValue(configFile, PluginConfig.class);
+			return mapper.readValue(configFile, PluginConfig.class);
 		} catch (IOException e) {
 			// TODO: Handle properly
 			throw new RuntimeException(e);
 		}
-
-		return config;
 	}
 }

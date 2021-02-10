@@ -5,15 +5,20 @@ import ch.jalu.injector.InjectorBuilder;
 import io.github.the_dwellers.fyreplugin.configuration.Strings;
 import io.github.the_dwellers.fyreplugin.configuration.SupportedVersions;
 import io.github.the_dwellers.fyreplugin.core.AbstractFeature;
+import io.github.the_dwellers.fyreplugin.core.MinecraftVersion;
 import io.github.the_dwellers.fyreplugin.features.*;
 import io.github.the_dwellers.fyreplugin.features.tagdata.TagDataHolderFeature;
 import io.github.the_dwellers.fyreplugin.features.tagdata.TagInventoryFeature;
-import io.github.the_dwellers.fyreplugin.core.MinecraftVersion;
 import io.github.the_dwellers.fyreplugin.model.PluginConfig;
 import io.github.the_dwellers.fyreplugin.provider.PluginConfigProvider;
+import io.github.the_dwellers.fyreplugin.service.PlayerConfigService;
 import org.bukkit.Bukkit;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.io.File;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.util.logging.Logger;
@@ -28,14 +33,14 @@ import java.util.logging.Logger;
  * @version 0.1
  * @see https://github.com/the-dwellers/Fyre
  */
-public class FyrePlugin extends JavaPlugin {
+public class FyrePlugin extends JavaPlugin implements Listener {
 
 	private static final Logger log = Logger.getLogger("Minecraft");
 	// No other way to do this? Complains about Type safety, but 'Class<?
 	// extends AbstractFeature>[]' turns into 'Cannot create a generic array of
 	// Class<? extends AbstractFeature>'
 	@SuppressWarnings("unchecked")
-	public static Class<? extends AbstractFeature>[] features = new Class[] {
+	public static Class<? extends AbstractFeature>[] features = new Class[]{
 			Development.class, // Development Features (must be enabled first)
 			NBTAdapter.class, // NBT functions such as saving, loading, generating chat text, etc...
 			TagDataHolderFeature.class, // Store arbitrary data in entity nbt
@@ -57,10 +62,11 @@ public class FyrePlugin extends JavaPlugin {
 			Mobs.class, // Mob tweaks, including equipment
 			SpikyCactus.class, // Damage player when punching cactuses
 	};
+	public final File playerDataFolder = new File(getDataFolder(), "players");
 	public MinecraftVersion mcVersion;
-	private Injector injector;
-
 	public PluginConfig config;
+	public PlayerConfigService playerConfigService;
+	private Injector injector;
 
 	public FyrePlugin() {
 	}
@@ -123,6 +129,8 @@ public class FyrePlugin extends JavaPlugin {
 			}
 		}
 
+		getServer().getPluginManager().registerEvents(this, this);
+
 		// Time taken to load
 		DecimalFormat decimalFormat = new DecimalFormat("0.00");
 		decimalFormat.setRoundingMode(RoundingMode.DOWN);
@@ -137,12 +145,25 @@ public class FyrePlugin extends JavaPlugin {
 				log.warning(Strings.LOG_PREFIX + "Plugin data folder wasn't created!");
 		}
 
+		if (!playerDataFolder.exists()) {
+			boolean created = playerDataFolder.mkdirs();
+			if (!created)
+				log.warning(Strings.LOG_PREFIX + "Player data folder wasn't created!");
+		}
+
 		injector = new InjectorBuilder().addDefaultHandlers("io.github.the_dwellers.fyreplugin").create();
 
 		injector.register(FyrePlugin.class, this);
 
 		injector.registerProvider(PluginConfig.class, PluginConfigProvider.class);
 
+		playerConfigService = injector.getSingleton(PlayerConfigService.class);
 		config = injector.getSingleton(PluginConfig.class);
+	}
+
+	@EventHandler
+	public void onPlayerJoin(PlayerJoinEvent event) {
+		// Initialize player's config
+		playerConfigService.get(event.getPlayer());
 	}
 }
