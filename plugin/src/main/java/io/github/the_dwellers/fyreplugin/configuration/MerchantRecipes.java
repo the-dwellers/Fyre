@@ -111,6 +111,69 @@ public abstract class MerchantRecipes {
 	private static MerchantRecipe LEARN_ARMOR_CHEST_LEGS_CHAINMAIL;
 	private static MerchantRecipe LEARN_ARMOR_CHEST_LEGS_IRON;
 
+	// ~~~~~~~~~ Buy Food ~~~~~~~~ //
+	// MEATS //
+	private static MerchantRecipe STEAK_TIER_1;
+	private static MerchantRecipe STEAK_TIER_2;
+	private static MerchantRecipe STEAK_TIER_3;
+	private static MerchantRecipe STEAK_TIER_4;
+	private static MerchantRecipe STEAK_TIER_5;
+
+	private static MerchantRecipe MUTTON_TIER_1;
+	private static MerchantRecipe MUTTON_TIER_2;
+	private static MerchantRecipe MUTTON_TIER_3;
+	private static MerchantRecipe MUTTON_TIER_4;
+	private static MerchantRecipe MUTTON_TIER_5;
+
+	private static MerchantRecipe PORK_TIER_1;
+	private static MerchantRecipe PORK_TIER_2;
+	private static MerchantRecipe PORK_TIER_3;
+	private static MerchantRecipe PORK_TIER_4;
+	private static MerchantRecipe PORK_TIER_5;
+
+	private static MerchantRecipe CHICKEN_TIER_1;
+	private static MerchantRecipe CHICKEN_TIER_2;
+	private static MerchantRecipe CHICKEN_TIER_3;
+	private static MerchantRecipe CHICKEN_TIER_4;
+	private static MerchantRecipe CHICKEN_TIER_5;
+
+	private static MerchantRecipe RABBIT_STEW_TIER_1;
+	private static MerchantRecipe RABBIT_STEW_TIER_2;
+	private static MerchantRecipe RABBIT_STEW_TIER_3;
+	private static MerchantRecipe RABBIT_STEW_TIER_4;
+	private static MerchantRecipe RABBIT_STEW_TIER_5;
+
+	private static MerchantRecipe COOKED_COD_TIER_1;
+	private static MerchantRecipe COOKED_COD_TIER_2;
+	private static MerchantRecipe COOKED_COD_TIER_3;
+	private static MerchantRecipe COOKED_COD_TIER_4;
+	private static MerchantRecipe COOKED_COD_TIER_5;
+
+	// VEGGIES //
+	private static MerchantRecipe POTATO_TIER_1;
+	private static MerchantRecipe POTATO_TIER_2;
+	private static MerchantRecipe POTATO_TIER_3;
+	private static MerchantRecipe POTATO_TIER_4;
+
+	private static MerchantRecipe BREAD_TIER_1;
+	private static MerchantRecipe BREAD_TIER_2;
+	private static MerchantRecipe BREAD_TIER_3;
+	private static MerchantRecipe BREAD_TIER_4;
+
+	private static MerchantRecipe MUSHROOM_SOUP_TIER_1;
+	private static MerchantRecipe MUSHROOM_SOUP_TIER_2;
+	private static MerchantRecipe MUSHROOM_SOUP_TIER_3;
+	private static MerchantRecipe MUSHROOM_SOUP_TIER_4;
+	private static MerchantRecipe MUSHROOM_SOUP_TIER_5;
+
+	private static MerchantRecipe BEETROOT_SOUP_TIER_1;
+	private static MerchantRecipe BEETROOT_SOUP_TIER_2;
+	private static MerchantRecipe BEETROOT_SOUP_TIER_3;
+	private static MerchantRecipe BEETROOT_SOUP_TIER_4;
+	private static MerchantRecipe BEETROOT_SOUP_TIER_5;
+
+
+
 	// ====================================================== //
 	// ====================== Functions ===================== //
 	// ====================================================== //
