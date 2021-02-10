@@ -1,3 +1,4 @@
+:start
 @echo off
 
 cls
@@ -50,7 +51,7 @@ xcopy """..\..\datapack" "world\datapacks" /S /E /D /Q
 IF NOT EXIST "server.jar" (
 	echo Downloading PaperMC...
 
-	curl -o "server.jar" "https://papermc.io/api/v1/paper/1.16.1/latest/download"
+	curl -o "server.jar" "https://papermc.io/api/v1/paper/1.16.5/latest/download"
 
 	echo PaperMC downloaded
 )
@@ -72,3 +73,7 @@ cls
 java -Xms256M -Xmx1024M -jar server.jar nogui -h 127.0.0.1
 
 cd %~dp0
+
+echo Press any key to restart...
+pause > NUL
+goto start
