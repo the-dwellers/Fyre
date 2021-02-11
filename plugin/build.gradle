@@ -1,13 +1,12 @@
 import org.apache.tools.ant.filters.ReplaceTokens
 
 plugins {
-	id 'java'
-
-	id 'com.github.johnrengelman.shadow' version '6.0.0'
+	id('java')
+	id('com.github.johnrengelman.shadow') version('6.1.0')
 }
 
-group 'io.github.the-dwellers'
-version '0.1.0-SNAPSHOT'
+group('io.github.the-dwellers')
+version('0.1.0-SNAPSHOT')
 
 repositories {
 	mavenCentral()
@@ -17,13 +16,13 @@ repositories {
 }
 
 dependencies {
-	compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.12'
-	annotationProcessor group: 'org.projectlombok', name: 'lombok', version: '1.18.12'
+	compileOnly('org.projectlombok:lombok:1.18.18')
+	annotationProcessor('org.projectlombok:lombok:1.18.18')
 
-	compileOnly group: 'com.destroystokyo.paper', name: 'paper-api', version: '1.16.5-R0.1-SNAPSHOT'
+	compileOnly('com.destroystokyo.paper:paper-api:1.16.5-R0.1-SNAPSHOT')
 
-	implementation group: 'ch.jalu', name: 'injector', version: '1.0'
-	implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.11.0'
+	implementation('ch.jalu:injector:1.0')
+	implementation('com.fasterxml.jackson.core:jackson-databind:2.12.1')
 }
 
 shadowJar {
