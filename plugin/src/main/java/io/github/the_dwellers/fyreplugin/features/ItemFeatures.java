@@ -28,9 +28,16 @@ import org.bukkit.event.entity.EntityInteractEvent;
 import org.bukkit.event.entity.EntityShootBowEvent;
 import org.bukkit.event.entity.EntityToggleGlideEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
+import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.projectiles.ProjectileSource;
+import org.bukkit.potion.PotionEffectType;
+
+
+import java.util.List;
+;
+
 
 /**
  * Features and logic required by custom items.
@@ -185,6 +192,50 @@ public class ItemFeatures extends AbstractFeature implements Listener {
 			}
 		}
 	}
+	/**
+	 *
+	 * Eat event for special food from farming levels that applies boons based on item desc.
+	 *
+	 */
+	@EventHandler()
+	public void onPlayerItemConsume(PlayerItemConsumeEvent event){
+		List<String> item_desc = event.getItem().getLore();
+		if (item_desc != null){
+			Player target  = event.getPlayer();
+
+			for (String line : item_desc )
+			{
+				if (line.contains("Hunger"))
+				{
+					int value = Integer.parseInt(line.substring(line.lastIndexOf(" ") + 1));
+					target.setFoodLevel(target.getFoodLevel() + value );
+				}
+				else if (line.contains("Saturation"))
+				{
+					int value = Integer.parseInt(line.substring(line.lastIndexOf(" ") + 1));
+					target.setSaturation(target.getSaturation() + value );
+				}
+				else if (line.contains("Effect"))
+				{
+
+					System.out.println("YES");
+					String effect_full = line.substring(line.lastIndexOf(": ") + 2, line.lastIndexOf("- "));
+
+					System.out.println(effect_full);
+					String[] strength_effect = effect_full.split("(?<=\\D)(?=\\d)");
+					String effect = strength_effect[0];
+					String strength = strength_effect[1];
+					String duration_mins = line.substring(line.lastIndexOf("- ") + 2, line.lastIndexOf(":"));
+					String duration_secs = line.substring(line.lastIndexOf(":") + 1, line.lastIndexOf(" min"));
+					System.out.println(effect);
+					System.out.println(strength);
+					System.out.println(duration_mins);
+					System.out.println(duration_secs);
+
+				}
+			}
+		}
+	}
 
 	/**
 	 * Debug command: Give money to player
@@ -210,4 +261,5 @@ public class ItemFeatures extends AbstractFeature implements Listener {
 			return true;
 		}
 	}
+
 }

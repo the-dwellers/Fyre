@@ -114,6 +114,51 @@ public abstract class ItemCollections {
 		}
 		return item;
 	}
+/**
+	 * Retrieve a Fyre-copy of a specific farm food of a specific tier.
+	 * @param food Food Name (Beef, Chicken, Bread etc...)
+	 * @param tier Tier (The strength of the Food, 1-5)
+	 */
+	public static ItemStack getFarmFood(Food_Name food, Tier tier) {
+		switch (food) {
+			case Beef:
+				switch (tier) {
+					case Two:
+						return Items.getSteakTier2();
+					case Three:
+						return Items.getSteakTier3();
+					case Four:
+						return Items.getSteakTier4();
+					case Five:
+						return Items.getSteakTier5();
+					default:
+						return Items.getSteakTier1();
+				}
+			default:
+			case Mutton:
+				switch (tier) {
+					case Two:
+						return Items.getMuttonTier2();
+					case Three:
+						return Items.getMuttonTier3();
+					case Four:
+						return Items.getMuttonTier4();
+					case Five:
+						return Items.getMuttonTier5();
+					default:
+						return Items.getMuttonTier1();
+				}
+				// case Pork:
+				// case Chicken:
+				// case Cod:
+				// case Rabbit:
+				// case Mushroom:
+				// case Beetroot:
+				// case Bread:
+				// case Potato:
+		}
+	}
+
 
 	/**
 	 * Material-based minecraft tools:
@@ -140,4 +185,11 @@ public abstract class ItemCollections {
 		Wood, Stone, Iron, Gold, Diamond
 	}
 
+	public enum Food_Name{
+		Beef, Pork, Mutton, Chicken, Cod, Rabbit_Stew, Mushroom_Soup, Beetroot_Soup, Bread, Potato
+	}
+
+	public enum Tier{
+		One, Two, Three, Four, Five
+	}
 }

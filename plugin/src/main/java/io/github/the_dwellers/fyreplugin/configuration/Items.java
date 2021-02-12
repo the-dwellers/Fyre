@@ -143,6 +143,66 @@ public abstract class Items {
 	private static ItemStack SILVER_COIN;
 	private static ItemStack GOLD_COIN;
 
+	// -------- Food -------- //
+	private static ItemStack STEAK_TIER_1;
+	private static ItemStack STEAK_TIER_2;
+	private static ItemStack STEAK_TIER_3;
+	private static ItemStack STEAK_TIER_4;
+	private static ItemStack STEAK_TIER_5;
+
+	private static ItemStack MUTTON_TIER_1;
+	private static ItemStack MUTTON_TIER_2;
+	private static ItemStack MUTTON_TIER_3;
+	private static ItemStack MUTTON_TIER_4;
+	private static ItemStack MUTTON_TIER_5;
+
+	private static ItemStack PORK_TIER_1;
+	private static ItemStack PORK_TIER_2;
+	private static ItemStack PORK_TIER_3;
+	private static ItemStack PORK_TIER_4;
+	private static ItemStack PORK_TIER_5;
+
+	private static ItemStack CHICKEN_TIER_1;
+	private static ItemStack CHICKEN_TIER_2;
+	private static ItemStack CHICKEN_TIER_3;
+	private static ItemStack CHICKEN_TIER_4;
+	private static ItemStack CHICKEN_TIER_5;
+
+	private static ItemStack RABBIT_STEW_TIER_1;
+	private static ItemStack RABBIT_STEW_TIER_2;
+	private static ItemStack RABBIT_STEW_TIER_3;
+	private static ItemStack RABBIT_STEW_TIER_4;
+	private static ItemStack RABBIT_STEW_TIER_5;
+
+	private static ItemStack COOKED_COD_TIER_1;
+	private static ItemStack COOKED_COD_TIER_2;
+	private static ItemStack COOKED_COD_TIER_3;
+	private static ItemStack COOKED_COD_TIER_4;
+	private static ItemStack COOKED_COD_TIER_5;
+
+	// VEGGIES //
+	private static ItemStack POTATO_TIER_1;
+	private static ItemStack POTATO_TIER_2;
+	private static ItemStack POTATO_TIER_3;
+	private static ItemStack POTATO_TIER_4;
+
+	private static ItemStack BREAD_TIER_1;
+	private static ItemStack BREAD_TIER_2;
+	private static ItemStack BREAD_TIER_3;
+	private static ItemStack BREAD_TIER_4;
+
+	private static ItemStack MUSHROOM_SOUP_TIER_1;
+	private static ItemStack MUSHROOM_SOUP_TIER_2;
+	private static ItemStack MUSHROOM_SOUP_TIER_3;
+	private static ItemStack MUSHROOM_SOUP_TIER_4;
+	private static ItemStack MUSHROOM_SOUP_TIER_5;
+
+	private static ItemStack BEETROOT_SOUP_TIER_1;
+	private static ItemStack BEETROOT_SOUP_TIER_2;
+	private static ItemStack BEETROOT_SOUP_TIER_3;
+	private static ItemStack BEETROOT_SOUP_TIER_4;
+	private static ItemStack BEETROOT_SOUP_TIER_5;
+
 	// ~~~~~~~~~~~~~ Item Methods ~~~~~~~~~~~~ //
 	public static ItemStack getLeatherHelmet() {
 		if (ARMOR_HELMET_LEATHER == null) {
@@ -688,6 +748,196 @@ public abstract class Items {
 
 		return ARROW_PIONEER.clone();
 	}
+
+	public static ItemStack getSteakTier1() {
+		if (STEAK_TIER_1 == null) {
+			STEAK_TIER_1 = new ItemStack(Material.COOKED_BEEF, 1);
+			ItemMeta meta = STEAK_TIER_1.getItemMeta();
+			meta.setDisplayName(PREFIX_UNCOMMON + "Steak (OK)");
+
+			ArrayList<String> lore = new ArrayList<String>();
+			lore.add(ChatColor.GRAY + "Overdone steak, gets the job done");
+			lore.add(ChatColor.GOLD + "Hunger + 1");
+			meta.setLore(lore);
+
+			STEAK_TIER_1.setItemMeta(meta);
+			STEAK_TIER_1.ensureServerConversions();
+		}
+
+		return STEAK_TIER_1.clone();
+	}
+	public static ItemStack getSteakTier2() {
+		if (STEAK_TIER_2 == null) {
+			STEAK_TIER_2 = new ItemStack(Material.COOKED_BEEF, 1);
+			ItemMeta meta = STEAK_TIER_2.getItemMeta();
+			meta.setDisplayName(PREFIX_UNCOMMON + "Steak (Good)");
+
+			ArrayList<String> lore = new ArrayList<String>();
+			lore.add(ChatColor.GRAY + "Medium Steak, slightly burnt");
+			lore.add(ChatColor.GOLD + "Hunger: + 2");
+			lore.add(ChatColor.YELLOW + "Saturation: + 2");
+
+			meta.setLore(lore);
+
+			STEAK_TIER_2.setItemMeta(meta);
+			STEAK_TIER_2.ensureServerConversions();
+		}
+
+		return STEAK_TIER_2.clone();
+	}
+	public static ItemStack getSteakTier3() {
+		if (STEAK_TIER_3 == null) {
+			STEAK_TIER_3 = new ItemStack(Material.COOKED_BEEF, 1);
+			ItemMeta meta = STEAK_TIER_3.getItemMeta();
+			meta.setDisplayName(PREFIX_UNCOMMON + "Steak (Great)");
+
+			ArrayList<String> lore = new ArrayList<String>();
+			lore.add(ChatColor.GRAY + "Medium rare, flavourful");
+			lore.add(ChatColor.GOLD + "Hunger: + 3");
+			lore.add(ChatColor.YELLOW + "Saturation: + 2");
+			meta.setLore(lore);
+
+			STEAK_TIER_3.setItemMeta(meta);
+			STEAK_TIER_3.ensureServerConversions();
+		}
+
+		return STEAK_TIER_3.clone();
+	}
+	public static ItemStack getSteakTier4() {
+		if (STEAK_TIER_4 == null) {
+			STEAK_TIER_4 = new ItemStack(Material.COOKED_BEEF, 1);
+			ItemMeta meta = STEAK_TIER_4.getItemMeta();
+			meta.setDisplayName(PREFIX_UNCOMMON + "Steak (Super)");
+
+			ArrayList<String> lore = new ArrayList<String>();
+			lore.add(ChatColor.GRAY + "This steak appears more than it seems?");
+			lore.add(ChatColor.GOLD + "Hunger: + 3");
+			lore.add(ChatColor.YELLOW + "Saturation: + 2");
+			lore.add(ChatColor.DARK_PURPLE + "Effect: Health Boost 1 - 1 min");
+			meta.setLore(lore);
+
+			STEAK_TIER_4.setItemMeta(meta);
+			STEAK_TIER_4.ensureServerConversions();
+		}
+
+		return STEAK_TIER_4.clone();
+	}
+
+	public static ItemStack getSteakTier5() {
+		if (STEAK_TIER_5 == null) {
+			STEAK_TIER_5 = new ItemStack(Material.COOKED_BEEF, 1);
+			ItemMeta meta = STEAK_TIER_5.getItemMeta();
+			meta.setDisplayName(PREFIX_UNCOMMON + "Steak (Divine)");
+
+			ArrayList<String> lore = new ArrayList<String>();
+			lore.add(ChatColor.GRAY + "A steak that has broken its limits and gone beyond");
+			lore.add(ChatColor.GOLD + "Hunger: + 3");
+			lore.add(ChatColor.YELLOW + "Saturation: + 2");
+			lore.add(ChatColor.DARK_PURPLE + "Effect: Health Boost 2 - 1:30 min");
+			meta.setLore(lore);
+
+			STEAK_TIER_5.setItemMeta(meta);
+			STEAK_TIER_5.ensureServerConversions();
+		}
+
+		return STEAK_TIER_5.clone();
+	}
+
+
+	public static ItemStack getMuttonTier1() {
+		if (MUTTON_TIER_1 == null) {
+			MUTTON_TIER_1 = new ItemStack(Material.COOKED_MUTTON, 1);
+			ItemMeta meta = MUTTON_TIER_1.getItemMeta();
+			meta.setDisplayName(PREFIX_UNCOMMON + "Mutton (OK)");
+
+			ArrayList<String> lore = new ArrayList<String>();
+			lore.add(ChatColor.GRAY + "Very chewy, almost like a piece of gum");
+			lore.add(ChatColor.GOLD + "Hunger + 1");
+			meta.setLore(lore);
+
+			MUTTON_TIER_1.setItemMeta(meta);
+			MUTTON_TIER_1.ensureServerConversions();
+		}
+
+		return MUTTON_TIER_1.clone();
+	}
+	public static ItemStack getMuttonTier2() {
+		if (MUTTON_TIER_2 == null) {
+			MUTTON_TIER_2 = new ItemStack(Material.COOKED_MUTTON, 1);
+			ItemMeta meta = MUTTON_TIER_2.getItemMeta();
+			meta.setDisplayName(PREFIX_UNCOMMON + "Mutton (Good)");
+
+			ArrayList<String> lore = new ArrayList<String>();
+			lore.add(ChatColor.GRAY + "Quality mutton, just like mamas");
+			lore.add(ChatColor.GOLD + "Hunger: + 2");
+			lore.add(ChatColor.YELLOW + "Saturation: + 2");
+			meta.setLore(lore);
+
+			MUTTON_TIER_2.setItemMeta(meta);
+			MUTTON_TIER_2.ensureServerConversions();
+		}
+
+		return MUTTON_TIER_2.clone();
+	}
+	public static ItemStack getMuttonTier3() {
+		if (MUTTON_TIER_3 == null) {
+			MUTTON_TIER_3 = new ItemStack(Material.COOKED_MUTTON, 1);
+			ItemMeta meta = MUTTON_TIER_3.getItemMeta();
+			meta.setDisplayName(PREFIX_UNCOMMON + "Mutton (Great)");
+
+			ArrayList<String> lore = new ArrayList<String>();
+			lore.add(ChatColor.GRAY + "Meat from the best sheep in the herd");
+			lore.add(ChatColor.GOLD + "Hunger: + 3");
+			lore.add(ChatColor.YELLOW + "Saturation: + 2");
+
+			meta.setLore(lore);
+
+			MUTTON_TIER_3.setItemMeta(meta);
+			MUTTON_TIER_3.ensureServerConversions();
+		}
+
+		return MUTTON_TIER_3.clone();
+	}
+	public static ItemStack getMuttonTier4() {
+		if (MUTTON_TIER_4 == null) {
+			MUTTON_TIER_4 = new ItemStack(Material.COOKED_MUTTON, 1);
+			ItemMeta meta = MUTTON_TIER_4.getItemMeta();
+			meta.setDisplayName(PREFIX_UNCOMMON + "Mutton (Super)");
+
+			ArrayList<String> lore = new ArrayList<String>();
+			lore.add(ChatColor.GRAY + "Fat and Muscle interwined perfectly");
+			lore.add(ChatColor.GOLD + "Hunger: + 3");
+			lore.add(ChatColor.YELLOW + "Saturation: + 2");
+			lore.add(ChatColor.DARK_PURPLE + "Effect: Regen 1 - 1 min");
+			meta.setLore(lore);
+
+			MUTTON_TIER_4.setItemMeta(meta);
+			MUTTON_TIER_4.ensureServerConversions();
+		}
+
+		return MUTTON_TIER_4.clone();
+	}
+
+	public static ItemStack getMuttonTier5() {
+		if (MUTTON_TIER_5 == null) {
+			MUTTON_TIER_5 = new ItemStack(Material.COOKED_MUTTON, 1);
+			ItemMeta meta = MUTTON_TIER_5.getItemMeta();
+			meta.setDisplayName(PREFIX_UNCOMMON + "Mutton (Divine)");
+
+			ArrayList<String> lore = new ArrayList<String>();
+			lore.add(ChatColor.GRAY + "Meat from a sheep chosen by god");
+			lore.add(ChatColor.GOLD + "Hunger: + 3");
+			lore.add(ChatColor.YELLOW + "Saturation: + 2");
+			lore.add(ChatColor.DARK_PURPLE + "Effect: Regen 2 - 1:30 min");
+			meta.setLore(lore);
+
+			MUTTON_TIER_5.setItemMeta(meta);
+			MUTTON_TIER_5.ensureServerConversions();
+		}
+
+		return MUTTON_TIER_5.clone();
+	}
+
 
 	/**
 	 * Crafting books that unlock crafting recipes:

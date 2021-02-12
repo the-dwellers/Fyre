@@ -4,10 +4,15 @@ import io.github.the_dwellers.fyreplugin.core.AbstractFeature;
 import io.github.the_dwellers.fyreplugin.core.AbstractCommand;
 import io.github.the_dwellers.fyreplugin.configuration.SupportedVersions;
 import io.github.the_dwellers.fyreplugin.core.MinecraftVersion;
+import net.md_5.bungee.api.chat.hover.content.Item;
 
+import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
+import org.bukkit.inventory.ItemStack;
+import io.github.the_dwellers.fyreplugin.configuration.Items;
 
 /**
  * Development module for random testing.
@@ -65,7 +70,10 @@ public class Development extends AbstractFeature implements Listener {
 		public boolean execute(CommandSender sender, Command command, String label, String[] args) {
 			sender.sendMessage("Feature " + getName() + " requires Minecraft " + getMinecraftVersion());
 			sender.sendMessage("This server is on IP: " + plugin.getServer().getIp());
+			((Player) sender).getInventory().addItem(Items.getSteakTier5());
 			return true;
+
 		}
 	}
+
 }
