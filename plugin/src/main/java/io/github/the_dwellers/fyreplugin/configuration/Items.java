@@ -813,7 +813,7 @@ public abstract class Items {
 			lore.add(ChatColor.GRAY + "This steak appears more than it seems?");
 			lore.add(ChatColor.GOLD + "Hunger: + 3");
 			lore.add(ChatColor.YELLOW + "Saturation: + 2");
-			lore.add(ChatColor.DARK_PURPLE + "Effect: Health Boost 1 - 1 min");
+			lore.add(ChatColor.DARK_PURPLE + "Effect: Health_Boost 1 - 1 min");
 			meta.setLore(lore);
 
 			STEAK_TIER_4.setItemMeta(meta);
@@ -833,7 +833,7 @@ public abstract class Items {
 			lore.add(ChatColor.GRAY + "A steak that has broken its limits and gone beyond");
 			lore.add(ChatColor.GOLD + "Hunger: + 3");
 			lore.add(ChatColor.YELLOW + "Saturation: + 2");
-			lore.add(ChatColor.DARK_PURPLE + "Effect: Health Boost 2 - 1:30 min");
+			lore.add(ChatColor.DARK_PURPLE + "Effect: Health_Boost 2 - 1:30 min");
 			meta.setLore(lore);
 
 			STEAK_TIER_5.setItemMeta(meta);

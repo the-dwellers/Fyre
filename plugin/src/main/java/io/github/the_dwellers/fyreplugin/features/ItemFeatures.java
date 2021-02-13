@@ -32,6 +32,7 @@ import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.projectiles.ProjectileSource;
+import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 
@@ -218,19 +219,24 @@ public class ItemFeatures extends AbstractFeature implements Listener {
 				else if (line.contains("Effect"))
 				{
 
-					System.out.println("YES");
 					String effect_full = line.substring(line.lastIndexOf(": ") + 2, line.lastIndexOf("- "));
-
-					System.out.println(effect_full);
+					// Get the first number in the desc, which will be the strength of the effect by splitting the string at the number.
 					String[] strength_effect = effect_full.split("(?<=\\D)(?=\\d)");
 					String effect = strength_effect[0];
 					String strength = strength_effect[1];
+
 					String duration_mins = line.substring(line.lastIndexOf("- ") + 2, line.lastIndexOf(":"));
 					String duration_secs = line.substring(line.lastIndexOf(":") + 1, line.lastIndexOf(" min"));
-					System.out.println(effect);
-					System.out.println(strength);
-					System.out.println(duration_mins);
-					System.out.println(duration_secs);
+
+					int amplifier = Integer.parseInt(strength.trim()) - 1;
+					// Here we have to convert mins to seconds and also multiply the entire duration by the tick rate, which is default 20.
+					int duration = (Integer.parseInt(duration_mins.trim()) * 60 + Integer.parseInt(duration_secs.trim())) * 20;
+
+					PotionEffectType pot_effect = PotionEffectType.getByName(effect.trim());
+
+					PotionEffect food_effect = new PotionEffect(pot_effect, duration , amplifier);
+
+					target.addPotionEffect(food_effect);
 
 				}
 			}
