@@ -142,12 +142,8 @@ public class ItemFeatures extends AbstractFeature implements Listener {
 	public void onBowShoot(EntityShootBowEvent event) {
 		if (event.getConsumable().equals(Items.getEnderArrow())) {
 			event.getProjectile().setCustomName("Ender Arrow");
-		} else if (event.getConsumable().equals(Items.getSaddledArrow())) {
-			event.getProjectile().setCustomName("Saddled Arrow");
-			if (!event.getEntity().isInsideVehicle() ) {
-				// wheeeee :D
-				event.getProjectile().addPassenger(event.getEntity());
-			}
+		} else if (event.getConsumable().equals(Items.getMilkArrow())) {
+			event.getProjectile().setCustomName("Milky Arrow");
 		}
 	}
 
@@ -170,11 +166,16 @@ public class ItemFeatures extends AbstractFeature implements Listener {
 				return;
 			}
 
-			if (arrow.getCustomName().equals("Saddled Arrow")) {
+			if (arrow.getCustomName().equals("Milky Arrow")) {
 				arrow.setPickupStatus(PickupStatus.DISALLOWED);
-				// Pioneer arrow. (Currently kicks player due to flying)
-				if (projectileSource instanceof Entity) {
-					arrow.removePassenger((Entity) projectileSource);
+				// Milky Arrow. Removes all potion effects
+				if (event.getHitEntity() != null && event.getHitEntity() instanceof LivingEntity) {
+					// Loop though entity and remove their effects.
+					LivingEntity entity = (LivingEntity) event.getHitEntity();
+					for (PotionEffect effect : entity.getActivePotionEffects()) {
+						entity.removePotionEffect(effect.getType());
+					}
+					entity.getLocation().getWorld().playSound(entity.getLocation(), Sound.ITEM_BUCKET_EMPTY, 1, 1);
 				}
 
 			} else if (arrow.getCustomName().equals("Ender Arrow")) {

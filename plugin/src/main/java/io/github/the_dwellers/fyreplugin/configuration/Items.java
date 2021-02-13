@@ -3,6 +3,8 @@ package io.github.the_dwellers.fyreplugin.configuration;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 import net.md_5.bungee.api.ChatColor;
+
+import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.attribute.Attribute;
@@ -14,6 +16,7 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.KnowledgeBookMeta;
+import org.bukkit.inventory.meta.PotionMeta;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -135,7 +138,7 @@ public abstract class Items {
 
 	// -------- Arrows -------- //
 	private static ItemStack ARROW_ENDER;
-	private static ItemStack ARROW_PIONEER;
+	private static ItemStack ARROW_MILK;
 
 	// --------- Misc --------- //
 	private static ItemStack ERROR_ITEM;
@@ -717,9 +720,12 @@ public abstract class Items {
 
 	public static ItemStack getEnderArrow() {
 		if (ARROW_ENDER == null) {
-			ARROW_ENDER = new ItemStack(Material.ARROW, 1);
-			ItemMeta meta = ARROW_ENDER.getItemMeta();
+			ARROW_ENDER = new ItemStack(Material.TIPPED_ARROW, 1);
+
+			PotionMeta meta = (PotionMeta) ARROW_ENDER.getItemMeta();
 			meta.setDisplayName(PREFIX_UNCOMMON + "Ender Arrow");
+			meta.setColor(Color.fromRGB(11, 76, 65));
+			meta.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
 
 			ArrayList<String> lore = new ArrayList<String>();
 			lore.add(ChatColor.GRAY + "An arrow infused with an Ender Perl");
@@ -732,21 +738,23 @@ public abstract class Items {
 		return ARROW_ENDER.clone();
 	}
 
-	public static ItemStack getSaddledArrow() {
-		if (ARROW_PIONEER == null) {
-			ARROW_PIONEER = new ItemStack(Material.ARROW, 1);
-			ItemMeta meta = ARROW_PIONEER.getItemMeta();
-			meta.setDisplayName(PREFIX_UNCOMMON + "Pioneer Arrow");
+	public static ItemStack getMilkArrow() {
+		if (ARROW_MILK == null) {
+			ARROW_MILK = new ItemStack(Material.TIPPED_ARROW, 1);
+			PotionMeta meta = (PotionMeta) ARROW_MILK.getItemMeta();
+			meta.setDisplayName(PREFIX_UNCOMMON + "Milky Arrow");
+			meta.setColor(Color.WHITE);
+			meta.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
 
 			ArrayList<String> lore = new ArrayList<String>();
-			lore.add(ChatColor.GRAY + "The pioneers used to ride these babies for miles");
+			lore.add(ChatColor.GRAY + "Removes all potion effects from the target");
 			meta.setLore(lore);
 
-			ARROW_PIONEER.setItemMeta(meta);
-			ARROW_PIONEER.ensureServerConversions();
+			ARROW_MILK.setItemMeta(meta);
+			ARROW_MILK.ensureServerConversions();
 		}
 
-		return ARROW_PIONEER.clone();
+		return ARROW_MILK.clone();
 	}
 
 	public static ItemStack getSteakTier1() {
