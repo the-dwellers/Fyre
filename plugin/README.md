@@ -13,7 +13,7 @@ administration tools, merchant functionality, and a few other features.
 
 ## Technical
 
-The Plugin is built using Paper-api `1.14.4-R0.1-SNAPSHOT`
+The Plugin is built using Paper-api `1.16.5-R0.1-SNAPSHOT`
 With gradle for compilation and building.
 
 Fyre is structured as a feature-centric plugin. All functionality is
