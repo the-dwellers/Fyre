@@ -137,6 +137,9 @@ public abstract class Items {
 	private static ItemStack SHIELD;
 
 	// -------- Arrows -------- //
+	private static ItemStack ARROW_ANCHOR;
+	private static ItemStack ARROW_BLIND;
+	private static ItemStack ARROW_DARKNESS;
 	private static ItemStack ARROW_ENDER;
 	private static ItemStack ARROW_MILK;
 
@@ -716,6 +719,80 @@ public abstract class Items {
 		}
 
 		return SPLINTERS.clone();
+	}
+
+	public static ItemStack getAnchorArrow() {
+		if (ARROW_ANCHOR == null) {
+			ARROW_ANCHOR = new ItemStack(Material.TIPPED_ARROW, 1);
+
+			PotionMeta meta = (PotionMeta) ARROW_ANCHOR.getItemMeta();
+			meta.setDisplayName(PREFIX_UNCOMMON + "Anchor Arrow");
+			meta.setColor(Color.fromRGB(44, 18, 77));
+			meta.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
+
+			ArrayList<String> lore = new ArrayList<String>();
+			lore.add(ChatColor.GRAY + "Deals a fixed 15 damage to Endermen.");
+			lore.add(ChatColor.RED + "Slowness III (0:03)");
+			lore.add("");
+			lore.add(ChatColor.DARK_PURPLE + "When Applied:");
+			lore.add(ChatColor.RED + "-45% Speed");
+			meta.setLore(lore);
+
+			ARROW_ANCHOR.setItemMeta(meta);
+			ARROW_ANCHOR.ensureServerConversions();
+		}
+
+		return ARROW_ANCHOR.clone();
+	}
+
+	public static ItemStack getBlindnessArrow() {
+		if (ARROW_BLIND == null) {
+			ARROW_BLIND = new ItemStack(Material.TIPPED_ARROW, 1);
+
+			PotionMeta meta = (PotionMeta) ARROW_BLIND.getItemMeta();
+			meta.setDisplayName(PREFIX_UNCOMMON + "Blinding Arrow");
+			meta.setColor(Color.fromRGB(0, 0, 0));
+			meta.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
+
+			ArrayList<String> lore = new ArrayList<String>();
+			lore.add(ChatColor.RED + "Blindness (0:15)");
+			lore.add("");
+			lore.add(ChatColor.DARK_PURPLE + "When Applied:");
+			lore.add(ChatColor.RED + "Limited Vision");
+			lore.add(ChatColor.RED + "Disable Sprint");
+			lore.add(ChatColor.RED + "Disable Critical Hits");
+			meta.setLore(lore);
+
+			ARROW_BLIND.setItemMeta(meta);
+			ARROW_BLIND.ensureServerConversions();
+		}
+
+		return ARROW_BLIND.clone();
+	}
+
+	public static ItemStack getDarknessArrow() {
+		if (ARROW_DARKNESS == null) {
+			ARROW_DARKNESS = new ItemStack(Material.TIPPED_ARROW, 1);
+
+			PotionMeta meta = (PotionMeta) ARROW_DARKNESS.getItemMeta();
+			meta.setDisplayName(PREFIX_SPECIAL + "Darkness Arrow");
+			meta.setColor(Color.fromRGB(0, 0, 0));
+			meta.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
+
+			ArrayList<String> lore = new ArrayList<String>();
+			lore.add(ChatColor.RED + "Darkness (0:05)");
+			lore.add("");
+			lore.add(ChatColor.DARK_PURPLE + "When Applied:");
+			lore.add(ChatColor.RED + "Complete Darkness");
+			lore.add(ChatColor.RED + "Disable Sprint");
+			lore.add(ChatColor.RED + "Disable Critical Hits");
+			meta.setLore(lore);
+
+			ARROW_DARKNESS.setItemMeta(meta);
+			ARROW_DARKNESS.ensureServerConversions();
+		}
+
+		return ARROW_DARKNESS.clone();
 	}
 
 	public static ItemStack getEnderArrow() {

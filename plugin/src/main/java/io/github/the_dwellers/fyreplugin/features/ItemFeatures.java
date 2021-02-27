@@ -26,7 +26,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityInteractEvent;
 import org.bukkit.event.entity.EntityShootBowEvent;
-import org.bukkit.event.entity.EntityToggleGlideEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -35,9 +34,9 @@ import org.bukkit.projectiles.ProjectileSource;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
+import com.destroystokyo.paper.event.entity.EndermanEscapeEvent;
 
 import java.util.List;
-;
 
 
 /**
@@ -144,21 +143,91 @@ public class ItemFeatures extends AbstractFeature implements Listener {
 			event.getProjectile().setCustomName("Ender Arrow");
 		} else if (event.getConsumable().equals(Items.getMilkArrow())) {
 			event.getProjectile().setCustomName("Milky Arrow");
+		} else if (event.getConsumable().equals(Items.getAnchorArrow())) {
+			event.getProjectile().setCustomName("Anchor Arrow");
+		} else if (event.getConsumable().equals(Items.getBlindnessArrow())) {
+			event.getProjectile().setCustomName("Blindness Arrow");
+		} else if (event.getConsumable().equals(Items.getDarknessArrow())) {
+			event.getProjectile().setCustomName("Darkness Arrow");
+		}
+	}
+
+	/**
+	 * Enderman teleport event. Currently used to support Anchor Arrow's
+	 * function in dealing damage to enderman
+	 * @param event {@link EndermanEscapeEvent}
+	 */
+	@EventHandler()
+	public void onEndermanTeleport(EndermanEscapeEvent event) {
+		// event does not give the entity which caused the escape event.
+		// We want to check for a specific arrow type, and so we get the nearest arrow entity
+		List<Entity> entities = event.getEntity().getNearbyEntities(4, 4, 4);
+		Arrow closestArrow = null;
+
+		// Get closest arrow to enderman
+		for (Entity entity : entities) {
+			if (entity instanceof Arrow) {
+				// Filter for arrows
+				if (((Arrow)entity).isInBlock()) {
+					// Ignore arrows on ground
+					continue;
+				}
+
+				if (closestArrow == null) {
+					closestArrow = (Arrow) entity;
+					continue;
+				} else {
+					if (closestArrow.getLocation().distance(event.getEntity().getLocation()) > entity.getLocation().distance(event.getEntity().getLocation())) {
+						// Change arrow if it's closer than the current arrow
+						closestArrow = (Arrow) entity;
+					}
+				}
+			}
+		}
+		// If there is no arrow near the enderman
+		if (closestArrow == null) {
+			return;
+		}
+
+		if (closestArrow.getCustomName().equals("Anchor Arrow")) {
+			// Cancel event if the closest arrow to the enderman is an anchor arrow
+			event.setCancelled(true);
+
+			Entity shooterEntity = null;
+			if (closestArrow.getShooter() instanceof Entity) {
+				shooterEntity = (Entity) closestArrow.getShooter();
+			}
+
+			// We also damage the enderman here and remove the arrow, to prevent
+			// issues with ProjectileHitEvent and enderman damage mitigation.
+			if (shooterEntity == null) {
+				// Unknown source of damage.
+				event.getEntity().damage(15);
+			} else {
+				event.getEntity().damage(15, shooterEntity);
+			}
+
+			// Remove arrow
+			event.getEntity().setArrowsInBody(event.getEntity().getArrowsInBody() + 1);
+			closestArrow.remove();
 		}
 	}
 
 	/**
 	 * Manage projectile events.
 	 * <ul>
-	 * <li>Ender Arrows - Teleport the user to the location of the arrow.</li>
-	 * <li>Pioneer Arrows - Player rides the arrow. (currently bugged)</li>
+	 * <li><b>Ender Arrows</b> - Teleport the user to the location of the arrow.</li>
+	 * <li><b>Milk Arrows</b> - Remove potion effects from the target.</li>
+	 * <li><b>Anchor Arrows</b> - Apply a brief slowness to the target. Also works on enderman.</li>
 	 * </ul>
 	 * @param event {@link PlayerJoinEvent}
 	 */
 	@EventHandler()
 	public void onProjectileHit(ProjectileHitEvent event) {
 		if (event.getEntityType() == EntityType.ARROW) {
+
 			Arrow arrow = (Arrow) event.getEntity();
+
 			ProjectileSource projectileSource = arrow.getShooter();
 
 			if (arrow.getCustomName() == null) {
@@ -189,11 +258,39 @@ public class ItemFeatures extends AbstractFeature implements Listener {
 
 					shooter.teleport(newLocation);
 					newLocation.getWorld().playSound(shooter.getLocation(), Sound.ITEM_CHORUS_FRUIT_TELEPORT, SoundCategory.MASTER, 1, 1);
-					newLocation.getWorld().spawnParticle(Particle.REVERSE_PORTAL,shooter.getLocation().add(0, shooter.getHeight()/2, 0), 30);
+					newLocation.getWorld().spawnParticle(Particle.REVERSE_PORTAL, shooter.getLocation().add(0, shooter.getHeight()/2, 0), 30);
+				}
+			} else if (arrow.getCustomName().equals("Anchor Arrow")) {
+				arrow.setPickupStatus(PickupStatus.DISALLOWED);
+				// Anchor arrow. Hits enderman and applies slowness.
+				if (event.getHitEntity() != null && event.getHitEntity() instanceof LivingEntity) {
+					LivingEntity entity = (LivingEntity) event.getHitEntity();
+					// Slowness III (0:03)
+					entity.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 3 * 20, 3));
+				}
+			} else if (arrow.getCustomName().equals("Blindness Arrow")) {
+				arrow.setPickupStatus(PickupStatus.DISALLOWED);
+				// Blindness arrow, apply blinding
+				if (event.getHitEntity() != null && event.getHitEntity() instanceof LivingEntity) {
+					LivingEntity entity = (LivingEntity) event.getHitEntity();
+					// Blindness I (0:15)
+					entity.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 15 * 20, 1));
+				}
+			} else if (arrow.getCustomName().equals("Darkness Arrow")) {
+				arrow.setPickupStatus(PickupStatus.DISALLOWED);
+				// Blindness arrow, apply blinding and nightvision
+				// Result is that all the world becomes dark for the player
+				if (event.getHitEntity() != null && event.getHitEntity() instanceof LivingEntity) {
+					LivingEntity entity = (LivingEntity) event.getHitEntity();
+					// Blindness I (0:15)
+					entity.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 5 * 20, 0));
+					// NightVision I (0:15)
+					entity.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 5 * 20, 0));
 				}
 			}
 		}
 	}
+
 	/**
 	 *
 	 * Eat event for special food from farming levels that applies boons based on item desc.
