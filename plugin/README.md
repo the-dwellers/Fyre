@@ -19,7 +19,7 @@ With gradle for compilation and building.
 Fyre is structured as a feature-centric plugin. All functionality is
 encapsulated in individual features, which have dependency trees and are loaded
 at startup. These features are explained in the [Feature System
-documentation.](doc/Feature%20System.md)
+documentation.](docs/Feature%20System.md)
 
 ### Building
 
